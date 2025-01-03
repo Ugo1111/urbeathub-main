@@ -1,0 +1,656 @@
+.homepageWrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    background-image: url('/src/images/dj.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Makes the background sticky */
+    width: 100%;
+/* opacity: 0.2; */
+
+  }
+  .homepageWrapper2  {
+  
+    background : rgba(0, 0, 0, 0.8); /* Dark overlay */
+}
+
+
+
+
+.App {
+    text-align: center;
+  }
+  
+  .needBorder {
+    background-color: #3193ae;
+    width: 100%;
+   
+    height: fit-container;
+  
+  border-radius: 17px;
+  }
+  
+  .Headerlogo{
+    
+    justify-content: center;
+  }
+  .HeaderCartIcon img{
+    width: "44px";
+     height: "44px" 
+  }
+  
+  .HeaderSearchBar{
+    width: 240px;
+    height: 45px;
+   border-radius: 25px;
+   justify-content: center;
+  
+  }
+  
+  .HeaderCartIcon{
+    background-color: rgb(223, 37, 37, 0.0);
+    height: 45px;
+    justify-content: center;
+    color: #ccc;
+  
+  }
+
+  
+  
+  .GroupA {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    /* background-color: #3193ae; */
+    width: 100%;
+    padding: 0; 
+    height: 85px;
+    gap: 23%; 
+  
+  
+  }
+  
+  .GroupB {
+    
+      padding: 15px;
+      width: 63%;
+      height: 50vmin;
+      text-align: center;
+    
+    
+  }
+  
+ 
+  
+  .GroupCa {
+    
+    background-color: #5760a7;
+    width: 100%;
+   
+  
+  
+  }
+  
+  
+  .GroupCb {
+    
+    background-color: #8cc2a9;
+    width: 100%;
+   row-gap: 0px;
+    height: inherit;
+  
+  
+  
+  }
+  
+  
+  .GroupC {
+    background-color: #9bae31;
+    width: 100%;
+   
+    height: 25vmin;
+  
+  
+  }
+  
+  
+  .GroupF{
+     height: inherit;
+    color: #61dafb;
+    width: 100%;
+    }
+  
+  .GroupD {
+  height: 100px;
+  color: #61dafb;
+  
+  }
+  
+  
+  
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .App-header {
+    /* background-color: #5e788c; */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .App-link {
+    color: #61dafb;
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+  
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .Groupxy2{
+    display: flex;
+    flex-direction: row;
+    border-radius: 15px;
+  }
+  .Groupxy{
+   padding: 10px 0 0px 10px;
+    width: 100%;
+    height: 100%; 
+    /* background-color: #232121; */
+  
+  }
+  
+  .musicplayer-image  {
+   
+     border-radius: 35px;
+  }
+  
+  .audioControler1 , .audioControler2, .audioControler3{
+    flex-direction: row;
+    display: flex;
+    height: 45px; 
+  
+  
+  }
+  
+  .audioControler2{
+  
+  
+    width: 100%; /* Adjust width */
+    
+  }
+  
+  
+  .audioControler2a{
+    border: none;
+    border-top: 2px solid #fffdfd; /* Thickness and color of the divider */
+    margin: 25px 20px 0 40px ; /* Space around the divider */
+    width: 80%; /* Adjust width */
+  }
+  
+  .audioControler2b{
+   text-align: center;
+   display: flex;
+   align-items: center;
+   font: 0.5em sans-serif;
+  }
+  
+  .audioControler1{
+    display: flex;
+    justify-content: flex-start;
+  
+  }
+  
+  .audioControler3 div{
+    height: inherit;
+    width: 40px;
+    background-color: #191111;
+  margin: 0 2px;
+  }
+  
+  .playSign{height: 45px;  width: 45px;
+    border-radius: 45%;
+    background-color: red;
+    margin: 0 20px 0 20px;
+    text-align: center;
+  
+  }
+  
+  .playSignTitle{
+    font-size: 0.71em;
+  }
+  
+  .ad-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: #1c1919;  */
+    color: #fff; /* White text */
+    
+    margin: 2px;
+    border-radius: 15px;
+    width: 100%;
+    
+  }
+  
+  .profile-image img {
+    width: 80px;
+     /* Adjusts to the container's height */
+   
+    border-radius: 20%;
+    object-fit: cover;
+   
+  
+  }
+  
+  .ad-details {
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+    margin-left: 10px;
+    flex: 1; /* Push the actions to the right */
+    
+    text-align: start;
+   
+  
+  }
+  
+  .ad-title {
+    font-size: 0.61em;
+   
+   
+  
+  }
+  
+  .ad-promotion {
+    font-size: 0.41em;
+    color: #ccc; /* Lighter color for the promotion */
+   
+  
+  }
+  
+  .ad-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icons */
+  }
+  
+  .add-to-cart,
+  .add-to-favorites,
+  .more-options {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.2em;
+    
+  
+  }
+  
+  .add-to-cart img,
+  .add-to-favorites img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /* taiye */
+  
+  body {margin: 0;
+    padding: 0;
+    background-color: greenyellow;
+    box-sizing: border-box;}
+    
+    
+    .hero{ display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 40px;
+        align-items: center;
+        color: #ffffff;
+        background-color: gray;
+        padding: 30px;
+        border-bottom: dashed 2px #ffffff;}
+        
+        .hero-container img{ width: 400px;
+            height: 300px;
+        border-radius: 10px;
+        box-shadow: 0px 12px 12px #000000;}
+        
+        .hero-container1 h2{ font-size: 1.8rem;
+        text-align: center;}
+        
+        .hero-container1 li {
+            padding: 10px;
+            font-size: 1.2rem;
+            list-style: none; 
+            /*background-image: url('icon.png');*/
+            background-size: 50px; 
+            background-repeat: no-repeat; 
+            background-position: left; 
+            padding-left: 50px;
+        }
+        
+    
+    .license{display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    background-color:#ffffff;
+    font-size: 1rem;
+    border-bottom: dashed 2px;
+    text-align: center;
+    padding: 10px;}
+    
+    .license-container {text-align: center;
+    color: #db3056;
+    padding: 10px;}
+    
+    .license-container li{text-align: left;
+        color:#000000;
+    padding: 10px;
+    list-style: none;}
+    
+    .license-container1 {background-color:  gray;
+    text-align: center;
+    padding: 10px;}
+    
+    .license-container1 li {text-align: left;
+    padding: 10px;
+    list-style: none;}
+    
+    .license-btn{background: transparent;
+        color:#000000;
+    border: 2px solid black;
+    border-radius:10px;
+    padding: 5px;
+    text-decoration: none;
+    transition: 0.3s;}
+    
+    .license-btn:hover{background-color:#db3056;
+    color:#ffffff;}
+    
+        .sellbeat {
+            display: flex;
+            justify-content: center; 
+            flex-wrap: wrap;
+            gap: 30px;
+            border-bottom: dashed 2px #ffffff;
+            background-color: gray;
+            padding: 15px;
+        }
+        
+        .sellbeat-container{background-color: #000000;
+            color:#ffffff;
+        text-align: center;
+        padding: 17px;
+      border-radius: 2px;}
+        
+        .sellbeat-container h2{font-size: 1.8rem;}
+        
+        .sellbeat-container li{font-size: 1.2rem;;
+        padding: 10px;
+      text-align: left;}
+        
+        .sellbeat-container1{
+            text-align: left;
+            padding: 15px;}
+            
+            .sellbeat-container1 h2{font-size: 1.8rem;}
+            
+            .sellbeat-container1 li{font-size: 1.2rem;
+            padding:10px;} 
+    
+            .buy-link{background-color:#db3056;
+            color:#ffffff;
+            justify-content: ce;
+        border-radius: 10px;
+    padding: 10px;
+    text-decoration: none;
+    transition: 0.3s;}
+    
+    .buy-link:hover{background-color:gray;
+    color:#ffffff;}
+    
+            .newsletter {background-color: #0b0a0a;
+                color:#ffffff;
+                display: flex;
+                justify-content: space-evenly;
+                flex-wrap: wrap;
+                padding: 20px;
+            }
+    
+            .newsletter1{ font-size: 1.2rem;
+            border-right: solid 2px white;
+            color:#ffffff;
+          padding: 10px;}
+    
+    
+            
+            .submit-button{height: 40px;
+            width: 50%;
+        border-radius: 10px;}
+    
+    
+    
+        .footer-wrapper {
+          background-color: #000000;
+          color: #ffffff;
+          padding: 60px;
+          display: flex; 
+          align-items: center;
+          text-align: center;
+          justify-content: space-evenly;
+          flex-wrap: wrap; 
+        
+      }
+      
+      .footer-container img {
+          width: 100%;
+          max-width: 250px;
+          height: auto;
+      }
+      
+      .footer-container a {
+          color: #ffffff;
+          font-size: 30px;
+          text-decoration: none;
+        
+      }
+    
+      .footer-container a:hover{color:#db3056;}
+      
+      .footer-container1 a {
+          color: #ffffff;
+          font-size: 30px;
+          text-decoration: none;
+      }
+      
+      .footer-container1 a:hover {
+          color: #db3056;
+      }
+      
+      .accordion-container {
+          display: flex;
+          flex-direction: column;
+          width: 20%;
+      }
+      
+      .accordion {
+        background-color: #db3056;
+        color: #ffffff;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border-radius: 5px;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+      }
+      
+      
+      .accordion:after {
+        content: '\002B';
+        color: #777;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+      }
+      
+      .active:after {
+        content: "\2212";
+      }
+      
+      .content {
+        padding: 0 18px;
+        color:#000000;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+      }
+      
+      .footer { 
+          background-color: #0b0a0a;
+          color: #ffffff;
+          text-align: center;
+          padding: 5px;
+      }
+      
+  
+  /*homepageWrapper*/
+  .musicControler{
+  width: 85%;
+  }
+ 
+  .musicControlerPicture img{
+    max-width: 100%;
+    max-height: 110%;
+    object-fit: contain;
+    width: 100%; /* Scale the image width to the container */
+  height: 100%;
+
+  }
+
+  .musicControlerPicture{
+    width: 13%;
+    border-radius: 5px;
+    height: 100%;
+    }
+
+    
+  .GroupC1{
+      padding: 15px;
+      background-color: #2f2d28;
+      width: 63%;
+      height: 15vmin;
+    display: flex;
+
+  }
+
+  .GroupC2{
+      background-color: #2f2d28;
+      width: 63%;
+      height: 35vmin;
+      padding: 15px;
+  }
+  
+  .market button {
+    border-left: 2px solid #2f2d28;
+    padding: 10px;
+    background-color: rgb(49, 147, 174, 0.0);
+    color: #ccc;
+      }
+
+
+
+
+  .top{
+    display: flex;
+    margin: 10px;
+    border-color: #5760a7;
+    border-radius: 50px;
+  
+  }
+  .top button{
+    background-color:black;
+    border-radius: 60px;
+    color: red;
+  }
+  .songcontainer{
+    list-style-type:none;
+    width: auto;
+
+  }
+  .songlist{
+    display: flex; 
+    
+    padding: 5px;
+    margin: 5px;
+    flex-direction: row;
+
+    background-color: #4b4842;
+  }
+  .songlist:hover{
+    cursor: pointer;
+    background-color: #db3056;
+  }
+  .nav{
+    display: flex;
+    margin-left: 60px;
+  }
+  .listimage{
+    width: 40px;
+    height: 40px;
+  }
+  
+  .progress{
+    width: 85%;
+    margin-right: 10px;
+    
+  }
+  .volnav{
+    display: flex;
+    flex-direction: column;
+  }
+  .market{
+    margin-left: auto;
+    left: 30px;
+  }
+  .market span{
+    gap: 10px;
+  }
+  
