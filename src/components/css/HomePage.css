@@ -19,6 +19,45 @@
     background : rgba(0, 0, 0, 0.8); /* Dark overlay */
 }
 
+.musicControlerA{ 
+  width: 13%;
+  border-radius: 5px;
+  height: 100%;
+  }
+
+.musicControlerA {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Ensures child elements can be positioned absolutely */
+}
+
+.imageWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.imageWrapper img {
+  display: block; /* Ensures proper positioning of the image */
+  width: 100%; /* Optional: Adjust to fit your layout */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.playIcon {
+  position: absolute;
+  top: 50%; /* Move to the vertical center */
+  left: 50%; /* Move to the horizontal center */
+  transform: translate(-50%, -50%); /* Center the icon */
+  color: white; /* Optional: Adjust color */
+  cursor: pointer; /* Make the icon clickable */
+  background-color: rgb(223, 37, 37, 0.5);
+  border: rgb(223, 37, 37, 0.0);
+  border-radius: 100%;
+  width: 80px;
+  height: 80px;
+}
+
+
 
 
 
@@ -168,70 +207,59 @@
       transform: rotate(360deg);
     }
   }
-  .Groupxy2{
+  /* .Groupxy2{
     display: flex;
     flex-direction: row;
     border-radius: 15px;
-  }
-  .Groupxy{
+  } */
+  /* .Groupxy{
    padding: 10px 0 0px 10px;
     width: 100%;
     height: 100%; 
-    /* background-color: #232121; */
-  
-  }
+  } */
   
   .musicplayer-image  {
    
      border-radius: 35px;
   }
   
-  .audioControler1 , .audioControler2, .audioControler3{
+  /* .audioControler1 , .audioControler2, .audioControler3{
     flex-direction: row;
     display: flex;
     height: 45px; 
+  } */
+  
+  /* .audioControler2{
+    width: 100%; 
+  } */
   
   
-  }
+ 
   
-  .audioControler2{
-  
-  
-    width: 100%; /* Adjust width */
-    
-  }
-  
-  
-  .audioControler2a{
-    border: none;
-    border-top: 2px solid #fffdfd; /* Thickness and color of the divider */
-    margin: 25px 20px 0 40px ; /* Space around the divider */
-    width: 80%; /* Adjust width */
-  }
-  
-  .audioControler2b{
+  /* .audioControler2b{
    text-align: center;
    display: flex;
    align-items: center;
    font: 0.5em sans-serif;
-  }
+  } */
   
-  .audioControler1{
+  /* .audioControler1{
     display: flex;
     justify-content: flex-start;
   
-  }
+  } */
   
-  .audioControler3 div{
+  /* .audioControler3 div{
     height: inherit;
     width: 40px;
     background-color: #191111;
   margin: 0 2px;
   }
-  
+   */
   .playSign{height: 45px;  width: 45px;
     border-radius: 45%;
-    background-color: red;
+    background-color: rgb(209, 207, 207);
+    color: #ccc;
     margin: 0 20px 0 20px;
     text-align: center;
   
@@ -552,11 +580,16 @@
       
   
   /*homepageWrapper*/
-  .musicControler{
+  .musicControlerB{ 
   width: 85%;
+  height: 100%;
+  padding: 0 0 0 25px;
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
   }
  
-  .musicControlerPicture img{
+  .musicControlerA img{
     max-width: 100%;
     max-height: 110%;
     object-fit: contain;
@@ -565,11 +598,7 @@
 
   }
 
-  .musicControlerPicture{
-    width: 13%;
-    border-radius: 5px;
-    height: 100%;
-    }
+ 
 
     
   .GroupC1{
@@ -582,6 +611,7 @@
   }
 
   .GroupC2{
+ 
       background-color: #2f2d28;
       width: 63%;
       height: 35vmin;
@@ -598,17 +628,51 @@
 
 
 
-  .top{
-    display: flex;
-    margin: 10px;
-    border-color: #5760a7;
-    border-radius: 50px;
-  
+  .controllerB1{
+    flex: 1;
+   
+       /* border-radius: 50px; */
   }
-  .top button{
+  .controllerB2 span{
+font-size: medium;  }
+
+    .controllerB2{  
+      flex: 1;
+    width: auto;
+    height: 100%;
+    display: flex;
+  align-items: center;
+  align-content: center;
+    /* padding: 0 10px 10px 10px; */
+  }
+  
+  .controllerB3 button{ 
+    background-color: #4b4842;
+    color: #ccc;
+    margin: 0 2px 0 2px ;    }
+  
+  .controllerB3{
+    flex: 1;
+
+    display: flex;
+flex-direction: row;
+  
+    /* margin-left: 8px; */
+  }
+
+  .volnav{
+ 
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  .title4MusicController  button{
+
     background-color:black;
     border-radius: 60px;
-    color: red;
+    color: rgb(255, 255, 255);
+    background-color: rgba(255, 0, 0, 0.381);
   }
   .songcontainer{
     list-style-type:none;
@@ -628,10 +692,8 @@
     cursor: pointer;
     background-color: #db3056;
   }
-  .nav{
-    display: flex;
-    margin-left: 60px;
-  }
+
+  
   .listimage{
     width: 40px;
     height: 40px;
@@ -642,10 +704,7 @@
     margin-right: 10px;
     
   }
-  .volnav{
-    display: flex;
-    flex-direction: column;
-  }
+  
   .market{
     margin-left: auto;
     left: 30px;

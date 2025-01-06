@@ -1,7 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaShareAlt } from "react-icons/fa";
-
+import { GiNextButton, GiPreviousButton } from "react-icons/gi";
+import { FaPlay, FaPause  } from "react-icons/fa";
+import { SlOptionsVertical } from "react-icons/sl";
+import GroupA from "../component/header.js";
+import { GroupE, GroupF, GroupG } from "../component/footer.js";
 import "../css/HomePage.css";
 import {
   BrowserRouter as Router,
@@ -12,38 +16,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 
-//Header Logo
-function Headerlogo() {
-  return (
-    <a href="/" className="Headerlogo">
-      <img src="./beathub1.jpg" style={{ width: "64px", height: "64px" }}></img>
-    </a>
-  );
-}
-
-//Header search bar
-function HeaderSearchBar() {
-  return (
-    <input
-      type="text"
-      className="HeaderSearchBar"
-      value=" 🔎 search for your song"
-    ></input>
-  );
-}
-
-//Header cart Icon
-function HeaderCartIcon() {
-  return (
-    <div className="HeaderCartIcon"><FaCartShopping color="" size="1.5em" />
-    
-    </div>
-  );
-}
-
-// This is where The audio player starts, I copied all the JSX you created to this function
 function HomePage() {
-  // These are the functions that makes the audio player work
   const [songs, setSongs] = useState([
     {
       title: "Afro Swing ",
@@ -65,51 +38,51 @@ function HomePage() {
     },
   ]);
 
-  const [currentIndex, setCurrentIndex] = useState(0); // Index of the currently selected song.
-  const [isPlaying, setIsPlaying] = useState(false); // State to track play/pause status.
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
-  const [newComment, setNewComment] = useState(""); // To handle input for comments
+  const [newComment, setNewComment] = useState("");
+  const audioRef = useRef(null);
 
-  const audioRef = useRef(null); // Reference to the audio player.
-
-  // Play a specific song by index.
+  // Play a specific song by index and automatically start playing
   const playSong = (index) => {
     setCurrentIndex(index);
-    setIsPlaying(true); // Set playing state to true.
-    if (audioRef.current) {
-      audioRef.current.load(); // Load the new song.
-      audioRef.current
-        .play() // Play the song.
-        .catch((error) => console.error("Playback failed:", error));
+    if (!isPlaying) {
+      setIsPlaying(true); // Ensure the song plays when selected
     }
   };
 
-  // Toggle play/pause for the current song.
+  // Toggle play/pause
   const togglePlayPause = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause(); // Pause the song if it's playing.
-      } else {
-        audioRef.current
-          .play() // Play the song if it's paused.
-          .catch((error) => console.error("Playback failed:", error));
-      }
-      setIsPlaying(!isPlaying); // Toggle play/pause state.
+    const audio = audioRef.current;
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(false); // Pauses the audio
+    } else {
+      audio.play().then(() => {
+        setIsPlaying(true); // Immediately start playing
+      }).catch((error) => {
+        console.error("Playback failed:", error);
+        setIsPlaying(false);
+      });
     }
   };
 
-  // Play the next song.
+  // Play next song and automatically start playing
   const playNext = () => {
-    const nextIndex = (currentIndex + 1) % songs.length; // Wrap around if at the end.
-    playSong(nextIndex);
+    const nextIndex = (currentIndex + 1) % songs.length; // Loop back to the first song after the last one
+    setCurrentIndex(nextIndex);
+    if (!isPlaying) {
+      setIsPlaying(true); // Ensure the song plays when switching to the next one
+    }
   };
 
-  // Play the previous song.
+  // Play previous song and automatically start playing
   const playPrevious = () => {
-    const prevIndex = (currentIndex - 1 + songs.length) % songs.length; // Wrap around if at the beginning.
-    playSong(prevIndex);
+    const prevIndex = (currentIndex - 1 + songs.length) % songs.length; // Loop back to the last song after the first one
+    setCurrentIndex(prevIndex);
   };
 
   const formatTime = (time) => {
@@ -152,17 +125,15 @@ function HomePage() {
     }
   };
 
+  // This effect handles updating current time and duration
   useEffect(() => {
     const audio = audioRef.current;
 
-    const updateTime = () => {
-      setCurrentTime(audio.currentTime);
-    };
+    // Update currentTime and duration when timeupdate and loadedmetadata events fire
+    const updateTime = () => setCurrentTime(audio.currentTime);
+    const updateDuration = () => setDuration(audio.duration);
 
-    const updateDuration = () => {
-      setDuration(audio.duration);
-    };
-
+    // Event listeners for timeupdate and loadedmetadata
     audio.addEventListener("timeupdate", updateTime);
     audio.addEventListener("loadedmetadata", updateDuration);
 
@@ -172,30 +143,33 @@ function HomePage() {
     };
   }, []);
 
-  // This is where the JSX starts to render, I copied all your JSX to this place, Because of the Router
+  // Automatically update and play the selected song when the index changes
+  useEffect(() => {
+    const audio = audioRef.current;
+    audio.src = songs[currentIndex].url; // Update the song source when currentIndex changes
+    audio.load(); // Reload the song source
 
-  function GroupA() {
-    return (
-      <div className="GroupA">
-        <Headerlogo /> <HeaderSearchBar /> <HeaderCartIcon />{" "}
-      </div>
-    );
-  }
+    if (isPlaying) {
+      audio.play().catch((error) => console.error("Playback failed:", error));
+    } else {
+      audio.pause();
+    }
+  }, [currentIndex, isPlaying]);
 
   function GroupB() {
     return (
       <div className="GroupB">
         <div style={{ fontSize: "25px", margin: "30px 0 180px 0" }}>
-          BeatHub is a brand that supports afrobeat artist
+          BeatHub is a brand that supports afrobeat artists
         </div>
         <div className="">
           <h1 style={{ color: "#db3056" }}>
-            BeatHub is a brand that supports afrobeat artist
+            BeatHub is a brand that supports afrobeat artists
           </h1>
           <h5 style={{ fontSize: "0.6em", padding: "0 180px" }}>
-            BeatHub is a brand that supports afrobeat artist BeatHub is a brand
-            that supports afrobeat artist BeatHub is a brand that supports
-            afrobeat artist
+            BeatHub is a brand that supports afrobeat artists BeatHub is a brand
+            that supports afrobeat artists BeatHub is a brand that supports
+            afrobeat artists
           </h5>
         </div>
       </div>
@@ -205,58 +179,58 @@ function HomePage() {
   function GroupC1() {
     return (
       <div className="GroupC1">
-        <div className="musicControlerPicture"> <img
-          src={songs[currentIndex].image}
-          alt={`Cover for ${songs[currentIndex].title}`}
-         
-        /></div>
-
-
-
-
-        <div className="musicControler">
-        <div className="top">
-          {/*The Play/Pause Button*/}
-          <button onClick={togglePlayPause}>
-            {isPlaying ? "Pause" : "Play"}
-          </button>
-          {/* Display the current song title */}
-          <h2>{songs[currentIndex].title}</h2>
-        </div>
-
-        {/*The progress Bar*/}
-        <span>{formatTime(duration)}</span>
-
-        <input
-          type="range"
-          min="0"
-          max={duration}
-          value={currentTime}
-          onChange={handleSliderChange}
-          className="progress"
-        />
-        <span>{formatTime(currentTime)}</span>
-
-        {/* Navigation */}
-        <div className="nav">
-          <button onClick={playPrevious}> Previous</button>
-          <button onClick={playNext}>Next</button>
-
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value={volume}
-            onChange={handleVolumeChange}
-          />
-
-          <div className="volnav">
-            <button onClick={increaseVolume}>+</button>
-            <button onClick={decreaseVolume}>-</button>
+        <div className="musicControlerA">
+          <div className="imageWrapper">
+            <img
+              src={songs[currentIndex].image}
+              alt={`Cover for ${songs[currentIndex].title}`}
+            />
+            <button className="playIcon" onClick={togglePlayPause}>
+              {isPlaying ? <FaPause size="2.5em" /> : <FaPlay size="2.5em" />}
+            </button>
           </div>
         </div>
 
+        <div className="musicControlerB">
+          <div className="controllerB1">
+            <h4>{songs[currentIndex].title}</h4>
+          </div>
+
+          <div className="controllerB2">
+
+          <span>{formatTime(currentTime)}</span>
+          <input
+            type="range"
+            min="0"
+            max={duration || 0}
+            value={currentTime}
+            onChange={handleSliderChange}
+            className="progress"
+          />
+          <span>{formatTime(duration)}</span></div>
+
+          <div className="controllerB3">
+            <button onClick={playPrevious}>
+              <GiPreviousButton size="1.5em" />
+            </button>
+            <button onClick={playNext}>
+              <GiNextButton size="1.5em" />
+            </button>
+
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value={volume}
+              onChange={handleVolumeChange}
+            />
+
+            <div className="volnav">
+              <button onClick={increaseVolume}>+</button>
+              <button onClick={decreaseVolume}>-</button>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -265,35 +239,38 @@ function HomePage() {
   function GroupC2() {
     return (
       <div className="GroupC2">
-        {/* Render a list of songs */}
-
         <div className="songcontainer">
           {songs.map((song, index) => (
             <div
               className="songlist"
-              key={index} // Unique key for each song.
-              onClick={() => playSong(index)} // Play the selected song on click.
+              key={index}
+              onClick={() => playSong(index)} // Clicking on a song immediately plays it
             >
-              <img src={song.image} className="listimage" />
+              <img src={song.image} className="listimage" alt={song.title} />
               {song.title}
 
               <div className="market">
-                <span>
+               
                   <Link to="/buysong" state={{ song }}>
-                    <button><FaCartShopping color="" size="1.5em" />
+                    <button>
+                      <FaCartShopping color="" size="1.5em" />
                     </button>
                   </Link>
 
-                  <button ><FaShareAlt size="1.5em" />
+                  <button>
+                    <FaShareAlt size="1.5em" />
                   </button>
-                </span>
+
+                  <button>
+                  <SlOptionsVertical size="1.5em" />
+                  </button>
+                
               </div>
             </div>
           ))}
         </div>
 
-        {/* Audio player element */}
-        <audio ref={audioRef}>
+        <audio ref={audioRef} >
           <source src={songs[currentIndex].url} />
           Your browser does not support the audio element.
         </audio>
@@ -304,7 +281,6 @@ function HomePage() {
   function GroupD() {
     return (
       <div className="comments">
-        {/* Comment Section */}
         <h4>Comments for {songs[currentIndex].title}</h4>
         <div className="comments-list">
           {songs[currentIndex].comments.map((comment, idx) => (
@@ -322,103 +298,6 @@ function HomePage() {
     );
   }
 
-  function GroupE() {
-    return (
-      <div className="GroupF">
-        {/*GroupF*/}
-        <section className="newsletter">
-          <div className="newsletter1">
-            <h4>Stay up-to-date with our newsletter</h4>
-            <p>Join now and get 15% off your next purchase</p>
-            {/* Input for email */}
-            <input
-              type="email"
-              className="submit-button"
-              placeholder="Enter your email..."
-            />
-            {/* Submit button */}
-            <p>
-              <input
-                type="submit"
-                className="buy-link"
-                value="Subscribe now!"
-              />
-            </p>
-          </div>
-
-          <div className="credibility">
-            <h4>Credibility</h4>
-          </div>
-        </section>
-      </div>
-    );
-  }
-
-  function GroupF() {
-    return (
-      <div className="GroupCa">
-        <div className="footer-wrapper">
-          <div className="footer-container">
-            <img src="./beathub1.jpg" alt="logo" />
-            <p>
-              Discover the beats that set the tone for your <br />
-              next hit. For custom beats and exclusive rights, <br />
-              get in touch with us.
-            </p>
-            <a href="contact.html">Contact Us</a>
-            <p>info@urbeathub.com</p>
-          </div>
-
-          <div className="footer-container1">
-            <p>
-              <a href="link">License</a>
-            </p>
-            <p>
-              <a href="link">Start Selling</a>
-            </p>
-            <p>
-              <a href="link">Privacy Policy</a>
-            </p>
-          </div>
-
-          <div className="accordion-container">
-            <fieldset>
-              <legend>FAQ</legend>
-            </fieldset>
-            <button className="accordion">
-              What Happens When My License Expires?
-            </button>
-            <div className="content">
-              <p>We are here</p>
-            </div>
-
-            <button className="accordion">How Do I Renew My License?</button>
-            <div className="content">
-              <p>We are here</p>
-            </div>
-
-            <button className="accordion">
-              How Do I Buy Exclusive Rights?
-            </button>
-            <div className="content">
-              <p>We are here</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  function GroupG() {
-    return (
-      <footer className="GroupCb">
-        {/*Group Cb */}
-        <p>BeatHub is a Brand That Support African Musicians</p>
-        <p>COPYRIGHT BEATHUB 2024</p>
-      </footer>
-    );
-  }
-
   return (
     <div className="homepageWrapper">
       <div className="homepageWrapper2"></div>
@@ -433,4 +312,5 @@ function HomePage() {
     </div>
   );
 }
+
 export default HomePage;
