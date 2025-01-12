@@ -4,17 +4,15 @@ import { FaShareAlt } from "react-icons/fa";
 import { GiNextButton, GiPreviousButton } from "react-icons/gi";
 import { FaPlay, FaPause  } from "react-icons/fa";
 import { SlOptionsVertical } from "react-icons/sl";
+import "../css/component.css";
+
 import GroupA from "../component/header.js";
+import Download from "../component/download.js";
 import { GroupE, GroupF, GroupG } from "../component/footer.js";
 import "../css/HomePage.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import "../css/component.css";
+
+import { Link } from "react-router-dom"; 
 
 function HomePage() {
   const [songs, setSongs] = useState([
@@ -256,15 +254,15 @@ function HomePage() {
                       <FaCartShopping color="" size="1.5em" />
                     </button>
                   </Link>
-
+                  <Download to="/buysong" state={{ song }}/>
                   <button>
                     <FaShareAlt size="1.5em" />
                   </button>
-
+                  <Link to="/loginPage" >
                   <button>
                   <SlOptionsVertical size="1.5em" />
                   </button>
-                
+                  </Link>
               </div>
             </div>
           ))}

@@ -1,0 +1,152 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropbtn {
+    background-color: #a81919;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .dropbtn:hover {
+    background-color: #581818;
+  }
+  
+  .dropdown-content {
+    position: absolute;
+    /* display: none;  */
+    background-color: #2a2121;
+    min-width: 160px;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+border: #343434 2px solid;
+  }
+  
+  .dropdown-content a {
+    color: rgb(255, 255, 255);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #282727;
+  }
+
+
+  .avatar {
+    border-radius: 10%;
+    border: #ffffff 5px solid;
+    color: #f1f1f1;
+    padding: 2px 5px 2px;
+  }
+
+  .userEmail {
+font-size: 0.5em;
+
+  }
+
+
+
+
+/* Center the form container on the screen */
+.login-form-container {
+    margin-top: 150px;
+    height: 55vh;  
+    width: 23vw;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    min-height: 6cap; /* Full viewport height */
+    background-color: #1d1d1d; /* Light background color */
+    padding: 20px; /* Space around the content */
+    border-radius: 10px;
+    border: #343434 solid 2px;
+  }
+  
+  /* Form title styling */
+  .login-title {
+    font-size: 2em;
+    font-weight: bold;
+    color: #ffffff; /* Dark text color */
+    margin-bottom: 20px; /* Space below the title */
+    text-align: center; /* Center the title */
+  }
+  
+  /* Input fields styling */
+  .login-email,
+  .login-password {
+    width: 100%; /* Full width */
+    max-width: 300px; /* Limit the width */
+    padding: 10px; /* Inner padding */
+    margin: 10px 0; /* Space between inputs */
+    border: 1px solid #674a4a; /* Light grey border */
+    background-color: #282727;
+    color: #fff;
+    border-radius: 5px; /* Rounded corners */
+    font-size: 1em; /* Readable text size */
+    box-sizing: border-box; /* Include padding in width calculation */
+  }
+  
+  /* Input focus styling */
+  .login-email:focus,
+  .login-password:focus {
+    outline: none; /* Remove the default outline */
+    border-color: #ff0000; /* Blue border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a soft blue glow */
+  }
+  
+  /* Button styling */
+  .login-button {
+    width: 100%; /* Full width */
+    max-width: 300px; /* Limit the width */
+    padding: 10px 15px; /* Inner padding */
+    margin-top: 10px; /* Space above the button */
+    font-size: 1em; /* Readable text size */
+    color: #fff; /* White text */
+    background-color: #a51212; /* Blue background */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth background change */
+  }
+  
+  /* Button hover effect */
+  .login-button:hover {
+    background-color: #b34a4a; /* Darker blue on hover */
+  }
+  
+  /* Add responsive design */
+  @media (max-width: 768px) {
+    .login-form-container {
+      padding: 15px;
+    }
+  
+    .login-email,
+    .login-password,
+    .login-button {
+      max-width: 100%; /* Allow inputs to stretch fully on smaller screens */
+    }
+  }
+
+body{
+
+    display: flex;
+    justify-content: center;
+    color: #f1f1f1;
+    width: 100vw;
+    height: 100vh;
+
+  }
+
+
+  .avatar2{
+    color: #fff;
+  }

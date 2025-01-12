@@ -1,8 +1,11 @@
 
 import { FaCartShopping } from "react-icons/fa6";
+import AuthState from "../AuthState";
+import Profile from "../component/profile.js";
+
 
 // /Header Logo
-function Headerlogo() {
+export function Headerlogo() {
   return (
     <a href="/" className="Headerlogo">
       <img src="./beathub1.jpg" style={{ width: "64px", height: "64px" }}></img>
@@ -11,7 +14,7 @@ function Headerlogo() {
 }
 
 //Header search bar
-function HeaderSearchBar() {
+export function HeaderSearchBar() {
   return (
     <input
       type="text"
@@ -22,7 +25,7 @@ function HeaderSearchBar() {
 }
 
 //Header cart Icon
-function HeaderCartIcon() {
+export function HeaderCartIcon() {
   return (
     <div className="HeaderCartIcon"><FaCartShopping color="" size="1.5em" />
     
@@ -30,13 +33,14 @@ function HeaderCartIcon() {
   );
 }
 
- function GroupA() {
+export default function GroupA() {
     return (
       <div className="GroupA">
-        <Headerlogo /> <HeaderSearchBar /> <HeaderCartIcon />{" "}
+        <Headerlogo /> <HeaderSearchBar />  <AuthState />
+{" "}
       </div>
     );
   }
 
 
-  export default GroupA;
+ 
