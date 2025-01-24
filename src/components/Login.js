@@ -1,37 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { login } from "../firebase/authFunctions";
-import { Link, useNavigate } from "react-router-dom"; 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [email, setEmail] = useState(""); // User email
-  const [password, setPassword] = useState(""); // User password
-  const navigate = useNavigate(); // React Router's navigation function
-  const auth = getAuth(); // Firebase Authentication instance
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null); // Error state
+  const navigate = useNavigate();
+  const auth = getAuth();
 
-  // Redirect if the user is already signed in
+  // Redirect if already logged in
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigate("/"); // Redirect to dashboard if signed in
+        navigate("/"); // Redirect if user is authenticated
       }
     });
 
-    return () => unsubscribe(); // Cleanup listener on component unmount
+    return () => unsubscribe();
   }, [auth, navigate]);
 
   const handleLogin = async () => {
     try {
-      await login(email, password); // Perform login
-      navigate("/"); // Redirect after successful login
+      setError(null); // Clear any previous errors
+      const userCredential = await login(email, password); // Attempt login
+      if (userCredential) {
+        navigate("/"); // Navigate only if login is successful
+      }
     } catch (error) {
-      console.error("Login error:", error.message); // Log error on failure
+      setError(error.message); // Display error on login failure
     }
   };
 
   return (
     <div className="login-form-container">
-      {/* Logo */}
       <a href="/" className="Headerlogo">
         <img
           src="./beathub1.jpg"
@@ -40,10 +43,8 @@ const Login = () => {
         />
       </a>
 
-      {/* Form Title */}
-      <h1 className="login-title">Continue With</h1>
-
-      {/* Email Input */}
+      <h1 className="login-title">Log In</h1>
+      {error && <p style={{ color: "red" }}>{error}</p>} {/* Display error */}
       <input
         className="login-email"
         type="email"
@@ -51,8 +52,7 @@ const Login = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-
-      {/* Password Input */}
+      <br />
       <input
         className="login-password"
         type="password"
@@ -60,17 +60,15 @@ const Login = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-
-      {/* Login Button */}
+      <br />
       <button className="login-button" onClick={handleLogin}>
-        Login
+        Log In
       </button>
-
-      {/* Link to Signup Page */}
+      <br />
       <div>
-        <span>Click here to </span>
+        <span>Don't have an account? </span>
         <Link to="/signUpPage" className="avatar2">
-          sign up
+          Sign Up Here
         </Link>
       </div>
     </div>

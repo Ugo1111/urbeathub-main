@@ -303,7 +303,7 @@ function HomePage() {
       <GroupB />
       <GroupC1 />
       <GroupC2 />
-      <GroupD />
+      {/* <GroupD /> */}
       <GroupE />
       <GroupF />
       <GroupG />
