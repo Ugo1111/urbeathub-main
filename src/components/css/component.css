@@ -150,3 +150,59 @@ body{
   .avatar2{
     color: #fff;
   }
+
+
+
+
+  .IoIosContact{
+    width: 100vw;
+    height: 100vh;
+    
+    color: #4d4c4c;
+  } 
+
+
+
+
+
+
+  .Headerlogo{
+    
+    justify-content: center;
+  }
+  .HeaderCartIcon img{
+    width: "44px";
+     height: "44px" 
+  }
+  
+  .HeaderSearchBar{
+    width: 240px;
+    height: 45px;
+   border-radius: 25px;
+   justify-content: center;
+  background-color: #ccc;
+  }
+  
+  .HeaderCartIcon{
+    background-color: rgb(223, 37, 37, 0.0);
+    height: 45px;
+    justify-content: center;
+    color: #ccc;
+  
+  }
+
+  
+  
+  .GroupA {
+   
+    display: flex;
+    align-items: center; 
+    justify-content: space-around;
+    /* background-color: #3193ae; */
+    width: 100vw;
+    padding: 0; 
+    height: 85px;
+    
+  
+  
+  }

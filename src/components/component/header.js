@@ -1,6 +1,6 @@
 
 import { FaCartShopping } from "react-icons/fa6";
-import AuthState from "../AuthState";
+import {AuthState} from "../AuthState";
 import Profile from "../component/profile.js";
 
 

@@ -8,9 +8,18 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
+import { Profilepicture } from "../AuthState";
+import GroupA from "../component/header.js";
+import { GroupE, GroupF, GroupG } from "../component/footer.js";
+import { TbSend } from "react-icons/tb";
+import { FaPlay } from "react-icons/fa";
+import { FaShareAlt } from "react-icons/fa";
+import { RiAddLargeFill } from "react-icons/ri";
+import { FaHeart } from "react-icons/fa";
+import { IoMdDownload } from "react-icons/io";
+import { IoIosContact } from "react-icons/io";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
-import GroupA from "../component/header.js"
-import {GroupE, GroupF, GroupG} from "../component/footer.js"
 
 
 
@@ -27,6 +36,15 @@ function AddToCart() {
 
   const [newComment, setNewComment] = useState(""); // State for the new comment
   const [comments, setComments] = useState(song?.comments || []); // Manage local comments state
+
+
+
+  const [accodianing, setAccodianing] = useState(true);
+
+
+
+
+
 
   const audioRef = React.useRef(null);
 
@@ -92,211 +110,319 @@ function AddToCart() {
     return <p>No song selected. Go back to the audio list.</p>;
   }
 
-  return (
-    
-<>
-<GroupA />
-
-
-<div className="container">
-
-
-
-
-
-      {/* Main Section */}
-      <main>
-        <section className="beat-preview">
-          <div className="image-placeholder">
-            <img src={song.image} alt="Trending Instrumental" />
-          </div>
-          <div className="beat-details">
-            <h2>{song.title}</h2>
-            <p>An amazing piece of art</p>
-
-            <div className="comments-list">
-              {song.comments.map((comment, idx) => (
-                <p key={idx}>{comment}</p>
-              ))}
+  // Genre sectiion
+  function Genre() {
+    return (
+      <>
+        <h2>GENRE</h2>
+        <section className="genre">
+          <div className="genre-options">
+            <div className="genre-card">
+              <img src="./images/killerman amapiano.png" alt="Afro Beat" />
+              <h4>AFRO BEAT</h4>
             </div>
-
-            <Link to="/">
-              <button>Back</button>
-            </Link>
-
-            {/* Add Comment Section */}
-            <div className="add-comment">
-              <textarea
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                placeholder="Add a comment..."
-              />
-              <button onClick={addComment}>Submit Comment</button>
+            <div className="genre-card">
+              <img src="./images/killerman amapiano.png" alt="Pop Beat" />
+              <h4>POP BEAT</h4>
             </div>
-
-
-
-
-
-
-            <section className="song">
-              <button onClick={handlePlayPause}>
-                {isPlaying ? "Pause" : "Play"}
-              </button>
-              <span>{formatTime(currentTime)}</span>
-              <input
-                className="thesong"
-                type="range"
-                min="0"
-                max={duration || 0}
-                value={currentTime}
-                onChange={handleSliderChange}
-              />
-              <span>{formatTime(duration)}</span>
-              <audio
-                ref={audioRef}
-                src={song.url}
-                onTimeUpdate={handleTimeUpdate}
-                onLoadedMetadata={handleLoadedMetadata}
-              >
-                Your browser does not support the audio element.
-              </audio>
-              <input
-                type="range"
-                min="0"
-                max="1"
-                step="0.01"
-                value={volume}
-                onChange={handleVolumeChange}
-              />
-            </section>
-          
-          
-          
-          
-          
-          
-          
-          
-            <h3>$29.00 - $99.00</h3>
-            <p className="terms">
-              (By purchasing this license, it means you've reviewed and agreed
-              to the Track(s) License Agreement)
-            </p>
-            <div className="license-options">
-              <div className="license-option">
-                <h4>Basic Lease</h4>
-                <p>$29.99</p>
-                <span>MP3</span>
-              </div>
-              <div className="license-option">
-                <h4>Premium Lease</h4>
-                <p>$59.99</p>
-                <span>MP3 + WAV</span>
-              </div>
-              <div className="license-option">
-                <h4>Trackout Lease</h4>
-                <p>$99.99</p>
-                <span>MP3 + WAV + STEMS</span>
-              </div>
+            <div className="genre-card">
+              <img src="./images/killerman amapiano.png" alt="High Life Beat" />
+              <h4>HIGH LIFE BEAT</h4>
             </div>
-            <button className="buy-btn">BUY NOW</button>
+            <div className="genre-card">
+              <img src="./images/killerman amapiano.png" alt="RnB Beat" />
+              <h4>RnB BEAT</h4>
+            </div>
           </div>
         </section>
-      </main>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      {/* License Info */}
-      <div className="line2">
-        <section className="license-info">
-          <h4>Basic Lease | Premium Lease | Trackout Lease</h4>
-          <ul>
-            <li>Receive a High-Quality MP3</li>
-            <li>Use it Commercially</li>
-            <li>Sell up to 5,000 Copies</li>
-            <li>Available for 10,000 Streams</li>
-            <li>No YouTube Monetization</li>
-            <li>Must Credit urbeathub</li>
-          </ul>
-        </section>
-      
-      
-      
-      
-      
-      
-        {/* Additional Beats */}
-        <section className="beat-cards">
-          <div className="beat-card">
-            <img src="./images/gooseumps.jpg" alt="Leg Up" />
-            <h4>Leg Up</h4>
-            <button className="select-btn">Select Options</button>
-          </div>
-          <div className="beat-card">
-            <img src="./images/gooseumps.jpg" alt="Momentum" />
-            <h4>Momentum</h4>
-            <button className="select-btn">Select Options</button>
-          </div>
-          <div className="beat-card">
-            <img src="./images/gooseumps.jpg" alt="Shaft" />
-            <h4>Shaft</h4>
-            <button className="select-btn">Select Options</button>
-          </div>
-        </section>
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <h2>GENRE</h2>
-      {/* Genre Section */}
+      </>
+    );
+  }
 
-      <section className="genre">
-        <div className="genre-options">
-          <div className="genre-card">
-            <img src="./images/killerman amapiano.png" alt="Afro Beat" />
-            <h4>AFRO BEAT</h4>
+  //song SongBio section
+  function SongBio() {
+    return (
+      <>
+        <div className="songBioSection">
+          <CoverArt />
+          <h3 style={{ padding: "10px", textAlign: "center" }}>{song.title}</h3>
+
+          <span className="item-actions">
+            <div>
+              <FaPlay size="1.5em" />
+              <div>{song.playCount}11</div>
+            </div>
+
+            <div>
+              <FaHeart size="1.5em" />
+              <div>{song.playCount}11</div>
+            </div>
+
+            <div>
+              <FaShareAlt size="1.5em" />
+              <div>{song.playCount}</div>
+            </div>
+
+            <div>
+              <RiAddLargeFill size="1.5em" />
+              <div>{song.playCount}</div>
+            </div>
+          </span>
+
+          <div className="IoMdDownload ">
+            <IoMdDownload size="1.5em" /> Download for Free
           </div>
-          <div className="genre-card">
-            <img src="./images/killerman amapiano.png" alt="Pop Beat" />
-            <h4>POP BEAT</h4>
-          </div>
-          <div className="genre-card">
-            <img src="./images/killerman amapiano.png" alt="High Life Beat" />
-            <h4>HIGH LIFE BEAT</h4>
-          </div>
-          <div className="genre-card">
-            <img src="./images/killerman amapiano.png" alt="RnB Beat" />
-            <h4>RnB BEAT</h4>
+
+          <hr></hr>
+
+          <div className="BioInformationSection">
+            <h4>Information</h4>
+            <div>
+              <span>Published</span>
+              <span>{song.length}May 25, 2020</span>
+            </div>
+
+            <div>
+              <span>BPM</span>
+              <span>{song.length}131</span>
+            </div>
+
+            <div>
+              <span>Published</span>
+              <span>{song.length}May 25, 2020</span>
+            </div>
           </div>
         </div>
+      </>
+    );
+  }
+
+  // cover art sectiion
+  function CoverArt() {
+    return (
+      <>
+        <div className="image-placeholder">
+          <img src={song.image} alt="Trending Instrumental" />
+        </div>
+      </>
+    );
+  }
+
+  // comment sectiion
+  function Comment() {
+    return (
+      <section className="comment">
+        <h1>Comments</h1>
+
+        <div className="add-comment">
+          <Profilepicture className="" />
+          <input
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Share your thoughts..."
+          />
+          <button onClick={addComment}>
+            <TbSend onClick={addComment} className="send-icon" />
+          </button>
+        </div>
+
+        <div className="comments-list">
+          {song.comments.map((comment, idx) => (
+            <div className="comments-list-container">
+              <div key={idx}>
+                {" "}
+                <IoIosContact size="2.5em" />
+              </div>{" "}
+              <div>
+                <div>{song.title}</div> <p>{comment}</p>{" "}
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
+    );
+  }
 
+  function LicensingSection() {
+    const [selectedLicense, setSelectedLicense] = useState("basic");
 
+    // Data as an object from a database
+    const licenses = {
+      basic: {
+        name: "Basic License",
+        price: "$25.00",
+        details: "MP3",
+        usageTerms: [
+          "Used for Music Recording",
+          "Distribute up to 2,500 copies",
+          "500,000 Online Audio Streams",
+          "UNLIMITED Music Video",
+          "For Profit Live Performances",
+          "Radio Broadcasting rights (2 Stations)",
+        ],
+      },
+
+      premium: {
+        name: "Premium License",
+        price: "$35.00",
+        details: "MP3, WAV",
+        usageTerms: [
+          "Used for Music Recording",
+          "Distribute up to 2,500 copies",
+          "500,000 Online Audio Streams",
+          "UNLIMITED Music Video",
+          "For Profit Live Performances",
+          "Radio Broadcasting rights (2 Stations)",
+        ],
+      },
+
+      wavStems: {
+        name: "Wav stems",
+        price: "$50.00",
+        details: "STEMS, MP3, WAV",
+        usageTerms: [
+          "Used for Music Recording",
+          "Distribute up to 2,500 copies",
+          "500,000 Online Audio Streams",
+          "UNLIMITED Music Video",
+          "For Profit Live Performances",
+          "Radio Broadcasting rights (2 Stations)",
+        ],
+      },
+      unlimited: {
+        name: "Unlimited License",
+        price: "$85.00",
+        details: "STEMS, MP3, WAV",
+      },
+      exclusive: {
+        name: "Exclusive License",
+        price: "Negotiate price",
+        details: "STEMS, MP3, WAV",
+      },
+    };
+
+    return (
+      <div className="licensing-container">
+        <span className="licensing-header">
+          <h2>Licensing</h2>
+          <div className="checkout">
+            <span>
+              Total: {licenses[selectedLicense]?.price || "Select a license"}
+            </span>
+            <button className="add-to-cart-btn">Add to Cart</button>
+            <button className="buy-now-btn">Buy now</button>
+          </div>
+        </span>
+
+        <hr></hr>
+
+        <div className="licenses">
+          {Object.entries(licenses).map(([key, license]) => (
+            <div
+              key={key}
+              className={`license-card ${
+                selectedLicense === key ? "active" : ""
+              }`}
+              onClick={() => setSelectedLicense(key)}
+            >
+              <h3>{license.name}</h3>
+              <p>{license.price}</p>
+              <small>{license.details}</small>
+            </div>
+          ))}
+        </div>
+
+        <hr></hr>
+        <div className="usageTermHeader">
+            <h3 className="usageTermHeaderh3">Usage Terms</h3> <button onClick={() => setAccodianing(!accodianing)}>
+         {accodianing ? <FaChevronUp size="1.5em"/> :  <FaChevronDown size="1.5em"/>}
+      </button>
+          </div>
+
+          <div
+        className={accodianing ? "accordionin" : "panel"}
+      >
+       
+
+          <br></br>
+          <span>{licenses[selectedLicense]?.name}</span>
+          <span> ({licenses[selectedLicense]?.price})</span>
+          <br></br>
+          <br></br>
+          <div className="usageTermSection">
+            {licenses[selectedLicense]?.usageTerms?.map((term, index) => (
+              <div key={index} className="usageTermList">
+                {term}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
+    );
+  }
 
+  function Mp3player() {
+    return (
+      <section className="Mp3player">
+        <br></br>
+        <div className="beat-details">
+          <h2>{song.title}</h2>
+          <br></br>
 
+          <section className="song">
+            <button onClick={handlePlayPause} style={{ marginRight: "15px" }}>
+              {isPlaying ? "Pause" : "Play"}
+            </button>
 
-      {/* Footer */}
-      <GroupE />
-      <GroupF />
-      <GroupG />
+            <span>{formatTime(currentTime)}</span>
 
+            <input
+              className="thesong"
+              type="range"
+              min="0"
+              max={duration || 0}
+              value={currentTime}
+              onChange={handleSliderChange}
+            />
 
+            <span>{formatTime(duration)}</span>
+            <audio
+              ref={audioRef}
+              src={song.url}
+              onTimeUpdate={handleTimeUpdate}
+              onLoadedMetadata={handleLoadedMetadata}
+            >
+              Your browser does not support the audio element.
+            </audio>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value={volume}
+              onChange={handleVolumeChange}
+              style={{ marginLeft: "15px" }}
+            />
+          </section>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <><GroupA />
+    <div className="theMainContainer">
+      
+      <div className="container">
+        <SongBio />
+        <div className="secondContainer">
+          <Mp3player />
+          <LicensingSection />
+          <Comment />
+          <Genre />
+          </div>
+        </div>
+      </div>
     </>
   );
 }

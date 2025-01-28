@@ -59,7 +59,7 @@ export default function Profile() {
   return (
     <div className="dropdown">
       <button onClick={toggleDropdown} className="dropbtn">
-        <p> <IoIosContact /></p>
+        <p> <IoIosContact className=""/></p>
       </button>
       {isDropdownOpen && (
         <div id="myDropdown" className="dropdown-content">
@@ -70,7 +70,7 @@ export default function Profile() {
             userData ? (
               <>
                 <a href="#home" className="userEmail">
-                  <IoIosContact /> {userData.username} {/* Assuming 'email' is stored */}
+                  <IoIosContact className="" /> {userData.username} {/* Assuming 'email' is stored */}
                 </a>
                 <hr />
               </>
