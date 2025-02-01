@@ -16,7 +16,7 @@ body {margin: 0;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: calc(10px + 2vmin);
+    font-size: 1.5em;/*i need to adjust this to this as it  affecting the whole size of my code*/
     color: white;
     background-image: url('/src/images/dj.jpg');
     background-size: cover;

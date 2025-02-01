@@ -7,7 +7,6 @@
 .pnp.js
 /real
 
-
 # testing
 /coverage
 
@@ -24,3 +23,11 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# Ignore the 'functions' folder
+functions/
+
+# Ignore the 'firebase.js' file inside the 'src/firebase' folder
+/src/firebase/firebase.js
+

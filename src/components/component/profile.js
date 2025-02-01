@@ -5,6 +5,7 @@ import Logout from "../logout";
 import { IoIosContact } from "react-icons/io";
 import { auth, db } from "../../firebase/firebase"; // Ensure Firestore is initialized in firebase.js
 import { doc, getDoc } from "firebase/firestore"; // Importing getDoc to fetch a single document
+import { Link } from "react-router-dom"; 
 
 export default function Profile() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -17,8 +18,8 @@ export default function Profile() {
       try {
         const user = auth.currentUser; // Get the current logged-in user
         if (user) {
-          // Fetch the user's document from Firestore by their uid
-          const docRef = doc(db, "users", user.uid); // Assuming you store users in 'users' collection
+          // Fetch the user's document from Firestore by their email
+          const docRef = doc(db, "beatHubUsers", user.email); // Assuming you store users in 'beatHubUsers' collection
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
@@ -59,25 +60,48 @@ export default function Profile() {
   return (
     <div className="dropdown">
       <button onClick={toggleDropdown} className="dropbtn">
-        <p> <IoIosContact className=""/></p>
+        <p>
+          {/* If userData exists and has profilePicture, use it */}
+          {userData?.profilePicture ? (
+            <img
+              src={userData.profilePicture}
+              alt="Profile"
+              className="profile-pic" // Add a class for styling the image
+              style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover" }}
+            />
+          ) : (
+            <IoIosContact className="" /> // Fallback icon
+          )}
+        </p>
       </button>
       {isDropdownOpen && (
         <div id="myDropdown" className="dropdown-content">
-          {loading ? (
-            <p>Loading user data...</p>
-          ) : (
+          {
             // Display user data if available
             userData ? (
               <>
-                <a href="#home" className="userEmail">
-                  <IoIosContact className="" /> {userData.username} {/* Assuming 'email' is stored */}
-                </a>
+                <Link to="/profilePage" className="avatar2">
+                  <a href="#home" className="userEmail">
+                    {/* Display username and profile picture */}
+                    {userData.profilePicture ? (
+                      <img
+                        src={userData.profilePicture}
+                        alt="Profile"
+                        className="profile-pic"
+                       
+                      />
+                    ) : (
+                      <IoIosContact className="default-icon" style={{ marginRight: "8px" }} />
+                    )}
+                    {userData.username}
+                  </a>
+                </Link>
                 <hr />
               </>
             ) : (
               <p>User data not found</p>
             )
-          )}
+          }
           <a href="#home">Favourite</a>
           <a href="#about">Purchased</a>
           <a href="#about">Chart</a>
