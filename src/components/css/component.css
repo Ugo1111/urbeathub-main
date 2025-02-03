@@ -203,11 +203,18 @@ body{
 
 
 
+  .HeaderImage{
+    width: 74px;
+    height: 74px;
+    object-fit: calc(30px)*2;
+    }
 
 
   .Headerlogo{
-    
-    justify-content: center;
+   
+    width: 74px;
+    height: 74px;
+        justify-content: cover;
   }
   .HeaderCartIcon img{
     width: "44px";
@@ -222,38 +229,43 @@ body{
   background-color: #ccc;
   }
   
+  
+  
+  
+  
+  
   .HeaderCartIcon{
     background-color: rgb(223, 37, 37, 0.0);
     height: 45px;
     justify-content: center;
     color: #ccc;
-  
+    
   }
-
+  
   
   
   .GroupA {
- 
+    
     display: flex;
     align-items: center; 
-   
+    
     justify-content: space-around;
     /* background-color: #3193ae; */
     width: 100vw;
     padding: 0; 
     height: 85px;
-    
-  
-  
   }
+  
 
-
-
-
-
-
-
-
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
 
 
@@ -411,4 +423,46 @@ width: 100vw;
 
 .ProfilePage a:hover {
   text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+  .HeaderSearchBar {
+   display: none;
+  }
+
+
+  .GroupA {
+
+    display: flex;
+    align-items: center; 
+   
+    justify-content: space-evenly;
+    gap: 50%;
+    /* background-color: #3193ae; */
+    width: 100vw;
+    padding: 0; 
+    height: 45px;
+  }
+
+
+
+
+
 }

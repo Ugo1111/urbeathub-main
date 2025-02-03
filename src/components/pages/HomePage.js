@@ -8,6 +8,7 @@ import "../css/component.css";
 
 import GroupA from "../component/header.js";
 import Download from "../component/download.js";
+
 import { GroupE, GroupF, GroupG } from "../component/footer.js";
 import "../css/HomePage.css";
 import "../css/component.css";
@@ -17,7 +18,7 @@ import { Link } from "react-router-dom";
 function HomePage() {
   const [songs, setSongs] = useState([
     {
-      title: "Afro Swing ",
+      title: "Afro Swing",
       image: "./images/gooseumps.jpg",
       url: "./beats/Afro-Swing-watermark.m4a",
       comments: [],
@@ -44,43 +45,36 @@ function HomePage() {
   const [newComment, setNewComment] = useState("");
   const audioRef = useRef(null);
 
-  // Play a specific song by index and automatically start playing
+  // Play a specific song by index
   const playSong = (index) => {
     setCurrentIndex(index);
-    if (!isPlaying) {
-      setIsPlaying(true); // Ensure the song plays when selected
-    }
+    setIsPlaying(true);
   };
 
   // Toggle play/pause
   const togglePlayPause = () => {
     const audio = audioRef.current;
-    if (isPlaying) {
-      audio.pause();
-      setIsPlaying(false); // Pauses the audio
-    } else {
-      audio.play().then(() => {
-        setIsPlaying(true); // Immediately start playing
-      }).catch((error) => {
-        console.error("Playback failed:", error);
+    if (audio) {
+      if (isPlaying) {
+        audio.pause();
         setIsPlaying(false);
-      });
+      } else {
+        audio.play().catch((error) => {
+          console.error("Playback failed:", error);
+        });
+        setIsPlaying(true);
+      }
     }
   };
 
-  // Play next song and automatically start playing
   const playNext = () => {
-    const nextIndex = (currentIndex + 1) % songs.length; // Loop back to the first song after the last one
-    setCurrentIndex(nextIndex);
-    if (!isPlaying) {
-      setIsPlaying(true); // Ensure the song plays when switching to the next one
-    }
+    setCurrentIndex((currentIndex + 1) % songs.length);
+    setIsPlaying(true);
   };
 
-  // Play previous song and automatically start playing
   const playPrevious = () => {
-    const prevIndex = (currentIndex - 1 + songs.length) % songs.length; // Loop back to the last song after the first one
-    setCurrentIndex(prevIndex);
+    setCurrentIndex((currentIndex - 1 + songs.length) % songs.length);
+    setIsPlaying(true);
   };
 
   const formatTime = (time) => {
@@ -99,19 +93,25 @@ function HomePage() {
   const handleVolumeChange = (event) => {
     const newVolume = parseFloat(event.target.value);
     setVolume(newVolume);
-    audioRef.current.volume = newVolume;
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume;
+    }
   };
 
   const increaseVolume = () => {
     const newVolume = Math.min(volume + 0.1, 1);
     setVolume(newVolume);
-    audioRef.current.volume = newVolume;
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume;
+    }
   };
 
   const decreaseVolume = () => {
     const newVolume = Math.max(volume - 0.1, 0);
     setVolume(newVolume);
-    audioRef.current.volume = newVolume;
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume;
+    }
   };
 
   const addComment = () => {
@@ -123,15 +123,13 @@ function HomePage() {
     }
   };
 
-  // This effect handles updating current time and duration
   useEffect(() => {
     const audio = audioRef.current;
+    if (!audio) return;
 
-    // Update currentTime and duration when timeupdate and loadedmetadata events fire
     const updateTime = () => setCurrentTime(audio.currentTime);
     const updateDuration = () => setDuration(audio.duration);
 
-    // Event listeners for timeupdate and loadedmetadata
     audio.addEventListener("timeupdate", updateTime);
     audio.addEventListener("loadedmetadata", updateDuration);
 
@@ -141,34 +139,38 @@ function HomePage() {
     };
   }, []);
 
-  // Automatically update and play the selected song when the index changes
   useEffect(() => {
     const audio = audioRef.current;
-    audio.src = songs[currentIndex].url; // Update the song source when currentIndex changes
-    audio.load(); // Reload the song source
+    if (!audio) return;
+
+    audio.src = songs[currentIndex].url;
+    audio.load();
 
     if (isPlaying) {
       audio.play().catch((error) => console.error("Playback failed:", error));
     } else {
       audio.pause();
     }
+
+    setCurrentTime(0); // Reset current time when the song changes
   }, [currentIndex, isPlaying]);
+
 
   function GroupB() {
     return (
       <div className="GroupB">
-        <div style={{ fontSize: "25px", margin: "30px 0 180px 0" }}>
+        <div >
           BeatHub is a brand that supports afrobeat artists
         </div>
-        <div className="">
-          <h1 style={{ color: "#db3056" }}>
+        <div className="heroText">
+          <h4 >
             BeatHub is a brand that supports afrobeat artists
-          </h1>
-          <h5 style={{ fontSize: "0.6em", padding: "0 180px" }}>
+          </h4>
+          <p>
             BeatHub is a brand that supports afrobeat artists BeatHub is a brand
             that supports afrobeat artists BeatHub is a brand that supports
             afrobeat artists
-          </h5>
+          </p>
         </div>
       </div>
     );

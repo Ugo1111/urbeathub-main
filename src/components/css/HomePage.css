@@ -90,6 +90,43 @@ body {margin: 0;
     
     
   }
+
+  /* Add responsive design */
+  @media (max-width: 768px) {
+    .GroupB {
+    border: #db3056 2px solid;
+      padding: 5px;
+      width: 63%;
+      height: 85vmin;
+      text-align: center;
+    
+    
+  }
+
+  .GroupB  div {
+    border: #8d684c 2px solid;
+   
+    margin: 0px 0 90px 0;
+    
+    
+  }
+
+    /* .heroText{
+
+    } */
+    .heroText h4{
+color: #db3056;
+margin: 0px 0 20px 0;
+border: #dba230 2px solid;
+    }
+    .heroText p{
+      margin: 10px 0 0px 0;
+      font-size: 0.7em;
+    }
+  }
+
+
+
   
  
   

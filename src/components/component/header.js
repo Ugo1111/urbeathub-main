@@ -8,7 +8,7 @@ import Profile from "../component/profile.js";
 export function Headerlogo() {
   return (
     <a href="/" className="Headerlogo">
-      <img src="./beathub1.jpg" style={{ width: "64px", height: "64px" }}></img>
+      <img src="./beathub1.PNG" className="HeaderImage"></img>
     </a>
   );
 }

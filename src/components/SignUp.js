@@ -38,7 +38,7 @@ const SignUp = () => {
     <div className="login-form-container">
       <a href="/" className="Headerlogo">
         <img
-          src="./beathub1.jpg"
+          src="./beathub1.PNG"
           style={{ width: "64px", height: "64px", paddingBottom: "50px" }}
           alt="Logo"
         />
