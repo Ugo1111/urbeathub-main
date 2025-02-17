@@ -67,7 +67,7 @@ export default function Profile() {
               src={userData.profilePicture}
               alt="Profile"
               className="profile-pic" // Add a class for styling the image
-              style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover" }}
+              style={{ width: "30px", height: "30px", borderRadius: "50%", objectFit: "cover" }}
             />
           ) : (
             <IoIosContact className="" /> // Fallback icon
@@ -102,9 +102,14 @@ export default function Profile() {
               <p>User data not found</p>
             )
           }
-          <a href="#home">Favourite</a>
+           <Link to="/FavouritePage" className="">Favourite</Link>
+         
           <a href="#about">Purchased</a>
-          <a href="#about">Chart</a>
+
+          <Link to="/CartPage" className="">
+        Chart
+          </Link>
+
           <div><Logout /></div>
         </div>
       )}

@@ -32,7 +32,7 @@ export function GroupE() {
 
   export function GroupF() {
     return (
-      <div className="GroupCa">
+      <div className="GroupF">
         <div className="footer-wrapper">
           <div className="footer-container">
             <img src="./beathub1.jpg" alt="logo" />

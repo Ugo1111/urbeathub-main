@@ -15,11 +15,13 @@ export function Headerlogo() {
 
 //Header search bar
 export function HeaderSearchBar() {
+  function setSearchTerm(){}
   return (
     <input
       type="text"
       className="HeaderSearchBar"
       value=" 🔎 search for your song"
+      onChange={(e) => setSearchTerm(e.target.value)}  
     ></input>
   );
 }

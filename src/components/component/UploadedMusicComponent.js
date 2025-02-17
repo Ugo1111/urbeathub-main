@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase/firebase";
 import { 
-  collection, getDocs, deleteDoc, doc, setDoc, getDoc 
+  collection, getDocs, deleteDoc, doc, setDoc, updateDoc 
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const UploadedMusicComponent = ({ setSelectedMusic }) => {
   const [uploadedMusic, setUploadedMusic] = useState([]);
-  const [publishedStatus, setPublishedStatus] = useState({});
   const [email, setEmail] = useState("");
 
   useEffect(() => {
@@ -26,7 +25,7 @@ const UploadedMusicComponent = ({ setSelectedMusic }) => {
 
   const fetchMusic = async (userEmail) => {
     try {
-      const musicCollectionRef = collection(db, "musicUploads", userEmail, "music");
+      const musicCollectionRef = collection(db, "beats");
       const querySnapshot = await getDocs(musicCollectionRef);
       const musicList = querySnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -34,36 +33,14 @@ const UploadedMusicComponent = ({ setSelectedMusic }) => {
       }));
 
       setUploadedMusic(musicList);
-
-      // Check published status for each music item
-      const statusMap = {};
-      for (const music of musicList) {
-        const publishedDocRef = doc(db, "musicUploads", userEmail, "published_music", music.id);
-        const publishedDocSnap = await getDoc(publishedDocRef);
-        statusMap[music.id] = publishedDocSnap.exists();
-      }
-      setPublishedStatus(statusMap);
     } catch (error) {
       console.error("Error fetching music:", error);
     }
   };
 
-  const handleDelete = async (id, isPublished) => {
+  const handleDelete = async (id) => {
     try {
-      if (isPublished === undefined) {
-        alert("Error: Published status is undefined.");
-        return;
-      }
-
-      if (!isPublished) {
-        await deleteDoc(doc(db, "musicUploads", email, "music", id));
-      }
-
-      if (isPublished) {
-        await deleteDoc(doc(db, "musicUploads", email, "music", id));
-        await deleteDoc(doc(db, "musicUploads", email, "published_music", id));
-      }
-
+      await deleteDoc(doc(db, "musicUploads", email, "music", id));
       alert("Music deleted successfully.");
       fetchMusic(email); // Refresh music list
     } catch (error) {
@@ -73,20 +50,25 @@ const UploadedMusicComponent = ({ setSelectedMusic }) => {
 
   const handlePublish = async (musicItem) => {
     try {
-      const publishedMusicRef = doc(db, "musicUploads", email, "published_music", musicItem.id);
-      await setDoc(publishedMusicRef, musicItem);
+      const musicRef = doc(db,"beats", musicItem.id);
+      
+      await updateDoc(musicRef, { status: true });
+
       alert("Music published successfully.");
-      fetchMusic(email); // Update published status
+      fetchMusic(email); // Refresh list to reflect new status
     } catch (error) {
       console.error("Error publishing music:", error);
     }
   };
 
-  const handleUnpublish = async (id) => {
+  const handleUnpublish = async (musicItem) => {
     try {
-      await deleteDoc(doc(db, "musicUploads", email, "published_music", id));
+      const musicRef = doc(db,"beats", musicItem.id);
+
+      await updateDoc(musicRef, { status: false });
+
       alert("Music unpublished successfully.");
-      fetchMusic(email); // Update published status
+      fetchMusic(email); // Refresh list to reflect new status
     } catch (error) {
       console.error("Error unpublishing music:", error);
     }
@@ -112,11 +94,11 @@ const UploadedMusicComponent = ({ setSelectedMusic }) => {
             )}
             <br />
             <button onClick={() => setSelectedMusic(item)}>Edit</button>
-            <button onClick={() => handleDelete(item.id, publishedStatus[item.id])}>Delete</button>
-            {!publishedStatus[item.id] ? (
+            <button onClick={() => handleDelete(item.id)}>Delete</button>
+            {item.status !== true ? (
               <button onClick={() => handlePublish(item)}>Publish</button>
             ) : (
-              <button onClick={() => handleUnpublish(item.id)}>Unpublish</button>
+              <button onClick={() => handleUnpublish(item)}>Unpublish</button>
             )}
           </li>
         ))}

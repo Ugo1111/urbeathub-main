@@ -96,11 +96,12 @@ const UploadMusicComponent = ({ selectedMusic, clearSelection }) => {
         const musicUrl = await getDownloadURL(musicRef);
         const coverUrl = await getDownloadURL(coverRef);
 
-        const musicCollectionRef = collection(db, "musicUploads", email, "music");
+        const musicCollectionRef = collection(db, "beats");
         await addDoc(musicCollectionRef, {
           title: musicTitle,
           musicUrl,
           coverUrl,
+          status: false,
           uploadedBy: email,
           timestamp: Timestamp.now(),
         });

@@ -154,6 +154,8 @@ hr{
 
 
 .IoMdDownload {
+  text-decoration-line: none;
+  color: #ffffff5a;
   margin: 25px;
 width: 80%;
 height: 40px;
@@ -554,4 +556,90 @@ margin-bottom: auto;
   padding: 0;
   width: 50px;
   color: #d9d9d9;
+}
+
+
+
+
+/* cart page css */
+
+.CheckoutContainer{
+  border: #282727 solid;
+  height: 100vh;
+
+}
+
+
+.CheckoutBody{
+  display: flex;
+  justify-content: space-evenly;
+width: 85%;
+margin: auto;
+
+
+}
+
+
+.checkoutItem{
+  background-color: rgb(91, 91, 91);
+  width: 70%;
+  border: #eb5025 solid;
+}
+
+
+.CartSummary{
+  display: flex;
+  flex-direction: column;
+  
+ gap:  30px;
+}
+
+.CartSection2{
+  border: #2827275c solid;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: rgba(20, 20, 20, 0.631);
+  margin-left: 15px;
+}
+
+.selectedCartSummary {
+  display: flex;
+  justify-content: space-between;
+  color: rgb(229, 229, 229);
+}
+
+.Subtotal{
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.Total_CartSummary{
+  color: rgb(47, 189, 0);
+  display: flex;
+  justify-content: space-between;
+}
+
+.CheckoutTitle{
+margin: 30px;
+margin-left: 70px;
+}
+
+.proceedToCheckout{
+  background-color: rgb(0, 81, 255);
+  color: #ffffff;
+  padding: 15px;
+  margin: 15px;
+  border-radius: 10px;
+  font-size: larger;
+  border: none;
+}
+
+
+
+
+
+
+.favourite-page{
+  height: 100vh;
 }

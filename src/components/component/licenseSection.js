@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import {  FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import "../css/addToCart.css";
+import HandleAddToCart from "../component/AddToCartComponent.js";
 
 
-
-export default function LicensingSection( ) {
+export default function LicensingSection({ song, addToCart }) {
   const [toggleAccordion, setToggleAccordion] = useState("basic");
   const [accordionOpen, setAccordionOpen] = useState(true);
+
   // Data as an object from a database
   const licenses = {
     basic: {
@@ -22,7 +23,6 @@ export default function LicensingSection( ) {
         "Radio Broadcasting rights (2 Stations)",
       ],
     },
-
     premium: {
       name: "Premium License",
       price: "$35.00",
@@ -36,7 +36,6 @@ export default function LicensingSection( ) {
         "Radio Broadcasting rights (2 Stations)",
       ],
     },
-
     wavStems: {
       name: "Wav stems",
       price: "$50.00",
@@ -62,6 +61,13 @@ export default function LicensingSection( ) {
     },
   };
 
+  // // Handle Add to Cart action
+  // const handleAddToCart = () => {
+  //   const selectedLicense = licenses[toggleAccordion];
+  //   // Add the song and selected license to the cart
+  //   addToCart(song, selectedLicense);
+  // };
+
   return (
     <div className="licensing-container">
       <span className="licensing-header">
@@ -70,7 +76,10 @@ export default function LicensingSection( ) {
           <span>
             Total: {licenses[toggleAccordion]?.price || "Select a license"}
           </span>
-          <button className="add-to-cart-btn">Add to Cart</button>
+          {/* <button className="add-to-cart-btn" onClick={handleAddToCart}>
+            Add to Cart
+          </button> */}
+         <HandleAddToCart song={song} selectedLicense={licenses[toggleAccordion]} />
           <button className="buy-now-btn">Buy now</button>
         </div>
       </span>
@@ -93,21 +102,18 @@ export default function LicensingSection( ) {
 
       <hr></hr>
       <div className="usageTermHeader">
-          <h3 className="usageTermHeaderh3">Usage Terms</h3> <button onClick={() => setAccordionOpen(!accordionOpen)}>
-       {accordionOpen ? <FaChevronUp size="1.5em"/> :  <FaChevronDown size="1.5em"/>}
-    </button>
-        </div>
+        <h3 className="usageTermHeaderh3">Usage Terms</h3>
+        <button onClick={() => setAccordionOpen(!accordionOpen)}>
+          {accordionOpen ? <FaChevronUp size="1.5em" /> : <FaChevronDown size="1.5em" />}
+        </button>
+      </div>
 
-        <div
-      className={accordionOpen ? "accordionOpen" : "panel"}
-    >
-     
-
-        <br></br>
+      <div className={accordionOpen ? "accordionOpen" : "panel"}>
+        <br />
         <span>{licenses[toggleAccordion]?.name}</span>
         <span> ({licenses[toggleAccordion]?.price})</span>
-        <br></br>
-        <br></br>
+        <br />
+        <br />
         <div className="usageTermSection">
           {licenses[toggleAccordion]?.usageTerms?.map((term, index) => (
             <div key={index} className="usageTermList">

@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 
 
-const Download = ({ fontSize = "1em", to, state }) => {
+const Download = ({ fontSize = "1em", to, state,  song  } ) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -23,12 +23,14 @@ const Download = ({ fontSize = "1em", to, state }) => {
   return (
     <span style={{ fontSize }}>
      
-      {user ? <Link to={to} state={state }>
-                  <button>
+      {user ?<a href={song.musicUrl} download={song.title}>
+      
+     
+                  <button> 
                   <IoMdDownload size="1.5em" />
                  
                   </button>
-                  </Link> : null}
+                  </a> : null}
     </span>
   );
 };

@@ -1,0 +1,161 @@
+/* ShareModal.css */
+
+/* Overlay that covers the entire screen */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.627); /* Semi-transparent black */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  /* Modal content */
+  .modal-content {
+    background-color: rgb(25, 25, 25);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    text-align: center;
+  }
+  
+  /* Close button */
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #ccc;
+  }
+  
+  /* Song information (cover image and title) */
+  .song-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .cover-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    object-fit: cover;
+    margin-right: 15px;
+  }
+  
+  .song-info h4 {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .song-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: gray;
+  }
+  
+  /* Links to share */
+  .share-links {
+    margin-bottom: 20px;
+  }
+  
+  .link-group {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .link-group span{
+    font-size: 15px;
+  }
+
+  .link-box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+   
+  }
+  
+  .link-box input {
+    width: 80%;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #c1bdbd;
+  }
+  
+  .link-box button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: rgb(243, 243, 243);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .link-box button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Share options (social media buttons) */
+  .share-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .share-options button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #3b5998;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .share-options button:hover {
+    background-color: #2d4373;
+  }
+  
+  .share-options button:nth-child(2) {
+    background-color: #1da1f2;
+  }
+  
+  .share-options button:nth-child(2):hover {
+    background-color: #1a91da;
+  }
+  
+  .share-options button:nth-child(3) {
+    background-color: #f7f7f7;
+    color: #333;
+  }
+  
+  .share-options button:nth-child(3):hover {
+    background-color: #e0e0e0;
+  }
+  
+  /* Optional: Add some space between the share buttons */
+  .share-options button:last-child {
+    margin-bottom: 0;
+  }

@@ -9,7 +9,11 @@ import { FaPlay, FaShareAlt, FaHeart, FaChevronDown, FaChevronUp } from "react-i
 import { RiAddLargeFill } from "react-icons/ri";
 import { IoMdDownload } from "react-icons/io";
 import { IoIosContact } from "react-icons/io";
-import LicensingSection  from "../component/licenseSection.js";
+import LicensingSection from "../component/licenseSection.js";
+import LikeButton from "../component/LikeButton";
+import Comment from "../component/CommentSection"; // Import the new Comment component
+import ShareModal from "../component/ShareModal";
+
 
 function AddToCart() {
   const location = useLocation();
@@ -64,14 +68,6 @@ function AddToCart() {
     };
   }, []);
 
-  // Add new comment
-  const addComment = () => {
-    if (newComment.trim()) {
-      setComments([...comments, newComment]);
-      song.comments.push(newComment);  // Optionally update the song's comments
-      setNewComment("");
-    }
-  };
 
   // Handle license accordion toggle
   const toggleAccordion = () => setAccordionOpen(!accordionOpen);
@@ -107,13 +103,12 @@ function AddToCart() {
               volume={volume}
               formatTime={formatTime}
             />
-            < LicensingSection  accordionOpen={accordionOpen} toggleAccordion={toggleAccordion} />
+            < LicensingSection accordionOpen={accordionOpen} toggleAccordion={toggleAccordion} song={song} />
+
             <Comment
               song={song}
               comments={comments}
-              newComment={newComment}
-              setNewComment={setNewComment}
-              addComment={addComment}
+              setComments={setComments} // Pass setComments to update comments in AddToCart
             />
             <Genre />
           </div>
@@ -142,7 +137,7 @@ function Mp3player({ song, isPlaying, currentTime, duration, handlePlayPause, ha
             onChange={handleSliderChange}
           />
           <span>{formatTime(duration)}</span>
-          <audio ref={audioRef} src={song.url} />
+          <audio ref={audioRef} src={song.musicUrl} />
           <input
             type="range"
             min="0"
@@ -158,32 +153,52 @@ function Mp3player({ song, isPlaying, currentTime, duration, handlePlayPause, ha
   );
 }
 
-function SongBio({ song }) {
+function SongBio({ song, handleLike, like, likeCount }) {
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShareClick = () => {
+    setShowModal(true); // Show the modal when share button is clicked
+  };
+
+  const closeModal = () => {
+    setShowModal(false); // Close the modal
+  };
+
   return (
     <div className="songBioSection">
-      <CoverArt image={song.image} />
+      <CoverArt coverUrl={song.coverUrl} />
       <h3 style={{ padding: "10px", textAlign: "center" }}>{song.title}</h3>
       <span className="item-actions">
         <div>
           <FaPlay size="1.5em" />
           <div>{song.playCount}</div>
         </div>
+
+
+        <div >
+          <LikeButton size="1.5em" songId={song.id} />
+        </div>
+
         <div>
-          <FaHeart size="1.5em" />
+          <FaShareAlt size="1.5em" color="blue" onClick={handleShareClick} />
           <div>{song.playCount}</div>
         </div>
         <div>
-          <FaShareAlt size="1.5em" />
-          <div>{song.playCount}</div>
-        </div>
-        <div>
-          <RiAddLargeFill size="1.5em" />
+          <RiAddLargeFill size="1.5em" style={{ color: "red" }} />
           <div>{song.playCount}</div>
         </div>
       </span>
-      <div className="IoMdDownload">
-        <IoMdDownload size="1.5em" /> Download for Free
-      </div>
+
+      <a href={song.musicUrl} download={song.title} style={{ textDecoration: "none" }}>
+        <div className="IoMdDownload">
+          <IoMdDownload size="1.5em" /> Download for Free
+        </div>
+      </a>
+
+
+
+
       <hr />
       <div className="BioInformationSection">
         <h4>Information</h4>
@@ -196,47 +211,24 @@ function SongBio({ song }) {
           <span>{song.length} 131</span>
         </div>
       </div>
+
+
+
+      {/* Render ShareModal if showModal is true */}
+      {showModal && <ShareModal song={song} onClose={closeModal} />}
     </div>
   );
 }
 
-function CoverArt({ image }) {
+function CoverArt({ coverUrl }) {
   return (
     <div className="image-placeholder">
-      <img src={image} alt="Trending Instrumental" />
+      <img src={coverUrl} alt="Trending Instrumental" />
     </div>
   );
 }
 
-function Comment({ song, comments, newComment, setNewComment, addComment }) {
-  return (
-    <section className="comment">
-      <h1>Comments</h1>
-      <div className="add-comment">
-        <Profilepicture />
-        <input
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          placeholder="Share your thoughts..."
-        />
-        <button onClick={addComment}>
-          <TbSend className="send-icon" />
-        </button>
-      </div>
-      <div className="comments-list">
-        {comments.map((comment, idx) => (
-          <div className="comments-list-container" key={idx}>
-            <IoIosContact size="2.5em" />
-            <div>
-              <div>{song.title}</div>
-              <p>{comment}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
+
 
 function Genre() {
   return (

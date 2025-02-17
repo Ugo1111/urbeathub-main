@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+
 body {margin: 0;
   padding: 0;
  
- 
+  font-family: "Roboto", serif;
   min-height: 100vh;
   min-width: 100vw;
 }
@@ -9,50 +13,95 @@ body {margin: 0;
 
 
 
-
 .homepageWrapper {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5em;/*i need to adjust this to this as it  affecting the whole size of my code*/
-    color: white;
-    background-image: url('/src/images/dj.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed; /* Makes the background sticky */
-    width: 100%;
-/* opacity: 0.2; */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  }
-  .homepageWrapper2  {
-  
-    background : rgba(0, 0, 0, 0.8); /* Dark overlay */
+  font-size: 1.5em;/*i need to adjust this to this as it  affecting the whole size of my code*/
+  color: rgba(255, 255, 255, 0.715);
+  background-image: url('/src/images/dj.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Makes the background sticky */
+  width: 100%;
+  /* opacity: 0.2; */
+  font-family: "Roboto", serif;
 }
 
-.musicControlerA{ 
-  width: 13%;
-  border-radius: 5px;
-  height: 100%;
-  }
+/* Add responsive design */
+@media (max-width: 600px) {
+ body {
+  border: #c28c8c solid 2px ;
 
-.musicControlerA {
+   padding: 0;
+   min-height: 100vh;
+   max-width: 100vw;
+ }
+   
+.homepageWrapper {
+  border: #61dafb solid;
+ padding-top: 15px;
+  max-width: 90vw;
+ min-height: 100vh;
+
+ font-size: 1.5em;/*i need to adjust this to this as it  affecting the whole size of my code*/
+ color: rgba(255, 255, 255, 0.715);
+ background-image: none;
+ 
+
+/* opacity: 0.2; */
+
+}
+}
+
+
+
+
+.musicControlerA{ 
+  min-width: 13%;
+  border-radius: 5px;
+  min-height: 100%;
+max-width: 13%;
+border: #c2c18c solid 2px ;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative; /* Ensures child elements can be positioned absolutely */
+
 }
+
+
+
+.musicControlerA img{
+  max-width: 100%;
+  max-height: 110%;
+  object-fit: contain;
+  width: 100%; /* Scale the image width to the container */
+height: 100%;
+
+}
+
+
+
+
+
 
 .imageWrapper {
   position: relative;
   display: inline-block;
+  height: 100%;
+  border-radius: 5px;
+overflow: hidden;
 }
 
 .imageWrapper img {
   display: block; /* Ensures proper positioning of the image */
   width: 100%; /* Optional: Adjust to fit your layout */
-  height: auto; /* Maintain aspect ratio */
+  height: 100%; /* Maintain aspect ratio */
+
+  object-fit: contain;
 }
 
 .playIcon {
@@ -62,14 +111,17 @@ body {margin: 0;
   transform: translate(-50%, -50%); /* Center the icon */
   color: white; /* Optional: Adjust color */
   cursor: pointer; /* Make the icon clickable */
-  background-color: rgb(223, 37, 37, 0.5);
+  background-color: rgba(223, 37, 37, 0.5);
   border: rgb(223, 37, 37, 0.0);
   border-radius: 100%;
-  width: 80px;
-  height: 80px;
+  width: 50%;
+  height: 50%;
+  size: 80%;
 }
 
-
+.icon {
+  font-size: 1.5rem
+}
 
 
 
@@ -82,31 +134,22 @@ body {margin: 0;
 
   
   .GroupB {
-    
+  
+
       padding: 15px;
-      width: 63%;
-      height: 50vmin;
+      width: 73%;
+      height: 60vmin;
       text-align: center;
-    
-    
+    margin-bottom: 10px;
+   
+
   }
 
-  /* Add responsive design */
-  @media (max-width: 768px) {
-    .GroupB {
-    border: #db3056 2px solid;
-      padding: 5px;
-      width: 63%;
-      height: 85vmin;
-      text-align: center;
-    
-    
-  }
 
   .GroupB  div {
-    border: #8d684c 2px solid;
    
-    margin: 0px 0 90px 0;
+   text-align: center;
+    margin: 15px 0 200px 0;
     
     
   }
@@ -114,31 +157,86 @@ body {margin: 0;
     /* .heroText{
 
     } */
-    .heroText h4{
+    .heroText h3{
+      text-align: center;
 color: #db3056;
-margin: 0px 0 20px 0;
-border: #dba230 2px solid;
+margin: 0px 0 35px 0;
+font-size: 2.3em;
     }
-    .heroText p{
+    .heroText h5{
       margin: 10px 0 0px 0;
-      font-size: 0.7em;
+      font-size: 0.8em;
+     
+
     }
+
+
+
+
+
+  /* Add responsive design */
+  @media (max-width: 600px) {
+    .GroupB {
+      font-family: "Roboto", serif;
+     
+margin-top: 5px;
+      padding: 5px;
+      min-width: 90%;
+    min-height: 75vmin;
+      text-align: center;
+    
+    
+  }
+
+  .GroupB  div {
+   
+   
+    margin: 5px 0 100px 0;
+    
+    
+  }
+
+    /* .heroText{
+
+    } */
+    .heroText h3{
+color: #db3056;
+margin: 0px 0 25px 0;
+font-size: 1.1em;
+    }
+    .heroText h5{
+      margin: 10px 0 30px 0;
+      font-size: 0.5em;
+     
+
+    }
+
+
+    .GroupC1{
+      font-family: "Roboto", serif;
+    
+      padding: 5px;
+      width: 90%;
+      height: 75vmin;
+      text-align: center;
+    
+    }
+
+
   }
 
 
-
-  
  
   
-  .GroupCa {
+  /* .GroupCa {
     
     background-color: #5760a7;
     width: 100%;
-   
+   border: #8ffb61 solid 3px;
   
   
   }
-  
+   */
   
   .GroupCb {
     
@@ -151,7 +249,7 @@ border: #dba230 2px solid;
   
   }
   
-  
+/*   
   .GroupC {
     background-color: #9bae31;
     width: 100%;
@@ -160,7 +258,7 @@ border: #dba230 2px solid;
   
   
   }
-  
+   */
   
   .GroupF{
      height: inherit;
@@ -589,50 +687,83 @@ border: #dba230 2px solid;
   flex-direction: column;
   }
  
-  .musicControlerA img{
-    max-width: 100%;
-    max-height: 110%;
-    object-fit: contain;
-    width: 100%; /* Scale the image width to the container */
-  height: 100%;
-
-  }
 
  
 
     
   .GroupC1{
       padding: 15px;
-      background-color: #2f2d28;
-      width: 63%;
+      background-color: #181818;
+      width: 70%;
       height: 15vmin;
     display: flex;
 
   }
 
   .GroupC2{
- 
-      background-color: #2f2d28;
-      width: 63%;
+ font-size: large;
+    background-color: #181818;
+      width: 70%;
       height: 35vmin;
       padding: 15px;
+      gap: 20;
   }
   
   .market button {
-    border-left: 2px solid #2f2d28;
+
+    gap: 10;
     padding: 10px;
-    background-color: rgb(49, 147, 174, 0.0);
+    margin-left: 5px;
+    background-color:#26262600;
+
     color: #ccc;
+    border: #eaeaea1f 0.5px solid;
+    border-radius: 5%;
       }
+    
+    
+      .market button:hover {
+
+        cursor: pointer;
+        background-color: #e06983;
+      }
+ 
+  
+  
+ 
+ @media screen and (max-width: 600px){
+  .GroupC2{
+    width: 90%;
+  }
+  .GroupC1{
+    width: 90%;
+  }
+ }
+     
 
 
 
 
   .controllerB1{
     flex: 1;
-   
+
        /* border-radius: 50px; */
   }
+  
+  
+  .controllerB1 h4{
+   
+    display: block;
+   white-space: nowrap;
+    width: 80%;
+  
+  
+    overflow: hidden;
+       /* border-radius: 50px; */
+  }
+
+
+
   .controllerB2 span{
 font-size: medium;  }
 
@@ -647,24 +778,34 @@ font-size: medium;  }
   }
   
   .controllerB3 button{ 
-    background-color: #4b4842;
-    color: #ccc;
+    background-color: #222222;
+    border: #eaeaea1f 0.5px solid;
+    height: 100%;
+    color: #9a9a9a;
     margin: 0 2px 0 2px ;    }
   
+
+    .controllerB3 button:hover{
+      background-color: #3a3a3a;
+    }
+
+
   .controllerB3{
     flex: 1;
-
+    border: #61dafb solid;
     display: flex;
+    
 flex-direction: row;
   
     /* margin-left: 8px; */
   }
 
   .volnav{
- 
+    background-color: #222222;
     display: flex;
     flex-direction: column;
   }
+
 
 
   .title4MusicController  button{
@@ -681,13 +822,22 @@ flex-direction: row;
   }
   .songlist{
     display: flex; 
-    
+    border: #363636ad solid 0.5px; 
     padding: 5px;
     margin: 5px;
     flex-direction: row;
 
-    background-color: #4b4842;
+    background-color: #222222;
   }
+
+  .songListTitle {
+   margin-right: 10px;
+    display: block;
+   white-space: nowrap;
+
+    overflow: hidden;
+  }
+
   .songlist:hover{
     cursor: pointer;
     background-color: #db3056;
@@ -695,6 +845,7 @@ flex-direction: row;
 
   
   .listimage{
+    margin-right: 10px;
     width: 40px;
     height: 40px;
   }
@@ -708,8 +859,34 @@ flex-direction: row;
   .market{
     margin-left: auto;
     left: 30px;
+  
+    white-space: nowrap;
   }
   .market span{
     gap: 10px;
   }
   
+
+
+
+  @media (max-width: 600px) {
+    
+    .GroupC2{
+      border: #61dafb solid;
+      font-size: large;
+         background-color: #181818;
+           width: 70%;
+           height: 35vmin;
+           padding: 15px;
+           gap: 20;
+       }
+
+       
+}
+
+
+
+
+
+
+

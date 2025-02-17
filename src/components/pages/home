@@ -1,0 +1,365 @@
+
+import React, { useState, useRef, useEffect } from "react";
+import { FaCartShopping } from "react-icons/fa6";
+import { FaShareAlt } from "react-icons/fa";
+import { GiNextButton, GiPreviousButton } from "react-icons/gi";
+import { FaPlay, FaPause } from "react-icons/fa";
+import { SlOptionsVertical } from "react-icons/sl";
+import "../css/component.css";
+import { db } from "../../firebase/firebase";
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+  setDoc,
+  getDoc,
+} from "firebase/firestore";
+import GroupA from "../component/header.js";
+import Download from "../component/download.js";
+import LikeButton from "../component/LikeButton";
+import ShareModal from "../component/ShareModal"; 
+
+import { GroupE, GroupF, GroupG } from "../component/footer.js";
+import "../css/HomePage.css";
+import "../css/component.css";
+
+import { Link } from "react-router-dom";
+
+function HomePage() {
+  const [songs, setSongs] = useState([]);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
+  const [newComment, setNewComment] = useState("");
+  const audioRef = useRef(null);
+  const [selectedSong, setSelectedSong] = useState(null);
+
+  
+  const fetchMusic = async () => {
+    try {
+      const musicCollectionRef = collection(
+        db,
+        "beats"
+      );
+      const querySnapshot = await getDocs(musicCollectionRef);
+      const musicList = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+      .filter((music) => music.status === true); // Only include published songs
+
+      setSongs(musicList);
+    } catch (error) {
+      console.error("Error fetching music:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMusic();
+  }, []);
+
+  // Play a specific song by index
+  const playSong = (index) => {
+    setCurrentIndex(index);
+    setIsPlaying(true);
+  };
+
+  // Toggle play/pause
+  const togglePlayPause = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      if (isPlaying) {
+        audio.pause();
+        setIsPlaying(false);
+      } else {
+        audio.play().catch((error) => {
+          console.error("Playback failed:", error);
+        });
+        setIsPlaying(true);
+      }
+    }
+  };
+
+  const playNext = () => {
+    setCurrentIndex((currentIndex + 1) % songs.length);
+    setIsPlaying(true);
+  };
+
+  const playPrevious = () => {
+    setCurrentIndex((currentIndex - 1 + songs.length) % songs.length);
+    setIsPlaying(true);
+  };
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return ${minutes}:${seconds < 10 ? "0" : ""}${seconds};
+  };
+
+  const handleSliderChange = (e) => {
+    const audio = audioRef.current;
+    const newTime = e.target.value;
+    audio.currentTime = newTime;
+    setCurrentTime(newTime);
+  };
+
+  const handleVolumeChange = (event) => {
+    const newVolume = parseFloat(event.target.value);
+    setVolume(newVolume);
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume;
+    }
+  };
+
+  const increaseVolume = () => {
+    const newVolume = Math.min(volume + 0.1, 1);
+    setVolume(newVolume);
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume;
+    }
+  };
+
+  const decreaseVolume = () => {
+    const newVolume = Math.max(volume - 0.1, 0);
+    setVolume(newVolume);
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume;
+    }
+  };
+
+  const addComment = () => {
+    if (newComment.trim()) {
+      const updatedSongs = [...songs];
+      updatedSongs[currentIndex].comments.push(newComment);
+      setSongs(updatedSongs);
+      setNewComment("");
+    }
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const updateTime = () => setCurrentTime(audio.currentTime);
+    const updateDuration = () => setDuration(audio.duration);
+
+    audio.addEventListener("timeupdate", updateTime);
+    audio.addEventListener("loadedmetadata", updateDuration);
+
+    return () => {
+      audio.removeEventListener("timeupdate", updateTime);
+      audio.removeEventListener("loadedmetadata", updateDuration);
+    };
+  }, []);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const currentSong = songs[currentIndex];
+    if (currentSong?.musicUrl) {
+      audio.src = currentSong.musicUrl;
+      audio.load();
+
+      if (isPlaying) {
+        audio.play().catch((error) => console.error("Playback failed:", error));
+      } else {
+        audio.pause();
+      }
+    }
+
+    setCurrentTime(0); // Reset current time when the song changes
+  }, [currentIndex, isPlaying]);
+
+  function GroupB() {
+    return (
+      <div className="GroupB">
+        <div>BeatHub is a brand that supports afrobeat artists</div>
+        <div className="heroText">
+          <h3>We are Africa's sound producer for Africans.</h3>
+          <h5>
+            Get your already made AFRO, AMAh5IANO instrumental beats from
+            producer - perfect for artists and creators. Your Next Hit Start
+            here
+          </h5>
+        </div>
+      </div>
+    );
+  }
+
+  function GroupC1() {
+    const currentSong = songs[currentIndex] || {};
+
+    return (
+      <div className="GroupC1">
+        <div className="musicControlerA">
+          <div className="imageWrapper">
+            {currentSong.coverUrl ? (
+              <>
+                <img
+                  src={currentSong.coverUrl}
+                  alt={Cover for ${currentSong.title || "Unknown Title"}}
+                />
+                <button className="playIcon" onClick={togglePlayPause}>
+                  {isPlaying ? (
+                    <FaPause className="icon" />
+                  ) : (
+                    <FaPlay className="icon" />
+                  )}
+                </button>
+              </>
+            ) : (
+              <p>No cover image available</p>
+            )}
+          </div>
+        </div>
+
+        <div className="musicControlerB">
+          <div className="controllerB1">
+            <h4>{currentSong.title || "Untitled"}</h4>
+          </div>
+
+          <div className="controllerB2">
+            <span>{formatTime(currentTime)}</span>
+            <input
+              type="range"
+              min="0"
+              max={duration || 0}
+              value={currentTime}
+              onChange={handleSliderChange}
+              className="progress"
+            />
+            <span>{formatTime(duration)}</span>
+          </div>
+
+          <div className="controllerB3">
+            <button onClick={playPrevious}>
+              <GiPreviousButton size="1.5em" />
+            </button>
+            <button onClick={playNext}>
+              <GiNextButton size="1.5em" />
+            </button>
+
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value={volume}
+              onChange={handleVolumeChange}
+            />
+
+            <div className="volnav">
+              <button onClick={increaseVolume}>+</button>
+              <button onClick={decreaseVolume}>-</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  const closeShareModal = () => setSelectedSong(null);
+  function GroupC2({ songs, playSong, audioRef,  }) { // Accept audioRef as prop
+  
+    const openShareModal = (song) => {
+      setSelectedSong(song);
+    };
+    
+    return (
+      <div className="GroupC2">
+        <div className="songcontainer">
+          {songs.map((song, index) => (
+            <div
+              className="songlist"
+              key={index}
+              onClick={() => playSong(index)} // Clicking on a song immediately plays it
+            >
+              <img
+                src={song.coverUrl || "./images/default-cover.jpg"}
+                className="listimage"
+                alt={song.title || "Untitled"}
+              />
+              <div className="songListTitle">
+                {" "}
+                {song.title || "Unknown Title"}{" "}
+                <div style={{ fontSize: "0.65em" }} >
+              <LikeButton   songId={song.id} />
+               </div>
+              </div>
+
+             
+      
+
+              <div className="market">
+                <Link to="/buysong" state={{ song }}>
+                  <button>
+                    <FaCartShopping color="" size="1.5em" />
+                  </button>
+                </Link>
+              
+                <Download song={song} />   
+
+     {/* Share Button */}
+     <button onClick={(e) => { e.stopPropagation(); openShareModal(song); }}>
+  <FaShareAlt size="1.5em" /> Share
+</button>
+
+                <Link to="/loginPage">
+                  <button>
+                    <SlOptionsVertical size="1.5em" />
+                  </button>
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <audio ref={audioRef}>
+          Your browser does not support the audio element.
+        </audio>
+
+       
+      </div>
+    );
+  }
+
+  function GroupD() {
+    return (
+      <div className="comments">
+        <h4>Comments for {songs[currentIndex].title}</h4>
+        <div className="comments-list">
+          {songs[currentIndex].comments.map((comment, idx) => (
+            <p key={idx}>{comment}</p>
+          ))}
+        </div>
+        <input
+          type="text"
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          placeholder="Add a comment..."
+        />
+        <button onClick={addComment}>Add Comment</button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="homepageWrapper">
+
+      <GroupA />
+      <GroupB />
+      <GroupC1 />
+      <GroupC2 songs={songs} playSong={playSong} audioRef={audioRef} />
+      {/* <GroupD /> */}
+    
+       {/* Share Modal */}
+       {selectedSong && <ShareModal song={selectedSong} onClose={closeShareModal} />}
+    </div>
+  );
+}
+
+export default HomePage;

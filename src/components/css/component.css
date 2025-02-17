@@ -425,14 +425,54 @@ width: 100vw;
   text-decoration: underline;
 }
 
+.commentWrapper{
+  display: flex;
+  align-items: flex-start; /* Aligns everything at the start */
+  gap: 8px; /* Adds space between image and text */
+  flex-direction: column; /* Make everything stack vertically */
+}
 
 
+.commentImage{
+border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+
+.load-more-btn {
+  padding: 10px 20px;
+  background-color: #007bff52;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px 0 10px 10px ;
+}
+
+.load-more-btn:hover {
+  background-color: #0056b3;
+}
+
+.loading {
+  text-align: center;
+  font-size: 16px;
+  color: #777;
+}
 
 
+.delete-comment-btn {
+  background-color: rgba(255, 0, 0, 0.203);
+  color: rgba(255, 255, 255, 0.223);
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-
-
-
+.delete-comment-btn:hover {
+  background-color: darkred;
+  color: rgba(255, 255, 255, 0.583);
+}
 
 
 

@@ -6,6 +6,9 @@ import Passage from "./components/pages/loginPage";
 import Enroll from "./components/pages/SignUpPage";
 import CheckOut from "./components/pages/checkout";
 import UploadMusicPage from './components/pages/UploadMusicPage';
+import FavouritePage from './components/pages/FavouritePage';
+import CartPage from "./components/pages/CartPage";
+
 import "./App.css";
 import {BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate} from "react-router-dom";
 
@@ -21,6 +24,9 @@ function App() {
             <Route path="/checkout" element={<CheckOut/>} />
             <Route path="/profilePage" element={<ProfilePage/>} />
             <Route path="/UploadMusicPage" element={<UploadMusicPage/>} />
+            <Route path="/FavouritePage" element={<FavouritePage/>} />
+            <Route path="/CartPage" element={<CartPage/>} />
+           
           </Routes>
           </Router>
   )

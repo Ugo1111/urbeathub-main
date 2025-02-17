@@ -13,7 +13,7 @@ export const signUp = async (email, password, username) => {
     const user = userCredential.user;
 
     // Add the user to Firestore with their username and other details
-    await setDoc(doc(db, "beatHubUsers", user.email), {
+    await setDoc(doc(db, "beatHubUsers", user.uid), {
       username: username,  // Save the username in Firestore
       email: user.email,
       createdAt: new Date().toISOString(),  // Store the timestamp of when the user was created
