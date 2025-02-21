@@ -17,7 +17,7 @@ const UploadMusicPage = ({ email }) => {
   useEffect(() => {
     // Fetch data from Firestore
     const fetchData = async () => {
-      const querySnapshot = await getDocs(collection(db, "beats"));
+      const querySnapshot = await getDocs(collection(db, "lee"));
       const items = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
       setData(items);
     };
@@ -78,10 +78,10 @@ const UploadMusicPage = ({ email }) => {
 
       <AuthState />
       <Logout />
-      {/* <UploadMusicComponent
+      <UploadMusicComponent
         selectedMusic={selectedMusic}
         clearSelection={() => setSelectedMusic(null)}
-      /> */}
+      />
       <UploadedMusicComponent setSelectedMusic={setSelectedMusic} />
     </div>
   );

@@ -1,32 +1,37 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "../css/addToCart.css";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-import CartComponent from "../component/CartComponent.js";
+import CheckoutComponent from "../component/CheckoutComponent.js";
 import GroupA from "../component/header.js";
 import { GroupE, GroupF, GroupG } from "../component/footer.js";
 
-function CartPage() {
-    const [cart, setCart] = useState([]); 
+function CheckoutPage() {
+    const location = useLocation();
+    const selectedSong = location.state?.selectedSong; // Get the selected song from Link state
+
+    const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
-    
+    const [monetizationData, setMonetizationData] = useState([]); // Store monetization data
+
     const auth = getAuth();
     const db = getFirestore();
 
     useEffect(() => {
-        // Listen for auth state changes (ensures auth.currentUser is set)
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setUser(currentUser);
 
-            if (!currentUser) {
-                setCart([]); // Clear cart if no user
-                setLoading(false); // Stop loading
+            if (!currentUser || selectedSong) {
+                // If a song was selected via "Buy Now", only use that song in the cart
+                setCart(selectedSong ? [selectedSong] : []);
+                setLoading(false);
                 return;
             }
 
-            // Fetch cart data when user is available
+            // Fetch full cart data from Firestore if no selected song
             try {
                 const userRef = doc(db, "beatHubUsers", currentUser.uid);
                 const userSnap = await getDoc(userRef);
@@ -34,28 +39,52 @@ function CartPage() {
                 if (userSnap.exists()) {
                     setCart(userSnap.data().cart || []);
                 } else {
-                    setCart([]); // No cart data found
+                    setCart([]);
                 }
             } catch (error) {
                 console.error("Error fetching cart data:", error);
             } finally {
-                setLoading(false); // Ensure loading stops
+                setLoading(false);
             }
         });
 
-        return () => unsubscribe(); // Cleanup on unmount
-    }, []);
+        return () => unsubscribe();
+    }, [selectedSong]);
 
-    // **Total price calculation**
+    useEffect(() => {
+        const fetchMonetizationData = async () => {
+            try {
+                const fetchedMonetizationData = [];
+                for (const song of cart) {
+                    const beatRef = doc(db, "beats", song.songId);  // Fetch beat info from 'beats' collection
+                    const beatSnap = await getDoc(beatRef);
+
+                    if (beatSnap.exists()) {
+                        // Assuming 'monetization' data is stored within each beat document
+                        fetchedMonetizationData.push(beatSnap.data().monetization);
+                    }
+                }
+                setMonetizationData(fetchedMonetizationData);  // Update monetization data state
+            } catch (error) {
+                console.error("Error fetching monetization data:", error);
+            }
+        };
+
+        if (cart.length > 0) {
+            fetchMonetizationData();
+        }
+    }, [cart]);
+
+    // Calculate total price
     const totalPrice = cart.reduce((acc, item) => acc + (parseFloat(item.price) || 0), 0);
 
     return (
         <div className="CheckoutContainer">
             <GroupA />
-            <h1 className="CheckoutTitle">Cart</h1>
+            <h1 className="CheckoutTitle">Checkout</h1>
             <div className="CheckoutBody">
                 <div className="checkoutItem">
-                    <CartComponent cart={cart} setCart={setCart} />
+                           <CheckoutComponent selectedSong={selectedSong} /> 
                 </div>
 
                 <br />
@@ -88,7 +117,11 @@ function CartPage() {
                             </>
                         )}
 
-                        <button onClick={() => window.location.href = "https://paystack.com/pay/ur-beathub"} className="proceedToCheckout">Proceed to Checkout</button>
+                        <button 
+                            onClick={() => window.location.href = "https://paystack.com/pay/ur-beathub"} 
+                            className="proceedToCheckout">
+                            Proceed to Checkout
+                        </button>
                         <div>You are checking out as @{user?.displayName || "Guest"}, not you?</div>
                     </div>
                 </div>
@@ -97,4 +130,4 @@ function CartPage() {
     );
 }
 
-export default CartPage;
+export default CheckoutPage;

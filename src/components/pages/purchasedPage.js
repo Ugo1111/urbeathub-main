@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 import "../css/checkout.css";
 
-function FavouritePage() {
+function Purchased() {
   const [likedSongs, setLikedSongs] = useState(() => {
     // Load from localStorage on initial render
     const storedLikes = localStorage.getItem("likedSongs");
@@ -62,12 +62,12 @@ function FavouritePage() {
   return (
     <div className="favourite-page">
       <GroupA />
-      <h1>Favourite Tracks</h1>
+      <h1>Purchased Tracks</h1>
 
       {loading ? (
         <p>Loading...</p>
       ) : likedSongs.length === 0 ? (
-        <p>You haven't liked any tracks yet.</p>
+        <p>You haven't Purchased any tracks yet.</p>
       ) : (
 
 
@@ -99,4 +99,4 @@ function FavouritePage() {
   );
 }
 
-export default FavouritePage;
+export default Purchased;

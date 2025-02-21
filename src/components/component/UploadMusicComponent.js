@@ -1,139 +1,192 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../../firebase/firebase"; // Make sure you have the correct import for db and storage
-import { collection, addDoc, doc, updateDoc, getDoc, Timestamp } from "firebase/firestore"; // Import Firestore functions
+import { db, storage } from "../../firebase/firebase";
+import { collection, addDoc, updateDoc, Timestamp } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useMusicUploadContext } from "../context/MusicUploadProvider";
 
-const UploadMusicComponent = ({ selectedMusic, clearSelection }) => {
-  // State hooks
-  const [musicFile, setMusicFile] = useState(null);
-  const [coverArt, setCoverArt] = useState(null);
-  const [musicTitle, setMusicTitle] = useState(""); // Declare music title state
-  const [email, setEmail] = useState(""); // Declare email state
-  const [isEditMode, setIsEditMode] = useState(false); // Declare edit mode state
+const UploadMusicComponent = () => {
+  const {
+    setUploadMusic,
+    audioFileMp3, setAudioFileMp3,
+    audioFileWav, setAudioFileWav,
+    coverArt, setCoverArt,
+    musicTitle, setMusicTitle,
+    selectedMusic, setSelectedMusic,
+    beatId, setBeatId,
+    coverPreview, setCoverPreview
+  } = useMusicUploadContext();
 
+  const [email, setEmail] = useState("");
+  const [uid, setUid] = useState("");
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [zipFile, setZipFile] = useState(null);
+  const [audioFileSize, setAudioFileSize] = useState("");
+
+  // Fetch logged-in user info
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setEmail(user.email); // Set email when user is logged in
-      } else {
-        console.error("No authenticated user found");
+        setEmail(user.email);
+        setUid(user.uid);
       }
     });
 
     return () => unsubscribe();
   }, []);
 
+  // Set edit mode if a music track is selected
   useEffect(() => {
     if (selectedMusic) {
-      setMusicTitle(selectedMusic.title); // Set music title if editing
-      setIsEditMode(true); // Set edit mode to true
+      setMusicTitle(selectedMusic.title);
+      setIsEditMode(true);
     } else {
-      setIsEditMode(false); // Set edit mode to false if no selected music
+      setIsEditMode(false);
     }
   }, [selectedMusic]);
 
-  const handleMusicChange = (e) => {
-    setMusicFile(e.target.files[0]); // Set the selected music file
+  // Handle file selection
+  const handleFileSelect = (e, fileType) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (fileType === "musicMp3" && file.type.startsWith("audio/mpeg")) {
+      setAudioFileMp3(file);
+    } else if (fileType === "musicWav" && file.type.startsWith("audio/wav")) {
+      setAudioFileWav(file);
+    } else if (fileType === "cover" && file.type.startsWith("image/")) {
+      setCoverArt(file);
+      setCoverPreview(URL.createObjectURL(file));
+    } else if (fileType === "archive") {
+      const allowedExtensions = ["zip", "rar"];
+      if (!allowedExtensions.includes(file.name.split(".").pop().toLowerCase())) {
+        alert("Invalid file type. Please upload a ZIP or RAR file.");
+        return;
+      }
+      setZipFile(file);
+    } else {
+      alert("Invalid file type.");
+    }
+
+    if (fileType !== "cover") {
+      setAudioFileSize(`${(file.size / 1024).toFixed(2)} KB`);
+    }
   };
 
-  const handleCoverArtChange = (e) => {
-    setCoverArt(e.target.files[0]); // Set the selected cover art file
-  };
-
-  const uploadOrUpdateMusic = async () => {
+  // Upload music function (memoized with useCallback)
+  const uploadMusic = useCallback(async () => {
     if (!musicTitle) {
       alert("Please provide a music title.");
       return;
     }
-
     if (!email) {
-      alert("Email is not available. Please ensure you are logged in.");
+      alert("Please ensure you are logged in.");
+      return;
+    }
+    if (!audioFileMp3 || !audioFileWav) {
+      alert("Both MP3 and WAV files must be uploaded.");
       return;
     }
 
     try {
-      const updatedData = { title: musicTitle };
+      const musicCollectionRef = collection(db, "beats");
+      const newDocRef = await addDoc(musicCollectionRef, {
+        title: musicTitle,
+        musicUrls: {},
+        coverUrl: "",
+        status: false,
+        uploadedBy: email,
+        timestamp: Timestamp.now(),
+      });
 
-      if (isEditMode && selectedMusic) {
-        const musicDocRef = doc(db, "musicUploads", email, "music", selectedMusic.id);
+      setBeatId(newDocRef.id);
 
-        if (musicFile) {
-          const musicRef = ref(storage, `music/${email}/${musicFile.name}`);
-          await uploadBytesResumable(musicRef, musicFile);
-          updatedData.musicUrl = await getDownloadURL(musicRef);
-        }
+      const storagePath = `beats/${newDocRef.id}`;
+      const musicRefMp3 = audioFileMp3 ? ref(storage, `${storagePath}/${audioFileMp3.name}`) : null;
+      const musicRefWav = audioFileWav ? ref(storage, `${storagePath}/${audioFileWav.name}`) : null;
+      const coverRef = coverArt ? ref(storage, `${storagePath}/${coverArt.name}`) : null;
 
-        if (coverArt) {
-          const coverRef = ref(storage, `cover-art/${email}/${coverArt.name}`);
-          await uploadBytesResumable(coverRef, coverArt);
-          updatedData.coverUrl = await getDownloadURL(coverRef);
-        }
+      const uploadTasks = [
+        musicRefMp3 && uploadBytesResumable(musicRefMp3, audioFileMp3),
+        musicRefWav && uploadBytesResumable(musicRefWav, audioFileWav),
+        coverRef && uploadBytesResumable(coverRef, coverArt),
+      ].filter(Boolean);
 
-        // Update the "music" collection
-        await updateDoc(musicDocRef, updatedData);
-        alert("Music updated successfully!");
-
-        // Check and update "published_music" if it exists
-        const publishedMusicDocRef = doc(db, "musicUploads", email, "published_music", selectedMusic.id);
-        const publishedDocSnap = await getDoc(publishedMusicDocRef);
-
-        if (publishedDocSnap.exists()) {
-          await updateDoc(publishedMusicDocRef, updatedData);
-          alert("Published music updated successfully!");
-        }
-      } else {
-        // Upload new music logic
-        const musicRef = ref(storage, `music/${email}/${musicFile.name}`);
-        const coverRef = ref(storage, `cover-art/${email}/${coverArt.name}`);
-
-        await Promise.all([
-          uploadBytesResumable(musicRef, musicFile),
-          uploadBytesResumable(coverRef, coverArt),
-        ]);
-
-        const musicUrl = await getDownloadURL(musicRef);
-        const coverUrl = await getDownloadURL(coverRef);
-
-        const musicCollectionRef = collection(db, "beats");
-        await addDoc(musicCollectionRef, {
-          title: musicTitle,
-          musicUrl,
-          coverUrl,
-          status: false,
-          uploadedBy: email,
-          timestamp: Timestamp.now(),
+      uploadTasks.forEach((task) => {
+        task.on("state_changed", (snapshot) => {
+          setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
         });
+      });
 
-        alert("Music uploaded successfully!");
-      }
+      await Promise.all(uploadTasks);
+
+      const musicUrlMp3 = musicRefMp3 ? await getDownloadURL(musicRefMp3) : "";
+      const musicUrlWav = musicRefWav ? await getDownloadURL(musicRefWav) : "";
+      const coverUrl = coverRef ? await getDownloadURL(coverRef) : "";
+
+      await updateDoc(newDocRef, {
+        musicUrls: { mp3: musicUrlMp3, wav: musicUrlWav },
+        coverUrl,
+      });
+
+      alert("Music uploaded successfully!");
 
       setMusicTitle("");
-      setMusicFile(null);
+      setAudioFileMp3(null);
+      setAudioFileWav(null);
       setCoverArt(null);
-      clearSelection();
+      setCoverPreview(null);
+      setSelectedMusic(null);
+      setProgress(0);
     } catch (error) {
-      console.error("Error uploading or updating files:", error);
-      alert("Failed to upload or update files.");
+      console.error("Upload error:", error);
+      alert("Upload failed. Make sure you have both MP3 and WAV uploaded.");
     }
-  };
+  }, [musicTitle, email, audioFileMp3, audioFileWav, coverArt, db, storage]);
+
+  useEffect(() => {
+    setUploadMusic(() => uploadMusic);
+  }, [uploadMusic]);
 
   return (
-    <div>
-      <h1>{isEditMode ? "Edit Music" : "Upload Music"}</h1>
-      <input
-        type="text"
-        placeholder="Music Title"
-        value={musicTitle}
-        onChange={(e) => setMusicTitle(e.target.value)}
-      />
-      <input type="file" accept="audio/*" onChange={handleMusicChange} />
-      <input type="file" accept="image/*" onChange={handleCoverArtChange} />
-      <button onClick={uploadOrUpdateMusic}>
-        {isEditMode ? "Update Music" : "Upload Music"}
-      </button>
-    </div>
+    <form className="uploadMusicContainer">
+      <div className="cover-title">
+        <div className="drop-zone4Image">
+          {coverPreview ? (
+            <img src={coverPreview} alt="Cover Art Preview" className="preview-image" />
+          ) : (
+            <p>🌆Drag & Drop Image Here or Click to Upload🏞️</p>
+          )}
+          <input type="file" accept="image/*" onChange={(e) => handleFileSelect(e, "cover")} />
+        </div>
+
+        <div className="MusicTitle-label">
+          <label>Title</label>
+          <input type="text" placeholder="Enter the Beat Title" maxLength="400" value={musicTitle} onChange={(e) => setMusicTitle(e.target.value)} required />
+        </div>
+      </div>
+
+      <div className="drop-zone">
+        {audioFileMp3 ? <p>🎵 {audioFileMp3.name} ({audioFileSize})</p> : <p>Drag & Drop MP3 Here or Click to Upload🎙️</p>}
+        <input type="file" required accept="audio/mpeg" onChange={(e) => handleFileSelect(e, "musicMp3")} />
+      </div>
+
+      <div className="drop-zone">
+        {audioFileWav ? <p>🎵 {audioFileWav.name} ({audioFileSize})</p> : <p>Drag & Drop WAV Here or Click to Upload🎤</p>}
+        <input type="file" required accept="audio/wav" onChange={(e) => handleFileSelect(e, "musicWav")} />
+      </div>
+
+      <div className="drop-zone">
+        {zipFile ? <p>📦 {zipFile.name}</p> : <p>🗂️Drag & Drop ZIP/RAR Here or Click to Upload📁</p>}
+        <input type="file" accept=".zip,.rar" onChange={(e) => handleFileSelect(e, "archive")} />
+      </div>
+
+      {/* <button onClick={uploadMusic}>{isEditMode ? "Update Music" : "Upload Music"}</button> */}
+
+      {progress > 0 && <div className="progress-bar"><div style={{ width: `${progress}%` }}>{Math.round(progress)}%</div></div>}
+    </form>
   );
 };
 

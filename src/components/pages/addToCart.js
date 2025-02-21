@@ -137,7 +137,7 @@ function Mp3player({ song, isPlaying, currentTime, duration, handlePlayPause, ha
             onChange={handleSliderChange}
           />
           <span>{formatTime(duration)}</span>
-          <audio ref={audioRef} src={song.musicUrl} />
+          <audio ref={audioRef} src={song.musicUrls?.mp3} />
           <input
             type="range"
             min="0"
@@ -190,7 +190,7 @@ function SongBio({ song, handleLike, like, likeCount }) {
         </div>
       </span>
 
-      <a href={song.musicUrl} download={song.title} style={{ textDecoration: "none" }}>
+      <a href={song.musicUrls.mp3} download={song.title} style={{ textDecoration: "none" }}>
         <div className="IoMdDownload">
           <IoMdDownload size="1.5em" /> Download for Free
         </div>

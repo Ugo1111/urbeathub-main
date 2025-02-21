@@ -64,7 +64,7 @@ body {margin: 0;
   border-radius: 5px;
   min-height: 100%;
 max-width: 13%;
-border: #c2c18c solid 2px ;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -704,7 +704,8 @@ font-size: 1.1em;
  font-size: large;
     background-color: #181818;
       width: 70%;
-      height: 35vmin;
+      min-height: 35vmin;
+      height: fit-content;
       padding: 15px;
       gap: 20;
   }
@@ -792,7 +793,7 @@ font-size: medium;  }
 
   .controllerB3{
     flex: 1;
-    border: #61dafb solid;
+ 
     display: flex;
     
 flex-direction: row;

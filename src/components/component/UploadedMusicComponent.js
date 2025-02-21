@@ -81,7 +81,7 @@ const UploadedMusicComponent = ({ setSelectedMusic }) => {
         {uploadedMusic.map((item) => (
           <li key={item.id}>
             <h3>{item.title}</h3>
-            <audio controls src={item.musicUrl}>
+            <audio controls src={item.musicUrls.mp3}>
               Your browser does not support the audio element.
             </audio>
             <br />

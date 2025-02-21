@@ -98,6 +98,7 @@ export default function HandleAddToCart({ song, selectedLicense }) {
               title: song.title,
               license: selectedLicense.name,
               price: selectedLicense.price,
+              coverUrl: song.coverUrl,
             }),
           },
           { merge: true }

@@ -1,0 +1,241 @@
+.tab-container {
+  min-height: 100vh;
+  min-width: 100vw;
+  text-align: center;
+ 
+}
+.tab-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+ 
+}
+.tab-buttons button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  background: #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  
+}
+.tab-buttons button.active {
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+}
+.tab-content {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #f9f9f9;
+  width: 790px;
+  height: 550px;
+  margin: 0 auto; 
+  overflow: scroll;
+}
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.button-container button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.next-button {
+  background-color: #28a745;
+  color: white;
+}
+.previous-button {
+  background-color: #dc3545;
+  color: white;
+}
+.publish-button {
+  background-color: #007bff;
+  color: white;
+}
+
+
+
+
+
+.Basic-License{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: solid 1px rgb(31, 98, 255);
+  background-color: #95c6fa9e;
+  color: black;
+  border-radius: 10px;
+  margin: 15px;
+  height: 40px;
+  padding: 10px
+}
+
+.Basic-License input{
+  width: 50px;
+  padding: 10px;
+  border-radius: 5px;
+  border: solid 1px gray;
+}
+
+
+
+.BPM-Key{
+display: flex;
+flex-direction: row;
+margin: 40px 0 40px 0;
+
+}
+
+.BPM-Key label{
+  font-weight: bolder;
+  color: black;
+  margin: 10px;
+}
+
+.BPM-Key input{
+  height: 35px;
+border-radius: 5px;
+color: black;
+border: rgba(116, 116, 116, 0.387) solid 1px;
+}
+
+.BPM-Key2{
+  display: flex;
+flex-direction: column;
+margin-right: 20px;
+}
+
+.BPM-Key2 label{
+  display: flex;
+justify-content: flex-start;
+}
+
+.Metadata-Fields{
+  display: flex;
+flex-direction: column;
+margin: 10px;
+margin-bottom: 20px;
+}
+
+.Metadata-Fields label{
+  display: flex;
+justify-content: flex-start;
+font-weight: bolder;
+color: black;
+margin: 10px;
+
+}
+
+
+.Metadata-Fields input{
+height: 35px;
+border-radius: 5px;
+color: black;
+border: rgba(116, 116, 116, 0.387) solid 1px;
+
+}
+
+
+
+
+
+.drop-zone {
+  border: 2px dashed rgba(0, 123, 255, 0.6);
+  padding: 20px;
+  cursor: pointer;
+  text-align: center;
+  margin: 10px;
+}
+
+.cover-title{
+display:flex;
+flex-direction: row;
+}
+
+.MusicTitle-label{
+margin-left: 15px;
+display:flex;
+flex-direction: column;
+width: 500px;
+}
+
+.MusicTitle-label label{
+
+font-size: 1.5em;
+margin: 20px 0 10px 10px;
+}
+
+.MusicTitle-label input{
+border-radius: 10px;
+height: 40px;
+border: 2px solid rgba(0, 123, 255, 0.29);
+}
+
+  .drop-zone4Image {
+  border: 2px solid rgba(0, 123, 255, 0.29);
+  padding: 20px;
+  cursor: pointer;
+  text-align: center;
+  margin: 10px;
+  max-width: 200px;
+   max-height: 300px;
+}
+
+.dragging { background: #f0f8ff; }
+.preview-image {
+  max-width: 100px;
+  max-height: 100px;
+  margin-top: 10px;
+}
+.progress-bar div {
+  height: 10px;
+  background: #007bff;
+  text-align: center;
+  color: white;
+  font-size: 12px;
+}
+
+
+
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-height: 40px;
+  align-items: center;
+}
+.tag {
+  background-color: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.remove-tag {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+.tag-container input {
+  border: none;
+  outline: none;
+  padding: 5px;
+  flex-grow: 1;
+}

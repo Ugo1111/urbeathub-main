@@ -43,7 +43,7 @@ function HomePage() {
     setCurrentIndex(index); // Update the song index
     setIsPlaying(true); // Mark as playing
   
-    audioRef.current.src = songs[index].musicUrl; // Set the source of the audio
+    audioRef.current.src = songs[index].musicUrls.mp3; // Set the source of the audio
     
     // Wait until audio can be played before calling play
     audioRef.current.load(); // Reload to ensure we have the latest song URL

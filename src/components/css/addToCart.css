@@ -468,7 +468,7 @@ margin: 20px auto 20px auto;
 
 
 
-  .usageTermList{
+  /* .usageTermList{
     font-size: small;
    
     text-align: center;
@@ -483,12 +483,12 @@ margin: 20px auto 20px auto;
   .usageTermSection{
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
-    text-align: center;
+    /* text-align: center;
    min-height: 110px;
    width: auto;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
-  }
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+     
 
 
 
@@ -581,9 +581,13 @@ margin: auto;
 
 
 .checkoutItem{
-  background-color: rgb(91, 91, 91);
-  width: 70%;
-  border: #eb5025 solid;
+  /* background-color: rgb(91, 91, 91); */
+  width: 90%;
+  min-height: 90px;
+height: fit-content;
+  
+
+  /* border: #eb5025 solid; */
 }
 
 
@@ -636,10 +640,133 @@ margin-left: 70px;
 }
 
 
-
-
+.proceedToCheckout:active {
+  transform: scale(0.95); /* Shrinks slightly */
+  background-color: #0056b3; /* Darker shade when clicked */
+  
+}
 
 
 .favourite-page{
   height: 100vh;
+
+}
+
+.Search-beats-body{
+border: #2563eb;
+background-color: #d81d1d;
+/* min-height: 80vw; 
+height: auto;
+min-width: 1200px; */
+/* margin: 990px 0 0 0; */
+
+
+border-radius: 25px;
+justify-content: center;
+
+}
+
+.Search-beats-input{
+
+width: 240px;
+height: 45px;
+border-radius: 25px;
+justify-content: center;
+/* background-color: #ccc; */
+}
+
+
+.search-beats-body {  border: #4aff2e solid;
+min-width: 40%;
+
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Adjust as necessary */
+}
+
+.search-beats-input {  border: #be27ff solid;
+  width: 240px;
+  height: 45px;
+  border-radius: 25px;
+  justify-content: center;
+  background-color: #ccc;
+
+
+    width: 240px;
+    max-width: 400px; /* Adjust as necessary */
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.search-beats-results-container {  border: #3d3d3d41 solid;
+  z-index: 1000; /* A high z-index value */
+    position: absolute;
+    top: 100%; /* Position it below the header */
+    min-width: 97vw;
+    backdrop-filter: blur(15px); /* Apply a blur effect */
+    min-height: 90dvh;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.482); /* Optional: Add a subtle shadow */
+    background: rgba(0, 0, 0, 0.217); /* Optional: Change the background of the results list */
+
+}
+
+.search-beats-ul {  border: #d81d1d solid;min-width: 1200px;
+color: #ffffff;
+border-radius: 10px;
+    margin-top: 10px; /* Add some margin to separate the input from the results */
+    padding: 0;
+    list-style: none;
+   height: 90%; /* Optional: Limit the height of the results list */
+    overflow-y: auto; /* Optional: Add scroll if the list is too long */
+    width: 1600px;
+    min-width: 90%; /* Adjust as necessary */
+    background: rgba(0, 0, 0, 0.713); /* Optional: Change the background of the results list */
+    border: 1px solid #ffffff46; /* Optional: Add border to the results list */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Optional: Add shadow to the results list */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.482); /* Optional: Add a subtle shadow */
+    -webkit-backdrop-filter: blur(10px); 
+
+  }
+
+.search-beats-li {  
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+min-width: 1200px;
+    padding: 10px;
+    border-bottom: 1px solid #727171;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    color: #c0c0c0;
+    text-decoration: none;
+}
+
+.search-beats-li:last-child {
+    border-bottom: none;
+    
+}
+
+.search-beats-results-metadata{
+  
+}
+.search-beats-bpm{
+
+  padding: 1px 5px 1px 5px;
+  margin: 5px;
+  font-size: small;
+  
+}
+
+
+.search-beats-taglist{
+  background: rgba(70, 70, 70, 0.428); /* Optional: Change the background of the results list */
+border-radius: 10px;
+padding: 1px 5px 1px 5px;
+  margin: 5px;
+  font-size: medium;
+  border: #f86c6c26 solid;
 }

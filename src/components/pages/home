@@ -161,8 +161,8 @@ function HomePage() {
     if (!audio) return;
 
     const currentSong = songs[currentIndex];
-    if (currentSong?.musicUrl) {
-      audio.src = currentSong.musicUrl;
+    if (currentSong?.musicUrls.mp3) {
+      audio.src = currentSong.musicUrls.mp3;
       audio.load();
 
       if (isPlaying) {

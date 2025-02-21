@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import "../css/addToCart.css";
 import HandleAddToCart from "../component/AddToCartComponent.js";
-
+import { Link } from "react-router-dom";
 
 export default function LicensingSection({ song, addToCart }) {
   const [toggleAccordion, setToggleAccordion] = useState("basic");
@@ -11,8 +11,9 @@ export default function LicensingSection({ song, addToCart }) {
   // Data as an object from a database
   const licenses = {
     basic: {
+      enabled: song?.monetization?.basic?.enabled || false, 
       name: "Basic License",
-      price: "$25.00",
+      price: song?.monetization?.basic?.price ? `$${song.monetization.basic.price}` : "$25.00",
       details: "MP3",
       usageTerms: [
         "Used for Music Recording",
@@ -24,8 +25,9 @@ export default function LicensingSection({ song, addToCart }) {
       ],
     },
     premium: {
+      enabled: song?.monetization?.premium?.enabled || false, 
       name: "Premium License",
-      price: "$35.00",
+      price: song?.monetization?.premium?.price ? `$${song.monetization.premium.price}` : "$35.00",
       details: "MP3, WAV",
       usageTerms: [
         "Used for Music Recording",
@@ -37,8 +39,9 @@ export default function LicensingSection({ song, addToCart }) {
       ],
     },
     wavStems: {
+      enabled: song?.monetization?.wavStems?.enabled || false, 
       name: "Wav stems",
-      price: "$50.00",
+      price: song?.monetization?.wavStems?.price ? `$${song.monetization.wavStems.price}` : "$50.00",
       details: "STEMS, MP3, WAV",
       usageTerms: [
         "Used for Music Recording",
@@ -46,18 +49,36 @@ export default function LicensingSection({ song, addToCart }) {
         "500,000 Online Audio Streams",
         "UNLIMITED Music Video",
         "For Profit Live Performances",
-        "Radio Broadcasting rights (2 Stations)",
+        "Radio Broadcasting rights (23Stations)",
       ],
     },
     unlimited: {
+      enabled: song?.monetization?.unlimited?.enabled || false, 
       name: "Unlimited License",
-      price: "$85.00",
+      price: song?.monetization?.unlimited?.price ? `$${song.monetization.unlimited.price}` : "$85.00",
       details: "STEMS, MP3, WAV",
+      usageTerms: [
+        "Used for Music Recording",
+        "Distribute up to 500 copies",
+        "500,000 Online Audio Streams",
+        "UNLIMITED Music Video",
+        "For Profit Live Performances",
+        "Radio Broadcasting rights (25 Stations)",
+      ],
     },
     exclusive: {
+      enabled: song?.monetization?.exclusive?.enabled || false, 
       name: "Exclusive License",
       price: "Negotiate price",
       details: "STEMS, MP3, WAV",
+      usageTerms: [
+        "Used for Music Recording",
+        "Distribute up to 12,500 copies",
+        "500,000 Online Audio Streams",
+        "UNLIMITED Music Video",
+        "For Profit Live Performances",
+        "Radio Broadcasting rights (62 Stations)",
+      ],
     },
   };
 
@@ -80,24 +101,25 @@ export default function LicensingSection({ song, addToCart }) {
             Add to Cart
           </button> */}
          <HandleAddToCart song={song} selectedLicense={licenses[toggleAccordion]} />
-          <button className="buy-now-btn">Buy now</button>
+         <Link to="/CheckoutPage" state={{ selectedSong: song }}>
+                <button className="buy-now-btn">Buy now</button>
+            </Link>
         </div>
       </span>
 
       <hr></hr>
 
       <div className="licenses">
-        {Object.entries(licenses).map(([key, license]) => (
-          <div
-            key={key}
-            className={`license-card ${key === toggleAccordion ? "active" : ""}`}
-            onClick={() => setToggleAccordion(key)}
-          >
-            <h3>{license.name}</h3>
-            <p>{license.price}</p>
-            <small>{license.details}</small>
-          </div>
-        ))}
+      {Object.entries(licenses)
+  .filter(([_, license]) => license.enabled) // Show only enabled licenses
+  .map(([key, license]) => (
+    <div key={key} className={`license-card ${key === toggleAccordion ? "active" : ""}`} onClick={() => setToggleAccordion(key)}>
+      <h3>{license.name}</h3>
+      <p>{license.price}</p>
+      <small>{license.details}</small>
+    </div>
+  ))}
+       
       </div>
 
       <hr></hr>
