@@ -16,6 +16,8 @@ import {
     getDoc,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { Timestamp } from "firebase/firestore"; // Import Firestore Timestamp
+import { formatDistanceToNow } from "date-fns";
 
 function Comment({ song, comments, setComments }) {
     const [newComment, setNewComment] = useState("");
@@ -47,16 +49,15 @@ function Comment({ song, comments, setComments }) {
                     const userData = userSnap.data();
                     username = userData.username || "Anonymous"; // Use the stored username or fallback to "Anonymous"
                     displayName = userRef.displayName;
-                    displayName = userRef.displayName;
                 }
 
-                // Add comment to Firestore
+                // Add comment to Firestore with Firestore Timestamp
                 const commentRef = collection(db, `beats/${song.id}/comments`);
                 const docRef = await addDoc(commentRef, {
                     text: newComment,
                     userId: user.uid,
                     displayName: username, // Use the fetched username here
-                    createdAt: new Date(), // Store creation time
+                    createdAt: Timestamp.now(), // Store creation time as Firestore Timestamp
                 });
 
                 // Update local comments state
@@ -67,6 +68,7 @@ function Comment({ song, comments, setComments }) {
                         text: newComment,
                         userId: user.uid,
                         displayName: username,
+                        createdAt: Timestamp.now(), // Store creation time in local state as Firestore Timestamp
                     },
                 ]);
                 setNewComment(""); // Clear input field
@@ -160,32 +162,48 @@ function Comment({ song, comments, setComments }) {
                 </button>
             </div>
             <div className="comments-list">
-                {comments.map((comment, idx) => (
-                    <div className="comments-list-container" key={idx}>
-                        {/* Check if profilePicture exists */}
-                        {comment.profilePicture ? (
-                            <img
-                                src={comment.profilePicture}
-                                className="commentImage"
-                                alt="Profile"
-                            />
-                        ) : (
-                            <IoIosContact size={"2.5em"} /> // If no profile picture, display the Profilepicture component
-                        )}
-                        <div className="commentWrapper">
-                        <div>{comment.displayName}</div> {/* Display the username here */}
-                        <p>{comment.text}</p>
-                        {/* Show delete button if the comment belongs to the current user */}
-                        {comment.userId === getAuth().currentUser?.uid && (
-                            <button
-                                onClick={() => deleteComment(comment.id)}
-                                className="delete-comment-btn"
-                            >
-                                Delete
-                            </button>
-                        )}</div>
-                    </div>
-                ))}
+                {comments.map((comment, idx) => {
+                    // Calculate relative time for each comment
+                    let relativeTime = "N/A";
+                    if (comment.createdAt) {
+                        let jsDate;
+                        if (comment.createdAt instanceof Timestamp) {
+                            jsDate = comment.createdAt.toDate();
+                        } else if (typeof comment.createdAt === "object" && comment.createdAt.seconds) {
+                            jsDate = new Date(comment.createdAt.seconds * 1000);
+                        }
+                        if (jsDate) {
+                            relativeTime = formatDistanceToNow(jsDate, { addSuffix: true });
+                        }
+                    }
+                    return (
+                        <div className="comments-list-container" key={idx}>
+                            {/* Check if profilePicture exists */}
+                            {comment.profilePicture ? (
+                                <img
+                                    src={comment.profilePicture}
+                                    className="commentImage"
+                                    alt="Profile"
+                                />
+                            ) : (
+                                <IoIosContact size={"2.5em"} /> // If no profile picture, display the Profilepicture component
+                            )}
+                            <div className="commentWrapper">
+                                <div>{comment.displayName} <span className="comment-date">{relativeTime}</span></div> {/* Display the username here */}
+                                <p>{comment.text}</p>
+                                {/* Show delete button if the comment belongs to the current user */}
+                                {comment.userId === getAuth().currentUser?.uid && (
+                                    <button
+                                        onClick={() => deleteComment(comment.id)}
+                                        className="delete-comment-btn"
+                                    >
+                                        Delete
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
 
             {/* Load More button */}

@@ -36,11 +36,12 @@ function UploadProfilePic({ email }) {
     const file = e.target.files[0];
     if (file) {
       setImage(file);
+      handleUpload(file);  // Automatically upload the selected file
     }
   };
 
-  const handleUpload = async () => {
-    if (!image || !email) return;
+  const handleUpload = async (file) => {
+    if (!file || !email) return;
 
     setUploading(true);
     const storageRef = ref(storage, `profile-pictures/${email}/profile-pic.jpg`); // Use a fixed name for the profile picture
@@ -48,7 +49,7 @@ function UploadProfilePic({ email }) {
     // Optionally, delete the old image before uploading the new one (uncomment if needed)
     await deleteOldProfilePic(storageRef);
 
-    const uploadTask = uploadBytesResumable(storageRef, image);
+    const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
       "state_changed",
@@ -62,8 +63,8 @@ function UploadProfilePic({ email }) {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          setImageUrl(url);
-          saveImageUrlToFirestore(url);
+          setImageUrl(url); // Update the profile picture URL
+          saveImageUrlToFirestore(url); // Save the new URL to Firestore
         });
       }
     );
@@ -93,8 +94,6 @@ function UploadProfilePic({ email }) {
 
   return (
     <div>
-      {/* <h1>Upload Profile Picture</h1> */}
-
       {loadingImage ? (
         <p>Loading profile picture...</p>
       ) : (
@@ -115,12 +114,10 @@ function UploadProfilePic({ email }) {
             <IoIosContact size={200} />
           )}
 
-          {/* File input and upload button */}
+          {/* File input for image upload */}
           <div>
             <input type="file" accept="image/*" onChange={handleFileChange} />
-            <button onClick={handleUpload} disabled={uploading}>
-              {uploading ? "Uploading..." : "Upload Image"}
-            </button>
+            {uploading && <p>Uploading...</p>}
           </div>
         </>
       )}

@@ -1,7 +1,7 @@
 
 import { FaCartShopping } from "react-icons/fa6";
 import {AuthState} from "../AuthState";
-import Profile from "../component/profile.js";
+
 import BeatsList from "../component/searchComponent.js";
 
 
@@ -38,7 +38,7 @@ export function HeaderCartIcon() {
 
 export  function GroupA2() {
     return (
-      <div className="GroupA">
+      <div className="GroupA2">
         <Headerlogo />  <AuthState />
 {" "}
       </div>

@@ -82,12 +82,7 @@ export default function LicensingSection({ song, addToCart }) {
     },
   };
 
-  // // Handle Add to Cart action
-  // const handleAddToCart = () => {
-  //   const selectedLicense = licenses[toggleAccordion];
-  //   // Add the song and selected license to the cart
-  //   addToCart(song, selectedLicense);
-  // };
+  const isExclusiveLicense = toggleAccordion === "exclusive";
 
   return (
     <div className="licensing-container">
@@ -97,29 +92,35 @@ export default function LicensingSection({ song, addToCart }) {
           <span>
             Total: {licenses[toggleAccordion]?.price || "Select a license"}
           </span>
-          {/* <button className="add-to-cart-btn" onClick={handleAddToCart}>
-            Add to Cart
-          </button> */}
-         <HandleAddToCart song={song} selectedLicense={licenses[toggleAccordion]} />
-         <Link to="/CheckoutPage" state={{ selectedSong: song }}>
-                <button className="buy-now-btn">Buy now</button>
+          {isExclusiveLicense ? (
+          
+              <Link to={{ pathname: "/NegotiatePage", state: { song } }}>
+              <button className="negotiate-price-btn">Negotiate price</button>
             </Link>
+          
+          ) : (
+            <>
+              <HandleAddToCart song={song} selectedLicense={licenses[toggleAccordion]} />
+              <Link to="/CheckoutPage" state={{ selectedSong: song }}>
+                <button className="buy-now-btn">Buy now</button>
+              </Link>
+            </>
+          )}
         </div>
       </span>
 
       <hr></hr>
 
       <div className="licenses">
-      {Object.entries(licenses)
-  .filter(([_, license]) => license.enabled) // Show only enabled licenses
-  .map(([key, license]) => (
-    <div key={key} className={`license-card ${key === toggleAccordion ? "active" : ""}`} onClick={() => setToggleAccordion(key)}>
-      <h3>{license.name}</h3>
-      <p>{license.price}</p>
-      <small>{license.details}</small>
-    </div>
-  ))}
-       
+        {Object.entries(licenses)
+          .filter(([_, license]) => license.enabled) // Show only enabled licenses
+          .map(([key, license]) => (
+            <div key={key} className={`license-card ${key === toggleAccordion ? "active" : ""}`} onClick={() => setToggleAccordion(key)}>
+              <h3>{license.name}</h3>
+              <p>{license.price}</p>
+              <small>{license.details}</small>
+            </div>
+          ))}
       </div>
 
       <hr></hr>

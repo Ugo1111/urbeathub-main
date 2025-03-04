@@ -2,7 +2,7 @@
   min-height: 100vh;
   min-width: 100vw;
   text-align: center;
- 
+ background-color: #c5c5c5;
 }
 .tab-buttons {
   display: flex;
@@ -22,14 +22,15 @@
 }
 .tab-buttons button.active {
   background: #007bff;
-  color: white;
+  color: rgb(83, 83, 83);
   font-weight: bold;
 }
 .tab-content {
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  background: #f9f9f9;
+  background-color: #d7ffe167; /* Optional: background color for the navbar */
+
   width: 790px;
   height: 550px;
   margin: 0 auto; 
@@ -239,3 +240,705 @@ border: 2px solid rgba(0, 123, 255, 0.29);
   padding: 5px;
   flex-grow: 1;
 }
+
+
+.UploadedBeatList-body{
+  position: fixed;
+border: solid;
+height: 100vh;
+width: 80vw;
+right: 0;
+top: 0;
+padding: 15px;
+background-color: #ddd;
+}
+
+.UploadedBeatList-title{
+  margin:20px 0 50px 0 ;
+  font-size: xx-large;
+}
+
+.UploadedBeatList-beatTitle{
+  margin: 5px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: x-large;
+  white-space: nowrap; 
+  overflow: hidden; 
+width: 770px;
+ 
+  text-overflow: ellipsis
+}
+
+
+.UploadedBeatList-li{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-content: center;
+align-items: center;
+border: solid 1px rgba(183, 183, 183, 0.673);
+border-radius: 10px;
+margin-bottom: 10px;
+padding: 5px;
+}
+
+
+.UploadedBeatList-span{
+  display: flex;
+flex-direction: row;
+align-items: center;
+
+}
+
+.UploadedBeatList-audio{
+  background-color: #83c192a0;
+  margin: 5px;
+}
+
+.UploadedBeatList-img{
+margin-right: 10px;
+}
+
+.UploadedBeatList-btn{
+background-color: #0091ff;
+padding: 10px;
+border-radius: 5px;
+border: #aaaaaab9;
+margin-right:10px ;
+color: #ffffff;
+font-size: larger;
+
+}
+
+
+
+
+.ViewEditSellBeatPage-body{
+background-color: #c5c5c5;
+min-width: 100vw;
+min-height: 100vh;
+display: flex;
+justify-content: center;
+
+}
+
+.track-container {
+  max-width: 900px;
+  min-width: 900px;
+  margin: auto;
+  padding: auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #f9f9f9;
+height: 900px;
+overflow-y: scroll; /* Adds vertical scrolling */
+overflow-x: hidden;
+}
+
+.track-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.track-info label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.track-info p {
+  background: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.ViewEditSellBeatPageinput,
+select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.cover-img {
+  width: 100px;
+  min-height: 90px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.edit-btn, .save-btn {
+  margin-top: 15px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.edit-btn {
+  background: #1d4ed8;
+  color: white;
+}
+
+.save-btn {
+  background: #16a34a;
+  color: white;
+}
+
+.ViewEditSellBeatPageinput[type="file"] {
+  margin-top: 10px;
+}
+
+
+
+
+.ViewEditSellBeatPage-goBack{
+size: 3em;
+font-size: medium;
+height: 50px;
+padding: 10px;
+border-radius: 5px;
+background: #ffffff;
+}
+
+
+.ViewEditSellBeatPage-gack-btn{
+padding: 10px;
+  background: #b6b6b6;
+  color: white;
+  font-size: medium;
+  border-radius: 5px;
+}
+
+
+
+
+
+
+.dashboard-body {
+  position: fixed;
+  right: 0;
+  top: 0;
+width: 80vw;
+height: 100vh;
+background-color: #e2e2e2;
+  border: #b6b6b6 1px solid;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+.dashboard-container {
+  max-width: 1800px;
+  min-width: 1000px;
+  border: #b6b6b63e 1px solid;
+  border-radius: 10px;
+  margin: auto 90px;
+  padding: 20px;
+  text-align: center;
+  margin-top: 90px;
+}
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 60px;
+ 
+   margin-top: 90px;
+   
+}
+
+
+
+.stat-box {
+  padding: 20px;
+  border-radius: 10px;
+  color: rgb(95, 95, 95);
+  display: flex;
+  flex-direction: column; /* Stack title & value */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  font-weight: bold;
+  transition: 0.3s;
+  height: 200px;
+}
+
+/* Assign different colors based on the order */
+.stat-box:nth-child(1) { background-color: #e74d3c9b; } /* Red */
+.stat-box:nth-child(2) { background-color: #3498dbaa; } /* Blue */
+.stat-box:nth-child(3) { background-color: #2ecc70a5; } /* Green */
+.stat-box:nth-child(4) { background-color: #f39d1294; } /* Orange */
+.stat-box:nth-child(5) { background-color: #9c59b6a3; } /* Purple */
+.stat-box:nth-child(6) { background-color: #1abc9c9d; } /* Teal */
+
+/* Add a hover effect */
+.stat-box:hover {
+  opacity: 0.85;
+  transform: scale(1.05);
+  
+}
+
+.stat-box h3 {
+  margin: 0;
+  font-size: 20px;
+  
+}
+
+.stat-box p {
+  font-size: 31px;
+  font-weight: bold;
+  
+}
+
+
+.sellbeat-user-profile {
+  display: flex;
+  align-items: center; /* Aligns items vertically */
+ 
+  flex-direction: column;
+justify-content: center;
+
+height: 20vh;
+width: 100%;
+  gap: 10px; /* Adds space between profile and username */
+margin: 20px 0;
+}
+
+.sellbeat-profile-pic {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 2px solid rgb(0, 187, 255); /* Blue border */
+  object-fit: cover; /* Ensures image fills the circle without distortion */
+}
+
+.sellbeat-profile-placeholder {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ccc; /* Light gray background for placeholder */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.sellbeat-username {
+  font-weight: bold;
+  font-size: 1.5em;
+  color: #333;
+  color: #5c18119b;
+}
+
+
+.sellbeat-username{
+
+
+}
+
+
+.sellbeat-profile-placeholder{
+
+
+
+}
+
+
+.sellbeat-user-profile{
+
+}
+
+
+.goBack-btn{
+
+display: flex;
+left: 0;
+
+
+}
+
+
+
+
+
+
+
+
+/* General container styles */
+.payout-body{
+  background: #f8f8f8;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+
+
+.payout-container {
+  width: 80vw;
+  height: 80vh;
+  max-width: 800px; /* Increased width */
+  margin: 40px auto;
+  padding: 40px; /* Increased padding */
+  background:#1abc9c9d; 
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.038);
+  border: solid rgba(233, 233, 233, 0.179);
+}
+
+/* Title */
+.payout-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Error message */
+.payout-error-message {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Form styles */
+.payout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Increased spacing */
+}
+
+.payout-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.payout-form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.payout-form-group input {
+  width: 100%;
+  padding: 12px; /* Increased padding */
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Button styles */
+.payout-button {
+  width: 100%;
+  padding: 15px; /* Bigger button */
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.payout-button-primary {
+  background-color: #4caf50;
+  color: white;
+}
+
+.payout-button-primary:hover {
+  background-color: #45a049;
+}
+
+.payout-button-delete {
+  background-color: #ff4444;
+  color: white;
+  font-size: 14px;
+  padding: 8px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.payout-button-delete:hover {
+  background-color: #cc0000;
+}
+
+/* Saved accounts container */
+.payout-accounts {
+  background: white;
+  padding: 20px; /* Increased padding */
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.payout-accounts h3 {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.payout-accounts ul {
+  list-style: none;
+  padding: 0;
+}
+
+.payout-accounts li {
+  display: flex;
+  justify-content: space-between;
+  background: #f0f0f0;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* No account message */
+.payout-no-account {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+}
+
+
+
+
+
+
+
+
+
+.producermessage-body{
+  width: 100vw;
+  height: 100vh;
+  background-color: #f9f9f9;
+  padding: 40px;
+}
+
+.producermessage-container {
+  width: 100vw;
+  height: 90vh;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #3498db57;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: scroll;
+}
+
+.producermessage-container h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.producermessage-error-message {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.producermessage-topic-selection {
+  margin-bottom: 30px;
+}
+
+.producermessage-topic-selection h3 {
+  font-size: 20px;
+  color: #333;
+}
+
+.producermessage-topic-selection ul {
+  list-style: none;
+  padding: 0;
+}
+
+.producermessage-topic-selection li {
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  
+}
+
+.producermessage-topic-selection li.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.producermessage-topic-selection button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.producermessage-topic-selection  button:hover {
+  background-color: #218838;
+}
+
+.producermessage-new-topic-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.producermessage-new-topic-form input {
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.producermessage-new-topic-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.producermessage-new-topic-form button:hover {
+  background-color: #0056b3;
+}
+
+.producermessage-message-list {
+  margin-bottom: 20px;
+}
+
+.producermessage-message-list h3 {
+  font-size: 20px;
+  color: #333;
+}
+
+.producermessage-message-item {
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.producermessage-message-item p {
+  font-size: 16px;
+  margin: 0;
+}
+
+.producermessage-message-item .timestamp {
+  font-size: 12px;
+  color: #888;
+}
+
+.producermessage-message-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.producermessage-message-form textarea {
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 120px;
+}
+
+.producermessage-message-form button {
+  padding: 12px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.producermessage-message-form button:hover {
+  background-color: #0056b3;
+}
+
+
+.producermessage-back-to-topics{
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+}
+
+.producermessage-back-to-topics:hover {
+  background-color: #218838;
+}
+
+
+
+
+.sellbeat-goBack-btn{
+background-color: #e74d3c9b;
+padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+/* Define the color set */
+:root {
+  --color-1: #e74d3c9b; /* Red */
+  --color-2: #3498dbaa; /* Blue */
+  --color-3: #2ecc70a5; /* Green */
+  --color-4: #f39d1294; /* Orange */
+  --color-5: #9c59b6a3; /* Purple */
+  --color-6: #1abc9c9d; /* Teal */
+}
+
+/* Navbar link styles */
+.navbarContainer li a {
+  text-decoration: none; /* Remove underline */
+  color: #333; /* Default text color */
+  padding: 10px 20px;
+  display: block;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover effect with random background color */
+.navbarContainer li a:hover {
+  background-color: var(--random-hover-color); /* Apply random background on hover */
+  color: #fff; /* Change text color to white on hover */
+ text-decoration: none;
+}
+
+/* Style for active links */
+.navbarContainer li a.active {
+  font-weight: bold;
+  color: white;
+  background-color: var(--random-active-color); /* Active background color */
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+/* Transition for active and hover states */
+.navbarContainer li a {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+

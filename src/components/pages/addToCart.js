@@ -1,19 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
+import { getFirestore, collection, addDoc, doc } from "firebase/firestore";
 import "../css/addToCart.css";
 import { useLocation } from "react-router-dom";
 import { Profilepicture } from "../AuthState";
 import GroupA from "../component/header.js";
 import { GroupE, GroupF, GroupG } from "../component/footer.js";
 import { TbSend } from "react-icons/tb";
-import { FaPlay, FaShareAlt, FaHeart, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import {
+  FaPlay,
+  FaShareAlt,
+  FaHeart,
+  FaChevronDown,
+  FaChevronUp,
+} from "react-icons/fa";
 import { RiAddLargeFill } from "react-icons/ri";
 import { IoMdDownload } from "react-icons/io";
 import { IoIosContact } from "react-icons/io";
 import LicensingSection from "../component/licenseSection.js";
 import LikeButton from "../component/LikeButton";
-import Comment from "../component/CommentSection"; // Import the new Comment component
+import Comment from "../component/CommentSection";
+import RecomendationComponent from "../component/recomendationComponent";
 import ShareModal from "../component/ShareModal";
-
+import { Timestamp } from "firebase/firestore"; // Import Firestore Timestamp
 
 function AddToCart() {
   const location = useLocation();
@@ -68,7 +76,6 @@ function AddToCart() {
     };
   }, []);
 
-
   // Handle license accordion toggle
   const toggleAccordion = () => setAccordionOpen(!accordionOpen);
 
@@ -103,14 +110,18 @@ function AddToCart() {
               volume={volume}
               formatTime={formatTime}
             />
-            < LicensingSection accordionOpen={accordionOpen} toggleAccordion={toggleAccordion} song={song} />
+            <LicensingSection
+              accordionOpen={accordionOpen}
+              toggleAccordion={toggleAccordion}
+              song={song}
+            />
 
             <Comment
               song={song}
               comments={comments}
               setComments={setComments} // Pass setComments to update comments in AddToCart
             />
-            <Genre />
+            <RecomendationComponent />
           </div>
         </div>
       </div>
@@ -118,7 +129,18 @@ function AddToCart() {
   );
 }
 
-function Mp3player({ song, isPlaying, currentTime, duration, handlePlayPause, handleSliderChange, handleVolumeChange, audioRef, volume, formatTime }) {
+function Mp3player({
+  song,
+  isPlaying,
+  currentTime,
+  duration,
+  handlePlayPause,
+  handleSliderChange,
+  handleVolumeChange,
+  audioRef,
+  volume,
+  formatTime,
+}) {
   return (
     <section className="Mp3player">
       <div className="beat-details">
@@ -153,30 +175,63 @@ function Mp3player({ song, isPlaying, currentTime, duration, handlePlayPause, ha
   );
 }
 
-function SongBio({ song, handleLike, like, likeCount }) {
-
+function SongBio({ song }) {
   const [showModal, setShowModal] = useState(false);
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [reportReason, setReportReason] = useState("");
+  const [reportComment, setReportComment] = useState("");
+  const db = getFirestore();
 
-  const handleShareClick = () => {
-    setShowModal(true); // Show the modal when share button is clicked
+  const handleShareClick = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
+  const openReportModal = () => setShowReportModal(true);
+  const closeReportModal = () => setShowReportModal(false);
+
+  const handleReportSubmit = async () => {
+    if (!reportReason) {
+      alert("Please select a reason for reporting.");
+      return;
+    }
+
+    try {
+      const reportsCollection = collection(db, `beats/${song.id}/reports`);
+
+      await addDoc(reportsCollection, {
+        reason: reportReason,
+        comment: reportComment,
+        timestamp: new Date(),
+      });
+
+      alert("Report submitted successfully.");
+      setReportReason("");
+      setReportComment("");
+      closeReportModal();
+    } catch (error) {
+      console.error("Error submitting report:", error);
+      alert("Failed to submit report. Try again.");
+    }
   };
 
-  const closeModal = () => {
-    setShowModal(false); // Close the modal
-  };
+  let date = song.timestamp
+    ? new Date(song.timestamp.seconds * 1000).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })
+    : "N/A";
 
   return (
     <div className="songBioSection">
       <CoverArt coverUrl={song.coverUrl} />
       <h3 style={{ padding: "10px", textAlign: "center" }}>{song.title}</h3>
+
       <span className="item-actions">
         <div>
           <FaPlay size="1.5em" />
           <div>{song.playCount}</div>
         </div>
 
-
-        <div >
+        <div>
           <LikeButton size="1.5em" songId={song.id} />
         </div>
 
@@ -184,37 +239,93 @@ function SongBio({ song, handleLike, like, likeCount }) {
           <FaShareAlt size="1.5em" color="blue" onClick={handleShareClick} />
           <div>{song.playCount}</div>
         </div>
+
         <div>
           <RiAddLargeFill size="1.5em" style={{ color: "red" }} />
           <div>{song.playCount}</div>
         </div>
       </span>
 
-      <a href={song.musicUrls.mp3} download={song.title} style={{ textDecoration: "none" }}>
+      <a
+        href={song.musicUrls.mp3}
+        download={song.title}
+        style={{ textDecoration: "none" }}
+      >
         <div className="IoMdDownload">
           <IoMdDownload size="1.5em" /> Download for Free
         </div>
       </a>
 
-
-
-
       <hr />
+
       <div className="BioInformationSection">
         <h4>Information</h4>
         <div>
           <span>Published</span>
-          <span>{song.length} May 25, 2020</span>
+          <span>{date}</span>
         </div>
         <div>
           <span>BPM</span>
-          <span>{song.length} 131</span>
+          <span>{song.metadata?.bpm || "-"}</span>
+        </div>
+        <div>
+          <span>Genres</span>
+          <span>{song.metadata?.genres || "-"}</span>
+        </div>
+        <div>
+          <span>Key</span>
+          <span>{song.metadata?.key || "-"}</span>
+        </div>
+        <div>
+          <span>Mood</span>
+          <span>{song.metadata?.moods || "-"}</span>
         </div>
       </div>
+      <hr />
 
+      <div className="report-section">
+        <button onClick={openReportModal} className="report-button">
+          ⚠️ Report Track
+        </button>
 
+        {showReportModal && (
+          <div className="report-modal">
+            <h3>Report Track</h3>
+            <label>Reason:</label>
+            <select
+              value={reportReason}
+              onChange={(e) => setReportReason(e.target.value)}
+              className="report-select"
+            >
+              <option value="">Select a reason</option>
+              <option value="Copyright infringement">
+                Copyright infringement
+              </option>
+              <option value="Offensive content">Offensive content</option>
+              <option value="Spam or misleading">Spam or misleading</option>
+              <option value="Other">Other</option>
+            </select>
 
-      {/* Render ShareModal if showModal is true */}
+            <label>Additional Comments (optional):</label>
+            <textarea
+              value={reportComment}
+              onChange={(e) => setReportComment(e.target.value)}
+              placeholder="Write your comments here..."
+              className="report-textarea"
+            />
+
+            <div className="report-modal-actions">
+              <button onClick={handleReportSubmit} className="report-submit">
+                Submit Report
+              </button>
+              <button onClick={closeReportModal} className="report-cancel">
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+
       {showModal && <ShareModal song={song} onClose={closeModal} />}
     </div>
   );
@@ -228,36 +339,32 @@ function CoverArt({ coverUrl }) {
   );
 }
 
-
-
-function Genre() {
-  return (
-    <>
-      <h2>GENRE</h2>
-      <section className="genre">
-        <div className="genre-options">
-          <div className="genre-card">
-            <img src="./images/killerman amapiano.png" alt="Afro Beat" />
-            <h4>AFRO BEAT</h4>
-          </div>
-          <div className="genre-card">
-            <img src="./images/killerman amapiano.png" alt="Pop Beat" />
-            <h4>POP BEAT</h4>
-          </div>
-          <div className="genre-card">
-            <img src="./images/killerman amapiano.png" alt="High Life Beat" />
-            <h4>HIGH LIFE BEAT</h4>
-          </div>
-          <div className="genre-card">
-            <img src="./images/killerman amapiano.png" alt="RnB Beat" />
-            <h4>RnB BEAT</h4>
-          </div>
-        </div>
-      </section>
-    </>
-  );
-}
-
-
+// function Genre() {
+//   return (
+//     <>
+//       <h2>GENRE</h2>
+//       <section className="genre">
+//         <div className="genre-options">
+//           <div className="genre-card">
+//             <img src="./images/killerman amapiano.png" alt="Afro Beat" />
+//             <h4>AFRO BEAT</h4>
+//           </div>
+//           <div className="genre-card">
+//             <img src="./images/killerman amapiano.png" alt="Pop Beat" />
+//             <h4>POP BEAT</h4>
+//           </div>
+//           <div className="genre-card">
+//             <img src="./images/killerman amapiano.png" alt="High Life Beat" />
+//             <h4>HIGH LIFE BEAT</h4>
+//           </div>
+//           <div className="genre-card">
+//             <img src="./images/killerman amapiano.png" alt="RnB Beat" />
+//             <h4>RnB BEAT</h4>
+//           </div>
+//         </div>
+//       </section>
+//     </>
+//   );
+// }
 
 export default AddToCart;

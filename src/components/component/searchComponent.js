@@ -2,6 +2,7 @@ import { auth, db } from "../../firebase/firebase"; // Ensure Firestore is initi
 import React, { useState, useEffect } from "react";
 import { collection, query, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import "../css/addToCart.css";
 
 const BeatsList = () => {
     const [beats, setBeats] = useState([]);
@@ -23,6 +24,10 @@ const BeatsList = () => {
         fetchBeats();
     }, []);
 
+    const handleClearInput = () => {
+        setSearchText("");
+    };
+
     // Filter beats based on search text, including tags in metadata
     const filteredBeats = beats.filter(beat => {
         const lowercasedSearchText = searchText.toLowerCase();
@@ -37,33 +42,40 @@ const BeatsList = () => {
 
     return (
         <div className="search-beats-body">
-            <input className="search-beats-input"
-                type="text"
-                placeholder="Search beats..."
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-            />
+            <div className="search-input-container">
+                <input
+                    className="search-beats-input"
+                    type="text"
+                    placeholder="Search beats..."
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                />
+                {searchText && (
+                    <button className="clear-button" onClick={handleClearInput}>
+                        &times;
+                    </button>
+                )}
+            </div>
             {searchText && (
                 <div className="search-beats-results-container">
                     <ul className="search-beats-ul">
                         {filteredBeats.map(beat => (  
-
                             <li key={beat.id} className="search-beats-li">
-                                <Link to="/buysong" state={{ song: beat }}   className="search-beats-li"
-                                onClick={() => setSearchText("")} // Clear searchText when clicking
+                                <Link to="/buysong" state={{ song: beat }} className="search-beats-li"
+                                    onClick={() => setSearchText("")} // Clear searchText when clicking
                                 >
-                                  <img src={beat.coverUrl} alt="Cover Art Preview" className="preview-image" />
-                                  <div className="search-beats-results-metadata">
-                                     <h3 className="search-beats-title">{beat.title}</h3>
-                              
-                              
-                                <p className="search-beats-bpm">BPM: {beat.metadata?.bpm}</p>
-                                
-                                <p className="search-beats-tags" > {beat.metadata?.tags?.map((tag, index) => (
-                                        <span key={index} className="search-beats-taglist">
-                                            {tag}
-                                        </span>
-                                    ))}</p> </div>
+                                    <img src={beat.coverUrl} alt="Cover Art Preview" className="preview-image" />
+                                    <div className="search-beats-results-metadata">
+                                        <h3 className="search-beats-title">{beat.title}</h3>
+                                        <p className="search-beats-bpm">BPM: {beat.metadata?.bpm}</p>
+                                        <div className="search-beats-tags-container">
+                                            {beat.metadata?.tags?.map((tag, index) => (
+                                                <span key={index} className="search-beats-taglist">
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </Link>
                             </li>
                         ))}

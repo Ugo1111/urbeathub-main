@@ -710,7 +710,7 @@ font-size: 1.1em;
       gap: 20;
   }
   
-  .market button {
+  .market button:not(.songlist-addtochart)  {
 
     gap: 10;
     padding: 10px;
@@ -722,7 +722,12 @@ font-size: 1.1em;
     border-radius: 5%;
       }
     
-    
+
+      /* .songlist-addtochart{
+      
+
+      }
+     */
       .market button:hover {
 
         cursor: pointer;
@@ -858,9 +863,12 @@ flex-direction: row;
   }
   
   .market{
+    display: flex;
+    flex-direction: row;
+   
     margin-left: auto;
     left: 30px;
-  
+  align-items: center;
     white-space: nowrap;
   }
   .market span{
@@ -868,6 +876,37 @@ flex-direction: row;
   }
   
 
+  .songlist-taglist{
+
+  }
+
+
+  .songlist-addtochart{
+    padding: auto;
+    font-size: small;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    height: 30px;
+    width: 90px;
+    background-color: #2154e3;
+    color: rgba(255, 255, 255, 0.823);
+    text-align: center;
+    margin: 0 5px 0 5px;
+  }
+
+  .songlist-tag{
+    background: rgba(80, 80, 80, 0.428); /* Optional: Change the background of the results list */
+  border-radius: 10px;
+  padding: 4px 7px 4px 7px;
+    margin: 2px;
+    font-size: medium;
+    border: #f86c6c14 solid 1px;
+    text-align: center;
+  color: #a1a1a1;
+  }
+  
 
 
   @media (max-width: 600px) {
@@ -891,3 +930,34 @@ flex-direction: row;
 
 
 
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.dropdown-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+  background: #f0f0f0;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}

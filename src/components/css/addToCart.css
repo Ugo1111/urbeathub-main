@@ -441,8 +441,24 @@ margin: 20px auto 20px auto;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     height: 50px;
+    background-color: #1d4ed8;
+    color: white;
   }
   
+
+.negotiate-price-btn{
+  padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    height: 50px;
+    background-color: #1d4ed8;
+    color: white;
+}
+
+
   .add-to-cart-btn {
     background-color: #333;
     color: white;
@@ -453,11 +469,7 @@ margin: 20px auto 20px auto;
     background-color: #444;
   }
   
-  .buy-now-btn {
-    background-color: #1d4ed8;
-    color: white;
-  }
-  
+ 
   .buy-now-btn:hover {
     background-color: #2563eb;
   }
@@ -652,8 +664,15 @@ margin-left: 70px;
 
 }
 
+
+
+
+
+
+
+
 .Search-beats-body{
-border: #2563eb;
+
 background-color: #d81d1d;
 /* min-height: 80vw; 
 height: auto;
@@ -675,8 +694,27 @@ justify-content: center;
 /* background-color: #ccc; */
 }
 
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
-.search-beats-body {  border: #4aff2e solid;
+.clear-button {
+  position: absolute;
+  right: 10px;
+  background: none;
+  font-weight: bolder;
+  border: none;
+  font-size: xx-large;
+  cursor: pointer;
+  color: #4b4b4b;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0;
+}
+
+.search-beats-body {  
 min-width: 40%;
 
     position: relative;
@@ -694,9 +732,11 @@ min-width: 40%;
   background-color: #ccc;
 
 
+  padding: 10px 40px 10px 10px; /* Add padding to accommodate the clear button */
+
     width: 240px;
     max-width: 400px; /* Adjust as necessary */
-    padding: 10px;
+   
     font-size: 16px;
     box-sizing: border-box;
 }
@@ -755,7 +795,7 @@ min-width: 1200px;
 }
 .search-beats-bpm{
 
-  padding: 1px 5px 1px 5px;
+  padding: 1px 5px 1px 0;
   margin: 5px;
   font-size: small;
   
@@ -765,8 +805,159 @@ min-width: 1200px;
 .search-beats-taglist{
   background: rgba(70, 70, 70, 0.428); /* Optional: Change the background of the results list */
 border-radius: 10px;
-padding: 1px 5px 1px 5px;
+padding: 3px 5px 3px 2px;
   margin: 5px;
   font-size: medium;
   border: #f86c6c26 solid;
+  text-decoration: none;
+
+}
+
+
+
+
+
+
+.recomendation-list-container{
+  overflow: scroll;
+  min-width: 99%;
+  width: auto;
+  height: 300px;
+  min-height:  320px;
+  
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+ 
+}
+
+.recomendation-list{
+ 
+ justify-content: center;
+  height: 270px;
+  flex: 1;
+  padding: 20px; 
+ max-width: 200px;
+  align-items: center;
+}
+
+.recomendation-list a:focus,
+.recomendation-list a:active {
+  color: #5400b3;
+ 
+  }
+
+.recomendation-list:hover{
+background-color: #2d2d2dc7;
+border: #4d4d4d76 solid 1px;
+border-radius: 10px;
+
+}
+
+
+.recomendation-image{
+ max-width: 100%;
+ min-width: 90%;
+  width: auto;
+height: 170px;
+border-radius: 5px;
+border: #61616159 solid 1px;
+
+}
+
+.recomendation-title{
+  color: #c8c8c8;
+font-size: large;
+font-style: italic;
+font-weight: bold;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+margin-top: 10px ;
+
+
+}
+
+.recomendation-AddToCart{
+
+  
+
+
+}
+
+.recomendation-AddToCart-button{
+  border: #3c8dff solid;
+  color: #dedede;
+  background-color: #000;
+  justify-content: center;
+  border-radius: 10px;
+width: 100%;
+height: 40px;
+font-size: small;
+font-style: italic;
+font-weight: bold;
+  align-items: center;
+  margin-top: 10px ;
+  
+}
+
+
+.comment-date{
+color: #5b5b5b;
+padding-left: 10px;
+font-size: small;
+font-style: italic;
+}
+
+
+
+/* Report Section Styles */
+
+.report-section{
+  margin-top: 20px;
+}
+
+.report-form{
+  margin-top: 20px;
+}
+
+.report-form-label{
+  margin-top: 40px;
+}
+
+.report-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.report-textarea{
+  width: 100%;
+  height: 50px;
+}
+.report-submit,
+.report-cancel {
+  
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.report-submit {
+  background-color:#333;
+  color: white;
+}
+
+.report-submit:hover {
+  background-color: #0056b3;
+}
+
+.report-cancel {
+  background-color:#333;
+  color: #e1e1e1;
+}
+
+.report-cancel:hover {
+  background-color: #e1e1e1;
 }

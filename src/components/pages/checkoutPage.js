@@ -15,7 +15,6 @@ function CheckoutPage() {
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
-    const [monetizationData, setMonetizationData] = useState([]); // Store monetization data
 
     const auth = getAuth();
     const db = getFirestore();
@@ -25,13 +24,11 @@ function CheckoutPage() {
             setUser(currentUser);
 
             if (!currentUser || selectedSong) {
-                // If a song was selected via "Buy Now", only use that song in the cart
                 setCart(selectedSong ? [selectedSong] : []);
                 setLoading(false);
                 return;
             }
 
-            // Fetch full cart data from Firestore if no selected song
             try {
                 const userRef = doc(db, "beatHubUsers", currentUser.uid);
                 const userSnap = await getDoc(userRef);
@@ -54,17 +51,24 @@ function CheckoutPage() {
     useEffect(() => {
         const fetchMonetizationData = async () => {
             try {
-                const fetchedMonetizationData = [];
-                for (const song of cart) {
-                    const beatRef = doc(db, "beats", song.songId);  // Fetch beat info from 'beats' collection
+                const updatedCart = await Promise.all(cart.map(async (song) => {
+                    const beatRef = doc(db, "beats", song.songId);
                     const beatSnap = await getDoc(beatRef);
 
                     if (beatSnap.exists()) {
-                        // Assuming 'monetization' data is stored within each beat document
-                        fetchedMonetizationData.push(beatSnap.data().monetization);
+                        const beatData = beatSnap.data();
+                        const monetization = beatData.monetization || {};
+
+                        return {
+                            ...song,
+                            license: monetization?.basic?.name || "Unknown License",
+                            price: monetization?.basic?.price || "0.00",
+                        };
                     }
-                }
-                setMonetizationData(fetchedMonetizationData);  // Update monetization data state
+                    return song;
+                }));
+
+                setCart(updatedCart);
             } catch (error) {
                 console.error("Error fetching monetization data:", error);
             }
@@ -75,7 +79,10 @@ function CheckoutPage() {
         }
     }, [cart]);
 
-    // Calculate total price
+    useEffect(() => {
+        console.log("Cart items:", cart);
+    }, [cart]);
+
     const totalPrice = cart.reduce((acc, item) => acc + (parseFloat(item.price) || 0), 0);
 
     return (
@@ -84,7 +91,32 @@ function CheckoutPage() {
             <h1 className="CheckoutTitle">Checkout</h1>
             <div className="CheckoutBody">
                 <div className="checkoutItem">
-                           <CheckoutComponent selectedSong={selectedSong} /> 
+                    {loading ? (
+                        <p>Loading cart...</p>
+                    ) : cart.length === 0 ? (
+                        <p>Your cart is empty.</p>
+                    ) : (
+                        <>
+                            {cart.map((song, index) => (
+                                <div key={index} className="cart-list-item">
+                                    <div className="cart-list-info">
+                                        <img
+                                            src={song.coverUrl || "./images/default-cover.jpg"}
+                                            className="cart-list-image"
+                                            alt="Song Cover"
+                                        />
+                                        <div className="cart-list-item-title-license">
+                                            <div className="cart-list-item-title">{song.title || "Unknown Title"}</div>
+                                            <div className="cart-list-item-license">{song.license || "Unknown License"}</div>
+                                        </div>
+                                    </div>
+                                    <div className="cart-list-actions">
+                                        <div className="cart-list-price">${song.price || "0.00"}</div>
+                                    </div>
+                                </div>
+                            ))}
+                        </>
+                    )}
                 </div>
 
                 <br />
@@ -102,7 +134,7 @@ function CheckoutPage() {
                                 {cart.map((song, index) => (
                                     <div key={index} className="selectedCartSummary">
                                         <div className="certSummarySong">{song.title || "Untitled Song"}</div>
-                                        <div className="certSummaryPRICE">${song.price || "0.00"}</div>
+                                        <div className="certSummaryPRICE">${  `$${song.monetization.premium.price}` || "0.00"}</div>
                                     </div>
                                 ))}
                                 <hr />

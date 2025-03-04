@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import UploadedMusicComponent from "../component/UploadedMusicComponent.js";
+import UploadedMusicComponent from "./UploadedMusicComponent.js";
 import "../css/musicUpload.css";
-import UploadMusicComponent from "../component/UploadMusicComponent.js";
-import Metadata from "../component/metaDataUpload.js";
-import Monetization from "../component/Monetization.js";
-import {GroupA2} from "../component/header.js";
-import { useMusicUploadContext } from "../context/MusicUploadProvider";
+import UploadMusicComponent from "./UploadMusicComponent.js";
+import Metadata from "./metaDataUpload.js";
+import Monetization from "./Monetization.js";
+import {GroupA2} from "./header.js";
+import { Link } from 'react-router-dom';
+import { IoReturnUpBackSharp } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom'
+
+
+import { useMusicUploadContext } from "../context/MusicUploadProvider.js";
 import { doc, getDoc, deleteDoc } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
+import { db } from "../../firebase/firebase.js";
 
 const TabPage = () => {
   const [activeTab, setActiveTab] = useState("tab1");
@@ -113,9 +118,33 @@ const TabPage = () => {
     }
   };
 
+
+
+
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    // Go back one step, or redirect to the home page if there's no history
+    if (window.history.length > 1) {
+      navigate(-1); // If there is history, go back to the previous page
+    } else {
+      navigate('/'); // Otherwise, go to the home page or another fallback route
+    }
+  };
+
+
+
+
   return (
     <div className="tab-container">
       <GroupA2 />
+     <div className="goBack-btn">
+         <button onClick={handleBack} className="ViewEditSellBeatPage-goBack"> <IoReturnUpBackSharp />Go Back</button>
+      {/* <Link to="/SellBeatPage">
+        <button>Go to Uploaded Beats</button>
+      </Link> */}
+      </div>
+
 
       {/* Tab Buttons */}
       <div className="tab-buttons">
@@ -148,6 +177,8 @@ const TabPage = () => {
           </>
         )}
       </div>
+
+
     </div>
   );
 };
