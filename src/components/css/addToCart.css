@@ -961,3 +961,37 @@ font-style: italic;
 .report-cancel:hover {
   background-color: #e1e1e1;
 }
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center;
+  }
+
+  .secondContainer {
+    max-width: 100%;
+  }
+
+  .songBioSection {
+    max-width: 100%;
+  }
+
+  .Mp3player {
+    height: auto;
+    padding: 15px;
+  }
+
+  .comment {
+    min-height: auto;
+  }
+
+  .CheckoutBody {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .CheckoutTitle {
+    text-align: center;
+    margin: 20px 0;
+  }
+}
