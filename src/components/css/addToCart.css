@@ -968,66 +968,83 @@ font-style: italic;
 
 @media (max-width: 768px) {
   .container {
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center;
-  }
-
-  .secondContainer {
-    max-width: 100%;
-  }
-
-  .songBioSection {
-    max-width: 100%;
-  }
-
-  .Mp3player {
-    height: auto;
-    padding: 15px;
-  }
-
-  .comment {
-    min-height: auto;
-  }
-
-  .CheckoutBody {
     flex-direction: column;
     align-items: center;
   }
 
-  .CheckoutTitle {
-    text-align: center;
-    margin: 20px 0;
+  .theMainContainer {
+    width: 95vw;
   }
 
-  .licenses {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
-    gap: 10px;
-    margin-bottom: 20px;
-    margin-top: 20px;
+  .secondContainer,
+  .songBioSection {
+    width: 90%;
+    max-width: none;
+  }
+  .image-placeholder img {
+    height: 300px;
+    width: 400px;
+    
     
   }
+  .licensing-container h2 {
+    font-size: 1.5rem;}
 
-  .usageTermList{
-    font-size: small;
-   
-    text-align: center;
-    padding-left: 10px;
-   width: 80%;
-    display: flex;
-    align-content: center;
-    align-items: center;
-  }
-  .usageTermSection{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 3 cards per row */
-    text-align: center;
-   min-height: 110px;
-   gap: 10px;
-   width: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
-  }
+    
 }
 
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .theMainContainer {
+    width: 80%;
+    padding: 10px;
+  }
+
+  .secondContainer,
+  .songBioSection {
+    width: 90%;
+    max-width: none;
+  }
+
+  .Mp3player {
+    flex-direction: column;
+    height: auto;
+    padding: 15px;
+  }
+
+  .image-placeholder img {
+    height: 50vh;
+    width: 90vw;
+  }
+  .licensing-container h2 {
+    font-size: 1rem;}
+
+    
+
+    .licensing-container h2 {
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+    
+    .licenses {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+      gap: 10px;
+      margin-bottom: 20px;
+      margin-top: 20px;
+      
+    }
+
+    .usageTermList{
+      font-size: small;
+     
+      text-align: center;
+      padding-left: 10px;
+     width: 80%;}
+    }
 
