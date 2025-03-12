@@ -8,9 +8,10 @@ import { FaPlay, FaPause, FaDownload } from "react-icons/fa"; // Import Icons
 import "../css/checkout.css";
 
 function PurchasedTracksPage() {
-  const [likedSongs, setLikedSongs] = useState(() => {
-    const storedLikes = localStorage.getItem("likedSongs");
-    return storedLikes ? JSON.parse(storedLikes) : [];
+  const [purchasedTracks, setPurchasedTracks] = useState(() => {
+    // Load from localStorage on initial render
+    const storedTracks = localStorage.getItem("purchasedTracks");
+    return storedTracks ? JSON.parse(storedTracks) : [];
   });
 
   const [loading, setLoading] = useState(true);
@@ -22,51 +23,6 @@ function PurchasedTracksPage() {
   const db = getFirestore();
 
   useEffect(() => {
-    const fetchLikedSongs = async () => {
-      const user = auth.currentUser;
-      if (!user) {
-        setLoading(false);
-        return;
-      }
-
-      try {
-        let userLikedSongs = [];
-        const beatsRef = collection(db, "beats");
-        const beatsSnapshot = await getDocs(beatsRef);
-
-        for (const songDoc of beatsSnapshot.docs) {
-          const songId = songDoc.id;
-          const songData = songDoc.data();
-
-          const likeRef = collection(db, `beats/${songId}/purchases`);
-          const q = query(likeRef, where("userId", "==", user.uid));
-          const likeSnap = await getDocs(q);
-
-          // Check if the song is purchased by the user
-          if (!likeSnap.empty) {
-            // Try to get license from the purchase, otherwise fallback to the beat's license
-            const license = likeSnap.docs[0]?.data()?.license || songData.license || "No License Information";
-
-            userLikedSongs.push({
-              id: songId,
-              ...songData,
-              audioUrl: songData.musicUrls?.mp3 || null, // Ensure mp3 URL is fetched correctly
-              coverUrl: songData.coverUrl || "./images/default-cover.jpg",
-              license: license, // Assign the license from purchase or beat data
-            });
-          }
-        }
-
-        localStorage.setItem("likedSongs", JSON.stringify(userLikedSongs));
-        setLikedSongs(userLikedSongs);
-      } catch (error) {
-        console.error("Error fetching liked songs:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    // Fetch Purchased Tracks (Updated version)
     const fetchPurchasedTracks = async () => {
       const user = auth.currentUser;
       if (!user) {
@@ -76,7 +32,7 @@ function PurchasedTracksPage() {
 
       try {
         let userPurchasedTracks = [];
-        const purchasesRef = collection(db, `beatHubUsers/${user.uid}/purchases`);
+        const purchasesRef = collection(db, beatHubUsers/${user.uid}/purchases);
         const purchasesSnapshot = await getDocs(purchasesRef);
 
         for (const purchaseDoc of purchasesSnapshot.docs) {
@@ -90,15 +46,12 @@ function PurchasedTracksPage() {
           if (beatSnap.exists()) {
             const beatData = beatSnap.data();
 
-            // Try to get the license from the purchase data or fallback to the beat data
-            const license = purchaseData.license || beatData.license || "No License Information";
-
             userPurchasedTracks.push({
               id: purchaseDoc.id,
               beatId: beatId,
               coverUrl: beatData.coverUrl || "./images/default-cover.jpg",
               title: purchaseData.song || "Unknown Title",
-              license: license, // Ensure license info is fetched from either purchase or beat
+              license: purchaseData.license || "No License Information",
               audioUrl: beatData.musicUrls?.mp3 || null, // Fetch mp3 file URL safely
               timestamp: purchaseData.timestamp?.toDate().toLocaleString() || "Unknown Date",
             });
@@ -107,15 +60,21 @@ function PurchasedTracksPage() {
 
         // Save to localStorage
         localStorage.setItem("purchasedTracks", JSON.stringify(userPurchasedTracks));
-        setLikedSongs(userPurchasedTracks); // Updated likedSongs to purchasedTracks
 
+        setPurchasedTracks(userPurchasedTracks);
       } catch (error) {
         console.error("Error fetching purchased tracks:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchLikedSongs();
-    fetchPurchasedTracks(); // Now fetch the purchased tracks
+    // Only fetch if localStorage has no data
+    if (purchasedTracks.length === 0) {
+      fetchPurchasedTracks();
+    } else {
+      setLoading(false);
+    }
   }, []);
 
   const handlePlayPause = (songUrl, index) => {
@@ -144,11 +103,11 @@ function PurchasedTracksPage() {
 
       {loading ? (
         <p>Loading...</p>
-      ) : likedSongs.length === 0 ? (
+      ) : purchasedTracks.length === 0 ? (
         <p>You haven't purchased any tracks yet.</p>
       ) : (
         <ol className="Ol4favouriteList">
-          {likedSongs.map((song, index) => (
+          {purchasedTracks.map((song, index) => (
             <li
               key={song.id}
               className="favouriteList"
@@ -171,24 +130,22 @@ function PurchasedTracksPage() {
 
                 <img src={song.coverUrl} className="listimage" alt={song.title} />
                 <div className="track-info">
-                  <div className="track-title">{song.title || "Unknown Title"}</div>
-                  {/* License Info */}
-                  <div className="track-license">License: {song.license || "Unknown License"}</div>
+                  <div className="track-title">{song.title}</div>
+                  <div className="track-license">License: {song.license}</div>
+                  <div className="track-timestamp">Purchased on: {song.timestamp}</div>
                 </div>
               </div>
 
               <div className="favioriteSection2">
                 <LikeButton size="1.5em" songId={song.id} />
-
-                {/* View Track Button */}
-                <Link to="/addToCart" state={{ song }}>
+                <Link to={/beat/${song.beatId}}>
                   <button className="FaCartShopping">View Track</button>
                 </Link>
 
                 {/* Download Button */}
                 {song.audioUrl ? (
                   <a href={song.audioUrl} download>
-                    <button className="FaCartShopping">
+                    <button className="downloadButton">
                       <FaDownload /> Download
                     </button>
                   </a>

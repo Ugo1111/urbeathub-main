@@ -4,9 +4,11 @@ import { db, storage } from "../../firebase/firebase";
 import { collection, addDoc, updateDoc, Timestamp } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useMusicUploadContext } from "../context/MusicUploadProvider";
-import AudioTagger from "../pages/PageOne"; // Import AudioTagger component
+import AudioTagger from "./PageOne"; // Import AudioTagger component
+import Metadata from "../component/metaDataUpload"; // Import Metadata component
+import Monetization from "../component/Monetization"; // Import Monetization component
 
-const UploadMusicComponent = () => {
+const AdminUploadMusicPage = () => {
   const {
     setUploadMusic,
     audioFileMp3, setAudioFileMp3,
@@ -15,7 +17,9 @@ const UploadMusicComponent = () => {
     musicTitle, setMusicTitle,
     selectedMusic, setSelectedMusic,
     beatId, setBeatId,
-    coverPreview, setCoverPreview
+    coverPreview, setCoverPreview,
+    metadata, setMetadata,
+    monetization, setMonetization
   } = useMusicUploadContext();
 
   const [email, setEmail] = useState("");
@@ -100,6 +104,14 @@ const UploadMusicComponent = () => {
       alert("Please process the audio file with watermark.");
       return;
     }
+    if (!metadata) {
+      alert("Please provide metadata.");
+      return;
+    }
+    if (!monetization) {
+      alert("Please provide monetization details.");
+      return;
+    }
 
     try {
       const musicCollectionRef = collection(db, "beats");
@@ -110,6 +122,8 @@ const UploadMusicComponent = () => {
         status: false,
         uploadedBy: email,
         timestamp: Timestamp.now(),
+        metadata, // Include metadata
+        monetization, // Include monetization details
       });
 
       setBeatId(newDocRef.id);
@@ -158,7 +172,7 @@ const UploadMusicComponent = () => {
       console.error("Upload error:", error);
       alert("Upload failed. Make sure you have both MP3 and WAV uploaded.");
     }
-  }, [musicTitle, email, audioFileMp3, audioFileWav, coverArt, processedAudioFile, db, storage]);
+  }, [musicTitle, email, audioFileMp3, audioFileWav, coverArt, processedAudioFile, metadata, monetization, db, storage]);
 
   useEffect(() => {
     setUploadMusic(() => uploadMusic);
@@ -200,8 +214,11 @@ const UploadMusicComponent = () => {
       <AudioTagger onProcessedAudio={handleProcessedAudio} uploadedFile={audioFileMp3} hideUI={true} /> {/* Include AudioTagger component */}
 
       {progress > 0 && <div className="progress-bar"><div style={{ width: `${progress}%` }}>{Math.round(progress)}%</div></div>}
+
+      <Metadata metadata={metadata} setMetadata={setMetadata} /> {/* Include Metadata component */}
+      <Monetization monetization={monetization} setMonetization={setMonetization} /> {/* Include Monetization component */}
+      <button type="button" onClick={uploadMusic} className="upload-button">Upload Music</button> {/* Add upload button */}
     </form>
   );
 };
-
-export default UploadMusicComponent;
+export default AdminUploadMusicPage;

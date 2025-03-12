@@ -159,7 +159,7 @@ function Mp3player({
             onChange={handleSliderChange}
           />
           <span>{formatTime(duration)}</span>
-          <audio ref={audioRef} src={song.musicUrls?.mp3} />
+          <audio ref={audioRef} src={song.musicUrls?.taggedMp3} />
           <input
             type="range"
             min="0"

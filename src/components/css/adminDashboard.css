@@ -1,0 +1,33 @@
+.adminDashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.adminNav {
+  margin-bottom: 20px;
+}
+
+.adminNav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.adminNav li {
+  display: inline;
+  margin-right: 20px;
+}
+
+.adminNav a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.adminNav a:hover {
+  text-decoration: underline;
+}
+
+.selecteds{
+  color: #ff0051;
+
+}
