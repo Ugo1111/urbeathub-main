@@ -73,6 +73,7 @@ function HomePage() {
 
   return (
     <div className="homepageWrapper">
+       <div class="overlay"></div>
       <GroupA />
       <HeroPage />
        {/* Hidden Audio Player */}

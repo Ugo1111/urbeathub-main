@@ -19,6 +19,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-x: hidden;
  
   
 }
@@ -37,7 +38,6 @@ body {
 }
 
 .theMainContainer{
-
   width: 85vw;
   margin-left: auto;
   margin-right: auto;
@@ -49,8 +49,8 @@ body {
 .song{
   display: flex;
   /* justify-content: start; */
-  margin: 10px;
-  /* border: 1px rgb(0, 255, 26) solid; */
+  margin-top: 10px;
+  /* border: 1px rgb(0, 255, 26) solid; 
   /* border: #1dd833 2px solid;
   background-color: #a61eef;
   color: #eecf1f; */
@@ -441,7 +441,7 @@ margin: 20px auto 20px auto;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     height: 50px;
-    background-color: #1d4ed8;
+    background-color: #db3056;
     color: white;
   }
   
@@ -454,7 +454,7 @@ margin: 20px auto 20px auto;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     height: 50px;
-    background-color: #1d4ed8;
+    background-color: #db3056;
     color: white;
 }
 
@@ -471,7 +471,7 @@ margin: 20px auto 20px auto;
   
  
   .buy-now-btn:hover {
-    background-color: #2563eb;
+    background-color: #db3056;
   }
 
 
@@ -480,8 +480,8 @@ margin: 20px auto 20px auto;
 
 
 
-  /* .usageTermList{
-    font-size: small;
+   .usageTermList{
+    font-size: 1em;
    
     text-align: center;
     padding-left: 20px;
@@ -495,11 +495,12 @@ margin: 20px auto 20px auto;
   .usageTermSection{
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
-    /* text-align: center;
+     text-align: center;
    min-height: 110px;
    width: auto;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  }
      
 
 
@@ -631,7 +632,7 @@ height: fit-content;
 
 
 .Total_CartSummary{
-  color: rgb(47, 189, 0);
+  color: #d9d9d9;
   display: flex;
   justify-content: space-between;
 }
@@ -642,7 +643,7 @@ margin-left: 70px;
 }
 
 .proceedToCheckout{
-  background-color: rgb(0, 81, 255);
+  background-color: #db3056;
   color: #ffffff;
   padding: 15px;
   margin: 15px;
@@ -654,7 +655,7 @@ margin-left: 70px;
 
 .proceedToCheckout:active {
   transform: scale(0.95); /* Shrinks slightly */
-  background-color: #0056b3; /* Darker shade when clicked */
+  background-color: #db3056; /* Darker shade when clicked */
   
 }
 
@@ -790,9 +791,7 @@ min-width: 1200px;
     
 }
 
-.search-beats-results-metadata{
-  
-}
+
 .search-beats-bpm{
 
   padding: 1px 5px 1px 0;
@@ -818,86 +817,104 @@ padding: 3px 5px 3px 2px;
 
 
 
-.recomendation-list-container{
-  overflow: scroll;
+.recomendation-list-container {
   min-width: 99%;
   width: auto;
   height: 300px;
-  min-height:  320px;
-  
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); 
- 
+  min-height: 320px;
+  display: flex; /* Use flexbox */
+  flex-wrap: nowrap; /* Prevent wrapping */
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.recomendation-list{
- 
- justify-content: center;
+
+.recomendation-list-container::-webkit-scrollbar {
+  display: none;
+}
+
+.recomendation-list-container:hover {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
+}
+
+.recomendation-list-container::-webkit-scrollbar {
+  height: 6px;
+  display: none;
+}
+
+.recomendation-list-container:hover::-webkit-scrollbar {
+  display: block;
+}
+
+.recomendation-list-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+}
+
+.recomendation-list-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.recomendation-list {
+  box-sizing: border-box;
+  justify-content: center;
   height: 270px;
-  flex: 1;
-  padding: 20px; 
- max-width: 200px;
+  width: 200px;
+  min-width: 200px;
+  padding: 20px;
   align-items: center;
 }
 
 .recomendation-list a:focus,
 .recomendation-list a:active {
-  color: #5400b3;
- 
-  }
-
-.recomendation-list:hover{
-background-color: #2d2d2dc7;
-border: #4d4d4d76 solid 1px;
-border-radius: 10px;
-
+  color: #db3056;
 }
 
+.recomendation-list:hover {
+  background-color: #2d2d2dc7;
+  width: 100%; /* Ensures it covers the full track */
+  height: 100%; /* Ensures full height */
+  border: #4d4d4d76 solid 1px;
+  border-radius: 10px;
+}
 
-.recomendation-image{
- max-width: 100%;
- min-width: 90%;
+.recomendation-image {
+  max-width: 100%;
+  min-width: 90%;
   width: auto;
-height: 170px;
-border-radius: 5px;
-border: #61616159 solid 1px;
-
+  height: 170px;
+  border-radius: 5px;
+  border: #61616159 solid 1px;
 }
 
-.recomendation-title{
+.recomendation-title {
   color: #c8c8c8;
-font-size: large;
-font-style: italic;
-font-weight: bold;
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-margin-top: 10px ;
-
-
+  font-size: large;
+  font-style: italic;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 10px;
 }
 
-.recomendation-AddToCart{
-
-  
-
-
-}
-
-.recomendation-AddToCart-button{
-  border: #3c8dff solid;
+.recomendation-AddToCart-button {
+  border: #db3056 solid;
   color: #dedede;
   background-color: #000;
   justify-content: center;
   border-radius: 10px;
-width: 100%;
-height: 40px;
-font-size: small;
-font-style: italic;
-font-weight: bold;
+  width: 100%;
+  height: 40px;
+  font-size: small;
+  font-style: italic;
+  font-weight: bold;
   align-items: center;
-  margin-top: 10px ;
-  
+  margin-top: 10px;
 }
 
 
@@ -919,6 +936,10 @@ font-style: italic;
 .report-form{
   margin-top: 20px;
 }
+.report-select{
+  background:#262626;
+  color: #ffffff;
+}
 
 .report-form-label{
   margin-top: 40px;
@@ -934,6 +955,11 @@ font-style: italic;
 .report-textarea{
   width: 100%;
   height: 50px;
+  background:#262626;
+  color: #ffffff;
+}
+.report-select{
+  margin-bottom: 10px;
 }
 .report-submit,
 .report-cancel {
@@ -950,7 +976,7 @@ font-style: italic;
 }
 
 .report-submit:hover {
-  background-color: #0056b3;
+  background-color: #db3056;
 }
 
 .report-cancel {
@@ -959,5 +985,153 @@ font-style: italic;
 }
 
 .report-cancel:hover {
-  background-color: #e1e1e1;
+  background-color: #db3056;
 }
+
+/* responsive mode */
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .theMainContainer {
+    width: 95vw;
+  }
+
+  .secondContainer,
+  .songBioSection {
+    width: 90%;
+    max-width: none;
+  }
+  .image-placeholder img {
+    height: 300px;
+    width: 400px;
+    
+    
+  }
+  .licensing-container h2 {
+    font-size: 1.5rem;}
+    .search-beats-body{
+      display: none;
+    }
+      
+    }
+    
+    
+    
+
+
+
+
+@media (max-width: 414px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .theMainContainer {
+    width: 80%;
+    padding: 10px;
+  }
+
+  .secondContainer,
+  .songBioSection {
+    width: 90%;
+    max-width: none;
+  }
+
+  .Mp3player {
+    flex-direction: column;
+    height: auto;
+    padding: 15px;
+  }
+
+  .image-placeholder img {
+    height: 50vh;
+    width: 90vw;
+  }
+
+  .licensing-container h2 {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+  .songListTitle {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .licenses {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .usageTermList {
+    font-size: small;
+    text-align: center;
+    padding-left: 10px;
+    width: 80%;
+  }
+}
+@media (max-width: 600px) {
+  .usageTermList {
+    font-size: 0.8em; }
+    .licenses {
+      grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 415px) and (max-width: 896px) and (orientation: landscape) {
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .theMainContainer {
+    width: 70%; 
+    padding: 15px;
+  }
+
+  .secondContainer,
+  .songBioSection {
+    width: 80%;
+  }
+
+  .Mp3player {
+    flex-direction: row; 
+    height: auto;
+    padding: 20px;
+  }
+
+  .image-placeholder img {
+    height: 40vh; 
+    width: 50vw;
+  }
+
+  .licensing-container h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  .licenses {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+
+
+  .usageTermList {
+    text-align: left;
+    width: 90%;
+    font-size: 0.7em;
+  }
+}
+
+  

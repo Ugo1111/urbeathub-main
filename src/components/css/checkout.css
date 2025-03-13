@@ -402,6 +402,7 @@ top: 0px;
 }
 
 
+<<<<<<< HEAD
 
 
 
@@ -494,3 +495,38 @@ top: 0px;
 .PaymentPage-button:hover {
   background-color: #2980b9;
 }
+=======
+@media (max-width: 800px){
+  .CheckoutBody{
+    flex-direction: column;
+  }
+  .cart-list-item-title{font-size: 1rem;
+
+  }
+  .CartSummary{
+    font-size: 1rem;
+  }
+  .proceedToCheckout{
+    font-size: 1rem;
+  }
+}
+
+
+
+
+@media (max-width: 600px){
+  .CheckoutBody{
+    flex-direction: column;}
+
+  .cart-list-item-title{font-size: 1rem;
+
+  }
+  .CartSummary{
+    font-size: 1rem;
+  }
+  .proceedToCheckout{
+    font-size: 1rem;
+  }
+}
+
+>>>>>>> 2cdfcbaa87705c8ea0f7235d8e45fcadcee4d8d9
