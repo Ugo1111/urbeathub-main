@@ -9,20 +9,24 @@ const SignUp = () => {
   const [username, setUsername] = useState("");  // New state for username
   const [error, setError] = useState(null); // State to handle errors
   const navigate = useNavigate();
-  const auth = getAuth();
+  const [auth, setAuth] = useState(null);  // State to hold auth object
 
-  // Redirect if already signed in
+  // Initialize auth when component mounts
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const authInstance = getAuth(); // Initialize auth here
+    setAuth(authInstance); // Set auth state
+
+    const unsubscribe = onAuthStateChanged(authInstance, (user) => {
       if (user) {
         navigate("/"); // Redirect if user is already authenticated
       }
     });
 
     return () => unsubscribe(); // Clean up subscription
-  }, [auth, navigate]);
+  }, [navigate]);
 
   const handleSignUp = async () => {
+    if (!auth) return; // Ensure auth is initialized
     try {
       setError(null); // Clear any previous errors
       const userCredential = await signUp(email, password, username); // Pass username along with email and password
@@ -39,7 +43,7 @@ const SignUp = () => {
       <a href="/" className="Headerlogo">
         <img
           src="./beathub1.PNG"
-          style={{ width: "64px", height: "64px", paddingBottom: "50px" }}
+          style={{ width: "100px", height: "100px", paddingBottom: "50px" }}
           alt="Logo"
         />
       </a>
