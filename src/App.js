@@ -17,6 +17,7 @@ import NegotiatePage from "./components/pages/NegotiatePage";
 import SerachedBeatsList from "./components/component/searchComponent";
 import PageOne from './components/pages/PageOne';
 import PageTwo from './components/pages/PageTwo';
+import EditTrackPage from './components/pages/EditTrackPage'; // Import EditTrackPage
 import { MusicUploadProvider } from "./components/context/MusicUploadProvider"; // Import the provider
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -44,6 +45,7 @@ function App() {
         <Route path="/paymentPage" element={<PaymentPage />} />
         <Route path="/PageOne" element={<PageOne />} />
         <Route path="/PageTwo" element={<PageTwo />} />
+        <Route path="/EditTrackPage" element={<EditTrackPage />} /> {/* Add route for EditTrackPage */}
         {/* Wrap TabPage with MusicUploadProvider */}
         <Route path="/tabs" element={
           <MusicUploadProvider>

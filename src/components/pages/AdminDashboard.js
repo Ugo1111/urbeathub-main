@@ -3,7 +3,6 @@ import { Routes, Route, Link } from "react-router-dom";
 import AdminPage from "./adminPage";
 import AdminUploadMusicPage from "./AdminUploadMusicPage"; // Import AdminUploadMusicPage
 import UploadedMusicComponent from "../component/UploadedMusicComponent";
-import ProducerMessages from "../component/producerMessages"; // Correct import path for ProducerMessages
 import AdminRespondMessages from "./AdminRespondMessages"; // Import AdminRespondMessages
 import { MusicUploadProvider } from "../context/MusicUploadProvider"; // Import the provider
 import "../css/adminDashboard.css"; // Import CSS for styling
@@ -16,7 +15,6 @@ const AdminDashboard = () => {
           <li><Link to="/admin">Dashboard</Link></li> {/* Update the link to point to /admin */}
           <li><Link to="/admin/upload">Upload Music</Link></li>
           <li><Link to="/admin/uploaded">Uploaded Music</Link></li>
-          <li><Link to="/admin/messages">Messages</Link></li> {/* Add link to messages */}
           <li><Link to="/admin/respond">Respond to Messages</Link></li> {/* Add link to respond to messages */}
         </ul>
       </nav>
@@ -29,7 +27,6 @@ const AdminDashboard = () => {
           </MusicUploadProvider>
         } /> {/* Wrap AdminUploadMusicPage with MusicUploadProvider */}
         <Route path="/uploaded" element={<UploadedMusicComponent />} />
-        <Route path="/messages" element={<ProducerMessages />} /> {/* Add route for messages */}
         <Route path="/respond" element={<AdminRespondMessages />} /> {/* Add route for responding to messages */}
       </Routes>
     </div>

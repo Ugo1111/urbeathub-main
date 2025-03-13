@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
 import { 
-  collection, getDocs, deleteDoc, doc, setDoc, updateDoc 
+  collection, getDocs, deleteDoc, doc, updateDoc 
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const UploadedMusicComponent = ({ setSelectedMusic }) => {
   const [uploadedMusic, setUploadedMusic] = useState([]);
   const [email, setEmail] = useState("");
+  const [filteredTracks, setFilteredTracks] = useState([]); // Filtered list of tracks
+  const [searchTerm, setSearchTerm] = useState(""); // Search term
+  const navigate = useNavigate();
 
   useEffect(() => {
     const auth = getAuth();
@@ -33,14 +37,23 @@ const UploadedMusicComponent = ({ setSelectedMusic }) => {
       }));
 
       setUploadedMusic(musicList);
+      setFilteredTracks(musicList); // Initialize filtered tracks
     } catch (error) {
       console.error("Error fetching music:", error);
     }
   };
 
+  // Filter tracks based on search term
+  useEffect(() => {
+    const filtered = uploadedMusic.filter((track) =>
+      track.title?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredTracks(filtered);
+  }, [searchTerm, uploadedMusic]);
+
   const handleDelete = async (id) => {
     try {
-      await deleteDoc(doc(db, "musicUploads", email, "music", id));
+      await deleteDoc(doc(db, "beats", id));
       alert("Music deleted successfully.");
       fetchMusic(email); // Refresh music list
     } catch (error) {
@@ -74,11 +87,25 @@ const UploadedMusicComponent = ({ setSelectedMusic }) => {
     }
   };
 
+  const handleEdit = (item) => {
+    navigate("/EditTrackPage", { state: { item } });
+  };
+
   return (
     <div>
       <h2>Uploaded Music</h2>
+
+      {/* Search box */}
+      <input
+        type="text"
+        placeholder="Search tracks by title"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-box"
+      />
+
       <ul>
-        {uploadedMusic.map((item) => (
+        {filteredTracks.map((item) => (
           <li key={item.id}>
             <h3>{item.title}</h3>
             <audio controls src={item.musicUrls.mp3}>
@@ -93,7 +120,7 @@ const UploadedMusicComponent = ({ setSelectedMusic }) => {
               />
             )}
             <br />
-            <button onClick={() => setSelectedMusic(item)}>Edit</button>
+            <button onClick={() => handleEdit(item)}>Edit</button>
             <button onClick={() => handleDelete(item.id)}>Delete</button>
             {item.status !== true ? (
               <button onClick={() => handlePublish(item)}>Publish</button>

@@ -31,3 +31,21 @@
   color: #ff0051;
 
 }
+
+.new-message-indicator {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.new-message-dot {
+  background-color: red;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-left: 5px;
+}
