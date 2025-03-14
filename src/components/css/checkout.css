@@ -402,100 +402,6 @@ top: 0px;
 }
 
 
-<<<<<<< HEAD
-
-
-
-/* PaymentPage.css */
-
-.PaymentPage-container {
-  max-width: 500px;
-  margin: 20px auto;
-  padding: 30px;
-  border-radius: 10px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.PaymentPage-container h1 {
-  text-align: center;
-  margin-bottom: 25px;
-  font-size: 24px;
-  color: #333333;
-}
-
-.PaymentPage-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.PaymentPage-form div {
-  margin-bottom: 20px;
-}
-
-.PaymentPage-form label {
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #555555;
-}
-
-.PaymentPage-form input[type="text"],
-.PaymentPage-form input[type="email"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #dddddd;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.PaymentPage-form input[type="text"]:focus,
-.PaymentPage-form input[type="email"]:focus {
-  border-color: #3498db;
-  outline: none;
-  box-shadow: 0 0 5px rgba(52, 152, 219, 0.2);
-}
-
-.PaymentPage-button-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.PaymentPage-cancel-button {
-  padding: 15px;
-  background-color: #e74c3c; /* Red background */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  flex: 1;
-}
-
-.PaymentPage-cancel-button:hover {
-  background-color: #c0392b;
-}
-
-.PaymentPage-button {
-  display: block;
-  width: 100%;
-  padding: 15px;
-  background-color: #3498db;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  text-align: center;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  flex: 1;
-}
-
-.PaymentPage-button:hover {
-  background-color: #2980b9;
-}
-=======
 @media (max-width: 800px){
   .CheckoutBody{
     flex-direction: column;
@@ -529,4 +435,3 @@ top: 0px;
   }
 }
 
->>>>>>> 2cdfcbaa87705c8ea0f7235d8e45fcadcee4d8d9
