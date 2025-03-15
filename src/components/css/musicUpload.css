@@ -2,46 +2,57 @@
   min-height: 100vh;
   min-width: 100vw;
   text-align: center;
- background-color: #c5c5c5;
+  background-color: #c5c5c5;
+  padding: 10px;
 }
+
+/* Ensure the tab buttons are stacked on small screens */
 .tab-buttons {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 20px;
- 
 }
+
 .tab-buttons button {
   padding: 10px 20px;
   border: none;
   cursor: pointer;
-  background: #ddd;
+  color: #ffffff;
+  background: #000000;
   border-radius: 5px;
   font-size: 16px;
-  
 }
+
 .tab-buttons button.active {
-  background: #007bff;
-  color: rgb(83, 83, 83);
+  background: #db3056;
+  color: rgb(248, 245, 245);
   font-weight: bold;
 }
+
+
 .tab-content {
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  background-color: #d7ffe167; /* Optional: background color for the navbar */
-
-  width: 790px;
-  height: 550px;
-  margin: 0 auto; 
-  overflow: scroll;
+  background-color: #ffffff;
+  width: 90%;
+  max-width: 790px;
+  height: auto;
+  min-height: 300px;
+  margin: 0 auto;
+  overflow: auto;
 }
+
 .button-container {
   margin-top: 20px;
   display: flex;
   justify-content: center;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
+
 .button-container button {
   padding: 10px 20px;
   border: none;
@@ -49,163 +60,129 @@
   border-radius: 5px;
   font-size: 16px;
 }
+
 .next-button {
-  background-color: #28a745;
+  background-color: #000000;
   color: white;
 }
+.next-button:hover{
+  background: #db3056;
+}
+
 .previous-button {
   background-color: #dc3545;
   color: white;
 }
+.previous-button:hover{
+  background: #000000;
+}
+
 .publish-button {
-  background-color: #007bff;
+  background-color: #db3056;;
   color: white;
 }
 
-
-
-
-
-.Basic-License{
+/* Adjust License section for mobile */
+.Basic-License {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  border: solid 1px rgb(31, 98, 255);
-  background-color: #95c6fa9e;
+  border: solid 1px #000000;
+  background-color: #ffffff;
   color: black;
   border-radius: 10px;
   margin: 15px;
-  height: 40px;
-  padding: 10px
+  padding: 10px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
 }
 
-.Basic-License input{
-  width: 50px;
-  padding: 10px;
+.Basic-License input {
+  width: 60px;
+  padding: 5px;
   border-radius: 5px;
   border: solid 1px gray;
 }
 
-
-
-.BPM-Key{
-display: flex;
-flex-direction: row;
-margin: 40px 0 40px 0;
-
+/* Make BPM section more adaptable */
+.BPM-Key {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
 }
 
-.BPM-Key label{
-  font-weight: bolder;
+
+.Metadata-Fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 500px;
+  margin: 10px auto;
+}
+
+.Metadata-Fields label {
+  font-weight: bold;
   color: black;
-  margin: 10px;
+  margin: 10px 0;
+  text-align: left;
 }
 
-.BPM-Key input{
+.Metadata-Fields input {
+  width: 100%;
   height: 35px;
-border-radius: 5px;
-color: black;
-border: rgba(116, 116, 116, 0.387) solid 1px;
+  border-radius: 5px;
+  color: black;
+  border: rgba(116, 116, 116, 0.387) solid 1px;
 }
 
-.BPM-Key2{
-  display: flex;
-flex-direction: column;
-margin-right: 20px;
-}
-
-.BPM-Key2 label{
-  display: flex;
-justify-content: flex-start;
-}
-
-.Metadata-Fields{
-  display: flex;
-flex-direction: column;
-margin: 10px;
-margin-bottom: 20px;
-}
-
-.Metadata-Fields label{
-  display: flex;
-justify-content: flex-start;
-font-weight: bolder;
-color: black;
-margin: 10px;
-
-}
-
-
-.Metadata-Fields input{
-height: 35px;
-border-radius: 5px;
-color: black;
-border: rgba(116, 116, 116, 0.387) solid 1px;
-
-}
-
-
-
-
-
+/* Drop Zone */
 .drop-zone {
-  border: 2px dashed rgba(0, 123, 255, 0.6);
+  border: 2px dashed rgba(231, 39, 129, 0.6);
   padding: 20px;
   cursor: pointer;
   text-align: center;
-  margin: 10px;
+  margin: 10px auto;
+  width: 90%;
+  max-width: 500px;
 }
 
-.cover-title{
-display:flex;
-flex-direction: row;
-}
-
-.MusicTitle-label{
-margin-left: 15px;
-display:flex;
-flex-direction: column;
-width: 500px;
-}
-
-.MusicTitle-label label{
-
-font-size: 1.5em;
-margin: 20px 0 10px 10px;
-}
-
-.MusicTitle-label input{
-border-radius: 10px;
-height: 40px;
-border: 2px solid rgba(0, 123, 255, 0.29);
-}
-
-  .drop-zone4Image {
-  border: 2px solid rgba(0, 123, 255, 0.29);
+.drop-zone4Image {
+  border: 2px solid rgba(231, 39, 129, 0.6);
   padding: 20px;
   cursor: pointer;
   text-align: center;
-  margin: 10px;
+  margin: 10px auto;
+  width: 90%;
   max-width: 200px;
-   max-height: 300px;
 }
 
-.dragging { background: #f0f8ff; }
-.preview-image {
-  max-width: 100px;
-  max-height: 100px;
-  margin-top: 10px;
-}
-.progress-bar div {
-  height: 10px;
-  background: #007bff;
-  text-align: center;
-  color: white;
-  font-size: 12px;
+.cover-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+.MusicTitle-label {
+  width: 90%;
+  max-width: 500px;
+  text-align: left;
+}
 
+.MusicTitle-label label {
+  font-size: 1.2em;
+  margin: 20px 0 10px 10px;
+}
+
+.MusicTitle-label input {
+  width: 100%;
+  border-radius: 10px;
+  height: 40px;
+  border: 2px solid rgba(231, 39, 129, 0.9);
+}
 
 
 .tag-container {
@@ -217,9 +194,12 @@ border: 2px solid rgba(0, 123, 255, 0.29);
   border-radius: 5px;
   min-height: 40px;
   align-items: center;
+  width: 90%;
+  max-width: 500px;
 }
+
 .tag {
-  background-color: #007bff;
+  background-color: #000000;
   color: white;
   padding: 5px 10px;
   border-radius: 15px;
@@ -227,20 +207,13 @@ border: 2px solid rgba(0, 123, 255, 0.29);
   align-items: center;
   gap: 5px;
 }
-.remove-tag {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-}
+
 .tag-container input {
   border: none;
   outline: none;
   padding: 5px;
   flex-grow: 1;
 }
-
 
 .UploadedBeatList-body{
   position: fixed;
@@ -313,29 +286,32 @@ font-size: larger;
 
 
 
-.ViewEditSellBeatPage-body{
-background-color: #c5c5c5;
-min-width: 100vw;
-min-height: 100vh;
-display: flex;
-justify-content: center;
-
+.ViewEditSellBeatPage-body {
+  background-color: #c5c5c5;
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
 }
 
+/* Make track container responsive */
 .track-container {
+  width: 90%;
   max-width: 900px;
-  min-width: 900px;
+  min-width: unset;
   margin: auto;
-  padding: auto;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 10px;
   background: #f9f9f9;
-height: 900px;
-overflow-y: scroll; /* Adds vertical scrolling */
-overflow-x: hidden;
+  height: auto;
+  max-height: 900px;
+  overflow-y: auto; /* Allows scrolling */
+  overflow-x: hidden;
 }
 
+/* Ensure track info fields align properly */
 .track-info {
   display: flex;
   flex-direction: column;
@@ -350,17 +326,20 @@ overflow-x: hidden;
   background: white;
   padding: 5px;
   border-radius: 5px;
+  word-wrap: break-word;
 }
 
+/* Make input fields fully responsive */
 .ViewEditSellBeatPageinput,
 select {
-  padding: 5px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
   width: 100%;
 }
 
+/* Adjust cover image size */
 .cover-img {
   width: 100px;
   min-height: 90px;
@@ -369,9 +348,10 @@ select {
   margin-top: 10px;
 }
 
+/* Buttons */
 .edit-btn, .save-btn {
   margin-top: 15px;
-  padding: 10px;
+  padding: 12px;
   border: none;
   cursor: pointer;
   font-size: 16px;
@@ -393,30 +373,28 @@ select {
   margin-top: 10px;
 }
 
-
-
-
-.ViewEditSellBeatPage-goBack{
-size: 3em;
-font-size: medium;
-height: 50px;
-padding: 10px;
-border-radius: 5px;
-background: #ffffff;
+/* Back button styles */
+.ViewEditSellBeatPage-goBack {
+  font-size: medium;
+  height: 50px;
+  padding: 10px;
+  border-radius: 5px;
+  color: #ffffff;
+  background: #000000;
+  display: block;
+  width: 10%;
+  text-align: center;
 }
 
-
-.ViewEditSellBeatPage-gack-btn{
-padding: 10px;
-  background: #b6b6b6;
+.ViewEditSellBeatPage-gack-btn {
+  margin-top: 5px;
+  padding: 10px;
+  background: #db3056;
   color: white;
   font-size: medium;
   border-radius: 5px;
+  width: 20%;
 }
-
-
-
-
 
 
 .dashboard-body {
@@ -431,12 +409,14 @@ background-color: #e2e2e2;
   padding: 20px;
   text-align: center;
 }
+
 .dashboard-container {
   max-width: 1800px;
   min-width: 1000px;
+  height: 100vh;
   border: #b6b6b63e 1px solid;
   border-radius: 10px;
-  margin: auto 90px;
+  margin: auto 0px;
   padding: 20px;
   text-align: center;
   margin-top: 90px;
@@ -942,3 +922,114 @@ padding: 10px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+@media (max-width: 768px) {
+  .tab-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tab-buttons button {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .Basic-License {
+    width: 90%;
+    max-width: 400px;
+  }
+
+  .Metadata-Fields {
+    width: 90%;
+  }
+  .track-container {
+    width: 95%;
+    height: auto;
+    max-height: 800px;
+  }
+
+  .cover-img {
+    width: 80px;
+    min-height: 80px;
+  }
+
+  .edit-btn, .save-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .ViewEditSellBeatPage-goBack{
+    display: none;
+  }
+  .ViewEditSellBeatPage-gack-btn {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tab-content {
+    width: 95%;
+    min-height: 250px;
+  }
+
+  .Basic-License {
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+  }
+
+  .Metadata-Fields {
+    width: 95%;
+  }
+
+  .tab-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tab-buttons button {
+    width: 95%;
+  }
+
+  .button-container {
+    flex-direction: column;
+    width: 95%;
+  }
+
+  .drop-zone,
+  .drop-zone4Image,
+  .MusicTitle-label {
+    width: 95%;
+  }
+  .track-container {
+    width: 100%;
+    padding: 15px;
+    height: auto;
+    max-height: 600px;
+  }
+
+  .cover-img {
+    width: 70px;
+    min-height: 70px;
+  }
+
+  .edit-btn, .save-btn {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .ViewEditSellBeatPage-goBack{
+    display: none;
+  }
+
+  .ViewEditSellBeatPage-gack-btn {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
