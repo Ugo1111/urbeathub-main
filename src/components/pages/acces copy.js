@@ -33,7 +33,7 @@ const Passage = () => {
       
     
       <Login />
-   <button class="startselling">startselling</button>
+   
 
     </div>
   );

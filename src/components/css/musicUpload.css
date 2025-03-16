@@ -426,8 +426,6 @@ background-color: #e2e2e2;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 60px;
- 
-   margin-top: 90px;
    
 }
 
