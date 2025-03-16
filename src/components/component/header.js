@@ -5,7 +5,6 @@ import {AuthState} from "../AuthState";
 import BeatsList from "../component/searchComponent.js";
 
 
-
 // /Header Logo
 export function Headerlogo() {
   return (
@@ -49,12 +48,9 @@ export  function GroupA2() {
 export default function GroupA() {
     return (
       <div className="GroupA">
-        <Headerlogo /> <BeatsList />  <AuthState /> 
-        <button class="startselling">start selling</button>
+        <Headerlogo /> <BeatsList />  <AuthState />
 {" "}
-
       </div>
-      
     );
   }
 
