@@ -19,7 +19,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-x: hidden;
  
   
 }
@@ -963,9 +962,6 @@ font-style: italic;
   background-color: #e1e1e1;
 }
 
-
-/* responsive mode */
-
 @media (max-width: 768px) {
   .container {
     flex-direction: column; /* Stack elements vertically */
@@ -998,36 +994,4 @@ font-style: italic;
     text-align: center;
     margin: 20px 0;
   }
-
-  .licenses {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
-    gap: 10px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    
-  }
-
-  .usageTermList{
-    font-size: small;
-   
-    text-align: center;
-    padding-left: 10px;
-   width: 80%;
-    display: flex;
-    align-content: center;
-    align-items: center;
-  }
-  .usageTermSection{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 3 cards per row */
-    text-align: center;
-   min-height: 110px;
-   gap: 10px;
-   width: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
-  }
 }
-
-
