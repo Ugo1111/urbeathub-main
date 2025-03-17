@@ -13,6 +13,7 @@ import UploadedbeatsPage from "./components/pages/UploadedbeatsPage";
 import TabPage from "./components/component/tabs";
 import ViewEditSellBeatPage from "./components/pages/ViewEditSellBeatPage";
 import PaymentPage from "./components/pages/paymentPage";
+import CheckoutpaymentPage from "./components/pages/checkoutpaymentPage";
 import NegotiatePage from "./components/pages/NegotiatePage";
 import SerachedBeatsList from "./components/component/searchComponent";
 import PageOne from './components/pages/PageOne';
@@ -43,6 +44,7 @@ function App() {
         <Route path="/SellBeatPage/*" element={<SellBeatPage />} />
         <Route path="/ViewEditSellBeatPage" element={<ViewEditSellBeatPage />} />
         <Route path="/paymentPage" element={<PaymentPage />} />
+        <Route path="/checkoutpaymentPage" element={<CheckoutpaymentPage />} />
         <Route path="/PageOne" element={<PageOne />} />
         <Route path="/PageTwo" element={<PageTwo />} />
         <Route path="/EditTrackPage" element={<EditTrackPage />} /> {/* Add route for EditTrackPage */}

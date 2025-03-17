@@ -4,7 +4,7 @@ import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "../css/addToCart.css";
 import GroupA from "../component/header.js";
-import PaystackPayment from "../component/PaystackPayment";
+import PaystackPayment from "../component/CheckoutPaystackPayment";
 import { Link } from "react-router-dom";
 
 function CheckoutPage() {
@@ -155,10 +155,11 @@ function CheckoutPage() {
                                 beatId={selectedSong?.id}
                                 license={selectedLicense?.name}
                                 uid={user?.uid} // Pass the user ID
-                               
+                                cart={cart} // Pass the cart
+                                setCart={setCart} // Pass the setCart function
                             />
                         ) : (
-                            <Link to="/paymentPage" state={{ totalPrice, userEmail }}>
+                            <Link to="/CheckoutpaymentPage" state={{ totalPrice, userEmail, song: selectedSong?.title, license: selectedLicense?.name, beatId: selectedSong?.id }}>
                                 <button className="buy-now-btn">Proceed to Checkout</button>
                             </Link>
                         )}

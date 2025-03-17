@@ -6,7 +6,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useMusicUploadContext } from "../context/MusicUploadProvider";
 import AudioTagger from "../pages/PageOne"; // Import AudioTagger component
 
-const UploadMusicComponent = () => {
+const UploadMusicComponent = ({ handleInputChange, handleFileSelect }) => {
   const {
     setUploadMusic,
     audioFileMp3, setAudioFileMp3,
@@ -47,35 +47,7 @@ const UploadMusicComponent = () => {
     } else {
       setIsEditMode(false);
     }
-  }, [selectedMusic]);
-
-  // Handle file selection
-  const handleFileSelect = (e, fileType) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    if (fileType === "musicMp3" && file.type.startsWith("audio/mpeg")) {
-      setAudioFileMp3(file);
-    } else if (fileType === "musicWav" && file.type.startsWith("audio/wav")) {
-      setAudioFileWav(file);
-    } else if (fileType === "cover" && file.type.startsWith("image/")) {
-      setCoverArt(file);
-      setCoverPreview(URL.createObjectURL(file));
-    } else if (fileType === "archive") {
-      const allowedExtensions = ["zip", "rar"];
-      if (!allowedExtensions.includes(file.name.split(".").pop().toLowerCase())) {
-        alert("Invalid file type. Please upload a ZIP or RAR file.");
-        return;
-      }
-      setZipFile(file);
-    } else {
-      alert("Invalid file type.");
-    }
-
-    if (fileType !== "cover") {
-      setAudioFileSize(`${(file.size / 1024).toFixed(2)} KB`);
-    }
-  };
+  }, [selectedMusic, setMusicTitle]);
 
   // Function to handle the processed audio file from AudioTagger
   const handleProcessedAudio = (audioFile) => {
@@ -107,7 +79,7 @@ const UploadMusicComponent = () => {
         title: musicTitle,
         musicUrls: {},
         coverUrl: "",
-        status: false,
+        status: true,
         uploadedBy: email,
         timestamp: Timestamp.now(),
       });
@@ -178,7 +150,14 @@ const UploadMusicComponent = () => {
 
         <div className="MusicTitle-label">
           <label>Title</label>
-          <input type="text" placeholder="Enter the Beat Title" maxLength="400" value={musicTitle} onChange={(e) => setMusicTitle(e.target.value)} required />
+          <input
+            type="text"
+            placeholder="Enter the Beat Title"
+            maxLength="400"
+            value={selectedMusic.title || ""}
+            onChange={(e) => handleInputChange("title", e.target.value)}
+            required
+          />
         </div>
       </div>
 

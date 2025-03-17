@@ -42,7 +42,11 @@ function AddToCart() {
     if (isPlaying) {
       audio.pause();
     } else {
-      audio.play();
+      if (!audio.src) {
+        audio.src = song.musicUrls?.mp3; // Set the audio source if not already set
+        audio.load(); // Load the audio source
+      }
+      audio.play().catch((error) => console.error("Playback failed:", error));
     }
     setIsPlaying(!isPlaying);
   };
@@ -67,12 +71,16 @@ function AddToCart() {
     const updateCurrentTime = () => setCurrentTime(audio.currentTime);
     const updateDuration = () => setDuration(audio.duration);
 
-    audio.addEventListener("timeupdate", updateCurrentTime);
-    audio.addEventListener("loadedmetadata", updateDuration);
+    if (audio) {
+      audio.addEventListener("timeupdate", updateCurrentTime);
+      audio.addEventListener("loadedmetadata", updateDuration);
+    }
 
     return () => {
-      audio.removeEventListener("timeupdate", updateCurrentTime);
-      audio.removeEventListener("loadedmetadata", updateDuration);
+      if (audio) {
+        audio.removeEventListener("timeupdate", updateCurrentTime);
+        audio.removeEventListener("loadedmetadata", updateDuration);
+      }
     };
   }, []);
 

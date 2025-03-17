@@ -3,7 +3,7 @@ import { FaChevronDown, FaChevronUp, FaDownload } from "react-icons/fa";
 import "../css/addToCart.css";
 import HandleAddToCart from "../component/AddToCartComponent.js";
 import { Link } from "react-router-dom";
-import { getFirestore, collection, getDocs, query, where } from "firebase/firestore";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 export default function LicensingSection({ song, addToCart }) {

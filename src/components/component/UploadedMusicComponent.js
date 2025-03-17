@@ -5,6 +5,8 @@ import {
   collection, getDocs, deleteDoc, doc, updateDoc 
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { formatDistanceToNow } from "date-fns"; // Import date-fns for relative time formatting
+import "../css/uploadedMusicComponent.css";
 
 const UploadedMusicComponent = ({ setSelectedMusic }) => {
   const [uploadedMusic, setUploadedMusic] = useState([]);
@@ -92,7 +94,7 @@ const UploadedMusicComponent = ({ setSelectedMusic }) => {
   };
 
   return (
-    <div>
+    <div className="uploaded-music-container">
       <h2>Uploaded Music</h2>
 
       {/* Search box */}
@@ -104,29 +106,34 @@ const UploadedMusicComponent = ({ setSelectedMusic }) => {
         className="search-box"
       />
 
-      <ul>
+      <ul className="uploaded-music-list">
         {filteredTracks.map((item) => (
-          <li key={item.id}>
-            <h3>{item.title}</h3>
-            <audio controls src={item.musicUrls.mp3}>
-              Your browser does not support the audio element.
-            </audio>
-            <br />
-            {item.coverUrl && (
-              <img
-                src={item.coverUrl}
-                alt="Cover Art"
-                style={{ width: "100px", height: "100px", objectFit: "cover" }}
-              />
-            )}
-            <br />
-            <button onClick={() => handleEdit(item)}>Edit</button>
-            <button onClick={() => handleDelete(item.id)}>Delete</button>
-            {item.status !== true ? (
-              <button onClick={() => handlePublish(item)}>Publish</button>
-            ) : (
-              <button onClick={() => handleUnpublish(item)}>Unpublish</button>
-            )}
+          <li key={item.id} className="uploaded-music-item">
+            <>
+              <h3>{item.title}</h3>
+              <div className="media-container">
+                {item.coverUrl && (
+                  <img
+                    src={item.coverUrl}
+                    alt="Cover Art"
+                    className="cover-art"
+                  />
+                )}
+                <audio controls src={item.musicUrls.mp3}>
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
+              <p className="timestamp">
+                Uploaded {formatDistanceToNow(new Date(item.timestamp.seconds * 1000), { addSuffix: true })}
+              </p>
+              <button onClick={() => handleEdit(item)}>Edit</button>
+              <button onClick={() => handleDelete(item.id)} className="delete">Delete</button>
+              {item.status !== true ? (
+                <button onClick={() => handlePublish(item)} className="publish">Publish</button>
+              ) : (
+                <button onClick={() => handleUnpublish(item)} className="unpublish">Unpublish</button>
+              )}
+            </>
           </li>
         ))}
       </ul>

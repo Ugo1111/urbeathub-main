@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import PaystackPayment from '../component/GuestPaystackPayment';
+import GuestPaystackPayment from '../component/GuestPaystackPayment';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-
-const PaymentPage = () => {
+const CheckoutpaymentPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { totalPrice, userEmail, userName, song, license, uid } = location.state || {};
+  const { totalPrice, userEmail, userName, song, license, uid, beatId } = location.state || {};
   const [email, setEmail] = useState(userEmail || '');
   const [name, setName] = useState(userName || '');
   const [amount, setAmount] = useState(totalPrice || 0);
@@ -47,10 +46,10 @@ const PaymentPage = () => {
         <button className="PaymentPage-cancel-button" onClick={handleCancel}>
           Cancel
         </button>
-        <PaystackPayment email={email} amount={amount} name={name} song={song} license={license} uid={uid} />
+        <GuestPaystackPayment email={email} amount={amount} name={name} song={song} license={license} uid={uid} beatId={beatId} />
       </div>
     </div>
   );
 };
 
-export default PaymentPage;
+export default CheckoutpaymentPage;

@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import "../css/addToCart.css";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import CartComponent from "../component/CartComponent.js";
 import GroupA from "../component/header.js";
+import PaystackPayment from "../component/PaystackPayment";
 import { GroupE, GroupF, GroupG } from "../component/footer.js";
 
 function CartPage() {
     const [cart, setCart] = useState([]); 
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
+    const [userEmail, setUserEmail] = useState(null); // State to store the email
     const navigate = useNavigate();
     const auth = getAuth();
     const db = getFirestore();
@@ -18,6 +20,9 @@ function CartPage() {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setUser(currentUser);
+            if (currentUser) {
+                setUserEmail(currentUser.email); // Set user email when user is authenticated
+            }
 
             if (!currentUser) {
                 setCart([]);
@@ -44,9 +49,10 @@ function CartPage() {
         return () => unsubscribe();
     }, [auth, db]);
 
-    // ✅ Calculate total price using reduce()
+    // Calculate total price using reduce()
     const totalPrice = cart.reduce((acc, song) => {
-        const itemPrice = (song.price) || 0; 
+        const cleanPrice = song.price?.replace(/[^0-9.]/g, ""); // Removes any non-numeric characters
+        const itemPrice = Number(cleanPrice) || 0;
         return acc + itemPrice;
     }, 0);
 
@@ -80,23 +86,36 @@ function CartPage() {
                                 <hr />
                                 <div className="Subtotal">
                                     <div>Subtotal</div>
-                                    <div>{totalPrice}</div>
+                                    <div>${totalPrice.toFixed(2)}</div> {/* Reflect correct subtotal */}
                                 </div>
                                 <div className="Total_CartSummary">
                                     <h3>Total ({cart.length} item{cart.length !== 1 ? "s" : ""})</h3>
-                                    <h3>{totalPrice}</h3> {/* ✅ Fixed incorrect reference */}
+                                    <h3>${totalPrice.toFixed(2)}</h3> {/* Reflect correct total */}
                                 </div>
                             </>
                         )}
 
-                        <button 
-                            onClick={() => navigate("/paymentPage")} 
-                            className="proceedToCheckout"
-                            disabled={cart.length === 0} // ✅ Disable button if cart is empty
-                        >
-                            Proceed to Checkout
-                        </button>
-                        <div>You are checking out as @{user?.displayName || "Guest"}, not you?</div>
+                        {userEmail ? (
+                            <PaystackPayment
+                                email={userEmail}
+                                amount={totalPrice}
+                                song={cart[0]?.title}
+                                beatId={cart[0]?.songId}
+                                license={cart[0]?.license}
+                                uid={user?.uid} // Pass the user ID
+                                cart={cart} // Pass the entire cart
+                                setCart={setCart} // Pass the setCart function
+                            />
+                        ) : (
+                            <Link to="/paymentPage" state={{ totalPrice, userEmail }}>
+                                <button className="buy-now-btn">Proceed to Checkout</button>
+                            </Link>
+                        )}
+                        <div>
+                            You are checking out {userEmail ? `with email: ${userEmail}` : "as a Guest"} 
+                             {/* or <Link to="/paymentPage" state={{ totalPrice, userEmail }}>
+                                                            <div >click here to checkout with a different Email</div> </Link> */}
+                        </div>
                     </div>
                 </div>
             </div>

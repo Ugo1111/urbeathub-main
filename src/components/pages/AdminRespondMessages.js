@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase/firebase"; // Firestore import
 import { collection, query, orderBy, onSnapshot, addDoc, updateDoc, serverTimestamp, doc} from "firebase/firestore";
-import "../css/adminDashboard.css"; 
+import { formatDistanceToNow } from "date-fns"; // Import date-fns for relative time formatting
+import "../css/adminRespondMessages.css"; 
 function AdminRespondMessages() {
   const [users, setUsers] = useState([]); // List of users
   const [filteredUsers, setFilteredUsers] = useState([]); // Filtered list of users
@@ -26,8 +27,8 @@ function AdminRespondMessages() {
 
         // Sort users by the timestamp of their latest message or topic update
         usersList.sort((a, b) => {
-          const aLatestUpdate = a.lastUpdated?.seconds || 0;
-          const bLatestUpdate = b.lastUpdated?.seconds || 0;
+          const aLatestUpdate = a.messageLastUpdated?.seconds || 0;
+          const bLatestUpdate = b.messageLastUpdated?.seconds || 0;
           return bLatestUpdate - aLatestUpdate;
         });
 
@@ -153,13 +154,14 @@ function AdminRespondMessages() {
 
         // Update the last updated time for the topic
         await updateDoc(doc(db, "beatHubUsers", selectedUser, "messages", selectedTopic), {
-          lastUpdated: serverTimestamp(),
+          messageLastUpdated: serverTimestamp(),
         });
 
         // Update the last updated time for the user
         await updateDoc(doc(db, "beatHubUsers", selectedUser), {
-          lastUpdated: serverTimestamp(),
+          messageLastUpdated: serverTimestamp(),
         });
+
 
         setMessage(""); // Clear the input field after submission
         setError(""); // Clear any existing error messages
@@ -210,6 +212,9 @@ function AdminRespondMessages() {
                   onClick={() => handleUserSelect(user.id)}
                 >
                   {user.name || user.email} {/* Display user name or email */}
+                  <span className="timestamp">
+                    {user.messageLastUpdated ? ` (${formatDistanceToNow(new Date(user.messageLastUpdated.seconds * 1000), { addSuffix: true })})` : ""}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -240,6 +245,9 @@ function AdminRespondMessages() {
                   onClick={() => handleTopicSelect(topic.id)}
                 >
                   {topic.name}
+                  <span className="timestamp">
+                    {topic.messageLastUpdated ? ` (${formatDistanceToNow(new Date(topic.messageLastUpdated.seconds * 1000), { addSuffix: true })})` : ""}
+                  </span>
                   {newMessages[topic.id] && (
                     <>
                       <span className="new-message-indicator">New</span> {/* Add new message indicator */}
