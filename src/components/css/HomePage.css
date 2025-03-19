@@ -35,7 +35,7 @@ body {margin: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Adjust this value to change opacity */
+  background: rgba(0, 0, 0, 0.9); /* Adjust this value to change opacity */
   z-index: 1;
 }
 
@@ -149,7 +149,7 @@ overflow: hidden;
 
   .HeroPage {
     padding: 5px;
-    width: 80%;
+    width: 95%;
     height: 85vmin;
     text-align: center;
     margin-bottom: 20px; 
@@ -159,14 +159,14 @@ overflow: hidden;
 
 .HeroPage  div {
 color: #fff;
-margin-bottom: 100px;
+margin-bottom: 250px;
    }
 
    
   .HeroText  h3{
     margin: 0 auto; 
-    width: 90%;
-    font-size: 2rem;
+    width: 95%;
+    font-size: 4rem;
     color: #db3056;
     word-break: break-word;
     overflow-wrap: break-word;
@@ -177,7 +177,7 @@ margin-bottom: 100px;
 .HeroText h5 {
   font-size: 1rem;
   text-align: center;
-  width: 90%;
+  width: 95%;
   margin: 0 auto; /* Centers the block element horizontally */
   position: relative;
   z-index: 2;
@@ -672,6 +672,7 @@ margin-bottom: 100px;
 
     
   .GroupC1{
+    font-size: large;
       padding: 15px;
       background-color: #181818;
       width: 70%;
@@ -684,7 +685,7 @@ margin-bottom: 100px;
   }
 
   .GroupC2{
- font-size: 0.8em;
+ font-size: large;
     background-color: #181818;
       width: 70%;
       min-height: 35vmin;
@@ -726,13 +727,11 @@ margin-bottom: 100px;
 
   .controllerB1{
     flex: 1;
-
-       /* border-radius: 50px; */
   }
   
   
   .controllerB1 h4{
-   
+   text-align: left;
     display: block;
    white-space: nowrap;
     width: 80%;
@@ -762,7 +761,7 @@ font-size: medium;  }
     border: #eaeaea1f 0.5px solid;
     height: 100%;
     color: #9a9a9a;
-    margin: 0 20px 0 2px ;    }
+    margin: 0 0 0 2px ;    }
   
 
     .controllerB3 button:hover{
@@ -788,6 +787,8 @@ flex-direction: row;
 
 
 
+
+
   .title4MusicController  button{
 
     background-color:black;
@@ -798,11 +799,10 @@ flex-direction: row;
   .songcontainer{
     list-style-type:none;
     width: auto;
-
   }
   .songlist{
     display: flex; 
-    border: #363636ad solid 0.5px; 
+    border: #000 solid 1px; 
     padding: 5px;
     margin: 5px;
     flex-direction: row;
@@ -930,18 +930,25 @@ flex-direction: row;
 /*Tablet respontsiveness */
 
 @media (max-width: 800px){
+   
 
+  .HeroPage {
+    width: 80%;
+  }
   .HeroText h3{
-     font-size: 1.5em;
+     font-size: 2.5rem;
  color: #db3056;
+
+
   }
  
    .HeroText h5 {
      font-size: 0.9em;
      color: #ffffff;
+     margin-bottom: 100px;
    }
    .GroupC2{
-    font-size: 0.6em;
+    font-size: small;
     background-color: #181818;
          width: 63%;
          height: 35vmin;
@@ -953,7 +960,14 @@ flex-direction: row;
     text-overflow: ellipsis;
      }
 
-
+     .songlist-tag{
+      font-size: small;
+     }
+     .songListTitle{
+      white-space: nowrap; 
+      overflow: hidden;
+      text-overflow: ellipsis; 
+     }
   
 
   .GroupC1{
@@ -1018,7 +1032,7 @@ flex-direction: row;
   
 
   .HeroText h3 {
-    font-size: 2.5rem; /* Adjust for smaller screens */
+    font-size: 2rem; /* Adjust for smaller screens */
     word-break: break-word;
     overflow-wrap: break-word;
     text-align: center;
@@ -1026,19 +1040,20 @@ flex-direction: row;
   }
 
   .HeroText h5 {
-    font-size: 1rem; /* Reduce size */
+    font-size: 0.8rem; /* Reduce size */
    word-break: break-word;
     overflow-wrap: break-word;
     text-align: center;
     width: 80%;
+    margin-bottom: 100px;
 
   }
   .HeroPage div {
-      margin-bottom: 50px; 
+    
       font-size: 0.8rem;
   }
   .GroupC2{
-    font-size: 0.8em;
+
     background-color: #181818;
          width: 60%;
          height: 35vmin;

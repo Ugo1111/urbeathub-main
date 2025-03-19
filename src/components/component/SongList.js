@@ -29,7 +29,7 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
             />
             <div className="songListTitle">
               {song.title || "Unknown Title"}
-              <div style={{ fontSize: "0.65em" }}>
+              <div style={{ fontSize: "0.8em" }}>
                 <LikeButton songId={song.id} />
               </div>
             </div>

@@ -580,7 +580,14 @@ border-radius: 50%;
     height: 45px;
   }
 
-
+  .dropdown-content {
+    width: 50%; /* Adjust width for smaller screens */
+    left: 2.5%; /* Center it properly */
+    transform: none;
+    border-radius: 5px; /* Slightly reduce border-radius for smaller screens */
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2); /* Reduce shadow for a cleaner look */
+    font-size: small;
+}
 
 
 
