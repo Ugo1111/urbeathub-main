@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaShareAlt } from "react-icons/fa";
@@ -6,53 +6,8 @@ import LikeButton from "./LikeButton";
 import Download from "../component/download.js";
 import ShareModal from "./ShareModal";
 import MoreOptions from "./moreOptions.js";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
-  const [displayedSongs, setDisplayedSongs] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
-  const observer = useRef();
-  const db = getFirestore();
-
-  useEffect(() => {
-    const fetchLikes = async () => {
-      const songsWithLikes = await Promise.all(
-        songs.map(async (song) => {
-          const likesRef = collection(db, `beats/${song.id}/likes`);
-          const likesSnapshot = await getDocs(likesRef);
-          return { ...song, likes: likesSnapshot.size };
-        })
-      );
-
-      // Sort songs by likes in descending order and then shuffle
-      const sortedSongs = songsWithLikes.sort((a, b) => b.likes - a.likes);
-      const shuffledSongs = sortedSongs.sort(() => 0.5 - Math.random());
-
-      setDisplayedSongs(shuffledSongs.slice(0, 20));
-    };
-
-    fetchLikes();
-  }, [songs, db]);
-
-  const lastSongElementRef = useCallback(
-    (node) => {
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          setDisplayedSongs((prevSongs) => {
-            const newSongs = songs.slice(prevSongs.length, prevSongs.length + 20);
-            if (newSongs.length === 0) {
-              setHasMore(false);
-            }
-            return [...prevSongs, ...newSongs];
-          });
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [hasMore, songs]
-  );
-
   const openShareModal = (song, event) => {
     event.stopPropagation(); // Prevent triggering play on click
     setSelectedSong(song);
@@ -61,12 +16,11 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
   return (
     <div className="GroupC2">
       <div className="songcontainer">
-        {displayedSongs.map((song, index) => (
+        {songs.map((song, index) => (
           <div
             className="songlist"
             key={song.id}
             onClick={() => playSong(index)}
-            ref={index === displayedSongs.length - 1 ? lastSongElementRef : null}
           >
             <img
               src={song.coverUrl || "./images/default-cover.jpg"}
@@ -80,22 +34,28 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
               </div>
             </div>
 
-            <div className="market">
-              <div className="songlist-taglist">
-                {song.metadata?.tags?.map((tag, index) => (
-                  <span key={index} className="songlist-tag">
-                    {tag.trim()}
-                  </span>
-                ))}
-              </div>
+              <div className="market">
+            <div className="songlist-taglist">
+              {song.metadata?.tags?.map((tag, index) => (
+                <span key={index} className="songlist-tag">
+                  {tag.trim()}
+                </span>
+              ))}
+            </div>
 
-              <Link to="/addToCart" state={{ song }}>
-                <button className="songlist-addtochart">
-                  <FaCartShopping style={{ marginRight: "6px" }} />${song.monetization?.basic?.price}
+              <Link to="/buysong" state={{ song }}  >
+                <button  className="songlist-addtochart">
+                  <FaCartShopping    style={{ marginRight: "6px" }} />${song.monetization?.basic?.price}
                 </button>
               </Link>
 
-              <MoreOptions song={song} openShareModal={openShareModal} className="MoreOptions-" />
+              {/* <Download song={song} />
+
+              <button onClick={(event) => openShareModal(song, event)}>
+                <FaShareAlt size="1.5em" /> Share
+              </button> */}
+
+              <MoreOptions song={song} openShareModal={openShareModal}   className="MoreOptions-"/>
             </div>
           </div>
         ))}

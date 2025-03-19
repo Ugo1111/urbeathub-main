@@ -7,7 +7,7 @@ import Logout from "../logout.js";
 import UploadMusicComponent from "../component/UploadMusicComponent.js";
 import UploadedMusicComponent from "../component/UploadedMusicComponent.js";
 
-const AdminPage = ({ email }) => {
+const UploadMusicPage = ({ email }) => {
   const [data, setData] = useState([]);
   const [selectedMusic, setSelectedMusic] = useState(null);
   const [userId, setUserId] = useState(null); // To store user ID
@@ -65,12 +65,12 @@ const AdminPage = ({ email }) => {
 
   return (
     <div>
-      {/* <h1>Data from Firestore</h1>
+      <h1>Data from Firestore</h1>
       <ul>
         {data.map((item) => (
           <li key={item.id}>{item.first} {item.last}</li> 
         ))}
-      </ul> */}
+      </ul>
 
       {/* Display the user ID and admin status */}
       {userId && <p>Your user ID: {userId}</p>}
@@ -87,4 +87,4 @@ const AdminPage = ({ email }) => {
   );
 };
 
-export default AdminPage;
+export default UploadMusicPage;

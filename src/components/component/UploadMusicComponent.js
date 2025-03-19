@@ -4,9 +4,8 @@ import { db, storage } from "../../firebase/firebase";
 import { collection, addDoc, updateDoc, Timestamp } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useMusicUploadContext } from "../context/MusicUploadProvider";
-import AudioTagger from "../pages/PageOne"; // Import AudioTagger component
 
-const UploadMusicComponent = ({ handleInputChange, handleFileSelect }) => {
+const UploadMusicComponent = () => {
   const {
     setUploadMusic,
     audioFileMp3, setAudioFileMp3,
@@ -24,7 +23,6 @@ const UploadMusicComponent = ({ handleInputChange, handleFileSelect }) => {
   const [progress, setProgress] = useState(0);
   const [zipFile, setZipFile] = useState(null);
   const [audioFileSize, setAudioFileSize] = useState("");
-  const [processedAudioFile, setProcessedAudioFile] = useState(null); // State to store processed audio file
 
   // Fetch logged-in user info
   useEffect(() => {
@@ -47,11 +45,34 @@ const UploadMusicComponent = ({ handleInputChange, handleFileSelect }) => {
     } else {
       setIsEditMode(false);
     }
-  }, [selectedMusic, setMusicTitle]);
+  }, [selectedMusic]);
 
-  // Function to handle the processed audio file from AudioTagger
-  const handleProcessedAudio = (audioFile) => {
-    setProcessedAudioFile(audioFile);
+  // Handle file selection
+  const handleFileSelect = (e, fileType) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (fileType === "musicMp3" && file.type.startsWith("audio/mpeg")) {
+      setAudioFileMp3(file);
+    } else if (fileType === "musicWav" && file.type.startsWith("audio/wav")) {
+      setAudioFileWav(file);
+    } else if (fileType === "cover" && file.type.startsWith("image/")) {
+      setCoverArt(file);
+      setCoverPreview(URL.createObjectURL(file));
+    } else if (fileType === "archive") {
+      const allowedExtensions = ["zip", "rar"];
+      if (!allowedExtensions.includes(file.name.split(".").pop().toLowerCase())) {
+        alert("Invalid file type. Please upload a ZIP or RAR file.");
+        return;
+      }
+      setZipFile(file);
+    } else {
+      alert("Invalid file type.");
+    }
+
+    if (fileType !== "cover") {
+      setAudioFileSize(`${(file.size / 1024).toFixed(2)} KB`);
+    }
   };
 
   // Upload music function (memoized with useCallback)
@@ -68,10 +89,6 @@ const UploadMusicComponent = ({ handleInputChange, handleFileSelect }) => {
       alert("Both MP3 and WAV files must be uploaded.");
       return;
     }
-    if (!processedAudioFile) {
-      alert("Please process the audio file with watermark.");
-      return;
-    }
 
     try {
       const musicCollectionRef = collection(db, "beats");
@@ -79,7 +96,7 @@ const UploadMusicComponent = ({ handleInputChange, handleFileSelect }) => {
         title: musicTitle,
         musicUrls: {},
         coverUrl: "",
-        status: true,
+        status: false,
         uploadedBy: email,
         timestamp: Timestamp.now(),
       });
@@ -90,13 +107,11 @@ const UploadMusicComponent = ({ handleInputChange, handleFileSelect }) => {
       const musicRefMp3 = audioFileMp3 ? ref(storage, `${storagePath}/${audioFileMp3.name}`) : null;
       const musicRefWav = audioFileWav ? ref(storage, `${storagePath}/${audioFileWav.name}`) : null;
       const coverRef = coverArt ? ref(storage, `${storagePath}/${coverArt.name}`) : null;
-      const musicRefTaggedMp3 = processedAudioFile ? ref(storage, `${storagePath}/${processedAudioFile.name}`) : null;
 
       const uploadTasks = [
         musicRefMp3 && uploadBytesResumable(musicRefMp3, audioFileMp3),
         musicRefWav && uploadBytesResumable(musicRefWav, audioFileWav),
         coverRef && uploadBytesResumable(coverRef, coverArt),
-        musicRefTaggedMp3 && uploadBytesResumable(musicRefTaggedMp3, processedAudioFile),
       ].filter(Boolean);
 
       uploadTasks.forEach((task) => {
@@ -110,10 +125,9 @@ const UploadMusicComponent = ({ handleInputChange, handleFileSelect }) => {
       const musicUrlMp3 = musicRefMp3 ? await getDownloadURL(musicRefMp3) : "";
       const musicUrlWav = musicRefWav ? await getDownloadURL(musicRefWav) : "";
       const coverUrl = coverRef ? await getDownloadURL(coverRef) : "";
-      const musicUrlTaggedMp3 = musicRefTaggedMp3 ? await getDownloadURL(musicRefTaggedMp3) : "";
 
       await updateDoc(newDocRef, {
-        musicUrls: { mp3: musicUrlMp3, wav: musicUrlWav, taggedMp3: musicUrlTaggedMp3 },
+        musicUrls: { mp3: musicUrlMp3, wav: musicUrlWav },
         coverUrl,
       });
 
@@ -130,7 +144,7 @@ const UploadMusicComponent = ({ handleInputChange, handleFileSelect }) => {
       console.error("Upload error:", error);
       alert("Upload failed. Make sure you have both MP3 and WAV uploaded.");
     }
-  }, [musicTitle, email, audioFileMp3, audioFileWav, coverArt, processedAudioFile, db, storage]);
+  }, [musicTitle, email, audioFileMp3, audioFileWav, coverArt, db, storage]);
 
   useEffect(() => {
     setUploadMusic(() => uploadMusic);
@@ -150,14 +164,7 @@ const UploadMusicComponent = ({ handleInputChange, handleFileSelect }) => {
 
         <div className="MusicTitle-label">
           <label>Title</label>
-          <input
-            type="text"
-            placeholder="Enter the Beat Title"
-            maxLength="400"
-            value={selectedMusic.title || ""}
-            onChange={(e) => handleInputChange("title", e.target.value)}
-            required
-          />
+          <input type="text" placeholder="Enter the Beat Title" maxLength="400" value={musicTitle} onChange={(e) => setMusicTitle(e.target.value)} required />
         </div>
       </div>
 
@@ -176,7 +183,7 @@ const UploadMusicComponent = ({ handleInputChange, handleFileSelect }) => {
         <input type="file" accept=".zip,.rar" onChange={(e) => handleFileSelect(e, "archive")} />
       </div>
 
-      <AudioTagger onProcessedAudio={handleProcessedAudio} uploadedFile={audioFileMp3} hideUI={true} /> {/* Include AudioTagger component */}
+      {/* <button onClick={uploadMusic}>{isEditMode ? "Update Music" : "Upload Music"}</button> */}
 
       {progress > 0 && <div className="progress-bar"><div style={{ width: `${progress}%` }}>{Math.round(progress)}%</div></div>}
     </form>

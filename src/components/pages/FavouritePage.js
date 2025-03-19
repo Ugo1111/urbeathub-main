@@ -128,7 +128,7 @@ function FavouritePage() {
 
               <div className="favioriteSection2">
                 <LikeButton size="1.5em" songId={song.id} />
-                <Link to="/addToCart" state={{ song }}>
+                <Link to="/buysong" state={{ song }}>
                   <button className="FaCartShopping"><FaCartShopping /> Add To Cart</button>
                 </Link>
               </div>

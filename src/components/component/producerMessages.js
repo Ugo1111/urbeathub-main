@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db, auth } from "../../firebase/firebase"; // Firestore and Auth import
-import {
-  collection,
-  query,
-  orderBy,
-  onSnapshot,
-  addDoc,
-  updateDoc,
-  doc,
-} from "firebase/firestore";
+import { collection, addDoc, query, orderBy, onSnapshot } from "firebase/firestore";
 
 function ProducerMessages() {
   const [topics, setTopics] = useState([]); // List of topics for the current user
@@ -106,27 +98,11 @@ function ProducerMessages() {
     try {
       const user = auth.currentUser; // Get the current user
       if (user && selectedTopic) {
-        // Create a timestamp
-        const timestamp = new Date(); 
-
         // Add the message to Firestore under the selected topic
-        await addDoc(
-          collection(db, "beatHubUsers", user.uid, "messages", selectedTopic, "messages"),
-          {
-            senderId: user.uid, // The sender of the message
-            message: message.trim(), // The content of the message
-            timestamp, // Timestamp of the message
-          }
-        );
-
-        // Update the last updated time for the topic with the message timestamp
-        await updateDoc(doc(db, "beatHubUsers", user.uid, "messages", selectedTopic), {
-          messageLastUpdated: timestamp,
-        });
-
-        // Update the last updated time for the user
-        await updateDoc(doc(db, "beatHubUsers", user.uid), {
-          messageLastUpdated: timestamp,
+        await addDoc(collection(db, "beatHubUsers", user.uid, "messages", selectedTopic, "messages"), {
+          senderId: user.uid, // The sender of the message
+          message: message.trim(), // The content of the message
+          timestamp: new Date(), // Timestamp of the message
         });
 
         setMessage(""); // Clear the input field after submission
@@ -145,94 +121,92 @@ function ProducerMessages() {
 
   return (
     <div className="producermessage-body">
-      <div className="producermessage-container">
-        <h2>Message Admin</h2>
+    <div className="producermessage-container">
+      <h2>Message Admin</h2>
 
-        {/* Error handling */}
-        {error && <p className="producermessage-error-message">{error}</p>}
+      {/* Error handling */}
+      {error && <p className="producermessage-error-message">{error}</p>}
 
-        {/* Topic Selection */}
-        {!selectedTopic && (
-          <div className="producermessage-topic-selection">
-            <h3>Select or Start a New Topic</h3>
+      {/* Topic Selection */}
+      {!selectedTopic && (
+        <div className="producermessage-topic-selection">
+          <h3>Select or Start a New Topic</h3>
 
-            {topics.length > 0 ? (
-              <>
-                <ul>
-                  {topics.map((topic) => (
-                    <li
-                      key={topic.id}
-                      className={selectedTopic === topic.id ? "producermessage-selected" : ""}
-                      onClick={() => handleTopicSelect(topic.id)}
-                    >
-                      {topic.name}
-                    </li>
-                  ))}
-                </ul>
-                <button onClick={() => setSelectedTopic(null)}>Start a New Message</button>
-              </>
-            ) : (
-              <p>No topics available. Please start a new message below.</p>
-            )}
-          </div>
-        )}
+          {topics.length > 0 ? (
+            <>
+              <ul>
+                {topics.map((topic) => (
+                  <li
+                    key={topic.id}
+                    className={selectedTopic === topic.id ? "producermessage-selected" : ""}
+                    onClick={() => handleTopicSelect(topic.id)}
+                  >
+                    {topic.name}
+                  </li>
+                ))}
+              </ul>
+              <button onClick={() => setSelectedTopic(null)}>Start a New Message</button>
+            </>
+          ) : (
+            <p>No topics available. Please start a new message below.</p>
+          )}
+        </div>
+      )}
 
-        {/* Back to topics button */}
-        {selectedTopic && (
-          <button className="producermessage-back-to-topics" onClick={handleBackToTopics}>
-            Back to Topics
-          </button>
-        )}
+      {/* Back to topics button */}
+      {selectedTopic && (
+        <button className="producermessage-back-to-topics" onClick={handleBackToTopics}>
+          Back to Topics
+        </button>
+      )}
 
-        {/* If no topic is selected, show the option to create a new topic */}
-        {!selectedTopic && (
-          <div className="producermessage-new-topic-form">
-            <input
-              type="text"
-              value={newTopicName}
-              onChange={(e) => setNewTopicName(e.target.value)}
-              placeholder="Enter topic name"
-              required
-            />
-            <button onClick={handleCreateNewTopic}>Create New Topic</button>
-          </div>
-        )}
+      {/* If no topic is selected, show the option to create a new topic */}
+      {!selectedTopic && (
+        <div className="producermessage-new-topic-form">
+          <input
+            type="text"
+            value={newTopicName}
+            onChange={(e) => setNewTopicName(e.target.value)}
+            placeholder="Enter topic name"
+            required
+          />
+          <button onClick={handleCreateNewTopic}>Create New Topic</button>
+        </div>
+      )}
 
-        {/* Display messages under selected topic */}
-        {selectedTopic && (
-          <div className="producermessage-message-list">
-            <h3>Messages in {topics.find((topic) => topic.id === selectedTopic)?.name}</h3>
-            {messages.length > 0 ? (
-              messages.map((msg, index) => (
-                <div key={index} className="producermessage-message-item">
-                  <p>
-                    <strong>{msg.senderId === auth.currentUser?.uid ? "You" : "Admin"}:</strong> {msg.message}
-                  </p>
-                  <p className="producermessage-timestamp">
-                    {new Date(msg.timestamp.seconds * 1000).toLocaleString()}
-                  </p>
-                </div>
-              ))
-            ) : (
-              <p>No messages yet. Be the first to start the conversation!</p>
-            )}
-          </div>
-        )}
+      {/* Display messages under selected topic */}
+      {selectedTopic && (
+        <div className="producermessage-message-list">
+          <h3>Messages in {topics.find((topic) => topic.id === selectedTopic)?.name}</h3>
+          {messages.length > 0 ? (
+            messages.map((msg, index) => (
+              <div key={index} className="producermessage-message-item">
+                <p>
+                  <strong>{msg.senderId === auth.currentUser?.uid ? "You" : "Admin"}:</strong> {msg.message}
+                </p>
+                <p className="producermessage-timestamp">{new Date(msg.timestamp.seconds * 1000).toLocaleString()}</p>
+              </div>
+            ))
+          ) : (
+            <p>No messages yet. Be the first to start the conversation!</p>
+          )}
+        </div>
+      )}
 
-        {/* Message input form */}
-        {selectedTopic && (
-          <form onSubmit={handleSubmit} className="producermessage-message-form">
-            <textarea
-              value={message}
-              onChange={handleChange}
-              placeholder="Write a message..."
-              rows="4"
-              required
-            ></textarea>
-            <button type="submit">Send</button>
-          </form>
-        )}
-      </div>
+      {/* Message input form */}
+      {selectedTopic && (
+        <form onSubmit={handleSubmit} className="producermessage-message-form">
+          <textarea
+            value={message}
+            onChange={handleChange}
+            placeholder="Write a message..."
+            rows="4"
+            required
+          ></textarea>
+          <button type="submit">Send</button>
+        </form>
+      )}
+    </div>
     </div>
   );
 }

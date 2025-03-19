@@ -104,7 +104,7 @@ export default function Profile() {
           }
            <Link to="/FavouritePage" className="">Favourite</Link>
          
-          <Link to="/purchasedPage">Purchased</Link>
+          <a href="/purchasedPage">Purchased</a>
 
           <Link to="/CartPage" className="">
         Chart

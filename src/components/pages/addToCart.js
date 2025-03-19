@@ -42,11 +42,7 @@ function AddToCart() {
     if (isPlaying) {
       audio.pause();
     } else {
-      if (!audio.src) {
-        audio.src = song.musicUrls?.mp3; // Set the audio source if not already set
-        audio.load(); // Load the audio source
-      }
-      audio.play().catch((error) => console.error("Playback failed:", error));
+      audio.play();
     }
     setIsPlaying(!isPlaying);
   };
@@ -71,16 +67,12 @@ function AddToCart() {
     const updateCurrentTime = () => setCurrentTime(audio.currentTime);
     const updateDuration = () => setDuration(audio.duration);
 
-    if (audio) {
-      audio.addEventListener("timeupdate", updateCurrentTime);
-      audio.addEventListener("loadedmetadata", updateDuration);
-    }
+    audio.addEventListener("timeupdate", updateCurrentTime);
+    audio.addEventListener("loadedmetadata", updateDuration);
 
     return () => {
-      if (audio) {
-        audio.removeEventListener("timeupdate", updateCurrentTime);
-        audio.removeEventListener("loadedmetadata", updateDuration);
-      }
+      audio.removeEventListener("timeupdate", updateCurrentTime);
+      audio.removeEventListener("loadedmetadata", updateDuration);
     };
   }, []);
 
@@ -167,7 +159,7 @@ function Mp3player({
             onChange={handleSliderChange}
           />
           <span>{formatTime(duration)}</span>
-          <audio ref={audioRef} src={song.musicUrls?.taggedMp3} />
+          <audio ref={audioRef} src={song.musicUrls?.mp3} />
           <input
             type="range"
             min="0"
