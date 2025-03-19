@@ -110,6 +110,7 @@ function ProfilePage() {
 
           {/* Display username directly and make it editable */}
           <div className="ProfilePage-userName-Username">
+         
             <label>Display name</label>
             <h2
               contentEditable={true}
@@ -119,13 +120,16 @@ function ProfilePage() {
             />
           </div>
         </div>
-
+        <br></br><br></br>
+        <label>Last Name</label>
         <input
           value={last}
           type="text"
           placeholder="Last Name"
           onChange={(e) => setLast(e.target.value)}
         />
+
+<label>First Name</label>
         <input
           value={first}
           type="text"
@@ -145,6 +149,8 @@ function ProfilePage() {
           />
         </div>
 
+        <br></br>
+        <label>📍Location</label>
         <input
           value={location}
           type="text"

@@ -43,12 +43,14 @@ function HomePage() {
     setCurrentIndex(index); // Update the song index
     setIsPlaying(true); // Mark as playing
   
-    audioRef.current.src = songs[index].musicUrls.mp3; // Set the source of the audio
-    
+    audioRef.current.src = songs[index].musicUrls?.mp3;  // Set the source of the audio to taggedMp3
+   
     // Wait until audio can be played before calling play
     audioRef.current.load(); // Reload to ensure we have the latest song URL
     audioRef.current.oncanplaythrough = () => {
-      audioRef.current.play().catch((error) => console.error("Playback failed:", error));
+      if (audioRef.current) {
+        audioRef.current.play().catch((error) => console.error("Playback failed:", error));
+      }
     };
   };
 
@@ -58,7 +60,11 @@ function HomePage() {
     if (isPlaying) {
       audioRef.current.pause(); // Pause the current song
     } else {
-      audioRef.current.play(); // Play the current song
+      if (!audioRef.current.src && songs.length > 0) {
+        playSong(currentIndex); // Play the current song if not already loaded
+      } else {
+        audioRef.current.play().catch((error) => console.error("Playback failed:", error)); // Play the current song
+      }
     }
     
     setIsPlaying(!isPlaying); // Toggle the state for play/pause
@@ -79,7 +85,11 @@ function HomePage() {
        {/* Hidden Audio Player */}
        <audio 
   ref={audioRef}
-  onCanPlay={() => isPlaying && audioRef.current.play()} // Auto-play when ready
+  onCanPlay={() => {
+    if (isPlaying && audioRef.current) {
+      audioRef.current.play().catch((error) => console.error("Playback failed:", error));
+    }
+  }} // Auto-play when ready
   onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
   onLoadedMetadata={() => setDuration(audioRef.current.duration)}
   onEnded={playNext}
@@ -102,6 +112,8 @@ function HomePage() {
     />
 
     <SongList songs={songs} playSong={playSong} selectedSong={selectedSong} setSelectedSong={setSelectedSong} />
+ 
+    <GroupE/> <GroupF/> <GroupG/> 
   </div>
   );
 }
