@@ -15,7 +15,12 @@ export const MusicUploadProvider = ({ children }) => {
        const [audioFileMp3, setAudioFileMp3] = useState(null);
        const [audioFileWav, setAudioFileWav] = useState(null);
        const [coverArt, setCoverArt] = useState(null);
-  const [selectedMusic, setSelectedMusic] = useState(null);
+  const [selectedMusic, setSelectedMusic] = useState({
+    mp3: null,
+    wave: null,
+    coverArt: null,
+    title: null,
+  });
   const [metadata, setMetadata] = useState({ tags: [] });
   const [monetization, setMonetization] = useState({
     basic: { enabled: true, price: 10 },
