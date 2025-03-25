@@ -50,7 +50,6 @@ export default function GroupA() {
     return (
       <div className="GroupA">
         <Headerlogo /> <BeatsList />  <AuthState /> 
-        <button class="startselling">start selling</button>
 {" "}
 
       </div>

@@ -4,6 +4,7 @@
 
   
 }
+
 .favourite-page h1{
   margin: 40px;
 margin-left: 200px;
@@ -12,9 +13,9 @@ margin-left: 200px;
 .favouriteList{
 display: flex;
 flex-direction: row;
-justify-content: space-evenly;
+justify-content: space-around;
 align-items: center;
-gap: 700px;
+
 height:auto;
 margin-bottom: 30px;
 background-color: rgb(22, 22, 22);
@@ -31,10 +32,10 @@ padding: 5px 0 10px 0;
 }
 
 .Ol4favouriteList {
-  overflow: visible;
   display: flex;
   flex-direction: column; /* Ensure items stack properly */
   color: aliceblue;
+  
 }
 
 .customNumber {
@@ -47,6 +48,10 @@ padding: 5px 0 10px 0;
   display: flex;
 flex-direction: row;
 align-items: center;
+margin-left: 30px;
+
+  
+
 }
 
 .favioriteSection2{
@@ -60,14 +65,14 @@ height: 60px;
 width: 60px;
 max-height: 90px;
 max-width: 90px;
-
+margin-left: 10px;
 
 }
 
 .FaCartShopping{
   size: 3.5em;
   color: aliceblue;
-  background-color: rgb(31, 83, 255);
+  background-color: #db3056;
   height: 40px;
 border-radius: 10px;
 border: none;
@@ -90,11 +95,13 @@ padding: 5px 10px ;
 }
 
 .playButton:hover {
-  color: rgb(31, 83, 255);
+  color: #db3056;
 }
 
 .Ol4favouriteList li{
-  /* background-color: rgb(27, 27, 27); */
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
 }
 
 
@@ -103,7 +110,6 @@ padding: 5px 10px ;
 /* border: solid; */
 background-color: rgb(0, 0, 0);
 contain: content;
-
 }
 
 .cart-component-list{
@@ -224,7 +230,8 @@ row-gap: 20px;
   height: auto;
   margin: 0;
   padding: 0;
-  display: flex;flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -234,23 +241,21 @@ margin-bottom: 30px;
   flex-direction: column;
   gap: 20px;
   text-align: center; /* Center text horizontally */
+  
 }
 
 .negotiation-box {
   width: 75vw;
   height: fit-content;
   min-height: 35vh;
-
-  margin: auto; /* Center the box within its container */
 }
 
 .negotiation-box-content {
   margin: 60px 0 60px 0;
-  
+
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
- 
+  justify-content: space-between; 
 }
 
 .negotiation-box- {
@@ -258,6 +263,7 @@ margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   gap: 50px;
+
 }
 
 .negotiation-Amount-input {
@@ -270,6 +276,7 @@ margin-bottom: 30px;
 .negotiation-Amount-input input{
   display: flex;
   flex-direction: column;
+  width: 100%;
   min-height: 40px;
   min-width: 40%;
   color: #ffffff;
@@ -283,7 +290,7 @@ margin-bottom: 30px;
   justify-content: center;
   align-items: center;
   min-width: 55%;
-  background-color: rgb(30, 113, 255);
+  background-color: #db3056;;
   border-radius: 10px;
   color: rgb(255, 255, 255);
   font-weight: bold;
@@ -291,7 +298,10 @@ margin-bottom: 30px;
   text-align: center;
   width: auto;
 }
-
+.negotiation-Amount-button:hover{
+  background-color:#4d4d4d;
+  color: #ffffff;
+}
 .negotiation-Amount-input-button {
   margin-top: 30px;
   display: flex;
@@ -324,9 +334,11 @@ margin-bottom: 30px;
 .negotiation-container{
 background-color: #0e0e0e;
 padding: 30px;
+margin: 0 auto;
 min-width: 70%;
 max-width: 90%;
 width: auto;
+
 }
 
 .negotiation-h1{
@@ -415,6 +427,24 @@ top: 0px;
   .proceedToCheckout{
     font-size: 1rem;
   }
+  .favioriteSection1{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;  
+  }
+  .negotiation-box-content{
+    flex-direction: column;
+  }
+  .negotiation-Amount-button{
+    flex-direction: column;
+  }
+  .negotiation-Amount-input-button{
+    flex-direction: column;
+  }
+  .negotiation-Amount-button{
+    padding: 20px;
+  }
 }
 
 
@@ -432,6 +462,25 @@ top: 0px;
   }
   .proceedToCheckout{
     font-size: 1rem;
+  }
+  
+  .favioriteSection1{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+  }
+  .negotiation-box-content{
+    flex-direction: column;
+  }
+  .negotiation-Amount-button{
+    flex-direction: column;
+  }
+  .negotiation-Amount-input-button{
+    flex-direction: column;
+  }
+  .negotiation-Amount-button{
+    padding: 20px;
   }
 }
 

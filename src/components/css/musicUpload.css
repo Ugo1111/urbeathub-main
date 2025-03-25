@@ -287,6 +287,7 @@
   color: #ffffff;
   font-size: large;
 }
+
 .ViewEditSellBeatPage-body {
   background-color: #c5c5c5;
   min-width: 100vw;
@@ -560,12 +561,12 @@ left: 0;
 
 
 .payout-container {
-  width: 80vw;
+  width: 90vw;
   height: 80vh;
-  max-width: 800px; /* Increased width */
+  max-width: 500px; /* Increased width */
   margin: 40px auto;
   padding: 40px; /* Increased padding */
-  background:#1abc9c9d; 
+  background:#ddd; 
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.038);
   border: solid rgba(233, 233, 233, 0.179);
@@ -626,12 +627,12 @@ left: 0;
 }
 
 .payout-button-primary {
-  background-color: #4caf50;
+  background-color: #db3056;
   color: white;
 }
 
 .payout-button-primary:hover {
-  background-color: #45a049;
+  background-color: #dc3545;
 }
 
 .payout-button-delete {
@@ -695,25 +696,28 @@ left: 0;
 
 
 
-
-.producermessage-body{
+.producermessage-body {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
   width: 100vw;
   height: 100vh;
   background-color: #f9f9f9;
-  padding: 40px;
+  padding: 20px; 
 }
 
+
 .producermessage-container {
-  width: 100vw;
-  height: 90vh;
+  width: 90vw; 
+  height: auto; 
   padding: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-  background-color: #3498db57;
+  max-width: 500px;
+  background-color: #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: scroll;
+  text-align: center; 
 }
+
 
 .producermessage-container h2 {
   font-size: 24px;
@@ -726,6 +730,7 @@ left: 0;
   font-size: 14px;
   margin-bottom: 15px;
 }
+
 
 .producermessage-topic-selection {
   margin-bottom: 30px;
@@ -748,26 +753,25 @@ left: 0;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  
 }
 
 .producermessage-topic-selection li.selected {
-  background-color: #007bff;
+  background-color: #ddd;
   color: white;
 }
 
 .producermessage-topic-selection button {
   margin-top: 10px;
   padding: 10px 20px;
-  background-color: #28a745;
+  background-color: #db3056;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
-.producermessage-topic-selection  button:hover {
-  background-color: #218838;
+.producermessage-topic-selection button:hover {
+  background-color: #dc3545;
 }
 
 .producermessage-new-topic-form {
@@ -785,7 +789,7 @@ left: 0;
 
 .producermessage-new-topic-form button {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #db3056;
   color: white;
   border: none;
   border-radius: 4px;
@@ -793,8 +797,9 @@ left: 0;
 }
 
 .producermessage-new-topic-form button:hover {
-  background-color: #0056b3;
+  background-color: #000000;;
 }
+
 
 .producermessage-message-list {
   margin-bottom: 20px;
@@ -804,6 +809,7 @@ left: 0;
   font-size: 20px;
   color: #333;
 }
+
 
 .producermessage-message-item {
   padding: 10px;
@@ -823,6 +829,7 @@ left: 0;
   color: #888;
 }
 
+
 .producermessage-message-form {
   display: flex;
   flex-direction: column;
@@ -839,7 +846,7 @@ left: 0;
 
 .producermessage-message-form button {
   padding: 12px 20px;
-  background-color: #007bff;
+  background-color: #db3056;
   color: white;
   border: none;
   border-radius: 4px;
@@ -847,25 +854,24 @@ left: 0;
 }
 
 .producermessage-message-form button:hover {
-  background-color: #0056b3;
+  background-color: #ddd;
+  color: #000000;
 }
 
 
-.producermessage-back-to-topics{
+.producermessage-back-to-topics {
   margin-top: 10px;
   padding: 10px 20px;
-  background-color: #28a745;
+  background-color: #db3056;;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-
 }
 
 .producermessage-back-to-topics:hover {
-  background-color: #218838;
+  background-color: #e74d3c9b;
 }
-
 
 
 
@@ -1020,6 +1026,32 @@ padding: 10px;
   font-size: 13px;
   padding: 10px;
 }
+.producermessage-body {
+  padding: 10px; /* Reduce padding for small screens */
+}
+
+.producermessage-container {
+  width: 95vw; /* Slightly increase width on small screens */
+  padding: 15px;
+}
+
+.producermessage-container h2 {
+  font-size: 20px;
+}
+
+.producermessage-topic-selection h3,
+.producermessage-message-list h3 {
+  font-size: 18px;
+}
+
+.producermessage-message-item p {
+  font-size: 14px;
+}
+
+.producermessage-message-form textarea {
+  height: 100px;
+}
+
 
 
 
@@ -1096,5 +1128,34 @@ padding: 10px;
     overflow: hidden;
     width: 50%; 
     text-overflow: ellipsis;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .producermessage-container {
+      width: 100%; /* Use full width */
+      height: auto;
+      padding: 10px;
+  }
+
+  .producermessage-container h2 {
+      font-size: 18px;
+  }
+
+  .producermessage-topic-selection h3,
+  .producermessage-message-list h3 {
+      font-size: 16px;
+  }
+
+  .producermessage-message-item p {
+      font-size: 14px;
+  }
+
+  .producermessage-message-form textarea {
+      height: 80px;
+  }
+
+  .producermessage-message-form button {
+      padding: 10px;
   }
 }

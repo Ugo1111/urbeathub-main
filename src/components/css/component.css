@@ -51,6 +51,16 @@
     margin: 0px;
     padding: 0px;
   }
+  
+    .start-selling{
+      background: #db3056;
+      color: #ffffff;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      text-decoration: none;
+    }
+  
 
   
 /* Container for the link */
@@ -332,7 +342,7 @@ width: 100vw;
   /* Profile Page Container */
 .ProfilePage {
   
-  max-width: 900px;
+  max-width: 500px;
   margin: 3rem auto;
   padding: 3rem;
   /* background-color: #1f1f2e; */
@@ -373,7 +383,7 @@ width: 100vw;
 
 /* Buttons */
 .ProfilePage button {
-  background-color: #4c1d95;
+  background-color: #db3056;
   color: white;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
@@ -385,7 +395,7 @@ width: 100vw;
 }
 
 .ProfilePage button:hover {
-  background-color: #6d28d9;
+  background-color: #f80b3f;
   transform: translateY(-2px);
 }
 

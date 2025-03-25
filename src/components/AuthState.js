@@ -42,7 +42,7 @@ const Profilepicture = ({ className }) => {
 
 
 
-const AuthState = ({ fontSize = "1em" }) => {
+const AuthState = ({ fontSize = "small" }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -54,13 +54,18 @@ const AuthState = ({ fontSize = "1em" }) => {
   }, []);
 
   return (
-    <div style={{ fontSize }}>
+    <div style={{ fontSize, display: "flex", alignItems: "center", gap: "10px" }}>
      
       {user ?  ( <Profile user={user}  />
-      )  : <p><Link to="/loginPage" className="avatar"  >
+      )  : <Link to="/loginPage" className="avatar"  >
                   Login
-                  </Link></p>}
+                  </Link>}
+                  <Link to="/sellBeatPage" className="start-selling"  >
+                  Start Selling
+                  </Link>
     </div>
+
+    
   );
 };
 // {user ? <p><IoIosContact />{user.email}</p> : <p><Link to="/log" >

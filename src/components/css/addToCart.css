@@ -1105,6 +1105,7 @@ font-style: italic;
     .beat-details h2{
       font-size: large;;
     }
+    
 }
 
 @media (min-width: 415px) and (max-width: 896px) and (orientation: landscape) {

@@ -113,7 +113,7 @@ function HomePage() {
 
     <SongList songs={songs} playSong={playSong} selectedSong={selectedSong} setSelectedSong={setSelectedSong} />
  
-    <GroupE/> <GroupF/> <GroupG/> 
+      <GroupG/> 
   </div>
   );
 }

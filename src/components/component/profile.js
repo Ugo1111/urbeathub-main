@@ -107,7 +107,7 @@ export default function Profile() {
           <Link to="/purchasedPage">Purchased</Link>
 
           <Link to="/CartPage" className="">
-        Chart
+        Cart
           </Link>
 
            <Link to="/sellBeatPage" className="">Dashboard</Link>
