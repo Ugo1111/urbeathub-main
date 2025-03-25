@@ -13,7 +13,7 @@ import { db, storage } from "../../firebase/firebase.js";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import Popup from "./Popup"; // Ensure Popup is correctly imported
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { processAudioFile } from "../utils/AudioProcessor"; // Import processAudioFile
+import AudioTagger from "../pages/PageOne"; // Import AudioTagger component
 
 const TabPage = () => {
   const [activeTab, setActiveTab] = useState("tab1");
@@ -88,8 +88,6 @@ const TabPage = () => {
 
     if (fileType === "musicMp3" && file.type.startsWith("audio/mpeg")) {
       setAudioFileMp3(file);
-      // Process the audio file with watermark locally
-      await processAudioFile(file, setProcessedAudioFile);
     } else if (fileType === "musicWav" && file.type.startsWith("audio/wav")) {
       setAudioFileWav(file);
     } else if (fileType === "cover" && file.type.startsWith("image/")) {
@@ -105,6 +103,10 @@ const TabPage = () => {
     } else {
       alert("Invalid file type.");
     }
+  };
+
+  const handleProcessedAudio = (audioFile) => {
+    setProcessedAudioFile(audioFile);
   };
 
   const handleUpload = async () => {
@@ -125,6 +127,9 @@ const TabPage = () => {
       if (!audioFileMp3 || !audioFileWav) {
         throw new Error("Both MP3 and WAV files must be uploaded.");
       }
+      if (!processedAudioFile) {
+        throw new Error("Please process the audio file with watermark.");
+      }
 
       const musicCollectionRef = collection(db, "beats");
       const newDocRef = doc(musicCollectionRef);
@@ -143,6 +148,7 @@ const TabPage = () => {
         musicRefWav && uploadBytesResumable(musicRefWav, audioFileWav),
         coverRef && uploadBytesResumable(coverRef, coverArt),
         zipRef && uploadBytesResumable(zipRef, zipFile),
+        musicRefTaggedMp3 && uploadBytesResumable(musicRefTaggedMp3, processedAudioFile),
       ].filter(Boolean);
 
       uploadTasks.forEach((task) => {
@@ -157,11 +163,12 @@ const TabPage = () => {
       const musicUrlWav = musicRefWav ? await getDownloadURL(musicRefWav) : "";
       const coverUrl = coverRef ? await getDownloadURL(coverRef) : "";
       const zipUrl = zipRef ? await getDownloadURL(zipRef) : "";
+      const musicUrlTaggedMp3 = musicRefTaggedMp3 ? await getDownloadURL(musicRefTaggedMp3) : "";
 
       // Consolidate all data
       const consolidatedData = {
         title: musicTitle,
-        musicUrls: { mp3: musicUrlMp3, wav: musicUrlWav, zip: zipUrl },
+        musicUrls: { mp3: musicUrlMp3, wav: musicUrlWav, zip: zipUrl, taggedMp3: musicUrlTaggedMp3 },
         coverUrl,
         metadata,
         monetization,
@@ -291,6 +298,13 @@ const TabPage = () => {
           </div>
         </Popup>
       )}
+     
+        <AudioTagger 
+          onProcessedAudio={handleProcessedAudio} 
+          uploadedFile={audioFileMp3} 
+          hideUI={true} 
+        /> 
+      
     </div>
   );
 };

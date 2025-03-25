@@ -466,6 +466,9 @@ background-color: #e2e2e2;
   height: 200px;
 }
 
+
+
+
 /* Assign different colors based on the order */
 .stat-box:nth-child(1) { background-color: #e74d3c9b; } /* Red */
 .stat-box:nth-child(2) { background-color: #3498dbaa; } /* Blue */
