@@ -99,73 +99,82 @@ function ProfilePage() {
     setUsername(e.target.innerText);
   };
 
+  const ProfileContent = () => (
+    <div className="ProfilePage">
+      <h1>{isNew ? "Complete Your Profile" : "UPDATE Your Profile"}</h1>
+      <div className="ProfilePage-userName-container">
+        {/* Upload Profile Picture Component */}
+        {email && <UploadProfilePic email={email} />}
+
+        {/* Display username directly and make it editable */}
+        <div className="ProfilePage-userName-Username">
+          <label>Display name</label>
+          <h2
+            contentEditable={true}
+            suppressContentEditableWarning={true}
+            onBlur={handleUsernameChange}
+            dangerouslySetInnerHTML={{ __html: username || "Username" }}
+          />
+        </div>
+      </div>
+      <br></br><br></br>
+      <label>Last Name</label>
+      <input
+        value={last}
+        type="text"
+        placeholder="Last Name"
+        onChange={(e) => setLast(e.target.value)}
+      />
+
+      <label>First Name</label>
+      <input
+        value={first}
+        type="text"
+        placeholder="First Name"
+        onChange={(e) => setFirst(e.target.value)}
+      />
+
+      {/* Biography text area with label */}
+      <div className="bio-container">
+        <label htmlFor="biography" className="bio-label">Biography</label>
+        <textarea
+          id="biography"
+          className="bio-textarea"
+          value={biography}
+          placeholder="Write your biography"
+          onChange={(e) => setBiography(e.target.value)}
+        />
+      </div>
+
+      <br></br>
+      <label>📍Location</label>
+      <input
+        value={location}
+        type="text"
+        placeholder="📍Location"
+        onChange={(e) => setLocation(e.target.value)}
+      />
+      <button onClick={handleSubmit}>
+        {isNew ? "Create Data" : "Update Data"}
+      </button>
+
+      {/* Success message */}
+      {successMessage && (
+        <div className="success-message">
+          {successMessage}
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <>
       <GroupA />
-      <div className="ProfilePage">
-        <h1>{isNew ? "Complete Your Profile" : "UPDATE Your Profile"}</h1>
-        <div className="ProfilePage-userName-container">
-          {/* Upload Profile Picture Component */}
-          {email && <UploadProfilePic email={email} />}
-
-          {/* Display username directly and make it editable */}
-          <div className="ProfilePage-userName-Username">
-            <label>Display name</label>
-            <h2
-              contentEditable={true}
-              suppressContentEditableWarning={true}
-              onBlur={handleUsernameChange}
-              dangerouslySetInnerHTML={{ __html: username || "Username" }}
-            />
-          </div>
-        </div>
-
-        <input
-          value={last}
-          type="text"
-          placeholder="Last Name"
-          onChange={(e) => setLast(e.target.value)}
-        />
-        <input
-          value={first}
-          type="text"
-          placeholder="First Name"
-          onChange={(e) => setFirst(e.target.value)}
-        />
-
-        {/* Biography text area with label */}
-        <div className="bio-container">
-          <label htmlFor="biography" className="bio-label">Biography</label>
-          <textarea
-            id="biography"
-            className="bio-textarea"
-            value={biography}
-            placeholder="Write your biography"
-            onChange={(e) => setBiography(e.target.value)}
-          />
-        </div>
-
-        <input
-          value={location}
-          type="text"
-          placeholder="📍Location"
-          onChange={(e) => setLocation(e.target.value)}
-        />
-        <button onClick={handleSubmit}>
-          {isNew ? "Create Data" : "Update Data"}
-        </button>
-
-        {/* Success message */}
-        {successMessage && (
-          <div className="success-message">
-            {successMessage}
-          </div>
-        )}
-      </div>
-
-
+      <ProfileContent />
     </>
   );
 }
 
-export default ProfilePage;
+const ProfilePageWithoutHeader = () => <ProfilePage.ProfileContent />;
+
+export { ProfilePage, ProfilePageWithoutHeader };

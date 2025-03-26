@@ -21,8 +21,22 @@ export default function RecomendationComponent() {
       const docRef = collection(db, "beats");
       const querySnapshot = await getDocs(docRef);
       const songsList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      const shuffledSongs = shuffleArray(songsList);
-      setSongs(shuffledSongs);
+
+      // Fetch likes for each song
+      const songsWithLikes = await Promise.all(
+        songsList.map(async (song) => {
+          const likesRef = collection(db, `beats/${song.id}/likes`);
+          const likesSnapshot = await getDocs(likesRef);
+          return { ...song, likes: likesSnapshot.size };
+        })
+      );
+
+      // Sort songs by likes in descending order and then shuffle
+      const sortedSongs = songsWithLikes.sort((a, b) => b.likes - a.likes);
+      const shuffledSongs = shuffleArray(sortedSongs);
+
+      // Limit to 7 songs
+      setSongs(shuffledSongs.slice(0, 7));
     };
 
     fetchSongs();
