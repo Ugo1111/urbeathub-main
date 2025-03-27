@@ -65,7 +65,7 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
           <div
             className="songlist"
             key={song.id}
-            onClick={() => playSong(index)}
+            onClick={() => playSong(songs.findIndex(s => s.id === song.id))} // Find the correct index in the original songs array
             ref={index === displayedSongs.length - 1 ? lastSongElementRef : null}
           >
             <img

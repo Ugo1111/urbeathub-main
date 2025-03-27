@@ -463,24 +463,5 @@ top: 0px;
   .proceedToCheckout{
     font-size: 1rem;
   }
-  
-  .favioriteSection1{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 180px;
-  }
-  .negotiation-box-content{
-    flex-direction: column;
-  }
-  .negotiation-Amount-button{
-    flex-direction: column;
-  }
-  .negotiation-Amount-input-button{
-    flex-direction: column;
-  }
-  .negotiation-Amount-button{
-    padding: 20px;
-  }
 }
 

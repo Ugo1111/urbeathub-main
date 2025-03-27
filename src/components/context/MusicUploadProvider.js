@@ -27,7 +27,7 @@ export const MusicUploadProvider = ({ children }) => {
     premium: { enabled: true, price: 10 },
     unlimited: { enabled: true, price: 30 },
     exclusive: { enabled: true, price: 50 },
-    free: { enabled: true, price: 0 },
+    free: { enabled: false, price: 0 },
   });
 
   const [uploadMusic, setUploadMusic] = useState(null);
