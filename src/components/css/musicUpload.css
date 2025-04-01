@@ -1,3 +1,5 @@
+
+
 .tab-container {
   min-height: 100vh;
   min-width: 100vw;
@@ -85,7 +87,7 @@
   background: #000000;
 }
 
-/* Adjust License section for mobile */
+
 .Basic-License {
   display: flex;
   flex-direction: row;
@@ -164,6 +166,15 @@
   width: 90%;
   max-width: 200px;
 }
+.uploadMusicContainer{
+  background: white;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.uploadMusicContainer h1{
+  text-align: center;
+}
 
 .cover-title {
   display: flex;
@@ -188,6 +199,25 @@
   height: 40px;
   border: 2px solid rgba(231, 39, 129, 0.9);
 }
+.upload-button {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: rgba(231, 39, 129, 0.9);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.upload-button:hover {
+  background: rgba(231, 39, 129, 1);
+}
+
+
 
 
 .tag-container {
@@ -229,7 +259,8 @@
   top: 0;
   padding: 15px;
   background-color: #ddd;
-  overflow-y: auto; /* Allow scrolling */
+  overflow-x: hidden;;
+overflow-y: auto;
 }
 
 .UploadedBeatList-title {
@@ -279,14 +310,42 @@
 }
 
 .UploadedBeatList-btn {
-  background-color: #db3056;
+  background-color: #007bff;
   padding: 10px;
   border-radius: 5px;
   border: #aaaaaab9;
   margin-right: 10px;
   color: #ffffff;
-  font-size: large;
+  font-size: small;
 }
+.UploadedBeatList-btn1{
+  background-color: #dc3545;
+  padding: 10px;
+  border-radius: 5px;
+  border: #aaaaaab9;
+  margin-right: 10px;
+  color: #ffffff;
+  font-size: small; 
+}
+.UploadedBeatList-btn2{
+  background-color: #28a745;
+  padding: 10px;
+  border-radius: 5px;
+  border: #aaaaaab9;
+  margin-right: 10px;
+  color: #ffffff;
+  font-size: small; 
+}
+.UploadedBeatList-btn3{
+  background-color: #6c757d;
+  padding: 10px;
+  border-radius: 5px;
+  border: #aaaaaab9;
+  margin-right: 10px;
+  color: #ffffff;
+  font-size: small; 
+}
+
 
 .ViewEditSellBeatPage-body {
   background-color: #c5c5c5;
@@ -984,7 +1043,7 @@ padding: 10px;
     grid-template-columns: repeat(1, 1fr); /* 1 column */
     gap: 15px;
   }
-}
+
 
 /* Keep existing stat-box styles */
 .stat-box {
@@ -1054,6 +1113,15 @@ padding: 10px;
 .producermessage-message-form textarea {
   height: 100px;
 }
+.uploadMusicContainer{
+  width: 70vw;
+  margin-left: 15%;
+}
+.uploadMusicContainer h1{
+  font-size: 1.5rem;
+}
+}
+
 
 
 
@@ -1132,13 +1200,12 @@ padding: 10px;
     width: 50%; 
     text-overflow: ellipsis;
   }
-}
 
-@media screen and (max-width: 480px) {
   .producermessage-container {
-      width: 100%; /* Use full width */
+      width: 70%; 
       height: auto;
       padding: 10px;
+      margin-left: 20%;
   }
 
   .producermessage-container h2 {
@@ -1161,4 +1228,19 @@ padding: 10px;
   .producermessage-message-form button {
       padding: 10px;
   }
+  .payout-container {
+    width: 70%;
+    padding: 20px;
+    margin-left: 25%;
+  }
+  .uploadMusicContainer{
+    width: 70vw;
+    margin-left: 15%;
+  }
+  .uploadMusicContainer h1{
+    font-size: 1.5rem;
+  }
 }
+
+  
+  

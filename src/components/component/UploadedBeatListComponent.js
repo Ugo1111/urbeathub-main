@@ -132,15 +132,15 @@ const UploadedBeatListComponent = ({ setSelectedMusic }) => {
           
             <div>
               <Link to="/ViewEditSellBeatPage" state={{ item }}>
-                <button className="UploadedBeatList-btn">View and Edit</button>
+                <button className="UploadedBeatList-btn">👁️View and Edit</button>
               </Link>
               
-              <button onClick={() => openModal(item.id)} className="UploadedBeatList-btn">Delete</button>
+              <button onClick={() => openModal(item.id)} className="UploadedBeatList-btn1">❌Delete</button>
               
               {item.status !== true ? (
-                <button onClick={() => handlePublish(item)} className="UploadedBeatList-btn">Publish</button>
+                <button onClick={() => handlePublish(item)} className="UploadedBeatList-btn2">✅Publish</button>
               ) : (
-                <button onClick={() => handleUnpublish(item)} className="UploadedBeatList-btn">Unpublish</button>
+                <button onClick={() => handleUnpublish(item)} className="UploadedBeatList-btn3">🔒Unpublish</button>
               )}
             </div>
           </li>

@@ -23,6 +23,8 @@ import UsersUploadMusicPage from "./components/component/UsersUploadMusicPage"; 
 import { MusicUploadProvider } from "./components/context/MusicUploadProvider"; // Import the provider
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Privacy from "./components/pages/privacy";
+import CookieConsent from "react-cookie-consent";
 
 // This is where the main app is...
 function App() {
@@ -52,6 +54,7 @@ function App() {
         <Route path="/checkoutpaymentPage" element={<CheckoutpaymentPage />} />
         <Route path="/PageOne" element={<PageOne />} />
         <Route path="/PageTwo" element={<PageTwo />} />
+        <Route path="/privacy" element={<Privacy />} />
         <Route path="/EditTrackPage" element={<EditTrackPage />} /> {/* Add route for EditTrackPage */}
         <Route path="/usersUploadMusicPage" element={
           <MusicUploadProvider>
@@ -65,6 +68,24 @@ function App() {
           </MusicUploadProvider>
         } />
       </Routes>
+      <CookieConsent
+      debug={true}
+        location="bottom"
+        buttonText="Accept"
+        cookieName="myAwesomeCookieName2"
+        style={{ background: "#000000" }}
+        buttonStyle={{background:" #db3056", color: "#ffffff", fontSize: "13px" }}
+        expires={30}
+        declineButtonStyle={{ background: "#ffffff", color: "#db3056", fontSize: "13px", }} 
+          declineButtonText="Decline"
+          enableDeclineButton={true}
+  setDeclineCookie={true} // Enables decline functionality
+  onDecline={() => {
+  }} >
+          This website uses cookies to enhance the user experience. see our  <a href="/privacy" style={{ color: "#db3056", textDecoration: "none" }}>
+    privacy policy
+  </a>  to learn more. 
+        </CookieConsent>
     </Router>
   );
 }

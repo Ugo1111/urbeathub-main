@@ -46,10 +46,13 @@
 
   .avatar {
     border-radius: 10%;
-    border: #ffffff 5px solid;
     color: #f1f1f1;
     margin: 0px;
     padding: 0px;
+    text-decoration: none;
+  }
+  .avatar:hover{
+    text-decoration: underline;
   }
   
     .start-selling{
@@ -59,6 +62,9 @@
       border-radius: 10px;
       border: none;
       text-decoration: none;
+    }
+    .start-selling:hover{
+      text-decoration: underline;
     }
   
 
@@ -331,12 +337,7 @@ body{
 
 
 
-  .ProfilePage{
-margin: 0px;
-padding: 0px;
-height: 100vh;
-width: 100vw;
-  }
+  
 
 
   /* Profile Page Container */
@@ -344,10 +345,10 @@ width: 100vw;
   
   max-width: 500px;
   margin: 3rem auto;
-  padding: 3rem;
-  /* background-color: #1f1f2e; */
+  padding: 3rem; 
   border-radius: 12px;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+  background-color: #000000;
   color: #f3f4f6;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -398,6 +399,11 @@ width: 100vw;
   background-color: #f80b3f;
   transform: translateY(-2px);
 }
+.ProfilePage-userName-container{
+  display: flex;
+  flex-direction: row;
+  
+    }
 
 /* Profile Picture Upload Section */
 .ProfilePictureContainer {
@@ -551,6 +557,30 @@ border-radius: 50%;
   .login-button {
     max-width: 100%; /* Allow inputs to stretch fully on smaller screens */
   }
+  .ProfilePage-userName-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: small;
+    
+      }
+
+  .ProfilePage-userName-Username{
+    display: flex;
+    flex-direction: column;
+ justify-content: center;
+ align-self: center;
+    width: 100%;
+      }
+    
+      .ProfilePage {
+  
+        width: 70%;
+        margin-left: 25%;
+      }
+      .ProfilePage h1{
+        font-size: 1.5rem;
+      }
 }
 
 
@@ -569,20 +599,13 @@ border-radius: 50%;
     width: 70px;
     height: 70px;
   }
- 
- 
- 
   .HeaderSearchBar {
    display: none;
   }
-
-
   .GroupA {
-
-    display: flex;
+ display: flex;
     align-items: center; 
-   
-    justify-content: space-evenly;
+       justify-content: space-evenly;
     gap: 50%;
     /* background-color: #3193ae; */
     width: 100vw;
@@ -598,14 +621,6 @@ border-radius: 50%;
     box-shadow: 0px 4px 8px rgba(0,0,0,0.2); /* Reduce shadow for a cleaner look */
     font-size: small;
 }
-
-
-
-}
-
-
-
-
 
 .bio-label {
   font-size: 16px;
@@ -625,21 +640,20 @@ border-radius: 50%;
   transition: all 0.3s ease;
   background-color: #3b3b52;
 }
-
-
   .success-message {
-    color: green;
+    color: #db3056;
     font-size: 16px;
     font-weight: bold;
     margin-top: 20px;
   }
 
-
   .ProfilePage-userName-container{
-display: flex;
-flex-direction: row;
-
-  }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: small;
+    
+      }
 
   .ProfilePage-userName-Username{
     display: flex;
@@ -649,4 +663,12 @@ flex-direction: row;
     width: 100%;
       }
     
-     
+      .ProfilePage {
+  
+        width: 70%;
+        margin-left: 25%;
+      }
+      .ProfilePage h1{
+        font-size: 1rem;
+      }
+    }

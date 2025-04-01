@@ -58,7 +58,7 @@ const AuthState = ({ fontSize = "small" }) => {
      
       {user ?  ( <Profile user={user}  />
       )  : <Link to="/loginPage" className="avatar"  >
-                  Login
+                  Sign up
                   </Link>}
                   <Link to="/sellBeatPage" className="start-selling"  >
                   Start Selling

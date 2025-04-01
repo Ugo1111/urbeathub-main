@@ -824,7 +824,7 @@ padding: 3px 5px 3px 2px;
   height: 300px;
   min-height: 320px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
@@ -987,6 +987,16 @@ font-style: italic;
 
 .report-cancel:hover {
   background-color: #db3056;
+}
+.privacy-policy{
+  background: #ffffff;
+  color: #000000;
+  padding: 10px;
+}
+.privacy-policy a{
+  color: #db3056;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 /* responsive mode */
