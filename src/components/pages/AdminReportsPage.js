@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
-import { formatDistanceToNow } from "date-fns"; // Import date-fns for relative time
+import { format } from "date-fns"; // Import date-fns for formatting
 import "../css/adminReportsPage.css"; // Import CSS for styling
 
 const AdminReportsPage = () => {
@@ -51,7 +51,7 @@ const AdminReportsPage = () => {
                         <p><strong>Beat Title:</strong> {report.beatTitle}</p>
                         <p><strong>Reason:</strong> {report.reason}</p>
                         <p><strong>Comment:</strong> {report.comment}</p>
-                        <p><strong>Timestamp:</strong> {formatDistanceToNow(new Date(report.timestamp.seconds * 1000), { addSuffix: true })}</p>
+                        <p><strong>Timestamp:</strong> {format(new Date(report.timestamp.seconds * 1000), 'PPpp')}</p>
                     </li>
                 ))}
             </ul>

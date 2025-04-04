@@ -14,7 +14,7 @@
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   border-radius: 4px;
 }
 
@@ -138,4 +138,92 @@
 
 .cancel-btn:hover {
   background-color: #5a6268;
+}
+
+.uploaded-music-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.uploaded-music-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.uploaded-music-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.uploaded-music-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.uploaded-music-item h3 {
+  margin: 0 0 10px;
+  color: #333;
+}
+
+.uploaded-music-item .media-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.uploaded-music-item audio {
+  width: 100%;
+}
+
+.uploaded-music-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.uploaded-music-item button {
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.uploaded-music-item button:hover {
+  background-color: #0056b3;
+}
+
+.uploaded-music-item button.delete {
+  background-color: #dc3545;
+}
+
+.uploaded-music-item button.delete:hover {
+  background-color: #c82333;
+}
+
+.uploaded-music-item button.publish {
+  background-color: #28a745;
+}
+
+.uploaded-music-item button.publish:hover {
+  background-color: #218838;
+}
+
+.uploaded-music-item button.unpublish {
+  background-color: #ffc107;
+}
+
+.uploaded-music-item button.unpublish:hover {
+  background-color: #e0a800;
 }

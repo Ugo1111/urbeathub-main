@@ -6,7 +6,7 @@ import { collection, getDocs } from "firebase/firestore"; // Correct import from
 
 
 // Sign-Up Function
-export const signUp = async (email, password, username) => {
+export const signUp = async (email, password, username, IsProducer) => { // Add IsProducer as a parameter
   try {
     // Create a user with Firebase Authentication
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -16,7 +16,9 @@ export const signUp = async (email, password, username) => {
     await setDoc(doc(db, "beatHubUsers", user.uid), {
       username: username,  // Save the username in Firestore
       email: user.email,
+      IsProducer: IsProducer, // Save IsProducer in Firestore
       createdAt: new Date().toISOString(),  // Store the timestamp of when the user was created
+      
     });
 
     console.log("User signed up and added to Firestore:", user.email);

@@ -8,24 +8,29 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");  // New state for username
   const [error, setError] = useState(null); // State to handle errors
+  const [IsProducer, setIsProducer] = useState(""); // State for IsProducer
   const navigate = useNavigate();
-  const auth = getAuth();
+  const [auth, setAuth] = useState(null);  // State to hold auth object
 
-  // Redirect if already signed in
+  // Initialize auth when component mounts
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const authInstance = getAuth(); // Initialize auth here
+    setAuth(authInstance); // Set auth state
+
+    const unsubscribe = onAuthStateChanged(authInstance, (user) => {
       if (user) {
         navigate("/"); // Redirect if user is already authenticated
       }
     });
 
     return () => unsubscribe(); // Clean up subscription
-  }, [auth, navigate]);
+  }, [navigate]);
 
   const handleSignUp = async () => {
+    if (!auth) return; // Ensure auth is initialized
     try {
       setError(null); // Clear any previous errors
-      const userCredential = await signUp(email, password, username); // Pass username along with email and password
+      const userCredential = await signUp(email, password, username, IsProducer); // Pass IsProducer along with other values
       if (userCredential) {
         navigate("/"); // Redirect on successful sign-up
       }
@@ -39,7 +44,7 @@ const SignUp = () => {
       <a href="/" className="Headerlogo">
         <img
           src="./beathub1.PNG"
-          style={{ width: "64px", height: "64px", paddingBottom: "50px" }}
+          style={{ width: "100px", height: "100px", paddingBottom: "50px" }}
           alt="Logo"
         />
       </a>
@@ -70,6 +75,28 @@ const SignUp = () => {
         onChange={(e) => setUsername(e.target.value)}
       />
       <br />
+      <div>
+        <input
+          type="radio"
+          id="sellBeats"
+          name="IsProducer"
+          value="true"
+          checked={IsProducer === "true"}
+          onChange={(e) => setIsProducer(e.target.value)}
+        />
+        <label htmlFor="sellBeats">Sell Bits</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          id="buyBrowse"
+          name="IsProducer"
+          value="false"
+          checked={IsProducer === "false"}
+          onChange={(e) => setIsProducer(e.target.value)}
+        />
+        <label htmlFor="buyBrowse">Buy and Browse</label>
+      </div>
       <button className="login-button" onClick={handleSignUp}>
         Sign Up
       </button>

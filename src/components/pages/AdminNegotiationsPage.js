@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
-import { formatDistanceToNow } from "date-fns"; // Import date-fns for relative time
+import { format } from "date-fns"; // Import date-fns for formatting
 import "../css/adminNegotiationsPage.css"; // Import CSS for styling
 
 const AdminNegotiationsPage = () => {
@@ -42,7 +42,7 @@ const AdminNegotiationsPage = () => {
                         <p><strong>Amount:</strong> ${negotiation.amount}</p>
                         <p><strong>Submitted by User ID:</strong> {negotiation.userId}</p>
                         <p><strong>User Email:</strong> {negotiation.userEmail}</p>
-                        <p><strong>Timestamp:</strong> {formatDistanceToNow(new Date(negotiation.timestamp.seconds * 1000), { addSuffix: true })}</p>
+                        <p><strong>Timestamp:</strong> {format(new Date(negotiation.timestamp.seconds * 1000), 'PPpp')}</p>
                     </li>
                 ))}
             </ul>
