@@ -8,6 +8,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");  // New state for username
   const [error, setError] = useState(null); // State to handle errors
+  const [IsProducer, setIsProducer] = useState(""); // State for IsProducer
   const navigate = useNavigate();
   const [auth, setAuth] = useState(null);  // State to hold auth object
 
@@ -29,7 +30,7 @@ const SignUp = () => {
     if (!auth) return; // Ensure auth is initialized
     try {
       setError(null); // Clear any previous errors
-      const userCredential = await signUp(email, password, username); // Pass username along with email and password
+      const userCredential = await signUp(email, password, username, IsProducer); // Pass IsProducer along with other values
       if (userCredential) {
         navigate("/"); // Redirect on successful sign-up
       }
@@ -74,6 +75,28 @@ const SignUp = () => {
         onChange={(e) => setUsername(e.target.value)}
       />
       <br />
+      <div>
+        <input
+          type="radio"
+          id="sellBeats"
+          name="IsProducer"
+          value="true"
+          checked={IsProducer === "true"}
+          onChange={(e) => setIsProducer(e.target.value)}
+        />
+        <label htmlFor="sellBeats">Sell Bits</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          id="buyBrowse"
+          name="IsProducer"
+          value="false"
+          checked={IsProducer === "false"}
+          onChange={(e) => setIsProducer(e.target.value)}
+        />
+        <label htmlFor="buyBrowse">Buy and Browse</label>
+      </div>
       <button className="login-button" onClick={handleSignUp}>
         Sign Up
       </button>
