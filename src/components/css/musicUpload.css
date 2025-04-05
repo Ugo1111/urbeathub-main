@@ -266,6 +266,7 @@ overflow-y: auto;
 .UploadedBeatList-title {
   margin: 20px 0 50px 0;
   font-size: large;
+  
 }
 
 .UploadedBeatList-beatTitle {
@@ -274,7 +275,7 @@ overflow-y: auto;
   font-size: large;
   white-space: nowrap;
   overflow: hidden;
-  width: 100%; /* Make it responsive */
+  width: 50%; /* Make it responsive */
   text-overflow: ellipsis;
 }
 
@@ -299,13 +300,13 @@ overflow-y: auto;
 }
 
 .UploadedBeatList-audio {
-  background-color: #83c192a0;
   margin: 5px;
-  max-width: 100%; /* Ensures responsiveness */
+  max-width: 100%; 
 }
 
 .UploadedBeatList-img {
   margin-right: 10px;
+  
   max-width: 100%; /* Prevents oversized images */
 }
 

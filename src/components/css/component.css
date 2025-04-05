@@ -536,6 +536,49 @@ border-radius: 50%;
   color: rgba(255, 255, 255, 0.583);
 }
 
+.sellbeat {
+  display: flex;
+  justify-content: center; 
+  gap: 30px;
+  background-color: gray;
+  padding: 15px;
+  position: relative;
+  z-index: 2;
+}
+
+.sellbeat-container{background-color: #000000;
+  color:#ffffff;
+text-align: center;
+padding: 17px;
+border-radius: 2px;}
+
+.sellbeat-container h2{font-size: 1.8rem;}
+
+.sellbeat-container li{font-size: 1.2rem;;
+padding: 10px;
+text-align: left;}
+
+.sellbeat-container1{
+  text-align: left;
+  padding: 15px;}
+  
+  .sellbeat-container1 h2{font-size: 1.8rem;}
+  
+  .sellbeat-container1 li{font-size: 1.2rem;
+  padding:10px;} 
+
+  .buy-link{background-color:#db3056;
+  color:#ffffff;
+  justify-content: ce;
+border-radius: 10px;
+padding: 10px;
+text-decoration: none;
+transition: 0.3s;}
+
+.buy-link:hover{background-color:gray;
+color:#ffffff;}
+
+
 
 @media (max-width: 768px) {
  
@@ -578,8 +621,20 @@ border-radius: 50%;
         width: 70%;
         margin-left: 25%;
       }
+
       .ProfilePage h1{
         font-size: 1.5rem;
+      }
+      .sellbeat {
+        flex-direction: row;
+        justify-content: center;
+      
+      }
+    
+      .sellbeat-container,
+      .sellbeat-container1 {
+        width: 100%; /* Full width on smaller screens */
+        padding: 1rem; /* Adjust padding for smaller screens */
       }
 }
 
@@ -594,11 +649,13 @@ border-radius: 50%;
     height: 500px;  
     width: 350px;
   }
+
   .Headerlogo{
    
     width: 70px;
     height: 70px;
   }
+
   .HeaderSearchBar {
    display: none;
   }
@@ -671,4 +728,11 @@ border-radius: 50%;
       .ProfilePage h1{
         font-size: 1rem;
       }
+      .sellbeat {
+        flex-direction: column;
+        justify-content: space-between;
+      
+      }
+    
+     
     }

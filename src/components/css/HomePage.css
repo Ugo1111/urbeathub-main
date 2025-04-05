@@ -512,50 +512,7 @@ margin-bottom: 250px;
     .license-btn:hover{background-color:#db3056;
     color:#ffffff;}
     
-        .sellbeat {
-            display: flex;
-            justify-content: center; 
-            flex-wrap: wrap;
-            gap: 30px;
-            border-bottom: dashed 2px #ffffff;
-            background-color: gray;
-            padding: 15px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .sellbeat-container{background-color: #000000;
-            color:#ffffff;
-        text-align: center;
-        padding: 17px;
-      border-radius: 2px;}
-        
-        .sellbeat-container h2{font-size: 1.8rem;}
-        
-        .sellbeat-container li{font-size: 1.2rem;;
-        padding: 10px;
-      text-align: left;}
-        
-        .sellbeat-container1{
-            text-align: left;
-            padding: 15px;}
-            
-            .sellbeat-container1 h2{font-size: 1.8rem;}
-            
-            .sellbeat-container1 li{font-size: 1.2rem;
-            padding:10px;} 
-    
-            .buy-link{background-color:#db3056;
-            color:#ffffff;
-            justify-content: ce;
-        border-radius: 10px;
-    padding: 10px;
-    text-decoration: none;
-    transition: 0.3s;}
-    
-    .buy-link:hover{background-color:gray;
-    color:#ffffff;}
-    
+       
     /*   .newsletter {
       margin-top: 20px;
       background-color: #0b0a0a;

@@ -24,6 +24,7 @@ import { MusicUploadProvider } from "./components/context/MusicUploadProvider"; 
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Privacy from "./components/pages/privacy";
+import Licensedetails from "./components/pages/Licensedetails";
 import CookieConsent from "react-cookie-consent";
 
 // This is where the main app is...
@@ -55,6 +56,7 @@ function App() {
         <Route path="/PageOne" element={<PageOne />} />
         <Route path="/PageTwo" element={<PageTwo />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/Licensedetails" element={<Licensedetails />} />
         <Route path="/EditTrackPage" element={<EditTrackPage />} /> {/* Add route for EditTrackPage */}
         <Route path="/usersUploadMusicPage" element={
           <MusicUploadProvider>
@@ -84,7 +86,9 @@ function App() {
   }} >
           This website uses cookies to enhance the user experience. see our  <a href="/privacy" style={{ color: "#db3056", textDecoration: "none" }}>
     privacy policy
-  </a>  to learn more. 
+  </a>  to learn more.<a href="/Licensedetails" style={{ color: "#db3056", textDecoration: "none" }}>
+    License details
+  </a> 
         </CookieConsent>
     </Router>
   );

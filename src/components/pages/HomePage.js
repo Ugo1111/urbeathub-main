@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback} from "react";
 import GroupA from "../component/header.js";
 import { GroupE, GroupF, GroupG } from "../component/footer.js";
+import SellBeatSection from "../component/SellBeatSection.js"; 
 import "../css/HomePage.css";
 import "../css/component.css";
 import MusicPlayer from "../component/MusicPlayer";
@@ -112,8 +113,9 @@ function HomePage() {
     />
 
     <SongList songs={songs} playSong={playSong} selectedSong={selectedSong} setSelectedSong={setSelectedSong} />
- 
-      <GroupG/> 
+   <SellBeatSection />
+    <GroupF />
+<GroupG/> 
   </div>
   );
 }

@@ -127,7 +127,7 @@ const UploadedBeatListComponent = ({ setSelectedMusic }) => {
                 fontSize: "small",
               }}
             >
-              {item.status ? " Live" : "Private"}
+              {item.status ? "Your Beat is Live" : "Your Beat is Private"}
             </span>
           
             <div>
