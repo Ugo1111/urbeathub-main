@@ -121,6 +121,7 @@ const UsersUploadMusicPage = () => {
         coverUrl: "",
         status: false,
         uploadedBy: email,
+        userId: uid,
         timestamp: Timestamp.now(),
         metadata, // Include metadata
         monetization, // Include monetization details

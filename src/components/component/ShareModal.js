@@ -4,7 +4,7 @@ import "../css/ShareModal.css"; // Add styles if needed
 
 const ShareModal = ({ song, onClose }) => {
   const shortUrl = `https://bsta.rs/${song.id}`;
-  const fullUrl = song.musicUrls.mp3 || window.location.href;
+  const fullUrl = song.musicUrls.taggedMp3 || window.location.href;
 
   const [copied, setCopied] = useState({ short: false, full: false });
 

@@ -23,7 +23,7 @@ const Download = ({ fontSize = "1em", to, state,  song  } ) => {
   return (
     <span style={{ fontSize }}>
      
-      {user ?<a href={song.musicUrls.mp3} download={song.title}>
+      {user ?<a href={song.musicUrls.taggedMp3} download={song.title}>
       
      
                   <button> 

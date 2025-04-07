@@ -2,6 +2,7 @@ import React from "react";
 import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import "../css/checkout.css";
+import djImage from '../../images/dj.jpg';
 
 function CartComponent({ cart, setCart }) {  // Receive cart & setCart as props
     const auth = getAuth();
@@ -39,7 +40,7 @@ function CartComponent({ cart, setCart }) {  // Receive cart & setCart as props
                         <li key={song.songId} className="cart-list-item">
                             <div className="cart-list-info">
                                 <img
-                                    src={song.coverUrl || "./images/default-cover.jpg"}
+                                    src={song.coverUrl || djImage}
                                     className="cart-list-image"
                                     alt="Song Cover"
                                 />
