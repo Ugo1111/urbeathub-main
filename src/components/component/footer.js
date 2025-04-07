@@ -35,10 +35,10 @@ export function GroupE() {
       <div className="GroupF">
         <div className="footer-wrapper">
           <div className="footer-container">
-            <img src="./beathub1.jpg" alt="logo" />
+            <img src="/beathub1.PNG" alt="logo" />
             <p>
-              Discover the beats that set the tone for your <br />
-              next hit. For custom beats and exclusive rights, <br />
+              Discover the beats that set the tone <br />for your 
+              next hit. For custom beats<br /> and exclusive rights,
               get in touch with us.
             </p>
             <a href="contact.html">Contact Us</a>
@@ -47,13 +47,13 @@ export function GroupE() {
 
           <div className="footer-container1">
             <p>
-              <a href="link">License</a>
+              <a href="/Licensedetails">License</a>
             </p>
             <p>
               <a href="link">Start Selling</a>
             </p>
             <p>
-              <a href="link">Privacy Policy</a>
+              <a href="/privacy">Privacy Policy</a>
             </p>
           </div>
 
@@ -87,10 +87,10 @@ export function GroupE() {
 
   export function GroupG() {
     return (
-      <footer className="GroupCb">
+      <footer className="footer">
         {/*Group Cb */}
         <p>BeatHub is a Brand That Support African Musicians</p>
-        <p>COPYRIGHT BEATHUB 2024</p>
+        <p>COPYRIGHT BEATHUB 2025</p>
       </footer>
     );
   }

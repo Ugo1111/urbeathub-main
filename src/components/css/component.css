@@ -289,12 +289,113 @@ body{
     height: 85px;
   }
   
+  .footer-wrapper {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 20px;
+    display: flex; 
+    align-items: center;
+    text-align: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap; 
+    position: relative;
+    z-index: 2;
+}
+
+
+.footer-container img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 0;
+}
+
+.footer-container a, 
+.footer-container1 a {
+    color: #ffffff;
+    font-size: large;
+    text-decoration: none;
+}
+
+.footer-container a:hover, 
+.footer-container1 a:hover {
+    color: #db3056;
+}
+
+.footer-container p, .footer-container1 p, .accordion-container button {
+  font-size: small;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+
+.accordion-container {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+}
+
+.accordion {
+  background-color: #db3056;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border-radius: 5px;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.accordion:after {
+  content: '\002B';
+  color: #777;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 18px;
+  color: #000000;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
 
 
 
 
-  
-  
+.accordion-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #db3056;
+  color: #fff;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.accordion-container button:hover {
+  background-color: #444;
+}
+
+.accordion-container .content {
+  display: none;
+  padding: 10px;
+  background-color: #222;
+  color: #fff;
+}
+
+.accordion-container .content p {
+  margin: 0;
+}
+
   
   
   .dropdown {
@@ -538,46 +639,81 @@ border-radius: 50%;
 
 .sellbeat {
   display: flex;
+  flex-direction: row; 
+  align-items: flex-start;
   justify-content: center; 
-  gap: 30px;
+  padding: 20px;
   background-color: gray;
-  padding: 15px;
+  width: 100vw;
+  margin-top: 20px;
+  border-bottom: #ffffff 2px dashed;
   position: relative;
   z-index: 2;
 }
 
+
 .sellbeat-container{background-color: #000000;
   color:#ffffff;
 text-align: center;
-padding: 17px;
+padding: 30px;
 border-radius: 2px;}
 
-.sellbeat-container h2{font-size: 1.8rem;}
+.sellbeat-container h2{
+  font-size: 1.5rem;
+color: #db3056;}
 
-.sellbeat-container li{font-size: 1.2rem;;
+.sellbeat-container li{font-size: 1rem;;
 padding: 10px;
 text-align: left;}
 
 .sellbeat-container1{
   text-align: left;
-  padding: 15px;}
+  padding: 30px;
+}
   
-  .sellbeat-container1 h2{font-size: 1.8rem;}
+  .sellbeat-container1 h2{font-size: 1.5rem;
+  color: #db3056;
+  }
   
-  .sellbeat-container1 li{font-size: 1.2rem;
-  padding:10px;} 
+  .sellbeat-container1 li{font-size: 1rem;
+  padding:10px;
+  color: #ffffff;
+} 
 
-  .buy-link{background-color:#db3056;
-  color:#ffffff;
-  justify-content: ce;
-border-radius: 10px;
-padding: 10px;
-text-decoration: none;
-transition: 0.3s;}
+ .buy-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #db3056;;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
 
 .buy-link:hover{background-color:gray;
 color:#ffffff;}
 
+
+@media (max-width: 1024px) {
+  .sellbeat-container, .sellbeat-container1 {
+    padding: 15px;
+  }
+
+  .sellbeat-container h2, .sellbeat-container1 h2 {
+    font-size: 1.5rem;
+  }
+
+  .sellbeat-container ul li, .sellbeat-container1 ul li {
+    font-size: 0.95rem;
+  }
+
+  .sellbeat-container .buy-link {
+    font-size: 0.95rem;
+    padding: 9px 18px;
+  }
+}
 
 
 @media (max-width: 768px) {
@@ -631,11 +767,93 @@ color:#ffffff;}
       
       }
     
-      .sellbeat-container,
-      .sellbeat-container1 {
-        width: 100%; /* Full width on smaller screens */
-        padding: 1rem; /* Adjust padding for smaller screens */
+      .sellbeat {
+        flex-direction: column; /* Switch to column for smaller screens */
+        justify-content: center; /* Center content vertically */
       }
+    
+    
+    .sellbeat-container {
+      max-width: 1200px;
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      background-color: #000000;
+      color: #ffffff;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .sellbeat-container1{
+      max-width: 1200px;
+      width: 100%;
+      text-align: left;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      background-color: gray;
+      color: #ffffff;
+      border-radius: 8px;
+      margin-bottom: 20px;
+
+    }
+    
+    .sellbeat-container h2  {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: #db3056;
+    }
+    .sellbeat-container1 h2{
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+    
+    .sellbeat-container ul, .sellbeat-container1 ul {
+      
+      padding: 0;
+      margin: 0;
+    }
+    
+    .sellbeat-container ul li, .sellbeat-container1 ul li {
+      font-size: 1rem;
+      margin: 10px 0;
+      color: #ffffff;
+    }
+    
+    .sellbeat-container .buy-link {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #db3056;;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .sellbeat-container .buy-link:hover {
+      background-color: gray;
+    }
+
+    .footer-wrapper {
+      flex-direction: column; /* Stack sections vertically */
+      align-items: center;
+    }
+  
+    .footer-container, .footer-container1, .accordion-container {
+      margin: 20px 0; /* Add spacing between sections */
+      text-align: center; /* Center align text for smaller screens */
+    }
+  
+    .accordion-container button {
+      font-size: 0.9rem; /* Adjust font size for smaller screens */
+    }
+  
+    .footer-container img {
+      max-width: 150px; /* Scale down the logo */
+    }
+    
 }
 
 
@@ -733,6 +951,33 @@ color:#ffffff;}
         justify-content: space-between;
       
       }
+    }  
+
+    @media (max-width: 480px) {
+      .sellbeat-container, .sellbeat-container1 {
+        padding: 8px;
+      }
     
-     
+      .sellbeat-container h2, .sellbeat-container1 h2 {
+        font-size: 1.2rem;
+      }
+    
+      .sellbeat-container ul li, .sellbeat-container1 ul li {
+        font-size: 0.8rem;
+      }
+    
+      .sellbeat-container .buy-link {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+      }
+
+      .footer-container p, .footer-container1 p, .accordion-container button {
+        font-size: 0.8rem; /* Further reduce font size for very small screens */
+      }
+    
+      .footer-container img {
+        max-width: 120px; /* Further scale down the logo */
+      }
     }
+
+

@@ -218,12 +218,13 @@ margin-bottom: 250px;
   }
    */
   
-  .GroupCb {
+  .footer {
     
     background-color: #535050;
     text-align: center;
     width: 100%;
     padding: 10px;
+    font-size: small;
    row-gap: 0px;
     height: inherit;
     position: relative;
@@ -542,86 +543,11 @@ margin-bottom: 250px;
       font-size: 1rem;
     }*/
     
-        .footer-wrapper {
-          background-color: #000000;
-          color: #ffffff;
-          padding: 60px;
-          display: flex; 
-          align-items: center;
-          text-align: center;
-          justify-content: space-evenly;
-          flex-wrap: wrap; 
-          position: relative;
-          z-index: 2;
-      }
+       
       
-    
-      .footer-container img {
-          width: 100%;
-          max-width: 250px;
-          height: auto;
-      }
+     
       
-      .footer-container a, 
-      .footer-container1 a {
-          color: #ffffff;
-          font-size: 30px;
-          text-decoration: none;
-      }
-      
-      .footer-container a:hover, 
-      .footer-container1 a:hover {
-          color: #db3056;
-      }
-      
-      
-      .accordion-container {
-          display: flex;
-          flex-direction: column;
-          width: 20%;
-      }
-      
-      .accordion {
-          background-color: #db3056;
-          color: #ffffff;
-          cursor: pointer;
-          padding: 18px;
-          width: 100%;
-          border-radius: 5px;
-          text-align: left;
-          outline: none;
-          font-size: 15px;
-          transition: 0.4s;
-      }
-      
-      .accordion:after {
-          content: '\002B';
-          color: #777;
-          font-weight: bold;
-          float: right;
-          margin-left: 5px;
-      }
-      
-      .active:after {
-          content: "\2212";
-      }
-      
-      .content {
-          padding: 0 18px;
-          color: #000000;
-          background-color: white;
-          max-height: 0;
-          overflow: hidden;
-          transition: max-height 0.2s ease-out;
-      }
-      
-      
-      .footer { 
-          background-color: #0b0a0a;
-          color: #ffffff;
-          text-align: center;
-          padding: 5px;
-      }
+     
             
   
   /*homepageWrapper*/

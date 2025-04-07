@@ -86,9 +86,7 @@ function App() {
   }} >
           This website uses cookies to enhance the user experience. see our  <a href="/privacy" style={{ color: "#db3056", textDecoration: "none" }}>
     privacy policy
-  </a>  to learn more.<a href="/Licensedetails" style={{ color: "#db3056", textDecoration: "none" }}>
-    License details
-  </a> 
+  </a>  to learn more.
         </CookieConsent>
     </Router>
   );
