@@ -3,6 +3,8 @@ import { db } from "../../firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
+import djImage from '../../images/dj.jpg';
+
 
 const shuffleArray = (array) => {
   let shuffledArray = [...array];
@@ -58,7 +60,7 @@ export default function RecomendationComponent() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }}>
           <img
-            src={song.coverUrl || "./images/default-cover.jpg"}
+            src={song.coverUrl || djImage}
             className="recomendation-image"
             alt={song.title || "Untitled"}
           />

@@ -43,7 +43,7 @@ function AddToCart() {
       audio.pause();
     } else {
       if (!audio.src) {
-        audio.src = song.musicUrls?.mp3; // Set the audio source if not already set
+        audio.src = song.musicUrls?.taggedMp3; // Set the audio source if not already set
         audio.load(); // Load the audio source
       }
       audio.play().catch((error) => console.error("Playback failed:", error));
@@ -254,15 +254,17 @@ function SongBio({ song }) {
         </div>
       </span>
 
-      <a
-        href={song.musicUrls.mp3}
-        download={song.title}
-        style={{ textDecoration: "none" }}
-      >
-        <div className="IoMdDownload">
-          <IoMdDownload size="1.5em" /> Download for Free
-        </div>
-      </a>
+   {song.monetization?.free?.enabled === true  && (
+         <a
+           href={song.musicUrls.taggedMp3}
+           download={song.title}
+           style={{ textDecoration: "none" }}
+         >
+           <div className="IoMdDownload">
+             <IoMdDownload size="1.5em" /> Download for Free
+           </div>
+         </a>
+       )}
 
       <hr />
 

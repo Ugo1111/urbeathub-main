@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaPlay, FaPause } from "react-icons/fa"; // Import Icons
 import "../css/checkout.css";
+import djImage from '../../images/dj.jpg';
+
 
 function FavouritePage() {
   const [likedSongs, setLikedSongs] = useState(() => {
@@ -119,7 +121,7 @@ function FavouritePage() {
                 )}
 
                 <img 
-                  src={song.coverUrl || "./images/default-cover.jpg"} 
+                  src={song.coverUrl || djImage} 
                   className="listimage" 
                   alt={song.title || "Untitled"} 
                 />

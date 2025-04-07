@@ -7,6 +7,8 @@ import Download from "../component/download.js";
 import ShareModal from "./ShareModal";
 import MoreOptions from "./moreOptions.js";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
+import djImage from '../../images/dj.jpg';
+
 
 function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
   const [displayedSongs, setDisplayedSongs] = useState([]);
@@ -69,7 +71,7 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
             ref={index === displayedSongs.length - 1 ? lastSongElementRef : null}
           >
             <img
-              src={song.coverUrl || "./images/default-cover.jpg"}
+              src={song.coverUrl || djImage}
               className="listimage"
               alt={song.title || "Untitled"}
             />

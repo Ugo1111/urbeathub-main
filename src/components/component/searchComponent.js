@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { collection, query, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import "../css/addToCart.css";
+import djImage from '../../images/dj.jpg';
 
 const BeatsList = () => {
     const [beats, setBeats] = useState([]);
@@ -64,7 +65,7 @@ const BeatsList = () => {
                                 <Link to="/buysong" state={{ song: beat }} className="search-beats-li"
                                     onClick={() => setSearchText("")} // Clear searchText when clicking
                                 >
-                                    <img src={beat.coverUrl} alt="Cover Art Preview" className="preview-image" />
+                                    <img src={beat.coverUrl || djImage} alt="Cover Art Preview" className="preview-image" />
                                     <div className="search-beats-results-metadata">
                                         <h3 className="search-beats-title">{beat.title}</h3>
                                         <p className="search-beats-bpm">BPM: {beat.metadata?.bpm}</p>

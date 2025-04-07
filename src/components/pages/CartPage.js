@@ -8,6 +8,7 @@ import GroupA from "../component/header.js";
 import PaystackPayment from "../component/PaystackPayment";
 import { GroupE, GroupF, GroupG } from "../component/footer.js";
 
+
 function CartPage() {
     const [cart, setCart] = useState([]); 
     const [loading, setLoading] = useState(true);

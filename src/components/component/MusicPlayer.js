@@ -1,6 +1,9 @@
 import React from "react";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { GiNextButton, GiPreviousButton } from "react-icons/gi";
+import djImage from '../../images/dj.jpg';
+
+
 
 function MusicPlayer({ 
   currentSong, 
@@ -21,16 +24,10 @@ function MusicPlayer({
     <div className="GroupC1">
       <div className="musicControlerA">
         <div className="imageWrapper">
-        {currentSong?.coverUrl ? (
-  <>
-    <img src={currentSong.coverUrl} alt={`Cover for ${currentSong.title}`} />
-    <button className="playIcon" onClick={() => togglePlayPause()}>
-      {isPlaying ? <FaPause className="icon" /> : <FaPlay className="icon" />}
-    </button>
-  </>
-) : (
-  <p>No cover image available</p>
-)}
+          <img src={currentSong?.coverUrl || djImage} alt={`Cover for ${currentSong?.title || "Untitled"}`} />
+          <button className="playIcon" onClick={() => togglePlayPause()}>
+            {isPlaying ? <FaPause className="icon" /> : <FaPlay className="icon" />}
+          </button>
         </div>
       </div>
 

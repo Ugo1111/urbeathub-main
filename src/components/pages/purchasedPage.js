@@ -6,6 +6,7 @@ import LikeButton from "../component/LikeButton";
 import { Link } from "react-router-dom";
 import { FaPlay, FaPause, FaDownload } from "react-icons/fa"; // Import Icons
 import "../css/checkout.css";
+import djImage from '../../images/dj.jpg';
 
 function PurchasedTracksPage() {
   const [purchasedTracks, setPurchasedTracks] = useState([]);
@@ -42,7 +43,7 @@ function PurchasedTracksPage() {
               userPurchasedTracks.push({
                 id: purchaseDoc.id,
                 beatId: beatId,
-                coverUrl: beatData.coverUrl || "./images/default-cover.jpg",
+                coverUrl: beatData.coverUrl || djImage,
                 title: purchaseData.song || "Unknown Title",
                 license: license, // Ensure license info is fetched from either purchase or beat
                 audioUrl: beatData.musicUrls?.mp3 || null, // Fetch mp3 file URL safely
