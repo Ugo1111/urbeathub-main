@@ -938,46 +938,4 @@ color:#ffffff;}
     width: 100%;
       }
     
-      .ProfilePage {
-  
-        width: 70%;
-        margin-left: 25%;
-      }
-      .ProfilePage h1{
-        font-size: 1rem;
-      }
-      .sellbeat {
-        flex-direction: column;
-        justify-content: space-between;
-      
-      }
-    }  
-
-    @media (max-width: 480px) {
-      .sellbeat-container, .sellbeat-container1 {
-        padding: 8px;
-      }
     
-      .sellbeat-container h2, .sellbeat-container1 h2 {
-        font-size: 1.2rem;
-      }
-    
-      .sellbeat-container ul li, .sellbeat-container1 ul li {
-        font-size: 0.8rem;
-      }
-    
-      .sellbeat-container .buy-link {
-        font-size: 0.8rem;
-        padding: 6px 12px;
-      }
-
-      .footer-container p, .footer-container1 p, .accordion-container button {
-        font-size: 0.8rem; /* Further reduce font size for very small screens */
-      }
-    
-      .footer-container img {
-        max-width: 120px; /* Further scale down the logo */
-      }
-    }
-
-
