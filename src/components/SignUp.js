@@ -75,7 +75,8 @@ const SignUp = () => {
         onChange={(e) => setUsername(e.target.value)}
       />
       <br />
-      <div>
+      <div className="radio-group-container">
+ <div className="radio-group">
         <input
           type="radio"
           id="sellBeats"
@@ -84,9 +85,9 @@ const SignUp = () => {
           checked={IsProducer === "true"}
           onChange={(e) => setIsProducer(e.target.value)}
         />
-        <label htmlFor="sellBeats">Sell Bits</label>
+        <label htmlFor="sellBeats">Sell Beats</label>
       </div>
-      <div>
+      <div className="radio-group">
         <input
           type="radio"
           id="buyBrowse"
@@ -96,6 +97,7 @@ const SignUp = () => {
           onChange={(e) => setIsProducer(e.target.value)}
         />
         <label htmlFor="buyBrowse">Buy and Browse</label>
+      </div>
       </div>
       <button className="login-button" onClick={handleSignUp}>
         Sign Up

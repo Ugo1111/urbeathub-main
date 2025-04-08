@@ -126,7 +126,7 @@ hr{
 /* Center the form container on the screen */
 .login-form-container {
     margin-top: 50px;
-    height: 500px;  
+    height: 90vh;  
     width: 500px;
     display: flex;
     flex-direction: column; /* Stack children vertically */
@@ -704,6 +704,25 @@ text-align: left;}
 .buy-link:hover{background-color:gray;
 color:#ffffff;}
 
+.radio-group-container {
+  display: flex;
+  gap: 20px; /* Space between the groups */
+}
+
+.radio-group {
+  display: flex;
+  align-items: center; /* Ensures radio button and label stay horizontally aligned */
+  gap: 10px; /* Space between radio button and its label */
+  background-color: #000000;
+  padding: 10px;
+  color: #ffffff;
+  border-radius: 10px;
+}
+
+.radio-group:hover{
+  background-color: #db3056;
+}
+
 
 @media (max-width: 1024px) {
   .sellbeat-container, .sellbeat-container1 {
@@ -1001,13 +1020,13 @@ color:#ffffff;}
 
 .social-links a {
   color: #db3056; /* Icon color */
-  font-size: small; /* Icon size */
+  font-size: large; /* Icon size */
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .social-links a:hover {
-  color: #b22234; /* Change color on hover */
+  color: #ffffff; /* Change color on hover */
 }
 
 

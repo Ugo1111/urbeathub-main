@@ -163,7 +163,7 @@ margin-bottom: 250px;
    }
 
    
-  .HeroText  h3{
+  .HeroText  h1{
     margin: 0 auto; 
     width: 95%;
     font-size: 4rem;
@@ -758,7 +758,7 @@ flex-direction: row;
   .HeroPage {
     width: 80%;
   }
-  .HeroText h3{
+  .HeroText h1{
      font-size: 2rem;
  color: #db3056;
 
@@ -861,7 +861,7 @@ flex-direction: row;
   
   
 
-  .HeroText h3 {
+  .HeroText h1 {
     font-size: 2rem; /* Adjust for smaller screens */
     word-break: break-word;
     overflow-wrap: break-word;
@@ -974,7 +974,7 @@ flex-direction: row;
     width: 50%;
   }
 
-  .HeroText h3 {
+  .HeroText h1 {
     font-size: large; /* Further adjust for very small screens */
     word-break: break-word;
     overflow-wrap: break-word;

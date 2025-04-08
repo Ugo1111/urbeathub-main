@@ -23,18 +23,21 @@ export function GroupF() {
             <p>
               <a href="/privacy">Privacy Policy</a>
             </p>
+            <p>
+              <a href="/Refundpolicy">Refund Policy</a>
+            </p>
             <div className="social-links">
-              <a href="https://www.facebook.com" target="_blank">
-                <i className="fab fa-facebook">facebook</i>
+              <a href="https://www.facebook.com/share/15xxw68L9H/" target="_blank">
+                <i className="fab fa-facebook"></i>
               </a>
-              <a href="https://www.instagram.com" target="_blank">
-                <i className="fab fa-instagram">instagram</i>
+              <a href="https://www.instagram.com/beathubhq?igsh=bzdlenlmYmM0MXlx" target="_blank">
+                <i className="fab fa-instagram"></i>
               </a>
-              <a href="https://www.tiktok.com" target="_blank">
-                <i className="fab fa-tiktok">Tiktok</i>
+              <a href="https://www.tiktok.com/@beathubhq?_t=ZG-8tPb3wugnPU&_r=1" target="_blank">
+                <i className="fab fa-tiktok"></i>
               </a>
-              <a href="https://www.youtube.com" target="_blank">
-                <i className="fab fa-youtube">youtube</i>
+              <a href="https://www.youtube.com/@urbeathub?si=c-RKHuS-4-0C6Ve6" target="_blank">
+                <i className="fab fa-youtube"></i>
               </a>
             </div>
           </div>
