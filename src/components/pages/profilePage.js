@@ -12,6 +12,7 @@ function ProfilePage() {
   const [location, setLocation] = useState("");  // New location field
   const [username, setUsername] = useState("");  // To manage the username
   const [email, setEmail] = useState("");
+  const [uid, setUid] = useState("");  // To manage the uid
   const [isNew, setIsNew] = useState(true); 
   const [successMessage, setSuccessMessage] = useState("");  // Success message state
 
@@ -20,7 +21,8 @@ function ProfilePage() {
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setEmail(user.email);  // Set email once user is authenticated
+        setEmail(user.email); // Keep email for display purposes if needed
+        setUid(user.uid); // Set uid for Firestore operations
       } else {
         console.error("No authenticated user found");
       }
@@ -30,10 +32,10 @@ function ProfilePage() {
   }, []); 
 
   useEffect(() => {
-    if (email) {
+    if (uid) {
       const fetchData = async () => {
         try {
-          const docSnap = await getDoc(doc(db, "beatHubUsers", email));
+          const docSnap = await getDoc(doc(db, "beatHubUsers", uid)); // Use uid instead of email
 
           if (docSnap.exists()) {
             const data = docSnap.data();
@@ -56,16 +58,16 @@ function ProfilePage() {
 
       fetchData();
     }
-  }, [email]);
+  }, [uid]);
 
   const handleSubmit = async () => {
-    if (!email) {
-      console.error("Email is not set, cannot save data.");
+    if (!uid) {
+      console.error("UID is not set, cannot save data.");
       return;
     }
 
     try {
-      const docRef = doc(db, "beatHubUsers", email);
+      const docRef = doc(db, "beatHubUsers", uid); // Use uid instead of email
       const data = {
         first,
         last,
@@ -104,7 +106,7 @@ function ProfilePage() {
       <h1>{isNew ? "Complete Your Profile" : "UPDATE Your Profile"}</h1>
       <div className="ProfilePage-userName-container">
         {/* Upload Profile Picture Component */}
-        {email && <UploadProfilePic email={email} />}
+        {uid && <UploadProfilePic uid={uid} />} {/* Pass uid instead of email */}
 
         {/* Display username directly and make it editable */}
         <div className="ProfilePage-userName-Username">

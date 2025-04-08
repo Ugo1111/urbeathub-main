@@ -22,6 +22,9 @@ import Comment from "../component/CommentSection";
 import RecomendationComponent from "../component/recomendationComponent";
 import ShareModal from "../component/ShareModal";
 import { Timestamp } from "firebase/firestore"; // Import Firestore Timestamp
+import djImage from '../../images/dj.jpg';
+
+
 
 function AddToCart() {
   const location = useLocation();
@@ -43,7 +46,7 @@ function AddToCart() {
       audio.pause();
     } else {
       if (!audio.src) {
-        audio.src = song.musicUrls?.taggedMp3; // Set the audio source if not already set
+        audio.src = song.musicUrls?.mp3; // Set the audio source if not already set
         audio.load(); // Load the audio source
       }
       audio.play().catch((error) => console.error("Playback failed:", error));
@@ -254,17 +257,15 @@ function SongBio({ song }) {
         </div>
       </span>
 
-   {song.monetization?.free?.enabled === true  && (
-         <a
-           href={song.musicUrls.taggedMp3}
-           download={song.title}
-           style={{ textDecoration: "none" }}
-         >
-           <div className="IoMdDownload">
-             <IoMdDownload size="1.5em" /> Download for Free
-           </div>
-         </a>
-       )}
+      <a
+        href={song.musicUrls.taggedMp3}
+        download={song.title}
+        style={{ textDecoration: "none" }}
+      >
+        <div className="IoMdDownload">
+          <IoMdDownload size="1.5em" /> Download for Free
+        </div>
+      </a>
 
       <hr />
 
@@ -344,7 +345,7 @@ function SongBio({ song }) {
 function CoverArt({ coverUrl }) {
   return (
     <div className="image-placeholder">
-      <img src={coverUrl} alt="Trending Instrumental" />
+      <img src={coverUrl || djImage} alt="Trending Instrumental" />
     </div>
   );
 }

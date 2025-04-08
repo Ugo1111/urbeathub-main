@@ -134,7 +134,7 @@ export default function LicensingSection({ song, addToCart }) {
             </Link>
           ) : isLicensePurchased ? (
             // Display the Download button if the license has been purchased
-            <a href={song.musicUrls?.taggedMp3 || "#"} download>
+            <a href={song.musicUrls?.mp3 || "#"} download>
               <button className="buy-now-btn">
                 <FaDownload /> Download
               </button>
