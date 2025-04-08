@@ -6,6 +6,7 @@ import "../css/addToCart.css";
 import GroupA from "../component/header.js";
 import PaystackPayment from "../component/CheckoutPaystackPayment";
 import { Link } from "react-router-dom";
+import { Helmet } from 'react-helmet';
 
 function CheckoutPage() {
     const location = useLocation();
@@ -86,6 +87,10 @@ function CheckoutPage() {
     const totalPrice = Number(cleanPrice) || 0;
 
     return (
+        <div>
+            <Helmet>
+        <title>Payment | Cart Checkout</title>
+      </Helmet>
         <div className="CheckoutContainer">
             <GroupA />
             <h1 className="CheckoutTitle">Checkout</h1>
@@ -169,6 +174,7 @@ function CheckoutPage() {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     );
 }

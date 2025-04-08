@@ -1,12 +1,14 @@
 import React from 'react';
 import "../css/addToCart.css";
+import { GroupF, GroupG } from "../component/footer"; // Import GroupF and GroupG for the footer
 
 function Privacy() {
   return (
+    <div>
     <div className="privacy-policy">
       <h2>Privacy Policy</h2>
       <p> 
-        This Privacy Policy describes the policies of UrBeat Hub, 104a Lily Lane, WIGAN, WN2 5LL, United Kingdom, 
+        This Privacy Policy describes the policies of UrBeat Hub, 26 Redfearn Walk, Marsh House Lane, Warrington, Cheshire, England, WA2 7EF, 
         email: <a href="mailto:info@urbeathub.com">info@urbeathub.com</a>, phone: 7942053507, on the collection, 
         use, and disclosure of your information when you use our website (<a href="https://urbeathub.com">https://urbeathub.com</a>). 
         By accessing or using the Service, you consent to the collection, use, and disclosure of your information in 
@@ -71,9 +73,12 @@ function Privacy() {
         If you have concerns about data processing, contact our Grievance Officer at:
       </p>
       <address>
-        UrBeat Hub, 104a Lily Lane, WIGAN, WN2 5LL, United Kingdom<br />
+        UrBeat Hub, 26 Redfearn Walk, Marsh House Lane, Warrington, Cheshire, England, WA2 7EF<br />
         Email: <a href="mailto:info@urbeathub.com">info@urbeathub.com</a>
       </address>
+    </div>
+<GroupF />
+<GroupG />
     </div>
   );
 }

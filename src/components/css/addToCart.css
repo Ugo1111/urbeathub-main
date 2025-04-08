@@ -700,6 +700,7 @@ justify-content: center;
   position: relative;
   display: flex;
   align-items: center;
+  
 }
 
 .clear-button {
@@ -724,6 +725,7 @@ min-width: 40%;
     justify-content: center;
     align-items: center;
     height: 100px; /* Adjust as necessary */
+    
 }
 
 .search-beats-input {  border: #be27ff solid;
@@ -754,6 +756,7 @@ min-width: 40%;
     justify-content: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.482); /* Optional: Add a subtle shadow */
     background: rgba(0, 0, 0, 0.217); /* Optional: Change the background of the results list */
+    overflow-y: scroll;
 
 }
 
@@ -1075,6 +1078,7 @@ font-style: italic;
     .search-beats-body{
       display: none;
     }
+    
     .beat-details h2{
       font-size: large;
     }

@@ -9,7 +9,7 @@ import SongList from "../component/SongList";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import HeroPage from "../component/HeroPage"; // Adjust path as needed
-
+import { Helmet } from 'react-helmet';
 function HomePage() {
   const [songs, setSongs] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -79,6 +79,29 @@ function HomePage() {
   const handleVolumeChange = useCallback((e) => { setVolume(e.target.value); audioRef.current.volume = e.target.value; }, []);
 
   return (
+    <div>
+    <Helmet>
+    <title>High Quality Afrobeat Instrumentals for Artists | Buy & Download Instantly</title>
+    <meta
+      name="description"
+      content="Discover high quality Afrobeat instrumentals for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
+    />
+    <meta property="og:title" content="High Quality Afrobeat Instrumentals for Artists | Buy & Download Instantly" />
+    <meta
+      property="og:description"
+      content="Discover high quality Afrobeat instrumentals for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
+    />
+    <meta property="og:image" content="%PUBLIC_URL%/ur beathub favicon.png" />
+    <meta property="og:url" content="https://urbeathub.com" /> 
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="High Quality Afrobeat Instrumentals for Artists | Buy & Download Instantly" />
+    <meta
+      name="twitter:description"
+      content="Discover high quality Afrobeat instrumentals for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
+    />
+    <meta name="twitter:image" content="%PUBLIC_URL%/ur beathub favicon.png" />
+  </Helmet>
     <div className="homepageWrapper">
        <div class="overlay"></div>
       <GroupA />
@@ -116,6 +139,7 @@ function HomePage() {
    <SellBeatSection />
     <GroupF />
 <GroupG/> 
+  </div>
   </div>
   );
 }

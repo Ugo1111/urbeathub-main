@@ -1,36 +1,4 @@
-export function GroupE() {
-    return (
-      <div className="GroupF">
-        {/*GroupF*/}
-        <section className="newsletter">
-          <div className="newsletter1">
-            <h4>Stay up-to-date with our newsletter</h4>
-            <p>Join now and get 15% off your next purchase</p>
-            {/* Input for email */}
-            <input
-              type="email"
-              className="submit-button"
-              placeholder="Enter your email..."
-            />
-            {/* Submit button */}
-            <p>
-              <input
-                type="submit"
-                className="buy-link"
-                value="Subscribe now!"
-              />
-            </p>
-          </div>
-
-          <div className="credibility">
-            <h4>Credibility</h4>
-          </div>
-        </section>
-      </div>
-    );
-  }
-
-  export function GroupF() {
+export function GroupF() {
     return (
       <div className="GroupF">
         <div className="footer-wrapper">
@@ -55,6 +23,20 @@ export function GroupE() {
             <p>
               <a href="/privacy">Privacy Policy</a>
             </p>
+            <div className="social-links">
+              <a href="https://www.facebook.com" target="_blank">
+                <i className="fab fa-facebook">facebook</i>
+              </a>
+              <a href="https://www.instagram.com" target="_blank">
+                <i className="fab fa-instagram">instagram</i>
+              </a>
+              <a href="https://www.tiktok.com" target="_blank">
+                <i className="fab fa-tiktok">Tiktok</i>
+              </a>
+              <a href="https://www.youtube.com" target="_blank">
+                <i className="fab fa-youtube">youtube</i>
+              </a>
+            </div>
           </div>
 
           <div className="accordion-container">

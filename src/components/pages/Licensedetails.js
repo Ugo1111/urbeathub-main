@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from "react";
 import "../css/addToCart.css";
-
+import { GroupF, GroupG } from "../component/footer"; 
 
 const licenses = [
   { 
@@ -165,24 +165,52 @@ export default function BeatLicenses() {
   const [activeLicense, setActiveLicense] = useState(null);
 
   return (
-    <div className="beatlicenses">
-      <h1 className="beatlicenses1">Beat License Information</h1>
-      <div className="beatlicenses2">
-        {licenses.map((license, index) => (
-          <div key={index}>
-            <button
-              className="beatlicenses3"
-              onClick={() => setActiveLicense(activeLicense === index ? null : index)}
-            >
-              {license.name}
-            </button>
-            {activeLicense === index && (
-              <p className="beatlicenses4">{license.details}</p>
-            )}
-          </div>
-        ))}
+    <div>
+      <div className="beatlicenses">
+        <h1 className="beatlicenses1">Beat License Information</h1>
+        <div className="beatlicenses2">
+          {licenses.map((license, index) => (
+            <div key={index}>
+              <button
+                className="beatlicenses3"
+                onClick={() => setActiveLicense(activeLicense === index ? null : index)}
+              >
+                {license.name}
+              </button>
+              {activeLicense === index && (
+                <p className="beatlicenses4">{license.details}</p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+      <GroupF /> {/* Add the footer-wrapper */}
+      <GroupG /> {/* Add the footer */}
+      <div className="footer-container1">
+        <p>
+          <a href="/Licensedetails">License</a>
+        </p>
+        <p>
+          <a href="link">Start Selling</a>
+        </p>
+        <p>
+          <a href="/privacy">Privacy Policy</a>
+        </p>
+        <div className="social-links">
+          <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-facebook"></i>
+          </a>
+          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-tiktok"></i>
+          </a>
+          <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-youtube"></i>
+          </a>
+        </div>
       </div>
     </div>
-    
   );
 }

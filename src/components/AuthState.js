@@ -103,14 +103,18 @@ const AuthState = ({ fontSize = "small" }) => {
 
   return (
     <div style={{ fontSize }}>
-     
-      {user ?  ( <Profile user={user}  />
-      )  : <p><Link to="/loginPage" className="avatar"  >
-                  Login
-                  </Link></p>}
+      {user ? (
+        <div className="profile-dropdown">
+          <Profile user={user} /> {/* Ensure Profile renders correctly */}
+        </div>
+      ) : (
+        <p>
+          <Link to="/loginPage" className="avatar">
+            Login
+          </Link>
+        </p>
+      )}
     </div>
-
-    
   );
 };
 

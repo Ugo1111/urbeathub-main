@@ -1,6 +1,6 @@
 .dropdown {
     position: relative;
-    display: inline-block;
+    display: none;
   }
   
   .dropbtn {
@@ -10,6 +10,7 @@
     border: none;
     cursor: pointer;
     font-size: 16px;
+    
   }
   
   .dropbtn:hover {
@@ -45,14 +46,22 @@
 
 
   .avatar {
-    border-radius: 10%;
+    display: inline-block; /* Ensure the link is visible */
     color: #f1f1f1;
-    margin: 0px;
-    padding: 0px;
     text-decoration: none;
+    font-size: 1rem; /* Set a consistent font size */
+    margin: 0; /* Remove any unwanted margins */
+    padding: 0; /* Remove any unwanted padding */
   }
-  .avatar:hover{
-    text-decoration: underline;
+  .avatar:hover {
+    text-decoration: underline; /* Add hover effect */
+  }
+
+  /* Ensure visibility on all screen sizes */
+  @media (min-width: 768px) {
+    .avatar {
+      display: inline-block; /* Ensure visibility on larger screens */
+    }
   }
   
     .start-selling{
@@ -937,5 +946,68 @@ color:#ffffff;}
  align-self: center;
     width: 100%;
       }
+      .dropbtn{
+        display: block;
+      }
     
+      .ProfilePage {
+  
+        width: 70%;
+        margin-left: 25%;
+      }
+      .ProfilePage h1{
+        font-size: 1rem;
+      }
+      .sellbeat {
+        flex-direction: column;
+        justify-content: space-between;
+      
+      }
+    }  
+
+    @media (max-width: 480px) {
+      .sellbeat-container, .sellbeat-container1 {
+        padding: 8px;
+      }
     
+      .sellbeat-container h2, .sellbeat-container1 h2 {
+        font-size: 1.2rem;
+      }
+    
+      .sellbeat-container ul li, .sellbeat-container1 ul li {
+        font-size: 0.8rem;
+      }
+    
+      .sellbeat-container .buy-link {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+      }
+
+      .footer-container p, .footer-container1 p, .accordion-container button {
+        font-size: 0.8rem; /* Further reduce font size for very small screens */
+      }
+    
+      .footer-container img {
+        max-width: 120px; /* Further scale down the logo */
+      }
+    }
+
+.social-links {
+  margin-top: 10px;
+  display: flex;
+  gap: 15px; /* Add spacing between icons */
+  justify-content: center; /* Center align icons */
+}
+
+.social-links a {
+  color: #db3056; /* Icon color */
+  font-size: small; /* Icon size */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #b22234; /* Change color on hover */
+}
+
+
