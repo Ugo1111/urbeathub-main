@@ -166,11 +166,21 @@
   width: 90%;
   max-width: 200px;
 }
-.uploadMusicContainer{
-  background: white;
-  margin: 0 auto;
-  padding: 20px;
-}
+
+
+
+  
+    .uploadMusicContainer {
+      width: 100vw; 
+      height: 250vh; 
+      background-color: #ffffff; 
+      display: flex; 
+      flex-direction: column;
+      justify-content: flex-start; 
+      align-items: center; 
+      padding: 20px; 
+      margin: 0 auto;
+      }
 
 .uploadMusicContainer h1{
   text-align: center;
@@ -186,6 +196,7 @@
   width: 90%;
   max-width: 500px;
   text-align: left;
+ 
 }
 
 .MusicTitle-label label {
@@ -205,7 +216,7 @@
   max-width: 500px;
   margin-bottom: 20px;
   padding: 10px;
-  background: rgba(231, 39, 129, 0.9);
+  background: #db3056;
   color: white;
   border: none;
   border-radius: 5px;
@@ -1115,8 +1126,9 @@ padding: 10px;
   height: 100px;
 }
 .uploadMusicContainer{
-  width: 70vw;
-  margin-left: 15%;
+  width: 80vw;
+  height: 250vh;
+  margin-left: 13%;
 }
 .uploadMusicContainer h1{
   font-size: 1.5rem;
@@ -1235,8 +1247,9 @@ padding: 10px;
     margin-left: 25%;
   }
   .uploadMusicContainer{
-    width: 70vw;
-    margin-left: 15%;
+    width: 80vw;
+    height: 275vh;
+    margin-left: 13%;
   }
   .uploadMusicContainer h1{
     font-size: 1.5rem;

@@ -180,6 +180,7 @@ const UploadMusicComponent = ({ handleInputChange, handleFileSelect }) => {
 
       {progress > 0 && <div className="progress-bar"><div style={{ width: `${progress}%` }}>{Math.round(progress)}%</div></div>}
     </form>
+    
   );
 };
 
