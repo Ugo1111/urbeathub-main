@@ -19,7 +19,7 @@ body {margin: 0;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  
   font-size: 1rem;/*i need to adjust this to this as it  affecting the whole size of my code*/
   color: rgba(255, 255, 255, 0.715);
   background-image: url('/src/images/dj.jpg');
@@ -35,7 +35,7 @@ body {margin: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Adjust this value to change opacity */
+  background: rgba(0, 0, 0, 0.9); /* Adjust this value to change opacity */
   z-index: 1;
 }
 
@@ -149,7 +149,7 @@ overflow: hidden;
 
   .HeroPage {
     padding: 5px;
-    width: 80%;
+    width: 95%;
     height: 85vmin;
     text-align: center;
     margin-bottom: 20px; 
@@ -159,14 +159,14 @@ overflow: hidden;
 
 .HeroPage  div {
 color: #fff;
-margin-bottom: 100px;
+margin-bottom: 250px;
    }
 
    
-  .HeroText  h3{
+  .HeroText  h1{
     margin: 0 auto; 
-    width: 90%;
-    font-size: 2rem;
+    width: 95%;
+    font-size: 4rem;
     color: #db3056;
     word-break: break-word;
     overflow-wrap: break-word;
@@ -177,7 +177,7 @@ margin-bottom: 100px;
 .HeroText h5 {
   font-size: 1rem;
   text-align: center;
-  width: 90%;
+  width: 95%;
   margin: 0 auto; /* Centers the block element horizontally */
   position: relative;
   z-index: 2;
@@ -218,16 +218,20 @@ margin-bottom: 100px;
   }
    */
   
-  .GroupCb {
-    
-    background-color: #8cc2a9;
+  .footer {
+     background-color: #535050;
+    text-align: center;
     width: 100%;
+    padding: 10px;
+    font-size: small;
    row-gap: 0px;
     height: inherit;
-  
-  
-  
-  }
+    position: relative;
+    z-index: 2;
+    color: #ffffff;
+   }
+
+   
   
 /*   
   .GroupC {
@@ -440,7 +444,7 @@ margin-bottom: 100px;
   
  
     
-    .herO{ display: flex;
+    .hero{ display: flex;
         justify-content: center;
         flex-wrap: wrap;
         gap: 40px;
@@ -470,192 +474,11 @@ margin-bottom: 100px;
         }
         
     
-    .license{display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    background-color:#ffffff;
-    font-size: 1rem;
-    border-bottom: dashed 2px;
-    text-align: center;
-    padding: 10px;}
-    
-    .license-container {text-align: center;
-    color: #db3056;
-    padding: 10px;}
-    
-    .license-container li{text-align: left;
-        color:#000000;
-    padding: 10px;
-    list-style: none;}
-    
-    .license-container1 {background-color:  gray;
-    text-align: center;
-    padding: 10px;}
-    
-    .license-container1 li {text-align: left;
-    padding: 10px;
-    list-style: none;}
-    
-    .license-btn{background: transparent;
-        color:#000000;
-    border: 2px solid black;
-    border-radius:10px;
-    padding: 5px;
-    text-decoration: none;
-    transition: 0.3s;}
-    
-    .license-btn:hover{background-color:#db3056;
-    color:#ffffff;}
-    
-        .sellbeat {
-            display: flex;
-            justify-content: center; 
-            flex-wrap: wrap;
-            gap: 30px;
-            border-bottom: dashed 2px #ffffff;
-            background-color: gray;
-            padding: 15px;
-        }
-        
-        .sellbeat-container{background-color: #000000;
-            color:#ffffff;
-        text-align: center;
-        padding: 17px;
-      border-radius: 2px;}
-        
-        .sellbeat-container h2{font-size: 1.8rem;}
-        
-        .sellbeat-container li{font-size: 1.2rem;;
-        padding: 10px;
-      text-align: left;}
-        
-        .sellbeat-container1{
-            text-align: left;
-            padding: 15px;}
+       
+   
+      
+     
             
-            .sellbeat-container1 h2{font-size: 1.8rem;}
-            
-            .sellbeat-container1 li{font-size: 1.2rem;
-            padding:10px;} 
-    
-            .buy-link{background-color:#db3056;
-            color:#ffffff;
-            justify-content: ce;
-        border-radius: 10px;
-    padding: 10px;
-    text-decoration: none;
-    transition: 0.3s;}
-    
-    .buy-link:hover{background-color:gray;
-    color:#ffffff;}
-    
-            .newsletter {background-color: #0b0a0a;
-                color:#ffffff;
-                display: flex;
-                justify-content: space-evenly;
-                flex-wrap: wrap;
-                padding: 20px;
-            }
-    
-            .newsletter1{ font-size: 1.2rem;
-            border-right: solid 2px white;
-            color:#ffffff;
-          padding: 10px;}
-    
-    
-            
-            .submit-button{height: 40px;
-            width: 50%;
-        border-radius: 10px;}
-    
-    
-    
-        .footer-wrapper {
-          background-color: #000000;
-          color: #ffffff;
-          padding: 60px;
-          display: flex; 
-          align-items: center;
-          text-align: center;
-          justify-content: space-evenly;
-          flex-wrap: wrap; 
-        
-      }
-      
-      .footer-container img {
-          width: 100%;
-          max-width: 250px;
-          height: auto;
-      }
-      
-      .footer-container a {
-          color: #ffffff;
-          font-size: 30px;
-          text-decoration: none;
-        
-      }
-    
-      .footer-container a:hover{color:#db3056;}
-      
-      .footer-container1 a {
-          color: #ffffff;
-          font-size: 30px;
-          text-decoration: none;
-      }
-      
-      .footer-container1 a:hover {
-          color: #db3056;
-      }
-      
-      /* .accordion-container {
-          display: flex;
-          flex-direction: column;
-          width: 20%;
-      } */
-      
-      /* .accordion {
-        background-color: #db3056;
-        color: #ffffff;
-        cursor: pointer;
-        padding: 18px;
-        width: 100%;
-        border-radius: 5px;
-        text-align: left;
-        outline: none;
-        font-size: 15px;
-        transition: 0.4s;
-      }
-       */
-      
-      /* .accordion:after {
-        content: '\002B';
-        color: #777;
-        font-weight: bold;
-        float: right;
-        margin-left: 5px;
-      }
-      
-      .active:after {
-        content: "\2212";
-      }
-       */
-      .content {
-        padding: 0 18px;
-        color:#000000;
-        background-color: white;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.2s ease-out;
-      }
-      
-      .footer { 
-          background-color: #0b0a0a;
-          color: #ffffff;
-          text-align: center;
-          padding: 5px;
-      }
-      
   
   /*homepageWrapper*/
   .musicControlerB{ 
@@ -672,6 +495,7 @@ margin-bottom: 100px;
 
     
   .GroupC1{
+    font-size: large;
       padding: 15px;
       background-color: #181818;
       width: 70%;
@@ -684,7 +508,7 @@ margin-bottom: 100px;
   }
 
   .GroupC2{
- font-size: 0.8em;
+ font-size: large;
     background-color: #181818;
       width: 70%;
       min-height: 35vmin;
@@ -726,13 +550,11 @@ margin-bottom: 100px;
 
   .controllerB1{
     flex: 1;
-
-       /* border-radius: 50px; */
   }
   
   
   .controllerB1 h4{
-   
+   text-align: left;
     display: block;
    white-space: nowrap;
     width: 80%;
@@ -762,7 +584,7 @@ font-size: medium;  }
     border: #eaeaea1f 0.5px solid;
     height: 100%;
     color: #9a9a9a;
-    margin: 0 20px 0 2px ;    }
+    margin: 0 0 0 2px ;    }
   
 
     .controllerB3 button:hover{
@@ -788,6 +610,8 @@ flex-direction: row;
 
 
 
+
+
   .title4MusicController  button{
 
     background-color:black;
@@ -798,11 +622,10 @@ flex-direction: row;
   .songcontainer{
     list-style-type:none;
     width: auto;
-
   }
   .songlist{
     display: flex; 
-    border: #363636ad solid 0.5px; 
+    border: #000 solid 1px; 
     padding: 5px;
     margin: 5px;
     flex-direction: row;
@@ -929,19 +752,26 @@ flex-direction: row;
 
 /*Tablet respontsiveness */
 
-@media (max-width: 800px){
+@media (max-width: 768px){
+   
 
-  .HeroText h3{
-     font-size: 1.5em;
+  .HeroPage {
+    width: 80%;
+  }
+  .HeroText h1{
+     font-size: 2rem;
  color: #db3056;
+
+
   }
  
    .HeroText h5 {
      font-size: 0.9em;
      color: #ffffff;
+     margin-bottom: 100px;
    }
    .GroupC2{
-    font-size: 0.6em;
+    font-size: small;
     background-color: #181818;
          width: 63%;
          height: 35vmin;
@@ -953,7 +783,14 @@ flex-direction: row;
     text-overflow: ellipsis;
      }
 
-
+     .songlist-tag{
+      font-size: small;
+     }
+     .songListTitle{
+      white-space: nowrap; 
+      overflow: hidden;
+      text-overflow: ellipsis; 
+     }
   
 
   .GroupC1{
@@ -987,11 +824,6 @@ flex-direction: row;
 }
 
 
-
-
-
-
-
 .playIcon {
   
   width: 50%;
@@ -1002,7 +834,19 @@ flex-direction: row;
   width: 50%;
   
 }
+.newsletter {
+  flex-direction: column; 
+  align-items: center;
+}
 
+.newsletter1 {
+  border-right: none; 
+  padding-bottom: 20px; 
+}
+
+.submit-button {
+  width: 80%; 
+}
 
   
  
@@ -1017,8 +861,8 @@ flex-direction: row;
   
   
 
-  .HeroText h3 {
-    font-size: 2.5rem; /* Adjust for smaller screens */
+  .HeroText h1 {
+    font-size: 2rem; /* Adjust for smaller screens */
     word-break: break-word;
     overflow-wrap: break-word;
     text-align: center;
@@ -1026,19 +870,20 @@ flex-direction: row;
   }
 
   .HeroText h5 {
-    font-size: 1rem; /* Reduce size */
+    font-size: 0.8rem; /* Reduce size */
    word-break: break-word;
     overflow-wrap: break-word;
     text-align: center;
     width: 80%;
+    margin-bottom: 100px;
 
   }
   .HeroPage div {
-      margin-bottom: 50px; 
+    
       font-size: 0.8rem;
   }
   .GroupC2{
-    font-size: 0.8em;
+
     background-color: #181818;
          width: 60%;
          height: 35vmin;
@@ -1118,3 +963,108 @@ flex-direction: row;
   
 }
 
+@media (max-width: 480px) {
+  
+  .homepageWrapper{
+    margin-left: 10%;
+  }
+
+
+  .HeroPage {
+    width: 50%;
+  }
+
+  .HeroText h1 {
+    font-size: large; /* Further adjust for very small screens */
+    word-break: break-word;
+    overflow-wrap: break-word;
+    text-align: center;
+    width: 90%;
+  }
+
+  .HeroText h5 {
+    font-size: 1rem; /* Further adjust font size */
+    word-break: break-word;
+    overflow-wrap: break-word;
+    text-align: center;
+    width: 80%;
+    margin-bottom: 50px; /* Adjust bottom margin */
+  }
+
+  .GroupC2 {
+    width: 50%; /* Full width for very small screens */
+    height: 35vmin;
+    padding: 10px;
+    gap: 10px; /* Adjust gap */
+    
+    
+  }
+
+  .songListTitle {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .GroupC1 {
+    width: 50%; /* Full width */
+    height: 30vmin;
+    margin-top: 20%;
+    
+  }
+
+  .musicControlerA {
+    min-width: 30%; /* Adjust to 30% width */
+    max-width: 30%;
+    min-height: auto;
+  }
+
+  .controllerB1 h4 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.musicControlerA img {
+  max-width: 100%;
+  max-height: 110%;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.imageWrapper {
+  position: relative;
+  display: inline-block;
+  height: 100%;
+  width: 100%; /* Full width for smaller screens */
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.imageWrapper img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.playIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  cursor: pointer;
+  background-color: rgba(223, 37, 37, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 50%;
+  height: 50%;
+}
+
+.progress {
+  width: 50%;
+}

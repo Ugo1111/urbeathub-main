@@ -45,7 +45,7 @@ const SellBeatPage = () => {
     setRandomHoverColor();
 
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 600);
+      setIsMobile(window.innerWidth < 746);
     };
 
     window.addEventListener('resize', handleResize);

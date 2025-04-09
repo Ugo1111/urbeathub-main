@@ -1,47 +1,60 @@
+
+
 .tab-container {
   min-height: 100vh;
   min-width: 100vw;
   text-align: center;
- background-color: #c5c5c5;
+  background-color: #c5c5c5;
+  padding: 10px;
 }
+
+/* Ensure the tab buttons are stacked on small screens */
 .tab-buttons {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 20px;
- 
 }
+
 .tab-buttons button {
   padding: 10px 20px;
   border: none;
   cursor: pointer;
-  background: #ddd;
+  color: #ffffff;
+  background: #000000;
   border-radius: 5px;
   font-size: 16px;
-  
 }
+
 .tab-buttons button.active {
-  background: #007bff;
-  color: rgb(83, 83, 83);
+  background: #db3056;
+  color: rgb(248, 245, 245);
   font-weight: bold;
 }
+
+
 .tab-content {
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  background-color: #d7ffe167; /* Optional: background color for the navbar */
-
-  width: 790px;
-  height: 550px;
-  margin: 0 auto; 
-  overflow: scroll;
+  background-color: #ffffff;
+  width: 90%;
+  max-width: 790px;
+  height: auto;
+  min-height: 300px;
+  margin: 0 auto;
+  overflow: auto;
 }
+
 .button-container {
   margin-top: 20px;
   display: flex;
   justify-content: center;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
+
 .button-container button {
   padding: 10px 20px;
   border: none;
@@ -49,160 +62,170 @@
   border-radius: 5px;
   font-size: 16px;
 }
+
 .next-button {
-  background-color: #28a745;
+  background-color: #000000;
   color: white;
 }
+.next-button:hover{
+  background: #db3056;
+}
+
 .previous-button {
   background-color: #dc3545;
   color: white;
 }
+.previous-button:hover{
+  background: #000000;
+}
+
 .publish-button {
-  background-color: #007bff;
+  background-color: #db3056;;
   color: white;
 }
-
-
-
-
-
-.Basic-License{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  border: solid 1px rgb(31, 98, 255);
-  background-color: #95c6fa9e;
-  color: black;
-  border-radius: 10px;
-  margin: 15px;
-  height: 40px;
-  padding: 10px
+.publish-button:hover{
+  background: #000000;
 }
 
-.Basic-License input{
-  width: 50px;
+
+.Basic-License {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px #000000;
+  background-color: #ffffff;
+  color: black;
+  border-radius: 10px;
+  margin: 0 auto;
+  margin-bottom: 20px;
   padding: 10px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.Basic-License input {
+  width: 60px;
+  padding: 5px;
   border-radius: 5px;
   border: solid 1px gray;
 }
 
-
-
-.BPM-Key{
-display: flex;
-flex-direction: row;
-margin: 40px 0 40px 0;
-
+/* Make BPM section more adaptable */
+.BPM-Key {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
 }
 
-.BPM-Key label{
-  font-weight: bolder;
+
+.Metadata-Fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 500px;
+  margin: 10px auto;
+}
+
+.Metadata-Fields label {
+  font-weight: bold;
   color: black;
-  margin: 10px;
+  margin: 10px 0;
+  text-align: left;
 }
 
-.BPM-Key input{
+.Metadata-Fields input {
+  width: 100%;
   height: 35px;
-border-radius: 5px;
-color: black;
-border: rgba(116, 116, 116, 0.387) solid 1px;
+  border-radius: 5px;
+  color: black;
+  border: rgba(116, 116, 116, 0.387) solid 1px;
 }
 
-.BPM-Key2{
-  display: flex;
-flex-direction: column;
-margin-right: 20px;
-}
-
-.BPM-Key2 label{
-  display: flex;
-justify-content: flex-start;
-}
-
-.Metadata-Fields{
-  display: flex;
-flex-direction: column;
-margin: 10px;
-margin-bottom: 20px;
-}
-
-.Metadata-Fields label{
-  display: flex;
-justify-content: flex-start;
-font-weight: bolder;
-color: black;
-margin: 10px;
-
-}
-
-
-.Metadata-Fields input{
-height: 35px;
-border-radius: 5px;
-color: black;
-border: rgba(116, 116, 116, 0.387) solid 1px;
-
-}
-
-
-
-
-
+/* Drop Zone */
 .drop-zone {
-  border: 2px dashed rgba(0, 123, 255, 0.6);
+  border: 2px dashed rgba(231, 39, 129, 0.6);
   padding: 20px;
   cursor: pointer;
   text-align: center;
-  margin: 10px;
+  margin: 10px auto;
+  width: 90%;
+  max-width: 500px;
 }
 
-.cover-title{
-display:flex;
-flex-direction: row;
-}
-
-.MusicTitle-label{
-margin-left: 15px;
-display:flex;
-flex-direction: column;
-width: 500px;
-}
-
-.MusicTitle-label label{
-
-font-size: 1.5em;
-margin: 20px 0 10px 10px;
-}
-
-.MusicTitle-label input{
-border-radius: 10px;
-height: 40px;
-border: 2px solid rgba(0, 123, 255, 0.29);
-}
-
-  .drop-zone4Image {
-  border: 2px solid rgba(0, 123, 255, 0.29);
+.drop-zone4Image {
+  border: 2px solid rgba(231, 39, 129, 0.6);
   padding: 20px;
   cursor: pointer;
   text-align: center;
-  margin: 10px;
+  margin: 10px auto;
+  width: 90%;
   max-width: 200px;
-   max-height: 300px;
 }
 
-.dragging { background: #f0f8ff; }
-.preview-image {
-  max-width: 100px;
-  max-height: 100px;
-  margin-top: 10px;
-}
-.progress-bar div {
-  height: 10px;
-  background: #007bff;
+
+
+  
+    .uploadMusicContainer {
+      width: 100vw; 
+      height: 250vh; 
+      background-color: #ffffff; 
+      display: flex; 
+      flex-direction: column;
+      justify-content: flex-start; 
+      align-items: center; 
+      padding: 20px; 
+      margin: 0 auto;
+      }
+
+.uploadMusicContainer h1{
   text-align: center;
+}
+
+.cover-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.MusicTitle-label {
+  width: 90%;
+  max-width: 500px;
+  text-align: left;
+ 
+}
+
+.MusicTitle-label label {
+  font-size: 1.2em;
+  margin: 20px 0 10px 10px;
+}
+
+.MusicTitle-label input {
+  width: 100%;
+  border-radius: 10px;
+  height: 40px;
+  border: 2px solid rgba(231, 39, 129, 0.9);
+}
+.upload-button {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: #db3056;
   color: white;
-  font-size: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.upload-button:hover {
+  background: rgba(231, 39, 129, 1);
 }
 
 
@@ -217,9 +240,12 @@ border: 2px solid rgba(0, 123, 255, 0.29);
   border-radius: 5px;
   min-height: 40px;
   align-items: center;
+  width: 90%;
+  max-width: 500px;
 }
+
 .tag {
-  background-color: #007bff;
+  background-color: #000000;
   color: white;
   padding: 5px 10px;
   border-radius: 15px;
@@ -227,13 +253,7 @@ border: 2px solid rgba(0, 123, 255, 0.29);
   align-items: center;
   gap: 5px;
 }
-.remove-tag {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-}
+
 .tag-container input {
   border: none;
   outline: none;
@@ -241,101 +261,130 @@ border: 2px solid rgba(0, 123, 255, 0.29);
   flex-grow: 1;
 }
 
-
-.UploadedBeatList-body{
+.UploadedBeatList-body {
   position: fixed;
-border: solid;
-height: 100vh;
-width: 80vw;
-right: 0;
-top: 0;
-padding: 15px;
-background-color: #ddd;
+  border: solid;
+  height: 100vh;
+  width: 80vw;
+  right: 0;
+  top: 0;
+  padding: 15px;
+  background-color: #ddd;
+  overflow-x: hidden;;
+overflow-y: auto;
 }
 
-.UploadedBeatList-title{
-  margin:20px 0 50px 0 ;
-  font-size: xx-large;
+.UploadedBeatList-title {
+  margin: 20px 0 50px 0;
+  font-size: large;
+  
 }
 
-.UploadedBeatList-beatTitle{
+.UploadedBeatList-beatTitle {
   margin: 5px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  font-size: x-large;
-  white-space: nowrap; 
-  overflow: hidden; 
-width: 770px;
- 
-  text-overflow: ellipsis
+  font-size: large;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 50%; /* Make it responsive */
+  text-overflow: ellipsis;
 }
 
-
-.UploadedBeatList-li{
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-align-content: center;
-align-items: center;
-border: solid 1px rgba(183, 183, 183, 0.673);
-border-radius: 10px;
-margin-bottom: 10px;
-padding: 5px;
-}
-
-
-.UploadedBeatList-span{
+.UploadedBeatList-li {
   display: flex;
-flex-direction: row;
-align-items: center;
-
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  border: solid 1px rgba(183, 183, 183, 0.673);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
 }
 
-.UploadedBeatList-audio{
-  background-color: #83c192a0;
+.UploadedBeatList-span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap; /* Ensure responsiveness */
+}
+
+.UploadedBeatList-audio {
   margin: 5px;
+  max-width: 100%; 
 }
 
-.UploadedBeatList-img{
-margin-right: 10px;
+.UploadedBeatList-img {
+  margin-right: 10px;
+  
+  max-width: 100%; /* Prevents oversized images */
 }
 
-.UploadedBeatList-btn{
-background-color: #0091ff;
-padding: 10px;
-border-radius: 5px;
-border: #aaaaaab9;
-margin-right:10px ;
-color: #ffffff;
-font-size: larger;
-
+.UploadedBeatList-btn {
+  background-color: #007bff;
+  padding: 10px;
+  border-radius: 5px;
+  border: #aaaaaab9;
+  margin-right: 10px;
+  color: #ffffff;
+  font-size: small;
+}
+.UploadedBeatList-btn1{
+  background-color: #dc3545;
+  padding: 10px;
+  border-radius: 5px;
+  border: #aaaaaab9;
+  margin-right: 10px;
+  color: #ffffff;
+  font-size: small; 
+}
+.UploadedBeatList-btn2{
+  background-color: #28a745;
+  padding: 10px;
+  border-radius: 5px;
+  border: #aaaaaab9;
+  margin-right: 10px;
+  color: #ffffff;
+  font-size: small; 
+}
+.UploadedBeatList-btn3{
+  background-color: #6c757d;
+  padding: 10px;
+  border-radius: 5px;
+  border: #aaaaaab9;
+  margin-right: 10px;
+  color: #ffffff;
+  font-size: small; 
 }
 
 
-
-
-.ViewEditSellBeatPage-body{
-background-color: #c5c5c5;
-min-width: 100vw;
-min-height: 100vh;
-display: flex;
-justify-content: center;
-
+.ViewEditSellBeatPage-body {
+  background-color: #c5c5c5;
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
 }
 
+/* Make track container responsive */
 .track-container {
+  width: 90%;
   max-width: 900px;
-  min-width: 900px;
+  min-width: unset;
   margin: auto;
-  padding: auto;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 10px;
   background: #f9f9f9;
-height: 900px;
-overflow-y: scroll; /* Adds vertical scrolling */
-overflow-x: hidden;
+  height: auto;
+  max-height: 900px;
+  overflow-y: auto; /* Allows scrolling */
+  overflow-x: hidden;
 }
 
+/* Ensure track info fields align properly */
 .track-info {
   display: flex;
   flex-direction: column;
@@ -350,17 +399,20 @@ overflow-x: hidden;
   background: white;
   padding: 5px;
   border-radius: 5px;
+  word-wrap: break-word;
 }
 
+/* Make input fields fully responsive */
 .ViewEditSellBeatPageinput,
 select {
-  padding: 5px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
   width: 100%;
 }
 
+/* Adjust cover image size */
 .cover-img {
   width: 100px;
   min-height: 90px;
@@ -369,9 +421,10 @@ select {
   margin-top: 10px;
 }
 
+/* Buttons */
 .edit-btn, .save-btn {
   margin-top: 15px;
-  padding: 10px;
+  padding: 12px;
   border: none;
   cursor: pointer;
   font-size: 16px;
@@ -393,64 +446,64 @@ select {
   margin-top: 10px;
 }
 
-
-
-
-.ViewEditSellBeatPage-goBack{
-size: 3em;
-font-size: medium;
-height: 50px;
-padding: 10px;
-border-radius: 5px;
-background: #ffffff;
+/* Back button styles */
+.ViewEditSellBeatPage-goBack {
+  font-size: medium;
+  height: 50px;
+  padding: 10px;
+  border-radius: 5px;
+  color: #ffffff;
+  background: #000000;
+  display: block;
+  width: 10%;
+  text-align: center;
 }
 
-
-.ViewEditSellBeatPage-gack-btn{
-padding: 10px;
-  background: #b6b6b6;
+.ViewEditSellBeatPage-gack-btn {
+  margin-top: 5px;
+  padding: 10px;
+  background: #db3056;
   color: white;
   font-size: medium;
   border-radius: 5px;
+  width: 20%;
 }
-
-
-
-
 
 
 .dashboard-body {
   position: fixed;
   right: 0;
   top: 0;
-width: 80vw;
-height: 100vh;
-background-color: #e2e2e2;
+  width: 80vw;
+  height: 100vh;
+  background-color: #e2e2e2;
   border: #b6b6b6 1px solid;
-  margin: auto;
   padding: 20px;
   text-align: center;
+  overflow-y: auto; /* Enables vertical scroll if content overflows */
+  overflow-x: hidden; /* Prevents horizontal scrolling */
 }
+
+/* Ensures the container fits within the viewport */
 .dashboard-container {
-  max-width: 1800px;
-  min-width: 1000px;
+  max-width: 100%; /* Prevents it from exceeding the viewport width */
+  min-width: auto; /* Allows it to shrink on smaller screens */
+  height: auto;
   border: #b6b6b63e 1px solid;
   border-radius: 10px;
-  margin: auto 90px;
   padding: 20px;
   text-align: center;
   margin-top: 90px;
+  overflow-y: auto; /* Enables scrolling */
 }
 
+/* Responsive grid */
 .dashboard-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 60px;
- 
-   margin-top: 90px;
-   
+  gap: 20px;
+  padding: 20px;
 }
-
 
 
 .stat-box {
@@ -582,12 +635,12 @@ left: 0;
 
 
 .payout-container {
-  width: 80vw;
+  width: 90vw;
   height: 80vh;
-  max-width: 800px; /* Increased width */
+  max-width: 500px; /* Increased width */
   margin: 40px auto;
   padding: 40px; /* Increased padding */
-  background:#1abc9c9d; 
+  background:#ddd; 
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.038);
   border: solid rgba(233, 233, 233, 0.179);
@@ -648,12 +701,12 @@ left: 0;
 }
 
 .payout-button-primary {
-  background-color: #4caf50;
+  background-color: #db3056;
   color: white;
 }
 
 .payout-button-primary:hover {
-  background-color: #45a049;
+  background-color: #dc3545;
 }
 
 .payout-button-delete {
@@ -717,25 +770,28 @@ left: 0;
 
 
 
-
-.producermessage-body{
+.producermessage-body {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
   width: 100vw;
   height: 100vh;
   background-color: #f9f9f9;
-  padding: 40px;
+  padding: 20px; 
 }
 
+
 .producermessage-container {
-  width: 100vw;
-  height: 90vh;
+  width: 90vw; 
+  height: auto; 
   padding: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-  background-color: #3498db57;
+  max-width: 500px;
+  background-color: #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: scroll;
+  text-align: center; 
 }
+
 
 .producermessage-container h2 {
   font-size: 24px;
@@ -748,6 +804,7 @@ left: 0;
   font-size: 14px;
   margin-bottom: 15px;
 }
+
 
 .producermessage-topic-selection {
   margin-bottom: 30px;
@@ -770,26 +827,25 @@ left: 0;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  
 }
 
 .producermessage-topic-selection li.selected {
-  background-color: #007bff;
+  background-color: #ddd;
   color: white;
 }
 
 .producermessage-topic-selection button {
   margin-top: 10px;
   padding: 10px 20px;
-  background-color: #28a745;
+  background-color: #db3056;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
-.producermessage-topic-selection  button:hover {
-  background-color: #218838;
+.producermessage-topic-selection button:hover {
+  background-color: #dc3545;
 }
 
 .producermessage-new-topic-form {
@@ -807,7 +863,7 @@ left: 0;
 
 .producermessage-new-topic-form button {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #db3056;
   color: white;
   border: none;
   border-radius: 4px;
@@ -815,8 +871,9 @@ left: 0;
 }
 
 .producermessage-new-topic-form button:hover {
-  background-color: #0056b3;
+  background-color: #000000;;
 }
+
 
 .producermessage-message-list {
   margin-bottom: 20px;
@@ -826,6 +883,7 @@ left: 0;
   font-size: 20px;
   color: #333;
 }
+
 
 .producermessage-message-item {
   padding: 10px;
@@ -845,6 +903,7 @@ left: 0;
   color: #888;
 }
 
+
 .producermessage-message-form {
   display: flex;
   flex-direction: column;
@@ -861,7 +920,7 @@ left: 0;
 
 .producermessage-message-form button {
   padding: 12px 20px;
-  background-color: #007bff;
+  background-color: #db3056;
   color: white;
   border: none;
   border-radius: 4px;
@@ -869,25 +928,24 @@ left: 0;
 }
 
 .producermessage-message-form button:hover {
-  background-color: #0056b3;
+  background-color: #ddd;
+  color: #000000;
 }
 
 
-.producermessage-back-to-topics{
+.producermessage-back-to-topics {
   margin-top: 10px;
   padding: 10px 20px;
-  background-color: #28a745;
+  background-color: #db3056;;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-
 }
 
 .producermessage-back-to-topics:hover {
-  background-color: #218838;
+  background-color: #e74d3c9b;
 }
-
 
 
 
@@ -945,3 +1003,258 @@ padding: 10px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+@media (max-width: 768px) {
+  .tab-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tab-buttons button {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .Basic-License {
+    width: 90%;
+    max-width: 400px;
+  }
+
+  .Metadata-Fields {
+    width: 90%;
+  }
+  .track-container {
+    width: 95%;
+    height: auto;
+    max-height: 800px;
+  }
+
+  .cover-img {
+    width: 80px;
+    min-height: 80px;
+  }
+
+  .edit-btn, .save-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .ViewEditSellBeatPage-goBack{
+    display: none;
+  }
+  .ViewEditSellBeatPage-gack-btn {
+    font-size: 14px;
+    padding: 8px;
+  }
+  .dashboard-stats {
+    grid-template-columns: repeat(1, 1fr); /* 1 column */
+    gap: 15px;
+  }
+
+
+/* Keep existing stat-box styles */
+.stat-box {
+  padding: 20px;
+  border-radius: 10px;
+  color: rgb(95, 95, 95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  transition: 0.3s;
+  height: 180px; /* Reduced height for better mobile fit */
+  text-align: center; /* Center text on smaller screens */
+}
+
+/* Hover effect */
+.stat-box:hover {
+  opacity: 0.85;
+  transform: scale(1.05);
+}
+.payout-container {
+  width: 95vw;
+  padding: 20px;
+}
+
+.payout-title {
+  font-size: 18px;
+}
+
+.payout-form-group input {
+  font-size: 14px;
+  padding: 10px;
+}
+
+.payout-button {
+  font-size: 14px;
+  padding: 12px;
+}
+
+.payout-accounts li {
+  font-size: 13px;
+  padding: 10px;
+}
+.producermessage-body {
+  padding: 10px; /* Reduce padding for small screens */
+}
+
+.producermessage-container {
+  width: 95vw; /* Slightly increase width on small screens */
+  padding: 15px;
+}
+
+.producermessage-container h2 {
+  font-size: 20px;
+}
+
+.producermessage-topic-selection h3,
+.producermessage-message-list h3 {
+  font-size: 18px;
+}
+
+.producermessage-message-item p {
+  font-size: 14px;
+}
+
+.producermessage-message-form textarea {
+  height: 100px;
+}
+.uploadMusicContainer{
+  width: 80vw;
+  height: 250vh;
+  margin-left: 13%;
+}
+.uploadMusicContainer h1{
+  font-size: 1.5rem;
+}
+}
+
+
+
+
+
+@media (max-width: 600px) {
+  .tab-content {
+    width: 95%;
+    min-height: 250px;
+  }
+
+  .Basic-License {
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+  }
+
+  .Metadata-Fields {
+    width: 95%;
+  }
+
+  .tab-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tab-buttons button {
+    width: 95%;
+  }
+
+  .button-container {
+    flex-direction: column;
+    width: 95%;
+  }
+
+  .drop-zone,
+  .drop-zone4Image,
+  .MusicTitle-label {
+    width: 95%;
+  }
+  .track-container {
+    width: 100%;
+    padding: 15px;
+    height: auto;
+    max-height: 600px;
+  }
+
+  .cover-img {
+    width: 70px;
+    min-height: 70px;
+  }
+
+  .edit-btn, .save-btn {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .ViewEditSellBeatPage-goBack{
+    display: none;
+  }
+
+  .ViewEditSellBeatPage-gack-btn {
+    font-size: 14px;
+    padding: 8px;
+  }
+  .stat-box h3 {
+    font-size: 18px;
+  }
+  
+  .stat-box p {
+    font-size: 26px;
+  }
+  .UploadedBeatList-beatTitle {
+    
+    white-space: nowrap;
+    overflow: hidden;
+    width: 50%; 
+    text-overflow: ellipsis;
+  }
+
+  .producermessage-container {
+      width: 70%; 
+      height: auto;
+      padding: 10px;
+      margin-left: 20%;
+  }
+
+  .producermessage-container h2 {
+      font-size: 18px;
+  }
+
+  .producermessage-topic-selection h3,
+  .producermessage-message-list h3 {
+      font-size: 16px;
+  }
+
+  .producermessage-message-item p {
+      font-size: 14px;
+  }
+
+  .producermessage-message-form textarea {
+      height: 80px;
+  }
+
+  .producermessage-message-form button {
+      padding: 10px;
+  }
+  .payout-container {
+    width: 70%;
+    padding: 20px;
+    margin-left: 25%;
+  }
+  .uploadMusicContainer{
+    width: 80vw;
+    height: 275vh;
+    margin-left: 13%;
+  }
+  .uploadMusicContainer h1{
+    font-size: 1.5rem;
+  }
+}
+
+  
+  

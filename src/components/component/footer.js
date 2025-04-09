@@ -1,44 +1,12 @@
-export function GroupE() {
-    return (
-      <div className="GroupF">
-        {/*GroupF*/}
-        <section className="newsletter">
-          <div className="newsletter1">
-            <h4>Stay up-to-date with our newsletter</h4>
-            <p>Join now and get 15% off your next purchase</p>
-            {/* Input for email */}
-            <input
-              type="email"
-              className="submit-button"
-              placeholder="Enter your email..."
-            />
-            {/* Submit button */}
-            <p>
-              <input
-                type="submit"
-                className="buy-link"
-                value="Subscribe now!"
-              />
-            </p>
-          </div>
-
-          <div className="credibility">
-            <h4>Credibility</h4>
-          </div>
-        </section>
-      </div>
-    );
-  }
-
-  export function GroupF() {
+export function GroupF() {
     return (
       <div className="GroupF">
         <div className="footer-wrapper">
           <div className="footer-container">
-            <img src="./beathub1.jpg" alt="logo" />
+            <img src="/beathub1.PNG" alt="logo" />
             <p>
-              Discover the beats that set the tone for your <br />
-              next hit. For custom beats and exclusive rights, <br />
+              Discover the beats that set the tone <br />for your 
+              next hit. For custom beats<br /> and exclusive rights,
               get in touch with us.
             </p>
             <a href="contact.html">Contact Us</a>
@@ -47,14 +15,31 @@ export function GroupE() {
 
           <div className="footer-container1">
             <p>
-              <a href="link">License</a>
+              <a href="/Licensedetails">License</a>
             </p>
             <p>
               <a href="link">Start Selling</a>
             </p>
             <p>
-              <a href="link">Privacy Policy</a>
+              <a href="/privacy">Privacy Policy</a>
             </p>
+            <p>
+              <a href="/Refundpolicy">Refund Policy</a>
+            </p>
+            <div className="social-links">
+              <a href="https://www.facebook.com/share/15xxw68L9H/" target="_blank">
+                <i className="fab fa-facebook"></i>
+              </a>
+              <a href="https://www.instagram.com/beathubhq?igsh=bzdlenlmYmM0MXlx" target="_blank">
+                <i className="fab fa-instagram"></i>
+              </a>
+              <a href="https://www.tiktok.com/@beathubhq?_t=ZG-8tPb3wugnPU&_r=1" target="_blank">
+                <i className="fab fa-tiktok"></i>
+              </a>
+              <a href="https://www.youtube.com/@urbeathub?si=c-RKHuS-4-0C6Ve6" target="_blank">
+                <i className="fab fa-youtube"></i>
+              </a>
+            </div>
           </div>
 
           <div className="accordion-container">
@@ -87,10 +72,10 @@ export function GroupE() {
 
   export function GroupG() {
     return (
-      <footer className="GroupCb">
+      <footer className="footer">
         {/*Group Cb */}
         <p>BeatHub is a Brand That Support African Musicians</p>
-        <p>COPYRIGHT BEATHUB 2024</p>
+        <p>COPYRIGHT BEATHUB 2025</p>
       </footer>
     );
   }

@@ -19,6 +19,7 @@ export default function HandleAddToCart({ song, selectedLicense }) {
   const auth = getAuth();
   const db = getFirestore();
   const navigate = useNavigate(); // Initialize the navigate function
+  
 
   // Check if the item is in the cart on initial render
   useEffect(() => {

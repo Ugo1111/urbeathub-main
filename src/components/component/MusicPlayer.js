@@ -51,10 +51,10 @@ function MusicPlayer({
 
         <div className="controllerB3">
           <button onClick={playPrevious}>
-            <GiPreviousButton size="1.5em" />
+            <GiPreviousButton size="1em" />
           </button>
           <button onClick={playNext}>
-            <GiNextButton size="1.5em" />
+            <GiNextButton size="1em" />
           </button>
 
           <input 
@@ -66,10 +66,10 @@ function MusicPlayer({
             onChange={handleVolumeChange} 
           />
 
-          <div className="volnav">
-            <button onClick={increaseVolume}>+</button>
-            <button onClick={decreaseVolume}>-</button>
-          </div>
+<div className="volnav">
+  <button onClick={increaseVolume} style={{ fontSize: "1em" }}>+</button>
+  <button onClick={decreaseVolume} style={{ fontSize: "1em" }}>-</button>
+</div>
         </div>
       </div>
     </div>

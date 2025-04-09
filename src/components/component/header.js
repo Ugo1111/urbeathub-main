@@ -50,7 +50,7 @@ export default function GroupA() {
     return (
       <div className="GroupA">
         <Headerlogo /> <BeatsList />  <AuthState /> 
-       
+        
 {" "}
 
       </div>
