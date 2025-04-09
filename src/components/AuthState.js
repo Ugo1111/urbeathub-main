@@ -111,16 +111,19 @@ const AuthState = ({ fontSize = "1em" }) => {
           <Profile user={user} /> {/* Ensure Profile renders correctly */}
         </div>
       ) : (
-        <p>
+        <div className="auth-buttons-container"> 
           <Link to="/loginPage" className="avatar">
-            Login
+            Sign In
           </Link>
-        </p>
-      )}
-      {!isProducer && ( // Conditionally render the button if the user is not a producer
-        <button className="startselling" onClick={handleStartSelling}>
-          start selling
-        </button>
+          <Link to="/signUpPage" className="avatar">
+            Sign Up
+          </Link>
+          {!isProducer && ( // Conditionally render the button if the user is not a producer
+            <button className="startselling" onClick={handleStartSelling}>
+              Start Selling
+            </button>
+          )}
+        </div>
       )}
       {showModal && (
         <Modal

@@ -967,3 +967,55 @@ color:#ffffff;}
       }
     
     }
+
+.auth-buttons-container {
+  display: flex; /* Use Flexbox for horizontal alignment */
+  align-items: center; /* Align items vertically */
+  justify-content: center; /* Center items horizontally */
+}
+
+.auth-buttons-container .avatar {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: small;
+  font-weight: bold;
+  padding: 10px 15px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.auth-buttons-container .avatar:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+.auth-buttons-container .startselling {
+  padding: 10px;
+  background-color: #db3056;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: small;
+}
+
+.auth-buttons-container .startselling:hover {
+  background-color: #b22234; /* Darker shade on hover */
+}
+
+.social-links {
+  margin-top: 10px;
+  display: flex; /* Align icons horizontally */
+  gap: 15px; /* Add spacing between icons */
+  justify-content: center; /* Center align icons */
+}
+
+.social-links a {
+  color: #db3056; /* Icon color */
+  font-size: 1rem; /* Icon size */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #ffffff; /* Change color on hover */
+}
