@@ -28,9 +28,8 @@ const DashboardComponent = () => {
   // Fetch user's beats from Firestore
   const fetchUserBeats = async (userId) => {
     try {
-      const beatsQuery = query(collection(db, "beats")
-    //   , where("uploadedBy", "==", userId)
-    );
+      // Query beats where userId matches the current user's UID
+      const beatsQuery = query(collection(db, "beats"), where("userId", "==", userId));
       const beatsSnapshot = await getDocs(beatsQuery);
 
       let totalTracks = 0,
@@ -101,10 +100,10 @@ const DashboardComponent = () => {
             <p>{dashboardData.totalComments}</p>
           </div>
 
-          <div className="stat-box">
+          {/* <div className="stat-box">
             <h3>Total Plays</h3>
             <p>{dashboardData.totalPlays}</p>
-          </div>
+          </div> */}
 
           <div className="stat-box">
             <h3>Beats Sold</h3>

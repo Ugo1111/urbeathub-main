@@ -6,6 +6,8 @@ import "../css/addToCart.css";
 import GroupA from "../component/header.js";
 import PaystackPayment from "../component/CheckoutPaystackPayment";
 import { Link } from "react-router-dom";
+import djImage from '../../images/dj.jpg';
+
 import { Helmet } from 'react-helmet';
 
 function CheckoutPage() {
@@ -106,7 +108,7 @@ function CheckoutPage() {
                                 <div key={index} className="cart-list-item">
                                     <div className="cart-list-info">
                                         <img
-                                            src={selectedSong.coverUrl || "./images/default-cover.jpg"}
+                                            src={selectedSong.coverUrl || djImage}
                                             className="cart-list-image"
                                             alt="Song Cover"
                                         />

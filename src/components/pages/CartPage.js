@@ -7,12 +7,14 @@ import CartComponent from "../component/CartComponent.js";
 import GroupA from "../component/header.js";
 import PaystackPayment from "../component/PaystackPayment";
 import { GroupE, GroupF, GroupG } from "../component/footer.js";
+import Modal from "../Modal"; // Import the Modal component
 
 function CartPage() {
     const [cart, setCart] = useState([]); 
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
     const [userEmail, setUserEmail] = useState(null); // State to store the email
+    const [showEmptyCartModal, setShowEmptyCartModal] = useState(false); // State to control empty cart modal visibility
     const navigate = useNavigate();
     const auth = getAuth();
     const db = getFirestore();
@@ -56,6 +58,10 @@ function CartPage() {
         return acc + itemPrice;
     }, 0);
 
+    const handleEmptyCartModalClose = () => {
+        setShowEmptyCartModal(false); // Close the empty cart modal
+    };
+
     return (
         <div className="CheckoutContainer">
             <GroupA />
@@ -96,29 +102,46 @@ function CartPage() {
                         )}
 
                         {userEmail ? (
-                            <PaystackPayment
-                                email={userEmail}
-                                amount={totalPrice}
-                                song={cart[0]?.title}
-                                beatId={cart[0]?.songId}
-                                license={cart[0]?.license}
-                                uid={user?.uid} // Pass the user ID
-                                cart={cart} // Pass the entire cart
-                                setCart={setCart} // Pass the setCart function
-                            />
+                            cart.length > 0 ? ( // Check if the cart is not empty
+                                <PaystackPayment
+                                    email={userEmail}
+                                    amount={totalPrice}
+                                    song={cart[0]?.title}
+                                    beatId={cart[0]?.songId}
+                                    license={cart[0]?.license}
+                                    uid={user?.uid} // Pass the user ID
+                                    cart={cart} // Pass the entire cart
+                                    setCart={setCart} // Pass the setCart function
+                                />
+                            ) : (
+                                <button
+                                    className="buy-now-btn"
+                                    onClick={() => setShowEmptyCartModal(true)} // Show the empty cart modal
+                                >
+                                    Proceed to Checkout
+                                </button>
+                            )
                         ) : (
                             <Link to="/paymentPage" state={{ totalPrice, userEmail }}>
-                                <button className="buy-now-btn">Proceed to Checkout</button>
+                                <button className="buy-now-btn" disabled={cart.length === 0}>
+                                    Proceed to Checkout
+                                </button>
                             </Link>
                         )}
                         <div>
                             You are checking out {userEmail ? `with email: ${userEmail}` : "as a Guest"} 
-                             {/* or <Link to="/paymentPage" state={{ totalPrice, userEmail }}>
-                                                            <div >click here to checkout with a different Email</div> </Link> */}
                         </div>
                     </div>
                 </div>
             </div>
+
+            {showEmptyCartModal && (
+                <Modal
+                    title="Empty Cart"
+                    message="Your cart is empty. Please add a track to proceed."
+                    onConfirm={handleEmptyCartModalClose} // Close the modal on "OK"
+                />
+            )}
         </div>
     );
 }

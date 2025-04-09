@@ -22,6 +22,9 @@ import Comment from "../component/CommentSection";
 import RecomendationComponent from "../component/recomendationComponent";
 import ShareModal from "../component/ShareModal";
 import { Timestamp } from "firebase/firestore"; // Import Firestore Timestamp
+import djImage from '../../images/dj.jpg';
+
+
 
 function AddToCart() {
   const location = useLocation();
@@ -255,7 +258,7 @@ function SongBio({ song }) {
       </span>
 
       <a
-        href={song.musicUrls.mp3}
+        href={song.musicUrls.taggedMp3}
         download={song.title}
         style={{ textDecoration: "none" }}
       >
@@ -342,7 +345,7 @@ function SongBio({ song }) {
 function CoverArt({ coverUrl }) {
   return (
     <div className="image-placeholder">
-      <img src={coverUrl} alt="Trending Instrumental" />
+      <img src={coverUrl || djImage} alt="Trending Instrumental" />
     </div>
   );
 }

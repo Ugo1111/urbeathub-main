@@ -119,8 +119,9 @@ const AdminUploadMusicPage = () => {
         title: musicTitle,
         musicUrls: {},
         coverUrl: "",
-        status: false,
+        status: true,
         uploadedBy: email,
+        userId: uid,
         timestamp: Timestamp.now(),
         metadata, // Include metadata
         monetization, // Include monetization details

@@ -19,8 +19,7 @@ export default function Profile() {
       try {
         const user = auth.currentUser; // Get the current logged-in user
         if (user) {
-          // Fetch the user's document from Firestore by their email
-          const docRef = doc(db, "beatHubUsers", user.uid); // Assuming you store users in 'beatHubUsers' collection
+          const docRef = doc(db, "beatHubUsers", user.uid); // Use uid instead of email
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
