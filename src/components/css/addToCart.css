@@ -663,11 +663,14 @@ margin-left: 70px;
 .PaymentPage-button{
   background-color: #db3056;
   color: #ffffff;
-  padding: 15px;
-  margin: 15px;
+  padding: 10px;
   border-radius: 10px;
-  font-size: larger;
+  font-size: large;
   border: none;
+}
+.PaymentPage-button:hover{
+  background: #dddddd;
+  color:#181818;
 }
 
 .favourite-page{
