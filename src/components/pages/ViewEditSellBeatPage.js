@@ -100,7 +100,7 @@ const ViewEditSellBeatPage = () => {
     setLoading(true);
     try {
       let newImageUrl = trackData.coverUrl;
-      let newMp3Url = trackData.musicUrls?.mp3;
+      let newMp3Url = trackData.musicUrls?.taggedMp3;
       let newWavUrl = trackData.musicUrls?.wav;
   
       // Upload new image if selected

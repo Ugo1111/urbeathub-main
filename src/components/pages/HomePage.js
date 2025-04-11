@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback} from "react";
 import GroupA from "../component/header.js";
 import { GroupE, GroupF, GroupG } from "../component/footer.js";
+import SellBeatSection from "../component/SellBeatSection.js"; 
 import "../css/HomePage.css";
 import "../css/component.css";
 import MusicPlayer from "../component/MusicPlayer";
@@ -8,7 +9,7 @@ import SongList from "../component/SongList";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import HeroPage from "../component/HeroPage"; // Adjust path as needed
-
+import { Helmet } from 'react-helmet';
 function HomePage() {
   const [songs, setSongs] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -38,17 +39,34 @@ function HomePage() {
   }, []);
 
   const playSong = (index) => {
-    if (!songs[index] || !audioRef.current) return;
-    
+    if (!songs[index]) {
+      console.error("Song not found at index:", index);
+      return;
+    }
+
+    const song = songs[index];
+    const audioUrl = song.musicUrls?.taggedMp3;
+
+    if (!audioUrl) {
+      console.error("Audio URL is missing for song:", song.title || "Untitled");
+      return;
+    }
+
+    if (!audioRef.current) {
+      console.error("Audio element is not initialized.");
+      return;
+    }
+
     setCurrentIndex(index); // Update the song index
     setIsPlaying(true); // Mark as playing
-  
-    audioRef.current.src = songs[index].musicUrls.mp3; // Set the source of the audio
-    
-    // Wait until audio can be played before calling play
+
+    audioRef.current.src = audioUrl; // Set the source of the audio to taggedMp3
     audioRef.current.load(); // Reload to ensure we have the latest song URL
+
     audioRef.current.oncanplaythrough = () => {
-      audioRef.current.play().catch((error) => console.error("Playback failed:", error));
+      audioRef.current
+        .play()
+        .catch((error) => console.error("Playback failed:", error));
     };
   };
 
@@ -58,7 +76,11 @@ function HomePage() {
     if (isPlaying) {
       audioRef.current.pause(); // Pause the current song
     } else {
-      audioRef.current.play(); // Play the current song
+      if (!audioRef.current.src && songs.length > 0) {
+        playSong(currentIndex); // Play the current song if not already loaded
+      } else {
+        audioRef.current.play().catch((error) => console.error("Playback failed:", error)); // Play the current song
+      }
     }
     
     setIsPlaying(!isPlaying); // Toggle the state for play/pause
@@ -72,13 +94,40 @@ function HomePage() {
   const handleVolumeChange = useCallback((e) => { setVolume(e.target.value); audioRef.current.volume = e.target.value; }, []);
 
   return (
+    <div>
+    <Helmet>
+    <title>High Quality Afrobeat Instrumentals for Artists | Buy & Download Instantly</title>
+    <meta
+      name="description"
+      content="Discover high quality Afrobeat instrumentals for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
+    />
+    <meta property="og:title" content="High Quality Afrobeat Instrumentals for Artists | Buy & Download Instantly" />
+    <meta
+      property="og:description"
+      content="Discover high quality Afrobeat instrumentals for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
+    />
+    <meta property="og:image" content="%PUBLIC_URL%/ur beathub favicon.png" />
+    <meta property="og:url" content="https://urbeathub.com" /> 
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="High Quality Afrobeat Instrumentals for Artists | Buy & Download Instantly" />
+    <meta
+      name="twitter:description"
+      content="Discover high quality Afrobeat instrumentals for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
+    />
+    <meta name="twitter:image" content="%PUBLIC_URL%/ur beathub favicon.png" />
+  </Helmet>
     <div className="homepageWrapper">
       <GroupA />
       <HeroPage />
        {/* Hidden Audio Player */}
        <audio 
   ref={audioRef}
-  onCanPlay={() => isPlaying && audioRef.current.play()} // Auto-play when ready
+  onCanPlay={() => {
+    if (isPlaying && audioRef.current) {
+      audioRef.current.play().catch((error) => console.error("Playback failed:", error));
+    }
+  }} // Auto-play when ready
   onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
   onLoadedMetadata={() => setDuration(audioRef.current.duration)}
   onEnded={playNext}
@@ -101,6 +150,10 @@ function HomePage() {
     />
 
     <SongList songs={songs} playSong={playSong} selectedSong={selectedSong} setSelectedSong={setSelectedSong} />
+   <SellBeatSection />
+    <GroupF />
+<GroupG/> 
+  </div>
   </div>
   );
 }

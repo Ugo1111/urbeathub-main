@@ -1,6 +1,9 @@
 import React from "react";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { GiNextButton, GiPreviousButton } from "react-icons/gi";
+import djImage from '../../images/dj.jpg';
+
+
 
 function MusicPlayer({ 
   currentSong, 
@@ -21,16 +24,10 @@ function MusicPlayer({
     <div className="GroupC1">
       <div className="musicControlerA">
         <div className="imageWrapper">
-        {currentSong?.coverUrl ? (
-  <>
-    <img src={currentSong.coverUrl} alt={`Cover for ${currentSong.title}`} />
-    <button className="playIcon" onClick={() => togglePlayPause()}>
-      {isPlaying ? <FaPause className="icon" /> : <FaPlay className="icon" />}
-    </button>
-  </>
-) : (
-  <p>No cover image available</p>
-)}
+          <img src={currentSong?.coverUrl || djImage} alt={`Cover for ${currentSong?.title || "Untitled"}`} />
+          <button className="playIcon" onClick={() => togglePlayPause()}>
+            {isPlaying ? <FaPause className="icon" /> : <FaPlay className="icon" />}
+          </button>
         </div>
       </div>
 
@@ -54,10 +51,10 @@ function MusicPlayer({
 
         <div className="controllerB3">
           <button onClick={playPrevious}>
-            <GiPreviousButton size="1.5em" />
+            <GiPreviousButton size="1em" />
           </button>
           <button onClick={playNext}>
-            <GiNextButton size="1.5em" />
+            <GiNextButton size="1em" />
           </button>
 
           <input 
@@ -69,10 +66,10 @@ function MusicPlayer({
             onChange={handleVolumeChange} 
           />
 
-          <div className="volnav">
-            <button onClick={increaseVolume}>+</button>
-            <button onClick={decreaseVolume}>-</button>
-          </div>
+<div className="volnav">
+  <button onClick={increaseVolume} style={{ fontSize: "1em" }}>+</button>
+  <button onClick={decreaseVolume} style={{ fontSize: "1em" }}>-</button>
+</div>
         </div>
       </div>
     </div>

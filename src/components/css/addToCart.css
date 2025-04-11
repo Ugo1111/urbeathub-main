@@ -104,6 +104,7 @@ margin-bottom: 25px;
   }
   .beat-details h2{
     margin: 10px 0 0 10px;
+    font-size: large;
   }
 
 
@@ -115,7 +116,7 @@ margin-bottom: 25px;
     display: flex;
     /* gap: 20px; */
     max-width: 100%;
-    height: 100px;
+    height: auto;
     padding: 25px 0 25px 25px;
     background-color: #1e1c1c;
     border-radius: 10px;
@@ -225,7 +226,7 @@ border-radius: 5px;
   outline: none; /* Remove focus outline */
   padding: 5px; /* Add some padding for a better look */
   background-color: transparent;
-
+color: #ffffff;
   width: 100%; /* Set desired width, e.g., full width */
   max-width: 1500px;
 }
@@ -356,7 +357,7 @@ margin: 20px auto 20px auto;
   }
   
   .licensing-container h2 {
-    font-size: 1.5rem;
+    font-size: large;
     margin-bottom: 20px;
   }
   
@@ -381,23 +382,23 @@ margin: 20px auto 20px auto;
   }
   
   .license-card.active {
-    background-color: rgba(8, 31, 96, 0.5);
+    background-color: #000000;
  
-    border-color: #2e61ee;
+    border-color: #db3056;
   }
   
   .license-card h3 {
-    font-size: 1.1rem;
+    font-size: small;
     margin-bottom: 10px;  
   }
   
   .license-card p {
-    font-size: 1rem;
+    font-size: large;
     font-weight: bold;
   }
   
   .license-card small {
-    font-size: 0.9rem;
+    font-size: small;
     color: #aaa;
   }
   
@@ -426,7 +427,7 @@ margin: 20px auto 20px auto;
   
 
   .checkout span {
-    font-size: 1.2rem;
+    font-size: small;
     font-weight: bold;
     margin-right: 10px;
     /* border: #ebc025 2px solid; */
@@ -435,7 +436,7 @@ margin: 20px auto 20px auto;
   .add-to-cart-btn,
   .buy-now-btn {
     padding: 10px 20px;
-    font-size: 1rem;
+    font-size: small;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -448,7 +449,7 @@ margin: 20px auto 20px auto;
 
 .negotiate-price-btn{
   padding: 10px 20px;
-    font-size: 1rem;
+    font-size: small;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -471,7 +472,7 @@ margin: 20px auto 20px auto;
   
  
   .buy-now-btn:hover {
-    background-color: #2563eb;
+    background-color: #f31646;
   }
 
 
@@ -480,7 +481,7 @@ margin: 20px auto 20px auto;
 
 
 
-  /* .usageTermList{
+   .usageTermList{
     font-size: small;
    
     text-align: center;
@@ -606,7 +607,8 @@ height: fit-content;
 .CartSummary{
   display: flex;
   flex-direction: column;
-  
+  justify-content: center;
+  align-items: center;
  gap:  30px;
 }
 
@@ -615,7 +617,7 @@ height: fit-content;
   border-radius: 10px;
   padding: 20px;
   background-color: rgba(20, 20, 20, 0.631);
-  margin-left: 15px;
+  
 }
 
 .selectedCartSummary {
@@ -657,7 +659,18 @@ margin-left: 70px;
   background-color: #0056b3; /* Darker shade when clicked */
   
 }
-
+.PaymentPage-button{
+  background-color: #db3056;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: large;
+  border: none;
+}
+.PaymentPage-button:hover{
+  background: #dddddd;
+  color:#181818;
+}
 
 .favourite-page{
   height: 100vh;
@@ -698,6 +711,7 @@ justify-content: center;
   position: relative;
   display: flex;
   align-items: center;
+  
 }
 
 .clear-button {
@@ -722,6 +736,7 @@ min-width: 40%;
     justify-content: center;
     align-items: center;
     height: 100px; /* Adjust as necessary */
+    
 }
 
 .search-beats-input {  border: #be27ff solid;
@@ -752,6 +767,7 @@ min-width: 40%;
     justify-content: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.482); /* Optional: Add a subtle shadow */
     background: rgba(0, 0, 0, 0.217); /* Optional: Change the background of the results list */
+    overflow-y: scroll;
 
 }
 
@@ -823,11 +839,42 @@ padding: 3px 5px 3px 2px;
   min-width: 99%;
   width: auto;
   height: 300px;
-  min-height:  320px;
-  
+  min-height: 320px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); 
- 
+  grid-template-columns: repeat(10, 1fr);
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+
+.recomendation-list-container::-webkit-scrollbar {
+  display: none;
+}
+
+.recomendation-list-container:hover {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
+}
+
+.recomendation-list-container::-webkit-scrollbar {
+  height: 6px;
+  display: none;
+}
+
+.recomendation-list-container:hover::-webkit-scrollbar {
+  display: block;
+}
+
+.recomendation-list-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+}
+
+.recomendation-list-container::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .recomendation-list{
@@ -961,6 +1008,99 @@ font-style: italic;
 .report-cancel:hover {
   background-color: #e1e1e1;
 }
+/* cookie consent privacy policy style */
+.privacy-policy{
+  background: #ffffff;
+  color: #000000;
+  padding: 10px;
+}
+.privacy-policy a{
+  color: #db3056;
+  text-decoration: none;
+  font-weight: bold;
+}
+/* license details style */
+.beatlicenses {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100vw;
+  height: 270vh;
+  margin: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.beatlicenses1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.beatlicenses2 {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+ .beatlicenses3 {
+  color: #000000;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+
+.beatlicenses3:hover {
+  background-color: #b3000f;
+}
+
+.beatlicenses4 {
+  height:fit-content;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.refund-policy-container {
+  width: 100vw;
+  height: 100vh;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.refund-policy-container h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.refund-policy-container ul {
+  list-style-type: disc;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.refund-policy-container a {
+  color: #db3056;;
+  text-decoration: none;
+}
+
+.refund-policy-container a:hover {
+  text-decoration: underline;
+}
+
+
+/* responsive mode */
 
 @media (max-width: 768px) {
   .container {
@@ -973,16 +1113,64 @@ font-style: italic;
   }
 
   .songBioSection {
-    max-width: 100%;
+    width: 90%;
+    max-width: none;
+  }
+  .image-placeholder img {
+    height: 300px;
+    width: 400px;
+    
+    
+  }
+  .licensing-container h2 {
+    font-size: large;}
+    .search-beats-body{
+      display: none;
+    }
+    
+    .beat-details h2{
+      font-size: large;
+    }
+      
+    }
+    
+    
+    
+
+
+
+
+@media (max-width: 414px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
+  .theMainContainer {
+    width: 80%;
+    padding: 10px;
+  }
+
+  .secondContainer,
+  .songBioSection {
+    width: 90%;
+    max-width: none;
+  }
   .Mp3player {
     height: auto;
     padding: 15px;
   }
+ 
 
-  .comment {
-    min-height: auto;
+  .image-placeholder img {
+    height: 50vh;
+    width: 90vw;
+  }
+
+  .licensing-container h2 {
+    font-size: 1rem;
+    margin-bottom: 20px;
   }
 
   .CheckoutBody {
@@ -992,6 +1180,78 @@ font-style: italic;
 
   .CheckoutTitle {
     text-align: center;
-    margin: 20px 0;
+    padding-left: 10px;
+    width: 80%;
+    margin-bottom: 20px;
+  }
+  .beat-details h2{
+    font-size: small;
   }
 }
+@media (max-width: 600px) {
+  .usageTermList {
+    font-size: small; 
+    margin-bottom: 20px;}
+
+
+    .licenses {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .Mp3player {
+      flex-direction: column;
+      height: auto;
+      padding: 15px;
+    }
+    .beat-details h2{
+      font-size: large;;
+    }
+    
+}
+
+@media (min-width: 415px) and (max-width: 896px) and (orientation: landscape) {
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .theMainContainer {
+    width: 70%; 
+    padding: 15px;
+  }
+
+  .secondContainer,
+  .songBioSection {
+    width: 80%;
+  }
+
+  .Mp3player {
+    flex-direction: row; 
+    height: auto;
+    padding: 20px;
+  }
+
+  .image-placeholder img {
+    height: 40vh; 
+    width: 50vw;
+  }
+
+  .licensing-container h2 {
+    font-size: large;
+    margin-bottom: 15px;
+  }
+
+  .licenses {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+
+
+  .usageTermList {
+    text-align: left;
+    width: 90%;
+    font-size: small;;
+  }
+}
+
+  

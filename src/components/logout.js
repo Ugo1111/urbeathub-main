@@ -15,7 +15,7 @@ const Logout = () => {
   return (
     <div>
      
-      <button onClick={handleLogout} style={{ color: "white", backgroundColor: "transparent", }}>Logout</button>
+      <button onClick={handleLogout} style={{ color: "white", fontSize: "0.9rem", backgroundColor: "transparent", }}>Logout</button>
       
     </div>
   );

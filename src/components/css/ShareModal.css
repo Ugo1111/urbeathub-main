@@ -143,11 +143,11 @@
   }
   
   .share-options button:nth-child(2):hover {
-    background-color: #1a91da;
+    background-color: #db3056;
   }
   
   .share-options button:nth-child(3) {
-    background-color: #f7f7f7;
+    background-color: #db3056;
     color: #333;
   }
   
@@ -159,3 +159,7 @@
   .share-options button:last-child {
     margin-bottom: 0;
   }
+
+  
+  
+  

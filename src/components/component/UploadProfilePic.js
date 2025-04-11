@@ -4,7 +4,7 @@ import { storage, db } from "../../firebase/firebase"; // Firebase imports
 import { doc, setDoc, getDoc } from "firebase/firestore"; // Firestore imports
 import { IoIosContact } from "react-icons/io"; // Icon for default profile picture
 
-function UploadProfilePic({ email }) {
+function UploadProfilePic({ uid }) { // Use uid instead of email
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(""); // Store the uploaded image URL
   const [uploading, setUploading] = useState(false);
@@ -12,14 +12,14 @@ function UploadProfilePic({ email }) {
 
   // Fetch the profile picture from Firestore if it exists
   useEffect(() => {
-    if (email) {
-      fetchProfilePicture(email);
+    if (uid) {
+      fetchProfilePicture(uid); // Fetch profile picture using uid
     }
-  }, [email]);
+  }, [uid]);
 
-  const fetchProfilePicture = async (userEmail) => {
+  const fetchProfilePicture = async (userUid) => {
     try {
-      const userRef = doc(db, "beatHubUsers", userEmail);
+      const userRef = doc(db, "beatHubUsers", userUid); // Use uid as document ID
       const docSnap = await getDoc(userRef);
 
       if (docSnap.exists()) {
@@ -41,10 +41,10 @@ function UploadProfilePic({ email }) {
   };
 
   const handleUpload = async (file) => {
-    if (!file || !email) return;
+    if (!file || !uid) return;
 
     setUploading(true);
-    const storageRef = ref(storage, `profile-pictures/${email}/profile-pic.jpg`); // Use a fixed name for the profile picture
+    const storageRef = ref(storage, `profile-pictures/${uid}/profile-pic.jpg`); // Use uid in storage path
 
     // Optionally, delete the old image before uploading the new one (uncomment if needed)
     await deleteOldProfilePic(storageRef);
@@ -82,7 +82,7 @@ function UploadProfilePic({ email }) {
 
   const saveImageUrlToFirestore = async (url) => {
     try {
-      const userRef = doc(db, "beatHubUsers", email);
+      const userRef = doc(db, "beatHubUsers", uid); // Use uid as document ID
       await setDoc(userRef, { profilePicture: url }, { merge: true });
       console.log("Profile picture URL saved to Firestore");
     } catch (error) {

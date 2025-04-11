@@ -11,6 +11,7 @@ export default function Profile() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userData, setUserData] = useState(null); // State to store single user data
   const [loading, setLoading] = useState(true); // To track if data is still loading
+  const [isProducer, setIsProducer] = useState(false); // State to track if user is a producer
 
   // Fetch user data from Firestore based on auth user
   useEffect(() => {
@@ -18,12 +19,13 @@ export default function Profile() {
       try {
         const user = auth.currentUser; // Get the current logged-in user
         if (user) {
-          // Fetch the user's document from Firestore by their email
-          const docRef = doc(db, "beatHubUsers", user.uid); // Assuming you store users in 'beatHubUsers' collection
+          const docRef = doc(db, "beatHubUsers", user.uid); // Use uid instead of email
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
-            setUserData(docSnap.data()); // Store the user's data in state
+            const data = docSnap.data();
+            setUserData(data); // Store the user's data in state
+            setIsProducer(data.IsProducer === true); // Check if IsProducer is true
           } else {
             console.log("No such document!");
           }
@@ -104,13 +106,15 @@ export default function Profile() {
           }
            <Link to="/FavouritePage" className="">Favourite</Link>
          
-          <a href="/purchasedPage">Purchased</a>
+          <Link to="/purchasedPage">Purchased</Link>
 
           <Link to="/CartPage" className="">
-        Chart
+        Cart
           </Link>
 
-           <Link to="/sellBeatPage" className="">Dashboard</Link>
+          {isProducer && (
+            <Link to="/sellBeatPage" className="">Dashboard</Link>
+          )}
           <div><Logout /></div>
         </div>
       )}

@@ -22,6 +22,9 @@ import Comment from "../component/CommentSection";
 import RecomendationComponent from "../component/recomendationComponent";
 import ShareModal from "../component/ShareModal";
 import { Timestamp } from "firebase/firestore"; // Import Firestore Timestamp
+import djImage from '../../images/dj.jpg';
+
+
 
 function AddToCart() {
   const location = useLocation();
@@ -42,7 +45,11 @@ function AddToCart() {
     if (isPlaying) {
       audio.pause();
     } else {
-      audio.play();
+      if (!audio.src) {
+        audio.src = song.musicUrls?.mp3; // Set the audio source if not already set
+        audio.load(); // Load the audio source
+      }
+      audio.play().catch((error) => console.error("Playback failed:", error));
     }
     setIsPlaying(!isPlaying);
   };
@@ -67,12 +74,16 @@ function AddToCart() {
     const updateCurrentTime = () => setCurrentTime(audio.currentTime);
     const updateDuration = () => setDuration(audio.duration);
 
-    audio.addEventListener("timeupdate", updateCurrentTime);
-    audio.addEventListener("loadedmetadata", updateDuration);
+    if (audio) {
+      audio.addEventListener("timeupdate", updateCurrentTime);
+      audio.addEventListener("loadedmetadata", updateDuration);
+    }
 
     return () => {
-      audio.removeEventListener("timeupdate", updateCurrentTime);
-      audio.removeEventListener("loadedmetadata", updateDuration);
+      if (audio) {
+        audio.removeEventListener("timeupdate", updateCurrentTime);
+        audio.removeEventListener("loadedmetadata", updateDuration);
+      }
     };
   }, []);
 
@@ -159,7 +170,7 @@ function Mp3player({
             onChange={handleSliderChange}
           />
           <span>{formatTime(duration)}</span>
-          <audio ref={audioRef} src={song.musicUrls?.mp3} />
+          <audio ref={audioRef} src={song.musicUrls?.taggedMp3} />
           <input
             type="range"
             min="0"
@@ -247,7 +258,7 @@ function SongBio({ song }) {
       </span>
 
       <a
-        href={song.musicUrls.mp3}
+        href={song.musicUrls.taggedMp3}
         download={song.title}
         style={{ textDecoration: "none" }}
       >
@@ -334,7 +345,7 @@ function SongBio({ song }) {
 function CoverArt({ coverUrl }) {
   return (
     <div className="image-placeholder">
-      <img src={coverUrl} alt="Trending Instrumental" />
+      <img src={coverUrl || djImage} alt="Trending Instrumental" />
     </div>
   );
 }

@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaPlay, FaPause } from "react-icons/fa"; // Import Icons
 import "../css/checkout.css";
+import djImage from '../../images/dj.jpg';
+
 
 function FavouritePage() {
   const [likedSongs, setLikedSongs] = useState(() => {
@@ -119,7 +121,7 @@ function FavouritePage() {
                 )}
 
                 <img 
-                  src={song.coverUrl || "./images/default-cover.jpg"} 
+                  src={song.coverUrl || djImage} 
                   className="listimage" 
                   alt={song.title || "Untitled"} 
                 />
@@ -127,8 +129,8 @@ function FavouritePage() {
               </div>
 
               <div className="favioriteSection2">
-                <LikeButton size="1.5em" songId={song.id} />
-                <Link to="/buysong" state={{ song }}>
+                <LikeButton  size="1em" songId={song.id} />
+                <Link to="/addToCart" state={{ song }}>
                   <button className="FaCartShopping"><FaCartShopping /> Add To Cart</button>
                 </Link>
               </div>

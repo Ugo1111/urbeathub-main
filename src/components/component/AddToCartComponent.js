@@ -9,14 +9,17 @@ import {
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
+import Modal from 'react-modal'; // Import Modal
 import "../css/addToCart.css";
 
 export default function HandleAddToCart({ song, selectedLicense }) {
   const [isAdding, setIsAdding] = useState(false);
   const [isInCart, setIsInCart] = useState(false); // Track if item is in cart
+  const [modalIsOpen, setModalIsOpen] = useState(false); // State for modal
   const auth = getAuth();
   const db = getFirestore();
   const navigate = useNavigate(); // Initialize the navigate function
+  
 
   // Check if the item is in the cart on initial render
   useEffect(() => {
@@ -48,7 +51,7 @@ export default function HandleAddToCart({ song, selectedLicense }) {
     const user = auth.currentUser;
 
     if (!user) {
-      alert("Please sign in to add items to your cart.");
+      setModalIsOpen(true); // Open modal if user is not signed in
       return;
     }
 
@@ -120,12 +123,25 @@ export default function HandleAddToCart({ song, selectedLicense }) {
   };
 
   return (
-    <button
-      className="add-to-cart-btn"
-      onClick={isInCart ? handleViewCart : handleAddToCart} // Redirect if in cart, else add item to cart
-      disabled={isAdding}
-    >
-      {isAdding ? "Adding..." : isInCart ? "View Cart" : "Add to Cart"}
-    </button>
+    <>
+      <button
+        className="add-to-cart-btn"
+        onClick={isInCart ? handleViewCart : handleAddToCart} // Redirect if in cart, else add item to cart
+        disabled={isAdding}
+      >
+        {isAdding ? "Adding..." : isInCart ? "View Cart" : "Add to Cart"}
+      </button>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        contentLabel="Sign In Required"
+        className="Modal"
+        overlayClassName="Overlay"
+      >
+        <h2>Sign In Required</h2>
+        <p>Please sign in to add items to your cart.</p>
+        <button onClick={() => setModalIsOpen(false)}>Close</button>
+      </Modal>
+    </>
   );
 }

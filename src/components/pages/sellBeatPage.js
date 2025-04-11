@@ -7,13 +7,15 @@ import UploadedBeatListComponent from "../component/UploadedBeatListComponent.js
 import Payout from "../component/Payout.js";
 import DashboardComponent from "../component/DashboardComponent.js";
 import ProducerMessages from "../component/producerMessages.js";
-import { IoReturnUpBackSharp } from "react-icons/io5";
+import { GrCloudUpload } from "react-icons/gr";
+import { IoReturnUpBackSharp, IoMusicalNotes, IoChatbubbles, IoWallet, IoPerson, IoStatsChart } from "react-icons/io5";
 import ProfilePage from "../component/profilePageDublicate4Component.js";
-import TabPage from "../component/tabs";
+import UsersUploadMusicPage from "../component/UsersUploadMusicPage.js";
 
 const SellBeatPage = () => {
   const [activeComponent, setActiveComponent] = useState(null);
   const [user, setUser] = useState({ username: "", profilePicture: "" });
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
 
   // List of possible background colors
   const colors = [
@@ -42,6 +44,12 @@ const SellBeatPage = () => {
     // Set random hover and active colors on initial load
     setRandomHoverColor();
 
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 746);
+    };
+
+    window.addEventListener('resize', handleResize);
+
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         const userDocRef = doc(db, "beatHubUsers", currentUser.uid);
@@ -53,7 +61,10 @@ const SellBeatPage = () => {
       }
     });
 
-    return () => unsubscribe();
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      unsubscribe();
+    };
   }, []);
 
   return (
@@ -83,18 +94,19 @@ const SellBeatPage = () => {
               }}
               className={activeComponent === "performance" ? "active" : ""}
             >
-              Performance
+              {isMobile ? <IoStatsChart /> : "Performance"}
             </Link>
           </li>
           <li>
             <Link
-              to="/tabs"
+              to="#"
+              onClick={() => setActiveComponent("upload")}
               style={{
-                backgroundColor: activeComponent === "tabs" ? getRandomColor() : "",
+                backgroundColor: activeComponent === "upload" ? getRandomColor() : "",
               }}
-              className={activeComponent === "tabs" ? "active" : ""}
+              className={activeComponent === "upload" ? "active" : ""}
             >
-              Upload A Track
+              {isMobile ? <GrCloudUpload />: "Upload A Track"}
             </Link>
           </li>
           <li>
@@ -106,7 +118,7 @@ const SellBeatPage = () => {
               }}
               className={activeComponent === "uploaded" ? "active" : ""}
             >
-              Your Listed Tracks
+              {isMobile ? <IoMusicalNotes /> : "Your Listed Tracks"}
             </Link>
           </li>
           <li>
@@ -118,7 +130,7 @@ const SellBeatPage = () => {
               }}
               className={activeComponent === "messages" ? "active" : ""}
             >
-              Customer Messages
+              {isMobile ? <IoChatbubbles /> : "Customer Messages"}
             </Link>
           </li>
           <li>
@@ -130,7 +142,7 @@ const SellBeatPage = () => {
               }}
               className={activeComponent === "payout" ? "active" : ""}
             >
-              Payout Information
+              {isMobile ? <IoWallet /> : "Payout Information"}
             </Link>
           </li>
           <li>
@@ -142,7 +154,7 @@ const SellBeatPage = () => {
               }}
               className={activeComponent === "profilePage" ? "active" : ""}
             >
-              Profile Page
+              {isMobile ? <IoPerson /> : "Profile Page"}
             </Link>
           </li>
         </ul>
@@ -150,6 +162,7 @@ const SellBeatPage = () => {
 
       <div>
         {activeComponent === "uploaded" && <UploadedBeatListComponent />}
+        {activeComponent === "upload" && <UsersUploadMusicPage />}
         {activeComponent === "performance" && <DashboardComponent />}
         {activeComponent === "profilePage" && <ProfilePage />}
         {activeComponent === "payout" && <Payout />}
