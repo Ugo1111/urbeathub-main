@@ -780,14 +780,14 @@ flex-direction: row;
 
 /*Tablet respontsiveness */
 
-@media (max-width: 768px){
+@media (max-width: 800px){
    
 
   .HeroPage {
     width: 80%;
   }
   .HeroText h1{
-     font-size: 2rem;
+     font-size: 1.8rem;
  color: #db3056;
 
 
@@ -801,7 +801,7 @@ flex-direction: row;
    .GroupC2{
     font-size: small;
     background-color: #181818;
-         width: 63%;
+         width: 80%;
          height: 35vmin;
          min-height: fit-content;
          padding: 15px;
@@ -822,7 +822,7 @@ flex-direction: row;
   
 
   .GroupC1{
-    width: 63%;
+    width: 80%;
     height: 25vmin;
   
   }
@@ -913,7 +913,7 @@ flex-direction: row;
   .GroupC2{
 
     background-color: #181818;
-         width: 60%;
+         width: 80%;
          height: 35vmin;
          min-height: fit-content;
          padding: 15px;
@@ -932,7 +932,8 @@ flex-direction: row;
   }
 
   .GroupC1{
-    width: 60%;
+    margin-top: 20px;
+    width: 80%;
     height: 30vmin;
   }
   .controllerB1 h4{
@@ -946,7 +947,7 @@ flex-direction: row;
     max-width: 25%;
     min-height: auto; /* Allow height to adjust */
   }
-}
+
 
 .musicControlerA img {
   max-width: 100%;
@@ -988,14 +989,17 @@ flex-direction: row;
 
 .progress{
   width: 50%;
-  
+  }
+  .songlist-addtochart{
+    height: 30px;
+    width: 50px;
+
+  }
 }
 
 @media (max-width: 480px) {
   
-  .homepageWrapper{
-    margin-left: 10%;
-  }
+  
 
 
   .HeroPage {
@@ -1020,7 +1024,7 @@ flex-direction: row;
   }
 
   .GroupC2 {
-    width: 50%; /* Full width for very small screens */
+    width: 55%; /* Full width for very small screens */
     height: 35vmin;
     padding: 10px;
     gap: 10px; /* Adjust gap */
@@ -1035,7 +1039,7 @@ flex-direction: row;
   }
 
   .GroupC1 {
-    width: 50%; /* Full width */
+    width: 55%; /* Full width */
     height: 30vmin;
     margin-top: 20%;
     
@@ -1052,7 +1056,7 @@ flex-direction: row;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-}
+
 
 .musicControlerA img {
   max-width: 100%;
@@ -1095,4 +1099,9 @@ flex-direction: row;
 
 .progress {
   width: 50%;
+}
+.songlist-addtochart{
+  height: 30px;
+  width: 50px;
+}
 }
