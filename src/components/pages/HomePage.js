@@ -39,19 +39,34 @@ function HomePage() {
   }, []);
 
   const playSong = (index) => {
-    if (!songs[index] || !audioRef.current) return;
-    
+    if (!songs[index]) {
+      console.error("Song not found at index:", index);
+      return;
+    }
+
+    const song = songs[index];
+    const audioUrl = song.musicUrls?.taggedMp3;
+
+    if (!audioUrl) {
+      console.error("Audio URL is missing for song:", song.title || "Untitled");
+      return;
+    }
+
+    if (!audioRef.current) {
+      console.error("Audio element is not initialized.");
+      return;
+    }
+
     setCurrentIndex(index); // Update the song index
     setIsPlaying(true); // Mark as playing
-  
-    audioRef.current.src = songs[index].musicUrls?.taggedMp3;  // Set the source of the audio to taggedMp3
-   
-    // Wait until audio can be played before calling play
+
+    audioRef.current.src = audioUrl; // Set the source of the audio to taggedMp3
     audioRef.current.load(); // Reload to ensure we have the latest song URL
+
     audioRef.current.oncanplaythrough = () => {
-      if (audioRef.current) {
-        audioRef.current.play().catch((error) => console.error("Playback failed:", error));
-      }
+      audioRef.current
+        .play()
+        .catch((error) => console.error("Playback failed:", error));
     };
   };
 

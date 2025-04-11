@@ -7,6 +7,8 @@ import { useMusicUploadContext } from "../context/MusicUploadProvider";
 import AudioTagger from "../pages/PageOne"; // Import AudioTagger component
 import Metadata from "./metaDataUpload"; // Import Metadata component
 import Monetization from "./Monetization"; // Import Monetization component
+import Modal from "react-modal"; // Import Modal
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const UsersUploadMusicPage = () => {
   const {
@@ -29,6 +31,10 @@ const UsersUploadMusicPage = () => {
   const [zipFile, setZipFile] = useState(null);
   const [audioFileSize, setAudioFileSize] = useState("");
   const [processedAudioFile, setProcessedAudioFile] = useState(null); // State to store processed audio file
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
+  const [isUploadComplete, setIsUploadComplete] = useState(false); // Upload completion state
+
+  const navigate = useNavigate(); // Initialize navigate
 
   // Fetch logged-in user info
   useEffect(() => {
@@ -58,9 +64,9 @@ const UsersUploadMusicPage = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    if (fileType === "musicMp3" && file.type.startsWith("audio/mpeg")) {
+    if (fileType === "musicMp3" && file.type === "audio/mpeg") {
       setAudioFileMp3(file);
-    } else if (fileType === "musicWav" && file.type.startsWith("audio/wav")) {
+    } else if (fileType === "musicWav" && (file.type === "audio/wav" || file.type === "audio/x-wav")) {
       setAudioFileWav(file);
     } else if (fileType === "cover" && file.type.startsWith("image/")) {
       setCoverArt(file);
@@ -114,12 +120,16 @@ const UsersUploadMusicPage = () => {
     }
 
     try {
+      setIsModalOpen(true); // Open the modal
+      setIsUploadComplete(false); // Reset upload completion state
+
       const musicCollectionRef = collection(db, "beats");
       const newDocRef = await addDoc(musicCollectionRef, {
         title: musicTitle,
         musicUrls: {},
         coverUrl: "",
-        status: false,
+        zipUrl: "", // Add a field for the ZIP file URL
+        status: true,
         uploadedBy: email,
         userId: uid,
         timestamp: Timestamp.now(),
@@ -134,12 +144,14 @@ const UsersUploadMusicPage = () => {
       const musicRefWav = audioFileWav ? ref(storage, `${storagePath}/${audioFileWav.name}`) : null;
       const coverRef = coverArt ? ref(storage, `${storagePath}/${coverArt.name}`) : null;
       const musicRefTaggedMp3 = processedAudioFile ? ref(storage, `${storagePath}/${processedAudioFile.name}`) : null;
+      const zipRef = zipFile ? ref(storage, `${storagePath}/${zipFile.name}`) : null; // Add ZIP file reference
 
       const uploadTasks = [
         musicRefMp3 && uploadBytesResumable(musicRefMp3, audioFileMp3),
         musicRefWav && uploadBytesResumable(musicRefWav, audioFileWav),
         coverRef && uploadBytesResumable(coverRef, coverArt),
         musicRefTaggedMp3 && uploadBytesResumable(musicRefTaggedMp3, processedAudioFile),
+        zipRef && uploadBytesResumable(zipRef, zipFile), // Add ZIP file upload task
       ].filter(Boolean);
 
       uploadTasks.forEach((task) => {
@@ -154,26 +166,30 @@ const UsersUploadMusicPage = () => {
       const musicUrlWav = musicRefWav ? await getDownloadURL(musicRefWav) : "";
       const coverUrl = coverRef ? await getDownloadURL(coverRef) : "";
       const musicUrlTaggedMp3 = musicRefTaggedMp3 ? await getDownloadURL(musicRefTaggedMp3) : "";
+      const zipUrl = zipRef ? await getDownloadURL(zipRef) : ""; // Get ZIP file URL
 
       await updateDoc(newDocRef, {
-        musicUrls: { mp3: musicUrlMp3, wav: musicUrlWav, taggedMp3: musicUrlTaggedMp3 },
+        musicUrls: { mp3: musicUrlMp3, wav: musicUrlWav, taggedMp3: musicUrlTaggedMp3, zipUrl: zipUrl }, // Update with ZIP file URL
         coverUrl,
+      
       });
 
-      alert("Music uploaded successfully!");
+      setIsUploadComplete(true); // Mark upload as complete
+      setProgress(0); // Reset progress bar
 
       setMusicTitle("");
       setAudioFileMp3(null);
       setAudioFileWav(null);
       setCoverArt(null);
       setCoverPreview(null);
+      setZipFile(null); // Reset ZIP file state
       setSelectedMusic(null);
-      setProgress(0);
     } catch (error) {
       console.error("Upload error:", error);
-      alert("Upload failed. Make sure you have both MP3 and WAV uploaded.");
+      alert("Upload failed. Make sure you have all required files uploaded.");
+      setIsModalOpen(false); // Close the modal on error
     }
-  }, [musicTitle, email, audioFileMp3, audioFileWav, coverArt, processedAudioFile, metadata, monetization, db, storage]);
+  }, [musicTitle, email, audioFileMp3, audioFileWav, coverArt, processedAudioFile, zipFile, metadata, monetization, db, storage]);
 
   useEffect(() => {
     setUploadMusic(() => uploadMusic);
@@ -220,6 +236,31 @@ const UsersUploadMusicPage = () => {
       <Metadata metadata={metadata} setMetadata={setMetadata} /> {/* Include Metadata component */}
       <Monetization monetization={monetization} setMonetization={setMonetization} /> {/* Include Monetization component */}
       <button type="button" onClick={uploadMusic} className="upload-button">Upload Music</button> {/* Add upload button */}
+
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        contentLabel="Upload Progress"
+        className="Modal"
+        overlayClassName="Overlay"
+      >
+        {!isUploadComplete ? (
+          <>
+            <h2>Uploading Your Track...</h2>
+            <div className="progress-bar">
+              <div style={{ width: `${progress}%` }}>{Math.round(progress)}%</div>
+            </div>
+          </>
+        ) : (
+          <>
+            <h2>🎉 Hurray your track is now live! 🎊</h2>
+            <div className="modal-buttons">
+              <button onClick={() => setIsModalOpen(false)} className="modal-btn">Upload Another Track</button>
+              {/* <button onClick={() => navigate("/UploadedBeatListComponent")} className="modal-btn">Go to Uploaded Tracks</button> */}
+            </div>
+          </>
+        )}
+      </Modal>
     </form>
   );
 };

@@ -17,7 +17,7 @@ const UploadedBeatListComponent = ({ setSelectedMusic }) => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setEmail(user.email);
-        fetchMusic(user.email);
+        fetchMusic(user.uid); // Pass the UID instead of email
       } else {
         console.error("No authenticated user found");
       }
@@ -26,14 +26,16 @@ const UploadedBeatListComponent = ({ setSelectedMusic }) => {
     return () => unsubscribe();
   }, []);
 
-  const fetchMusic = async (userEmail) => {
+  const fetchMusic = async (userId) => {
     try {
       const musicCollectionRef = collection(db, "beats");
       const querySnapshot = await getDocs(musicCollectionRef);
-      const musicList = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+      const musicList = querySnapshot.docs
+        .map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        .filter((music) => music.userId === userId); // Filter by the logged-in user's UID
 
       setUploadedMusic(musicList);
     } catch (error) {

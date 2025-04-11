@@ -67,7 +67,14 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
           <div
             className="songlist"
             key={song.id}
-            onClick={() => playSong(songs.findIndex(s => s.id === song.id))} // Find the correct index in the original songs array
+            onClick={() => {
+              const songIndex = songs.findIndex((s) => s.id === song.id);
+              if (songIndex === -1 || !song.musicUrls?.taggedMp3) {
+                console.error("Invalid song or missing audio URL:", song.title || "Untitled");
+                return;
+              }
+              playSong(songIndex);
+            }}
             ref={index === displayedSongs.length - 1 ? lastSongElementRef : null}
           >
             <img

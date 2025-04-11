@@ -72,7 +72,7 @@ function Comment({ song, comments, setComments }) {
                     },
                 ]);
                 setNewComment(""); // Clear input field
-                alert("Your comment has been posted successfully!");
+                // alert("Your comment has been posted successfully!");
             } catch (error) {
                 console.error("Error adding comment: ", error);
             }

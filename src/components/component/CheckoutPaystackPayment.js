@@ -4,7 +4,7 @@ import { getFirestore, doc, updateDoc, arrayUnion, collection, addDoc } from 'fi
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const PaystackPayment = ({ email, amount, last, song, license, uid, beatId }) => {
-  const publicKey = 'pk_test_36a4dd978ecfdfd6434270cdbfee04e41bfff64d'; // Keep this as it was
+  const publicKey = 'pk_live_5792ddb6cca1c8c89244595e5607e81e9a63e35c'; // Keep this as it was
   const exchangeRate = 1500; // 1 USD = 1500 NGN
   const amountInKobo = Math.round(amount * exchangeRate * 100); // Convert USD to Kobo properly
 
