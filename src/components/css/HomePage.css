@@ -8,12 +8,14 @@ body {margin: 0;
   font-family: "Roboto", serif;
   min-height: 100vh;
   min-width: 100vw;
+  overflow-x:hidden;
 }
   
 
 
 
 .homepageWrapper {
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -212,7 +214,8 @@ margin-bottom: 250px;
       width: 90%;
       height: 75vmin;
       text-align: center;
-    
+      position: relative;
+        z-index: 2;
     }
 
 
@@ -355,6 +358,7 @@ margin-bottom: 250px;
   margin: 0 2px;
   }
    */
+
   .playSign{height: 45px;  width: 45px;
     border-radius: 45%;
     background-color: rgb(209, 207, 207);
@@ -457,37 +461,7 @@ margin-bottom: 250px;
   
  
     
-    .hero{ display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 40px;
-        align-items: center;
-        color: #ffffff;
-        background-color: gray;
-        padding: 30px;
-        border-bottom: dashed 2px #ffffff;}
-        
-        .hero-container img{ width: 400px;
-            height: 300px;
-        border-radius: 10px;
-        box-shadow: 0px 12px 12px #000000;}
-        
-        .hero-container1 h2{ font-size: 1.8rem;
-        text-align: center;}
-        
-        .hero-container1 li {
-            padding: 10px;
-            font-size: 1.2rem;
-            list-style: none; 
-            /*background-image: url('icon.png');*/
-            background-size: 50px; 
-            background-repeat: no-repeat; 
-            background-position: left; 
-            padding-left: 50px;
-        }
-        
     
-       
    
       
      
@@ -525,6 +499,8 @@ margin-bottom: 250px;
       height: fit-content;
       padding: 15px;
       gap: 20;
+      position: relative;
+      z-index: 2;
   }
   
   .market button:not(.songlist-addtochart)  {
@@ -554,17 +530,7 @@ margin-bottom: 250px;
   
   
  
- @media screen and (max-width: 600px){
-  .GroupC2{
-    width: 90%;
-  }
-  .GroupC1{
-    width: 90%;
-  }
- }
-     
-
-
+ 
 
 
   .controllerB1{
@@ -706,7 +672,7 @@ flex-direction: row;
     transition: all 0.3s ease-in-out;
     height: 30px;
     width: 90px;
-    background-color: #2154e3;
+    background-color: #db3056;;
     color: rgba(255, 255, 255, 0.823);
     text-align: center;
     margin: 0 5px 0 5px;
@@ -725,24 +691,7 @@ flex-direction: row;
   
 
 
-  @media (max-width: 600px) {
-    
-    .GroupC2{
-      border: #61dafb solid;
-      font-size: large;
-         background-color: #181818;
-           width: 70%;
-           height: 35vmin;
-           padding: 15px;
-           gap: 20;
-       }
-
-       
-}
-
-
-
-
+ 
 
 
 
@@ -913,7 +862,7 @@ flex-direction: row;
   .GroupC2{
 
     background-color: #181818;
-         width: 60%;
+         width: 70%;
          height: 35vmin;
          min-height: fit-content;
          padding: 15px;
@@ -932,7 +881,7 @@ flex-direction: row;
   }
 
   .GroupC1{
-    width: 60%;
+    width: 70%;
     height: 30vmin;
   }
   .controllerB1 h4{
@@ -946,7 +895,7 @@ flex-direction: row;
     max-width: 25%;
     min-height: auto; /* Allow height to adjust */
   }
-}
+
 
 .musicControlerA img {
   max-width: 100%;
@@ -990,6 +939,10 @@ flex-direction: row;
   width: 50%;
   
 }
+.songlist-addtochart{
+  width: 50px;
+}
+ }
 
 @media (max-width: 480px) {
   
@@ -1051,7 +1004,7 @@ flex-direction: row;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
+  
 }
 
 .musicControlerA img {
@@ -1095,4 +1048,9 @@ flex-direction: row;
 
 .progress {
   width: 50%;
+}
+.songlist-addtochart{
+  width: 50px;
+}
+
 }

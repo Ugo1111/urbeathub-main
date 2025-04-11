@@ -442,7 +442,7 @@ margin: 20px auto 20px auto;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     height: 50px;
-    background-color: #1d4ed8;
+    background-color: #db3056;
     color: white;
   }
   
@@ -455,7 +455,7 @@ margin: 20px auto 20px auto;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     height: 50px;
-    background-color: #1d4ed8;
+    background-color: #db3056;
     color: white;
 }
 
@@ -633,7 +633,7 @@ height: fit-content;
 
 
 .Total_CartSummary{
-  color: rgb(47, 189, 0);
+  color: #ffffff;
   display: flex;
   justify-content: space-between;
 }
@@ -644,7 +644,7 @@ margin-left: 70px;
 }
 
 .proceedToCheckout{
-  background-color: rgb(0, 81, 255);
+  background-color: #db3056;
   color: #ffffff;
   padding: 15px;
   margin: 15px;
@@ -656,7 +656,7 @@ margin-left: 70px;
 
 .proceedToCheckout:active {
   transform: scale(0.95); /* Shrinks slightly */
-  background-color: #0056b3; /* Darker shade when clicked */
+  background-color: #db244c; /* Darker shade when clicked */
   
 }
 .PaymentPage-button{
@@ -889,7 +889,7 @@ padding: 3px 5px 3px 2px;
 
 .recomendation-list a:focus,
 .recomendation-list a:active {
-  color: #5400b3;
+  color: #db3056;
  
   }
 
@@ -932,7 +932,7 @@ margin-top: 10px ;
 }
 
 .recomendation-AddToCart-button{
-  border: #3c8dff solid;
+  border: #db3056 solid;
   color: #dedede;
   background-color: #000;
   justify-content: center;
@@ -961,6 +961,7 @@ font-style: italic;
 
 .report-section{
   margin-top: 20px;
+  
 }
 
 .report-form{
@@ -969,6 +970,8 @@ font-style: italic;
 
 .report-form-label{
   margin-top: 40px;
+
+  
 }
 
 .report-actions {
@@ -981,6 +984,8 @@ font-style: italic;
 .report-textarea{
   width: 100%;
   height: 50px;
+  background: #000000;
+  color: #ffffff;
 }
 .report-submit,
 .report-cancel {
@@ -992,21 +997,22 @@ font-style: italic;
 }
 
 .report-submit {
-  background-color:#333;
+  background-color:#db3056;;
   color: white;
 }
 
 .report-submit:hover {
-  background-color: #0056b3;
+  background-color: #dddddd;
 }
 
 .report-cancel {
   background-color:#333;
-  color: #e1e1e1;
+  color: #000000;
 }
 
 .report-cancel:hover {
   background-color: #e1e1e1;
+  color: #000000;
 }
 /* cookie consent privacy policy style */
 .privacy-policy{

@@ -9,22 +9,22 @@ export function GroupF() {
               next hit. For custom beats<br /> and exclusive rights,
               get in touch with us.
             </p>
-            <a href="contact.html">Contact Us</a>
+            <a>Contact Us</a>
             <p>info@urbeathub.com</p>
           </div>
 
           <div className="footer-container1">
             <p>
-              <a href="/Licensedetails">License</a>
+              <a href="/Licensedetails" target="_blank">License</a>
             </p>
             <p>
               <a href="link">Start Selling</a>
             </p>
             <p>
-              <a href="/privacy">Privacy Policy</a>
+              <a href="/privacy" target="_blank">Privacy Policy</a>
             </p>
             <p>
-              <a href="/Refundpolicy">Refund Policy</a>
+              <a href="/Refundpolicy" target="_blank">Refund Policy</a>
             </p>
             <div className="social-links">
               <a href="https://www.facebook.com/share/15xxw68L9H/" target="_blank">
