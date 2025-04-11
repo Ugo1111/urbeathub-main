@@ -172,7 +172,7 @@
   
     .uploadMusicContainer {
       width: 100vw; 
-      height: 250vh; 
+      height: 300vh; 
       background-color: #ffffff; 
       display: flex; 
       flex-direction: column;
@@ -185,7 +185,13 @@
 .uploadMusicContainer h1{
   text-align: center;
 }
-
+.preview-image {
+  max-width: 100%; 
+  max-height: 200px; 
+  object-fit: cover; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
 .cover-title {
   display: flex;
   flex-direction: column;

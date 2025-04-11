@@ -1019,3 +1019,11 @@ color:#ffffff;}
 .social-links a:hover {
   color: #ffffff; /* Change color on hover */
 }
+
+.preview-image {
+  max-width: 100%; /* Ensure the image does not exceed the container's width */
+  max-height: 200px; /* Restrict the height to a maximum of 200px */
+  object-fit: cover; /* Maintain aspect ratio and crop if necessary */
+  border-radius: 10px; /* Optional: Add rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
