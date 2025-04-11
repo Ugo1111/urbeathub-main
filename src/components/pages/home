@@ -359,7 +359,6 @@ function HomePage() {
        {/* Share Modal */}
        {selectedSong && <ShareModal song={selectedSong} onClose={closeShareModal} />}
     </div>
-    </div>
   );
 }
 
