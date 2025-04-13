@@ -186,31 +186,6 @@ export default function BeatLicenses() {
       </div>
       <GroupF /> {/* Add the footer-wrapper */}
       <GroupG /> {/* Add the footer */}
-      <div className="footer-container1">
-        <p>
-          <a href="/Licensedetails">License</a>
-        </p>
-        <p>
-          <a href="link">Start Selling</a>
-        </p>
-        <p>
-          <a href="/privacy">Privacy Policy</a>
-        </p>
-        <div className="social-links">
-          <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-facebook"></i>
-          </a>
-          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-instagram"></i>
-          </a>
-          <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-tiktok"></i>
-          </a>
-          <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-youtube"></i>
-          </a>
-        </div>
-      </div>
     </div>
   );
 }

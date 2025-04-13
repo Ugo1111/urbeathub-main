@@ -36,7 +36,7 @@ const SignUp = () => {
       <a href="/" className="Headerlogo">
         <img
           src="./beathub1.PNG"
-          style={{ width: "100px", height: "100px", paddingBottom: "50px" }}
+          style={{ width: "64px", height: "64px", paddingBottom: "50px" }}
           alt="Logo"
         />
       </a>

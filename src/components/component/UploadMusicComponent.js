@@ -139,7 +139,7 @@ const UploadMusicComponent = ({ handleInputChange, handleFileSelect }) => {
   return (
     <form className="uploadMusicContainer">
       <div className="cover-title">
-        <div className="drop-zone4Image">
+        <div className="drop-zone4Image" style={{ width: "200px", height: "200px" }}> {/* Set fixed dimensions for the box */}
           {coverPreview ? (
             <img src={coverPreview} alt="Cover Art Preview" className="preview-image" />
           ) : (

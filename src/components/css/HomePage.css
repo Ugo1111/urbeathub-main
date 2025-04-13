@@ -4,9 +4,11 @@
 
 body {margin: 0;
   padding: 0;
- box-sizing: border-box;
+ 
   font-family: "Roboto", serif;
-
+  min-height: 100vh;
+  min-width: 100vw;
+  overflow-x:hidden;
 }
   
 
@@ -27,6 +29,7 @@ body {margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed; /* Makes the background sticky */
   width: 100%;
+  /* opacity: 0.2; */
   font-family: "Roboto", serif;
 }
 .homepageWrapper .overlay {
@@ -61,10 +64,10 @@ max-width: 13%;
 
 .musicControlerA img{
   max-width: 100%;
-  max-height: 100%;
+  max-height: 110%;
   object-fit: contain;
   width: 100%; /* Scale the image width to the container */
-height: 75vmin;
+height: 100%;
 
 }
 
@@ -77,7 +80,7 @@ height: 75vmin;
   position: relative;
   display: inline-block;
   height: 100%;
-border-radius: 10px;
+  border-radius: 5px;
 overflow: hidden;
 }
 
@@ -85,6 +88,7 @@ overflow: hidden;
   display: block; /* Ensures proper positioning of the image */
   width: 100%; /* Optional: Adjust to fit your layout */
   height: 100%; /* Maintain aspect ratio */
+
   object-fit: contain;
 }
 
@@ -116,7 +120,7 @@ overflow: hidden;
 
   
 
-  /*
+  
   .GroupB {
   
 
@@ -136,10 +140,23 @@ overflow: hidden;
     margin: 15px 0 200px 0;
     
     
-  }*/
+  }
 
-    
-    
+    /* .heroText{
+
+    } */
+    .heroText h3{
+      text-align: center;
+color: #db3056;
+margin: 0px 0 35px 0;
+font-size: 2.3em;
+    }
+    .heroText h5{
+      margin: 10px 0 0px 0;
+      font-size: 0.8em;
+     
+
+    }
 
 
 
@@ -195,11 +212,10 @@ margin-bottom: 250px;
     
       padding: 5px;
       width: 90%;
-      height: 80vmin;
+      height: 75vmin;
       text-align: center;
       position: relative;
-      z-index: 2;
-    
+        z-index: 2;
     }
 
 
@@ -342,6 +358,7 @@ margin-bottom: 250px;
   margin: 0 2px;
   }
    */
+
   .playSign{height: 45px;  width: 45px;
     border-radius: 45%;
     background-color: rgb(209, 207, 207);
@@ -444,37 +461,7 @@ margin-bottom: 250px;
   
  
     
-    .hero{ display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 40px;
-        align-items: center;
-        color: #ffffff;
-        background-color: gray;
-        padding: 30px;
-        border-bottom: dashed 2px #ffffff;}
-        
-        .hero-container img{ width: 400px;
-            height: 300px;
-        border-radius: 10px;
-        box-shadow: 0px 12px 12px #000000;}
-        
-        .hero-container1 h2{ font-size: 1.8rem;
-        text-align: center;}
-        
-        .hero-container1 li {
-            padding: 10px;
-            font-size: 1.2rem;
-            list-style: none; 
-            /*background-image: url('icon.png');*/
-            background-size: 50px; 
-            background-repeat: no-repeat; 
-            background-position: left; 
-            padding-left: 50px;
-        }
-        
     
-       
    
       
      
@@ -499,11 +486,8 @@ margin-bottom: 250px;
       padding: 15px;
       background-color: #181818;
       width: 70%;
-      height: 20vmin;
+      height: 15vmin;
     display: flex;
-    position: relative;
-    z-index: 2;
-
 
   }
 
@@ -514,9 +498,9 @@ margin-bottom: 250px;
       min-height: 35vmin;
       height: fit-content;
       padding: 15px;
-      gap: 20px;
-    position: relative;
-    z-index: 2;
+      gap: 20;
+      position: relative;
+      z-index: 2;
   }
   
   .market button:not(.songlist-addtochart)  {
@@ -529,11 +513,14 @@ margin-bottom: 250px;
     color: #ccc;
     border: #eaeaea1f 0.5px solid;
     border-radius: 5%;
-    max-width: 100%;
       }
     
 
+      /* .songlist-addtochart{
       
+
+      }
+     */
       .market button:hover {
 
         cursor: pointer;
@@ -544,8 +531,6 @@ margin-bottom: 250px;
   
  
  
-
-
 
 
   .controllerB1{
@@ -662,6 +647,7 @@ flex-direction: row;
   .market{
     display: flex;
     flex-direction: row;
+   
     margin-left: auto;
     left: 30px;
   align-items: center;
@@ -686,7 +672,7 @@ flex-direction: row;
     transition: all 0.3s ease-in-out;
     height: 30px;
     width: 90px;
-    background-color: #db3056;
+    background-color: #db3056;;
     color: rgba(255, 255, 255, 0.823);
     text-align: center;
     margin: 0 5px 0 5px;
@@ -706,15 +692,6 @@ flex-direction: row;
 
 
  
-    
-    
-
-       
-
-
-
-
-  
 
 
 
@@ -885,7 +862,7 @@ flex-direction: row;
   .GroupC2{
 
     background-color: #181818;
-         width: 60%;
+         width: 70%;
          height: 35vmin;
          min-height: fit-content;
          padding: 15px;
@@ -904,7 +881,7 @@ flex-direction: row;
   }
 
   .GroupC1{
-    width: 60%;
+    width: 70%;
     height: 30vmin;
   }
   .controllerB1 h4{
@@ -918,7 +895,7 @@ flex-direction: row;
     max-width: 25%;
     min-height: auto; /* Allow height to adjust */
   }
-}
+
 
 .musicControlerA img {
   max-width: 100%;
@@ -962,6 +939,10 @@ flex-direction: row;
   width: 50%;
   
 }
+.songlist-addtochart{
+  width: 50px;
+}
+ }
 
 @media (max-width: 480px) {
   
@@ -1023,7 +1004,7 @@ flex-direction: row;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
+  
 }
 
 .musicControlerA img {
@@ -1067,4 +1048,9 @@ flex-direction: row;
 
 .progress {
   width: 50%;
+}
+.songlist-addtochart{
+  width: 50px;
+}
+
 }

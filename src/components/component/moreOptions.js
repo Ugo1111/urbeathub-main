@@ -37,17 +37,17 @@ export default function MoreOptions({ song, openShareModal }) {
             {isDropdownOpen && (
                 <div id="myDropdown" className="dropdown-content">
                     <Link to="/buysong" state={{ song }}>
-                        <button><FaCartShopping size="1.5em" /> Buy</button>
+                     {/*   <button><FaCartShopping size="1.5em" /> Buy</button>*/}
                     </Link>
 
                     <Download song={song} />
 
-                    <button onClick={(event) => {
+                   {/* <button onClick={(event) => {
                         event.stopPropagation();
                         openShareModal(song, event);
                     }}>
-                        <FaShareAlt size="1.5em" /> Share
-                    </button>
+                       <FaShareAlt size="1.5em" /> Share
+                    </button>  */}
                 </div>
             )}
         </div>
