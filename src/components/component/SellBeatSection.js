@@ -9,13 +9,15 @@ function SellBeatSection() {
         <ul>
             <li>No Setup or Monthly Fee</li>
             <li>Accept Bank card and Mobile Money Payment</li>
-            <li> upload unlimited beats</li>
+            <li> Upload unlimited beats</li>
             <li>Offer Unlimited free downloads</li>
-            <li>keep 70% of your earning per beat</li>
+            <li>keep 70% of your earning per transactions</li>
             <li>Right audience for your beats</li>
-            <li>get premium support</li>
+            <li>Get premium support</li>
+            <li>Dashboard Access</li>
+            <li>All this 100% FREE. No upfront payment needed</li>
              </ul>
-             <a href="link" class="buy-link">start selling</a>
+             <a class="buy-link">start selling</a>
     </div>
 
     <div class="sellbeat-container1">

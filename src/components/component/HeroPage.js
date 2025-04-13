@@ -8,7 +8,7 @@ function HeroPage() {
   useEffect(() => {
     const typed = new Typed(typedElement.current, {
       strings: [
-        "BeatHub is a Brand That Support Afrobeat Artist",
+        "Ur BeatHub is a Brand That Support African Artist",
         "Your Next Hit Start Here",
         "Your Sound Your Way: Quality Beats Wey Fit Everyone!",
       ],
@@ -26,12 +26,12 @@ function HeroPage() {
     <div className="HeroPage">
      
       <div>
-        <span ref={typedElement}></span>
+        <span className="Typed" ref={typedElement}></span>
       </div>
       <div className="HeroText">
         <h1>Turn Inspiration into Hits with High-Quality Instrumental.</h1>
         <h5>
-          Get high quality  instrumental beats made for artists and creators. Explore Amapiano, Afrobeat, Pop, Trap, Reggaeton and AfroFusion beats from top producers. Your next hit starts here.
+          Get high quality  instrumental beats made for artists and creators. Explore Amapiano, Afrobeat, Pop, Reggaeton and Trap beats from top producers. Your next hit starts here.
         </h5>
       </div>
     </div>
