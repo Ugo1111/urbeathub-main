@@ -98,7 +98,7 @@ margin-bottom: 25px;
  
   .beat-details{
     display: block;
-    width: 100%;
+    width: 100vw;
     
   }
   .beat-details h2{
@@ -169,6 +169,7 @@ height: 40px;
 
 
 .item-actions{
+  
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -267,14 +268,14 @@ gap: 20px;
   .image-placeholder img {
     max-width: 100%;
     height: 300px;
-    object-fit: cover;
+    object-fit: contain;
   }
   
   .image-placeholder {
     max-width: 80%;
     height: 300px;
-margin: 20px auto 20px auto;
-    border: 1px rgb(98, 98, 98) solid
+margin: 0 auto;
+    
     
   }
   
@@ -1107,7 +1108,9 @@ font-style: italic;
     max-width: 100%;   /* Remove max-width limit */
     align-items: center;
   }
-
+  input.thesong{
+    width: 70vw;
+  }
   .songBioSection {
     width: 90%;
     max-width: none;
@@ -1133,7 +1136,13 @@ font-style: italic;
     .beat-details h2{
       font-size: large;
     }
-    
+    .item-actions {
+      display: none;
+   }  
+   
+   .volume{
+    display: none;
+   } 
     }
     
     
@@ -1151,23 +1160,34 @@ font-style: italic;
       }
     
       .songBioSection {
-        width: 95%;
+        width: 100vw;
+      
       }
       .song{
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        
       
+      }
+      input.thesong{
+        width: 40vw;
       }
     
       .licensing-container h2,
       .beat-details h2 {
         font-size: medium;
       }
+      
+
+      .beat-details{
+width: 100vw;
+      }
+
       .usageTermList {
         font-size: small; 
         margin-bottom: 20px;}
     
-    
+        
         .licenses {
           grid-template-columns: repeat(1, 1fr);
         }
@@ -1209,9 +1229,12 @@ font-style: italic;
           background-color: #1e1c1c;
         border-radius: 5px;
         }      
-                 
-  body{
-    overflow-x: hidden;
+        .item-actions {
+           display: none;
+        }       
+       .volume{
+        display: none;
+       } 
   }               
       
       
@@ -1219,7 +1242,7 @@ font-style: italic;
       
       
        
-    }
+    
 
 
 

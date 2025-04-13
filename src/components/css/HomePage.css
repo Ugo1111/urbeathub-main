@@ -844,7 +844,7 @@ flex-direction: row;
 
   .HeroText h1 {
     width: 90vw;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #db3056;
     font-weight: bold;
     text-align: center;
@@ -853,6 +853,7 @@ flex-direction: row;
 
   .HeroText h5 {
     width: 95vw;
+    max-width: 60ch;
     font-size: 0.69rem;
     color: #ffffff;
     text-align: center;

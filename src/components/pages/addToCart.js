@@ -171,7 +171,7 @@ function Mp3player({
           />
           <span>{formatTime(duration)}</span>
           <audio ref={audioRef} src={song.musicUrls?.taggedMp3} />
-          <input
+          <input className="volume"
             type="range"
             min="0"
             max="1"
