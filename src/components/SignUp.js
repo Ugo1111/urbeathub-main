@@ -1,42 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { signUp } from "../firebase/authFunctions";  // Assuming you have your signUp function in this file
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import React, { useState } from "react";
+import { signUp } from "../firebase/authFunctions"; // Ensure correct import path
 import { useNavigate, Link } from "react-router-dom";
+import Modal from "./Modal"; // Import the reusable Modal component
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");  // New state for username
-  const [error, setError] = useState(null); // State to handle errors
-  const [IsProducer, setIsProducer] = useState(""); // State for IsProducer
+  const [username, setUsername] = useState(""); // New state for username
+  const [IsProducer, setIsProducer] = useState(false); // State for IsProducer
+  const [errorModal, setErrorModal] = useState({ show: false, message: "" }); // State for error modal
   const navigate = useNavigate();
-  const [auth, setAuth] = useState(null);  // State to hold auth object
-
-  // Initialize auth when component mounts
-  useEffect(() => {
-    const authInstance = getAuth(); // Initialize auth here
-    setAuth(authInstance); // Set auth state
-
-    const unsubscribe = onAuthStateChanged(authInstance, (user) => {
-      if (user) {
-        navigate("/"); // Redirect if user is already authenticated
-      }
-    });
-
-    return () => unsubscribe(); // Clean up subscription
-  }, [navigate]);
 
   const handleSignUp = async () => {
-    if (!auth) return; // Ensure auth is initialized
     try {
-      setError(null); // Clear any previous errors
-      const userCredential = await signUp(email, password, username, IsProducer); // Pass IsProducer along with other values
-      if (userCredential) {
-        navigate("/"); // Redirect on successful sign-up
+      setErrorModal({ show: false, message: "" }); // Clear any previous errors
+      const { user, requiresVerification } = await signUp(email, password, username, IsProducer);
+      if (requiresVerification) {
+        setErrorModal({
+          show: true,
+          message: "Sign-up successful! A verification email has been sent to your email address. Please verify your email before logging in.",
+        });
+        navigate("/loginPage"); // Redirect to login page after sign-up
       }
     } catch (error) {
-      setError(error.message); // Capture and display error
+      setErrorModal({ show: true, message: error.message }); // Show error modal
     }
+  };
+
+  const handleErrorModalClose = () => {
+    setErrorModal({ show: false, message: "" }); // Close the error modal
   };
 
   return (
@@ -50,7 +42,14 @@ const SignUp = () => {
       </a>
 
       <h1 className="login-title">Sign Up</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>} {/* Display error */}
+      {errorModal.show && (
+        <Modal
+          title="Sign-Up Message"
+          message={errorModal.message}
+          onConfirm={handleErrorModalClose}
+          confirmText="Close"
+        />
+      )}
       <input
         className="login-email"
         type="email"
@@ -68,7 +67,7 @@ const SignUp = () => {
       />
       <br />
       <input
-        className="login-username"  // New input field for username
+        className="login-username" // New input field for username
         type="text"
         placeholder="Username"
         value={username}
@@ -76,28 +75,26 @@ const SignUp = () => {
       />
       <br />
       <div className="radio-group-container">
- <div className="radio-group">
-        <input
-          type="radio"
-          id="sellBeats"
-          name="IsProducer"
-          value="true"
-          checked={IsProducer === "true"}
-          onChange={(e) => setIsProducer(e.target.value)}
-        />
-        <label htmlFor="sellBeats">Sell Beats</label>
-      </div>
-      <div className="radio-group">
-        <input
-          type="radio"
-          id="buyBrowse"
-          name="IsProducer"
-          value="false"
-          checked={IsProducer === "false"}
-          onChange={(e) => setIsProducer(e.target.value)}
-        />
-        <label htmlFor="buyBrowse">Buy and Browse</label>
-      </div>
+        <div className="radio-group">
+          <input
+            type="radio"
+            id="sellBeats"
+            name="IsProducer"
+            checked={IsProducer === true}
+            onChange={() => setIsProducer(true)}
+          />
+          <label htmlFor="sellBeats">Sell Beats</label>
+        </div>
+        <div className="radio-group">
+          <input
+            type="radio"
+            id="buyBrowse"
+            name="IsProducer"
+            checked={IsProducer === false}
+            onChange={() => setIsProducer(false)}
+          />
+          <label htmlFor="buyBrowse">Buy and Browse</label>
+        </div>
       </div>
       <button className="login-button" onClick={handleSignUp}>
         Sign Up

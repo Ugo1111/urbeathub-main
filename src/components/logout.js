@@ -5,7 +5,7 @@ const Logout = () => {
   const handleLogout = () => {
     logout()
       .then(() => {
-        alert("Successfully logged out!");
+        // alert("Successfully logged out!");
       })
       .catch((error) => {
         console.error("Logout Error:", error.message);
