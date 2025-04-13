@@ -57,6 +57,22 @@
   .avatar:hover {
     text-decoration: underline; /* Add hover effect */
   }
+  .preview-image {
+    width: 100%; /* Make the image fit the width of the container */
+    height: 100%; /* Make the image fit the height of the container */
+    object-fit: cover; /* Ensure the image maintains its aspect ratio and fills the container */
+    border-radius: 10px; /* Optional: Add rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+  }
+.search-image{
+  width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-left: 100px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+}
 
   /* Ensure visibility on all screen sizes */
   @media (min-width: 768px) {
@@ -1042,13 +1058,6 @@ color:#ffffff;}
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
 }
 
-.search-image{
-  width: 100%; /* Make the image fit the width of the container */
-  height: 100%; /* Make the image fit the height of the container */
-  object-fit: cover; /* Ensure the image maintains its aspect ratio and fills the container */
-  border-radius: 10px; /* Optional: Add rounded corners */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
-}
 
 .accordion-container {
   display: flex;

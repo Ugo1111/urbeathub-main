@@ -58,20 +58,20 @@ const BeatsList = () => {
                 )}
             </div>
             {searchText && (
-                <div className="search-beats-results-container">
-                    <ul className="search-beats-ul">
+                <div className="search-beats-results-container">                                             
+                    <ul className="search-beats-ul">  
                         {filteredBeats.map(beat => (  
                             <li key={beat.id} className="search-beats-li">
-                                <Link to="/buysong" state={{ song: beat }} className="search-beats-li"
+                                <Link to="/buysong" state={{ song: beat }} className="search-beats-li"   
                                     onClick={() => setSearchText("")} // Clear searchText when clicking
                                 >
-                                    <img src={beat.coverUrl || djImage} alt="Cover Art Preview" className="preview-image" />
+                                    <img src={beat.coverUrl || djImage} alt="Cover Art Preview" className="search-image" />
                                     <div className="search-beats-results-metadata">
                                         <h3 className="search-beats-title">{beat.title}</h3>
                                         <p className="search-beats-bpm">BPM: {beat.metadata?.bpm}</p>
                                         <div className="search-beats-tags-container">
                                             {beat.metadata?.tags?.map((tag, index) => (
-                                                <span key={index} className="search-beats-taglist">
+                                                <span key={index} className="search-beats-taglist"> 
                                                     {tag}
                                                 </span>
                                             ))}
