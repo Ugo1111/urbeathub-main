@@ -60,14 +60,7 @@ flex-direction: row;
 gap: 20px;
 }
 
-.listimage{
-height: 60px;
-width: 60px;
-max-height: 90px;
-max-width: 90px;
-margin-left: 10px;
 
-}
 
 .FaCartShopping{
   size: 3.5em;

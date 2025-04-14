@@ -32,7 +32,7 @@ export default function MoreOptions({ song, openShareModal }) {
     return (
         <div className="dropdown">
             <button onClick={toggleDropdown} className="dropbtn">
-                <SlOptionsVertical size="1.5em" />
+                <SlOptionsVertical size="1em" />     
             </button>
             {isDropdownOpen && (
                 <div id="myDropdown" className="dropdown-content">

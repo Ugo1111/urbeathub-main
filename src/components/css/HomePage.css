@@ -28,7 +28,7 @@ body {margin: 0;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed; /* Makes the background sticky */
-  width: 100%;
+  width: 100vw;
   /* opacity: 0.2; */
   font-family: "Roboto", serif;
 }
@@ -145,18 +145,7 @@ overflow: hidden;
     /* .heroText{
 
     } */
-    .heroText h3{
-      text-align: center;
-color: #db3056;
-margin: 0px 0 35px 0;
-font-size: 2.3em;
-    }
-    .heroText h5{
-      margin: 10px 0 0px 0;
-      font-size: 0.8em;
-     
-
-    }
+    
 
 
 
@@ -178,7 +167,9 @@ font-size: 2.3em;
 color: #fff;
 margin-bottom: 250px;
    }
-
+.Typed{
+  font-size: 1.8rem;
+}
    
   .HeroText  h1{
     margin: 0 auto; 
@@ -207,17 +198,7 @@ margin-bottom: 250px;
 
 
 
-    .GroupC1{
-      font-family: "Roboto", serif;
-    
-      padding: 5px;
-      width: 90%;
-      height: 75vmin;
-      text-align: center;
-      position: relative;
-        z-index: 2;
-    }
-
+   
 
   
 
@@ -476,17 +457,17 @@ margin-bottom: 250px;
   display: flex;
   flex-direction: column;
   }
- 
-
- 
-
-    
   .GroupC1{
+    font-family: "Roboto", serif;
+  
+    text-align: center;
+    position: relative;
+      z-index: 2;
     font-size: large;
-      padding: 15px;
+      padding: 20px;
       background-color: #181818;
       width: 70%;
-      height: 15vmin;
+      height: 20vmin;
     display: flex;
 
   }
@@ -499,15 +480,16 @@ margin-bottom: 250px;
       height: fit-content;
       padding: 15px;
       gap: 20;
+
       position: relative;
       z-index: 2;
   }
   
   .market button:not(.songlist-addtochart)  {
 
-    gap: 10;
+    
     padding: 10px;
-    margin-left: 5px;
+    margin-left: 2px;
     background-color:#26262600;
 
     color: #ccc;
@@ -552,7 +534,8 @@ margin-bottom: 250px;
 
 
   .controllerB2 span{
-font-size: medium;  }
+font-size: medium;
+  }
 
     .controllerB2{  
       flex: 1;
@@ -561,6 +544,7 @@ font-size: medium;  }
     display: flex;
   align-items: center;
   align-content: center;
+  
     /* padding: 0 10px 10px 10px; */
   }
   
@@ -569,7 +553,8 @@ font-size: medium;  }
     border: #eaeaea1f 0.5px solid;
     height: 100%;
     color: #9a9a9a;
-    margin: 0 0 0 2px ;    }
+    
+      }
   
 
     .controllerB3 button:hover{
@@ -578,19 +563,16 @@ font-size: medium;  }
 
 
   .controllerB3{
-    flex: 1;
+  display: flex;
  
-    display: flex;
-    
 flex-direction: row;
-  
-    /* margin-left: 8px; */
   }
 
   .volnav{
     background-color: #222222;
     display: flex;
     flex-direction: column;
+  
   }
 
 
@@ -733,24 +715,35 @@ flex-direction: row;
    
 
   .HeroPage {
-    width: 80%;
+    width: 90%;
+  }
+  .HeroPage div{
+    margin-bottom: 100px;
+  }
+  .Typed{
+    font-size: 1rem;
   }
   .HeroText h1{
-     font-size: 2rem;
+    
+     font-size: 2.8rem;
  color: #db3056;
+ font-weight: bold;
+ margin-bottom: 30px;
 
 
   }
  
    .HeroText h5 {
-     font-size: 0.9em;
+    
+     font-size: 1em;
      color: #ffffff;
-     margin-bottom: 100px;
+     
    }
+
    .GroupC2{
     font-size: small;
     background-color: #181818;
-         width: 63%;
+         width: 90%;
          height: 35vmin;
          min-height: fit-content;
          padding: 15px;
@@ -771,7 +764,7 @@ flex-direction: row;
   
 
   .GroupC1{
-    width: 63%;
+    width: 90%;
     height: 25vmin;
   
   }
@@ -781,7 +774,7 @@ flex-direction: row;
     max-width: 25%;
     min-height: auto; /* Allow height to adjust */
   }
-}
+
 
 .musicControlerA img {
   max-width: 100%;
@@ -811,85 +804,101 @@ flex-direction: row;
   width: 50%;
   
 }
-.newsletter {
-  flex-direction: column; 
-  align-items: center;
-}
-
-.newsletter1 {
-  border-right: none; 
-  padding-bottom: 20px; 
-}
 
 .submit-button {
   width: 80%; 
 }
 
-  
+.songlist-addtochart{
+  width: 60px;
+}
+
+
+}  
  
 
 
  /*mobile phone responsiveness */
 
- @media (max-width: 600px) {
+ 
+
+  
+ 
+
+
+
+
+
+@media (max-width: 480px) {
+
   .HeroPage {
-      width: 80%;
+    width: 95vw;
+    }
+  .Typed{
+    font-size: 0.6rem;
   }
-  
-  
+
+  .HeroPage div{
+    margin-bottom: 100px;
+  }
 
   .HeroText h1 {
-    font-size: 2rem; /* Adjust for smaller screens */
-    word-break: break-word;
-    overflow-wrap: break-word;
+    width: 90vw;
+    font-size: 1.2rem;
+    color: #db3056;
+    font-weight: bold;
     text-align: center;
-    width: 90%;
+    margin-bottom: 30px;
   }
 
   .HeroText h5 {
-    font-size: 0.8rem; /* Reduce size */
-   word-break: break-word;
-    overflow-wrap: break-word;
+    width: 95vw;
+    max-width: 60ch;
+    font-size: 0.69rem;
+    color: #ffffff;
     text-align: center;
-    width: 80%;
-    margin-bottom: 100px;
-
+    margin-top: 40px;
   }
-  .HeroPage div {
-    
-      font-size: 0.8rem;
-  }
-  .GroupC2{
 
+  .GroupC2 {
+    font-size: 0.85rem;
     background-color: #181818;
-         width: 70%;
-         height: 35vmin;
-         min-height: fit-content;
-         padding: 15px;
-         gap: 20px;
-         white-space: nowrap; 
+    width: 95vw;
+    height: auto;
+    min-height: fit-content;
+    padding: 1rem;
+    gap: 0.5rem;
+    white-space: nowrap;
     text-overflow: ellipsis;
-     }
+    overflow: hidden;
+    box-sizing: border-box;
+  
+  }
 
-     .songListTitle{
-      white-space: nowrap; 
-      overflow: hidden;
-      text-overflow: ellipsis; 
-     }
+  .GroupC1{
+    margin-top: 60px;
+    width: 95vw;
+    height: 40vmin;
+  }
+
   .songlist-taglist{
     display: none;
   }
 
-  .GroupC1{
-    width: 70%;
-    height: 30vmin;
-  }
-  .controllerB1 h4{
-    white-space: nowrap; 
-    overflow: hidden; 
+  .songListTitle {
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 0.85rem;
   }
-  
+
+  .musicControlerA {
+    min-width: 100vw;
+    max-width: 100vw;
+    min-height: auto;
+    padding: 1rem 0;
+  }
+
   .musicControlerA {
     min-width: 25%; /* Increase width for smaller screens */
     max-width: 25%;
@@ -901,7 +910,7 @@ flex-direction: row;
   max-width: 100%;
   max-height: 110%;
   object-fit: contain;
-  width: 100%; /* Scale the image width to the container */
+  width: 100vw; /* Scale the image width to the container */
   height: 100%;
 }
 
@@ -921,136 +930,26 @@ flex-direction: row;
   border-radius: 10px;
 }
 
-.playIcon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  cursor: pointer;
-  background-color: rgba(223, 37, 37, 0.5);
-  border: none;
-  border-radius: 50%;
-  width: 50%;
-  height: 50%;
-}
+  .playIcon {
+    width: 40%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
 
-.progress{
-  width: 50%;
+  .progress {
+    width: 100%;
+  }
+
+  .submit-button {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .songlist-addtochart {
+    width: 50px;
+    height: 40px;;
+  }
   
-}
-.songlist-addtochart{
-  width: 50px;
-}
- }
-
-@media (max-width: 480px) {
-  
-  .homepageWrapper{
-    margin-left: 10%;
-  }
-
-
-  .HeroPage {
-    width: 50%;
-  }
-
-  .HeroText h1 {
-    font-size: large; /* Further adjust for very small screens */
-    word-break: break-word;
-    overflow-wrap: break-word;
-    text-align: center;
-    width: 90%;
-  }
-
-  .HeroText h5 {
-    font-size: 1rem; /* Further adjust font size */
-    word-break: break-word;
-    overflow-wrap: break-word;
-    text-align: center;
-    width: 80%;
-    margin-bottom: 50px; /* Adjust bottom margin */
-  }
-
-  .GroupC2 {
-    width: 50%; /* Full width for very small screens */
-    height: 35vmin;
-    padding: 10px;
-    gap: 10px; /* Adjust gap */
-    
-    
-  }
-
-  .songListTitle {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .GroupC1 {
-    width: 50%; /* Full width */
-    height: 30vmin;
-    margin-top: 20%;
-    
-  }
-
-  .musicControlerA {
-    min-width: 30%; /* Adjust to 30% width */
-    max-width: 30%;
-    min-height: auto;
-  }
-
-  .controllerB1 h4 {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  
-}
-
-.musicControlerA img {
-  max-width: 100%;
-  max-height: 110%;
-  object-fit: contain;
-  width: 100%;
-  height: 100%;
-}
-
-.imageWrapper {
-  position: relative;
-  display: inline-block;
-  height: 100%;
-  width: 100%; /* Full width for smaller screens */
-  border-radius: 1px;
-  overflow: hidden;
-}
-
-.imageWrapper img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 10px;
-}
-
-.playIcon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  cursor: pointer;
-  background-color: rgba(223, 37, 37, 0.5);
-  border: none;
-  border-radius: 50%;
-  width: 50%;
-  height: 50%;
-}
-
-.progress {
-  width: 50%;
-}
-.songlist-addtochart{
-  width: 50px;
-}
-
 }

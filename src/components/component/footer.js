@@ -5,7 +5,7 @@ export function GroupF() {
           <div className="footer-container">
             <img src="/beathub1.PNG" alt="logo" />
             <p>
-              Discover the beats that set the tone <br />for your 
+              Discover high quality instrumental beats that set <br></br>the tone for your 
               next hit. For custom beats<br /> and exclusive rights,
               get in touch with us.
             </p>
@@ -18,7 +18,7 @@ export function GroupF() {
               <a href="/Licensedetails" target="_blank">License</a>
             </p>
             <p>
-              <a href="link">Start Selling</a>
+              <a>Start Selling</a>
             </p>
             <p>
               <a href="/privacy" target="_blank">Privacy Policy</a>
@@ -74,8 +74,8 @@ export function GroupF() {
     return (
       <footer className="footer">
         {/*Group Cb */}
-        <p>BeatHub is a Brand That Support African Musicians</p>
-        <p>COPYRIGHT BEATHUB 2025</p>
+        <p>Ur BeatHub is a Brand That Support African Musicians</p>
+        <p>Copyright © urbeathub.com 2025</p>
       </footer>
     );
   }

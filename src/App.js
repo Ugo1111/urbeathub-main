@@ -79,7 +79,7 @@ function App() {
         } />
       </Routes>
       <CookieConsent
-        debug={true}
+       
         location="bottom"
         buttonText="Accept"
         cookieName="myAwesomeCookieName2"
