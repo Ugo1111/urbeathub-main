@@ -126,11 +126,14 @@ function HomePage() {
   ref={audioRef}
   onCanPlay={() => {
     if (isPlaying && audioRef.current) {
-      audioRef.current.play().catch((error) => console.error("Playback failed:", error));
+      // Ensure audioRef.current is not null before calling play
+      audioRef.current
+        .play()
+        .catch((error) => console.error("Playback failed:", error));
     }
-  }} // Auto-play when ready
-  onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
-  onLoadedMetadata={() => setDuration(audioRef.current.duration)}
+  }}
+  onTimeUpdate={() => setCurrentTime(audioRef.current?.currentTime || 0)} // Add optional chaining
+  onLoadedMetadata={() => setDuration(audioRef.current?.duration || 0)} // Add optional chaining
   onEnded={playNext}
 />
 

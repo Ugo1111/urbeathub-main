@@ -55,7 +55,7 @@ export default function RecomendationComponent() {
     <div className="recomendation-list-container">
       {songs.map((song, index) => (
         <span key={index} className="recomendation-list">
-            <Link to="/buysong" state={{ song }} className="recomendation-" onClick={() => {
+            <Link to="/addToCart" state={{ song }} className="recomendation-" onClick={() => {
     // Scroll to the top of the page
     window.scrollTo({ top: 0, behavior: "smooth" });
   }}>

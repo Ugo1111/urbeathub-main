@@ -46,7 +46,7 @@ function AddToCart() {
       audio.pause();
     } else {
       if (!audio.src) {
-        audio.src = song.musicUrls?.mp3; // Set the audio source if not already set
+        audio.src = song.musicUrls?.taggedMp3; // Set the audio source if not already set
         audio.load(); // Load the audio source
       }
       audio.play().catch((error) => console.error("Playback failed:", error));

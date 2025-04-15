@@ -102,6 +102,11 @@ const Login = () => {
           Sign Up Here
         </Link>
       </div>
+      <div>
+        <Link to="/forgotPassword" className="avatar2">
+          Forgot Password?
+        </Link>
+      </div>
     </div>
   );
 };
