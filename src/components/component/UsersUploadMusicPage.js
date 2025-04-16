@@ -140,18 +140,18 @@ const UsersUploadMusicPage = () => {
       setBeatId(newDocRef.id);
 
       const storagePath = `beats/${newDocRef.id}`;
-      const musicRefMp3 = audioFileMp3 ? ref(storage, `${storagePath}/${audioFileMp3.name}`) : null;
-      const musicRefWav = audioFileWav ? ref(storage, `${storagePath}/${audioFileWav.name}`) : null;
+      const musicRefMp3 = ref(storage, `${storagePath}/${audioFileMp3.name}`);
+      const musicRefWav = ref(storage, `${storagePath}/${audioFileWav.name}`);
       const coverRef = coverArt ? ref(storage, `${storagePath}/${coverArt.name}`) : null;
-      const musicRefTaggedMp3 = processedAudioFile ? ref(storage, `${storagePath}/${processedAudioFile.name}`) : null;
-      const zipRef = zipFile ? ref(storage, `${storagePath}/${zipFile.name}`) : null; // Add ZIP file reference
+      const musicRefTaggedMp3 = ref(storage, `${storagePath}/${processedAudioFile.name}`);
+      const zipRef = zipFile ? ref(storage, `${storagePath}/${zipFile.name}`) : null;
 
       const uploadTasks = [
-        musicRefMp3 && uploadBytesResumable(musicRefMp3, audioFileMp3),
-        musicRefWav && uploadBytesResumable(musicRefWav, audioFileWav),
+        uploadBytesResumable(musicRefMp3, audioFileMp3),
+        uploadBytesResumable(musicRefWav, audioFileWav),
         coverRef && uploadBytesResumable(coverRef, coverArt),
-        musicRefTaggedMp3 && uploadBytesResumable(musicRefTaggedMp3, processedAudioFile),
-        zipRef && uploadBytesResumable(zipRef, zipFile), // Add ZIP file upload task
+        uploadBytesResumable(musicRefTaggedMp3, processedAudioFile),
+        zipRef && uploadBytesResumable(zipRef, zipFile),
       ].filter(Boolean);
 
       uploadTasks.forEach((task) => {
@@ -162,16 +162,20 @@ const UsersUploadMusicPage = () => {
 
       await Promise.all(uploadTasks);
 
-      const musicUrlMp3 = musicRefMp3 ? await getDownloadURL(musicRefMp3) : "";
-      const musicUrlWav = musicRefWav ? await getDownloadURL(musicRefWav) : "";
+      const musicUrlMp3 = await getDownloadURL(musicRefMp3);
+      const musicUrlWav = await getDownloadURL(musicRefWav);
       const coverUrl = coverRef ? await getDownloadURL(coverRef) : "";
-      const musicUrlTaggedMp3 = musicRefTaggedMp3 ? await getDownloadURL(musicRefTaggedMp3) : "";
-      const zipUrl = zipRef ? await getDownloadURL(zipRef) : ""; // Get ZIP file URL
+      const musicUrlTaggedMp3 = await getDownloadURL(musicRefTaggedMp3);
+      const zipUrl = zipRef ? await getDownloadURL(zipRef) : "";
 
       await updateDoc(newDocRef, {
-        musicUrls: { mp3: musicUrlMp3, wav: musicUrlWav, taggedMp3: musicUrlTaggedMp3, zipUrl: zipUrl }, // Update with ZIP file URL
+        musicUrls: {
+          mp3: musicUrlMp3,
+          wav: musicUrlWav,
+          taggedMp3: musicUrlTaggedMp3,
+          zipUrl: zipUrl || "",
+        },
         coverUrl,
-      
       });
 
       setIsUploadComplete(true); // Mark upload as complete

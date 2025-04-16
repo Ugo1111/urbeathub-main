@@ -66,10 +66,26 @@ function MusicPlayer({
             onChange={handleVolumeChange} 
           />
 
-<div className="volnav">
-  <button onClick={increaseVolume} style={{ fontSize: "1em" }}>+</button>
-  <button onClick={decreaseVolume} style={{ fontSize: "1em" }}>-</button>
-</div>
+          <div className="volnav">
+            <button 
+              onClick={() => {
+                const newVolume = Math.min(1, volume + 0.1);
+                handleVolumeChange({ target: { value: newVolume } }); // Adjust volume and slider
+              }} 
+              style={{ fontSize: "1em" }}
+            >
+              +
+            </button>
+            <button 
+              onClick={() => {
+                const newVolume = Math.max(0, volume - 0.1);
+                handleVolumeChange({ target: { value: newVolume } }); // Adjust volume and slider
+              }} 
+              style={{ fontSize: "1em" }}
+            >
+              -
+            </button>
+          </div>
         </div>
       </div>
     </div>
