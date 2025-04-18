@@ -672,6 +672,7 @@ border-radius: 50%;
   padding: 20px;
   background-color: gray;
   width: 100vw;
+  margin-top: 20px;
   border-bottom: #ffffff 2px dashed;
   position: relative;
   z-index: 2;
@@ -720,120 +721,6 @@ text-align: left;}
 
 .buy-link:hover{background-color:gray;
 color:#ffffff;}
-
-
-
-
-.hero2 {
-  display: flex;
-  flex-direction: row; 
-  align-items: flex-start;
-  justify-content: center; 
-  padding: 20px;
-  width: 100vw;
-  margin-top: 20px;
-  border-bottom: #ffffff 2px dashed;
-  background-color: gray;
-  position: relative;
-  z-index: 2;
-}
-
-.hero2-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url(../../../public/images/Mixer.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.1;
-  z-index: 1;
-}
-
-.hero2-wrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  z-index: 2;
-  gap: 40px;
-  max-width: 1200px;
-  margin: 0 auto;
-  flex-wrap: wrap;
-}
-
-/* Slide-in Animation Keyframes */
-@keyframes slideIn {
-  0% {
-    opacity: 1;
-    transform: translateX(-50px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Animation added to image and text containers */
-.hero2-container {
-  animation: slideIn 0.2s ease-out forwards;
-  animation-delay: 3s;
-  opacity: 1;
-}
-
-.hero2-container1 {
-  animation: slideIn 0.2s ease-out forwards;
-  animation-delay: 3s;
-  opacity: 1;
-}
-
-.hero2-container img.mixer {
-  width: 100%;
-  max-width: 400px;
-  border-radius: 12px;
-}
-
-.hero2-container1 {
-  max-width: 600px;
-}
-
-.hero2-container1 h2 {
-  font-size: 1.5rem;
-  margin-bottom: 16px;
-  color: #ffffff;
-  text-align: center;
-}
-
-.hero2-container1 ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.hero2-container1 li {
-  position: relative;
-  padding-left: 50px;
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-  color: #ffffff;
-  line-height: 1.4;
-}
-
-.hero2-container1 li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 60px;
-  height: 60px;
-  background-image: url(../../../public/images/icon.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
 
 .radio-group-container {
   display: flex;
@@ -1198,10 +1085,5 @@ color:#ffffff;}
      .startselling{
       display: none;
      }
-     .hero2-container1 h2{
-      font-size: 1rem;
-     } 
-     .hero2-container1 li{
-      font-size: 0.9rem
-     }
+     
 }

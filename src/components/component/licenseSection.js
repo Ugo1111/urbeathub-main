@@ -175,7 +175,7 @@ export default function LicensingSection({ song, addToCart }) {
 
       <hr />
       <div className="usageTermHeader">
-        <h3 className="usageTermHeaderh3">The terms</h3>
+        <h3 className="usageTermHeaderh3">Usage Terms</h3>
         <button onClick={() => setAccordionOpen(!accordionOpen)}>
           {accordionOpen ? <FaChevronUp size="1.5em" /> : <FaChevronDown size="1.5em" />}
         </button>

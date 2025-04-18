@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { db, auth } from "../../firebase/firebase"; // Import Firebase
 import { collection, query, where, getDocs, doc } from "firebase/firestore"; // Firestore functions
 import { onAuthStateChanged } from "firebase/auth"; // Firebase Auth
-import { Helmet } from 'react-helmet';
 
 const DashboardComponent = () => {
   const [user, setUser] = useState(null);
@@ -78,10 +77,6 @@ const DashboardComponent = () => {
   };
 
   return (
-    <div>
-    <Helmet>
-    <title>Dashboard | Ur Beathub</title>
-  </Helmet>
     <div className="dashboard-body">
     <div className="dashboard-container">
       <h1>Performance Dashboard</h1>
@@ -121,7 +116,6 @@ const DashboardComponent = () => {
           </div>
         </div>
       )}
-    </div>
     </div>
     </div>
   );
