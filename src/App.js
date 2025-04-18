@@ -27,6 +27,7 @@ import { MusicUploadProvider } from "./components/context/MusicUploadProvider";
 import "./App.css";
 import Privacy from "./components/pages/privacy";
 import Licensedetails from "./components/pages/Licensedetails";
+import Startsellingpage from "./components/pages/startsellingpage";
 import Refundpolicy from "./components/pages/Refundpolicy";
 import CookieConsent from "react-cookie-consent";
 
@@ -65,6 +66,7 @@ function App() {
         <Route path="/PageTwo" element={<PageTwo />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/Licensedetails" element={<Licensedetails />} />
+        <Route path="/startsellingpage" element={<Startsellingpage />} />
         <Route path="/Refundpolicy" element={<Refundpolicy />} />
         <Route path="/EditTrackPage" element={<EditTrackPage />} />
         <Route path="/usersUploadMusicPage" element={
