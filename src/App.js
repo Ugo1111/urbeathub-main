@@ -30,7 +30,7 @@ import Licensedetails from "./components/pages/Licensedetails";
 import Startsellingpage from "./components/pages/startsellingpage";
 import Refundpolicy from "./components/pages/Refundpolicy";
 import CookieConsent from "react-cookie-consent";
-
+import ForgotPassword from "./components/ForgotPassword"; // Import the ForgotPassword component
 
 // Initialize Google Analytics
 ReactGA.initialize('G-8Q9JH9G3KH');
@@ -79,6 +79,7 @@ function App() {
             <TabPage />
           </MusicUploadProvider>
         } />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
       </Routes>
       <CookieConsent
        

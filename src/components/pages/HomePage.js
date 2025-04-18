@@ -38,6 +38,12 @@ function HomePage() {
     fetchMusic();
   }, []);
 
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume; // Sync default volume
+    }
+  }, [volume]);
+
   const playSong = (index) => {
     if (!songs[index]) {
       console.error("Song not found at index:", index);
@@ -64,9 +70,11 @@ function HomePage() {
     audioRef.current.load(); // Reload to ensure we have the latest song URL
 
     audioRef.current.oncanplaythrough = () => {
-      audioRef.current
-        .play()
-        .catch((error) => console.error("Playback failed:", error));
+      if (audioRef.current) {
+        audioRef.current
+          .play()
+          .catch((error) => console.error("Playback failed:", error));
+      }
     };
   };
 
@@ -86,8 +94,15 @@ function HomePage() {
     setIsPlaying(!isPlaying); // Toggle the state for play/pause
   };
 
-  const playNext = useCallback(() => setCurrentIndex((currentIndex + 1) % songs.length), [currentIndex, songs.length]);
-  const playPrevious = useCallback(() => setCurrentIndex((currentIndex - 1 + songs.length) % songs.length), [currentIndex, songs.length]);
+  const playNext = useCallback(() => {
+    const nextIndex = (currentIndex + 1) % songs.length;
+    playSong(nextIndex);
+  }, [currentIndex, songs]);
+
+  const playPrevious = useCallback(() => {
+    const prevIndex = (currentIndex - 1 + songs.length) % songs.length;
+    playSong(prevIndex);
+  }, [currentIndex, songs]);
 
   const formatTime = (time) => `${Math.floor(time / 60)}:${("0" + Math.floor(time % 60)).slice(-2)}`;
   const handleSliderChange = useCallback((e) => { audioRef.current.currentTime = e.target.value; setCurrentTime(e.target.value); }, []);

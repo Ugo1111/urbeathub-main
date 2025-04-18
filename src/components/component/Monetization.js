@@ -30,7 +30,8 @@ const Monetization = () => {
         setHandlePublish(() => handlePublish);
     }, [setHandlePublish, handlePublish]);
 
-    const toggleLicense = (license) => {
+    const toggleLicense = (license, event) => {
+        event.preventDefault(); // Prevent default behavior
         setMonetization((prev) => ({
             ...prev,
             [license]: { ...prev[license], enabled: !prev[license].enabled },
@@ -61,7 +62,7 @@ const Monetization = () => {
                             />
                         </div>
                     )}
-                    <button onClick={() => toggleLicense(key)}>
+                    <button onClick={(e) => toggleLicense(key, e)}>
                         {enabled ? "On ✅" : "Off ❌"}
                     </button>
                 </div>

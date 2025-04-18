@@ -61,12 +61,19 @@ const AuthState = ({ fontSize = "1em" }) => {
           const userDocRef = doc(db, "beatHubUsers", currentUser.uid); // Reference to the user's document
           const userDoc = await getDoc(userDocRef);
           if (userDoc.exists()) {
-            setIsProducer(userDoc.data().IsProducer === true); // Check if IsProducer is true
+            const isProducerValue = !!userDoc.data().IsProducer; // Ensure boolean value
+            console.log("Fetched IsProducer:", isProducerValue); // Debug log
+            setIsProducer(isProducerValue); // Update state with boolean
+          } else {
+            console.log("User document does not exist. Defaulting IsProducer to false.");
+            setIsProducer(false); // Default to false if no document exists
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
+          setIsProducer(false); // Default to false on error
         }
       } else {
+        console.log("No user logged in. Resetting IsProducer to false.");
         setUser(null);
         setIsProducer(false); // Reset producer state if no user
       }
@@ -75,10 +82,17 @@ const AuthState = ({ fontSize = "1em" }) => {
     return () => unsubscribe(); // Cleanup on unmount
   }, []);
 
+  useEffect(() => {
+    console.log("AuthState Rendered - user:", user, "isProducer:", isProducer); // Debug log
+  }, [user, isProducer]);
+
   const handleStartSelling = async () => {
-    if (user) {
-      setShowModal(true); // Show the confirmation modal
+    if (!user) {
+      navigate("/signUpPage"); // Redirect to sign-up page if user is not signed in
+      return;
     }
+
+    setShowModal(true); // Show the confirmation modal if user is signed in
   };
 
   const handleModalConfirm = async () => {
@@ -109,6 +123,11 @@ const AuthState = ({ fontSize = "1em" }) => {
       {user ? (
         <div className="profile-dropdown">
           <Profile user={user} /> {/* Ensure Profile renders correctly */}
+          {!isProducer && ( // Ensure button is visible only if user is logged in and not a producer
+            <button className="startselling" onClick={handleStartSelling}>
+              Start Selling
+            </button>
+          )}
         </div>
       ) : (
         <div className="auth-buttons-container"> 
@@ -118,11 +137,9 @@ const AuthState = ({ fontSize = "1em" }) => {
           <Link to="/signUpPage" className="avatar">
             Sign Up
           </Link>
-          {!isProducer && ( // Conditionally render the button if the user is not a producer
-            <button className="startselling" onClick={handleStartSelling}>
-              Start Selling
-            </button>
-          )}
+          <button className="startselling" onClick={handleStartSelling}>
+            Start Selling
+          </button>
         </div>
       )}
       {showModal && (

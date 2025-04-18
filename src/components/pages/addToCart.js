@@ -47,7 +47,7 @@ function AddToCart() {
       audio.pause();
     } else {
       if (!audio.src) {
-        audio.src = song.musicUrls?.mp3; // Set the audio source if not already set
+        audio.src = song.musicUrls?.taggedMp3; // Set the audio source if not already set
         audio.load(); // Load the audio source
       }
       audio.play().catch((error) => console.error("Playback failed:", error));
@@ -241,16 +241,16 @@ function SongBio({ song }) {
       <h3 style={{ padding: "10px", textAlign: "center" }}>{song.title}</h3>
 
       <span className="item-actions">
-        <div>
+        {/* <div>
           <FaPlay size="1.5em" />
           <div>{song.playCount}</div>
-        </div>
+        </div> */}
 
         <div>
           <LikeButton size="1.5em" songId={song.id} />
         </div>
 
-        <div>
+        {/* <div>
           <FaShareAlt size="1.5em" color="blue" onClick={handleShareClick} />
           <div>{song.playCount}</div>
         </div>
@@ -258,7 +258,7 @@ function SongBio({ song }) {
         <div>
           <RiAddLargeFill size="1.5em" style={{ color: "red" }} />
           <div>{song.playCount}</div>
-        </div>
+        </div> */}
       </span>
 
       <a
