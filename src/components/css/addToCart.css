@@ -273,7 +273,7 @@ gap: 20px;
   .image-placeholder {
     max-width: 80%;
     height: 300px;
-margin: 10px auto;
+margin: 20px auto;
   
     
   }
@@ -1024,7 +1024,7 @@ font-style: italic;
   padding: 20px;
   border-radius: 10px;
   width: 100vw;
-  height: 270vh;
+  height: 300vh;
   margin: auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -1224,6 +1224,16 @@ font-style: italic;
   }
   .item-actions{
     display: none;
+  }
+  .beatlicenses {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100vw;
+    height: 300vh;
+    height:fit-content;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   }               
       

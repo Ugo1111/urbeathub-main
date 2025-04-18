@@ -6,6 +6,7 @@ import { Profilepicture } from "../AuthState";
 import GroupA from "../component/header.js";
 import { GroupE, GroupF, GroupG } from "../component/footer.js";
 import { TbSend } from "react-icons/tb";
+import { Helmet } from 'react-helmet';
 import {
   FaPlay,
   FaShareAlt,
@@ -104,6 +105,9 @@ function AddToCart() {
 
   return (
     <>
+     <Helmet>
+        <title>Add to Cart</title>
+      </Helmet>
       <GroupA />
       <div className="theMainContainer">
         <div className="container">
