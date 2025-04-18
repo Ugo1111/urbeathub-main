@@ -1098,6 +1098,105 @@ font-style: italic;
   text-decoration: underline;
 }
 
+.video-wrap{
+  position: relative;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gradient
+}
+
+
+.video-wrap h1{
+  position: absolute;
+  bottom: 100px;
+  z-index: 2;
+  color: #ffffff;
+  font-size: 3rem;
+  text-align: center;
+  padding: 20px;
+}
+
+.video-wrap p{
+  position: absolute;
+  bottom: 40px;
+  z-index: 2;
+  color: #ffffff;
+  font-size: 1rem;
+  text-align: center;
+  padding: 20px;
+}
+.start-selling-button{
+  position: absolute;
+  bottom: 0;
+  z-index: 2;
+  background-color: #db3056;
+  color: #ffffff;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  font-size: 1rem;
+  border: none;
+}
+
+.video-wrap video{
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  
+  width: 100%; /* Ensure the video covers the container */
+  height: 50vh; /* Ensure the video covers the container */
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
+}
+.why-sell-beat {
+  width: 100%;
+  padding: 4rem 2rem;
+  background-color: #111; /* Dark background */
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.why-sell-beat-container {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap; /* Allows stacking on small screens */
+  max-width: 1000px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.why-sell-beat-box {
+  background-color: #1c1c1c;
+  padding: 2rem;
+  border-radius: 1rem;
+  flex: 1 1 45%; /* Responsive: take 45% of the row */
+  min-width: 250px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease;
+}
+
+.why-sell-beat-box:hover {
+  transform: translateY(-5px);
+}
+
+.why-sell-beat-box h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.why-sell-beat-box p {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+
+
+
+
+
+
 
 /* responsive mode */
 
@@ -1235,14 +1334,14 @@ font-style: italic;
     margin: auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  }               
-      
-      
-        
-      
-      
-       
-    
+  }
+
+
+
+
+
+
+
 
 
 
