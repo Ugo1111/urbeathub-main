@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../firebase/firebase";
-import { collection, addDoc, updateDoc, Timestamp } from "firebase/firestore";
+import { collection, addDoc, updateDoc, Timestamp, query, where, getDocs, doc, getDoc } from "firebase/firestore"; // Import Firestore query functions
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useMusicUploadContext } from "../context/MusicUploadProvider";
 import AudioTagger from "../pages/PageOne"; // Import AudioTagger component
@@ -26,6 +26,7 @@ const UsersUploadMusicPage = () => {
 
   const [email, setEmail] = useState("");
   const [uid, setUid] = useState("");
+  const [username, setUsername] = useState(""); // State to store username
   const [isEditMode, setIsEditMode] = useState(false);
   const [progress, setProgress] = useState(0);
   const [zipFile, setZipFile] = useState(null);
@@ -36,13 +37,28 @@ const UsersUploadMusicPage = () => {
 
   const navigate = useNavigate(); // Initialize navigate
 
-  // Fetch logged-in user info
+  // Fetch logged-in user info and username from Firestore
   useEffect(() => {
     const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setEmail(user.email);
         setUid(user.uid);
+
+        try {
+          // Directly fetch the document using the UID
+          const userDocRef = doc(db, "beatHubUsers", user.uid);
+          const userDoc = await getDoc(userDocRef);
+
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            setUsername(userData.username || ""); // Set the username if found
+          } else {
+            console.warn("No user document found in beatHubUsers for the given UID.");
+          }
+        } catch (error) {
+          console.error("Error fetching username from Firestore:", error);
+        }
       }
     });
 
@@ -131,6 +147,7 @@ const UsersUploadMusicPage = () => {
         zipUrl: "", // Add a field for the ZIP file URL
         status: true,
         uploadedBy: email,
+        username, // Include the fetched username
         userId: uid,
         timestamp: Timestamp.now(),
         metadata, // Include metadata
@@ -193,7 +210,7 @@ const UsersUploadMusicPage = () => {
       alert("Upload failed. Make sure you have all required files uploaded.");
       setIsModalOpen(false); // Close the modal on error
     }
-  }, [musicTitle, email, audioFileMp3, audioFileWav, coverArt, processedAudioFile, zipFile, metadata, monetization, db, storage]);
+  }, [musicTitle, email, audioFileMp3, audioFileWav, coverArt, processedAudioFile, zipFile, metadata, monetization, db, storage, username, uid]);
 
   useEffect(() => {
     setUploadMusic(() => uploadMusic);

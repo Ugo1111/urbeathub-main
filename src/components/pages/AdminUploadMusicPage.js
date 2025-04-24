@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../firebase/firebase";
-import { collection, addDoc, updateDoc, Timestamp } from "firebase/firestore";
+import { collection, addDoc, updateDoc, Timestamp, doc, getDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useMusicUploadContext } from "../context/MusicUploadProvider";
 import AudioTagger from "./PageOne"; // Import AudioTagger component
@@ -24,19 +24,35 @@ const AdminUploadMusicPage = () => {
 
   const [email, setEmail] = useState("");
   const [uid, setUid] = useState("");
+  const [username, setUsername] = useState(""); // State to store username
   const [isEditMode, setIsEditMode] = useState(false);
   const [progress, setProgress] = useState(0);
   const [zipFile, setZipFile] = useState(null);
   const [audioFileSize, setAudioFileSize] = useState("");
   const [processedAudioFile, setProcessedAudioFile] = useState(null); // State to store processed audio file
 
-  // Fetch logged-in user info
+  // Fetch logged-in user info and username from Firestore
   useEffect(() => {
     const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setEmail(user.email);
         setUid(user.uid);
+
+        try {
+          // Directly fetch the document using the UID
+          const userDocRef = doc(db, "beatHubUsers", user.uid);
+          const userDoc = await getDoc(userDocRef);
+
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            setUsername(userData.username || ""); // Set the username if found
+          } else {
+            console.warn("No user document found in beatHubUsers for the given UID.");
+          }
+        } catch (error) {
+          console.error("Error fetching username from Firestore:", error);
+        }
       }
     });
 
@@ -119,8 +135,10 @@ const AdminUploadMusicPage = () => {
         title: musicTitle,
         musicUrls: {},
         coverUrl: "",
+        zipUrl: "", // Add a field for the ZIP file URL
         status: true,
         uploadedBy: email,
+        username, // Include the fetched username
         userId: uid,
         timestamp: Timestamp.now(),
         metadata, // Include metadata
@@ -130,16 +148,18 @@ const AdminUploadMusicPage = () => {
       setBeatId(newDocRef.id);
 
       const storagePath = `beats/${newDocRef.id}`;
-      const musicRefMp3 = audioFileMp3 ? ref(storage, `${storagePath}/${audioFileMp3.name}`) : null;
-      const musicRefWav = audioFileWav ? ref(storage, `${storagePath}/${audioFileWav.name}`) : null;
+      const musicRefMp3 = ref(storage, `${storagePath}/${audioFileMp3.name}`);
+      const musicRefWav = ref(storage, `${storagePath}/${audioFileWav.name}`);
       const coverRef = coverArt ? ref(storage, `${storagePath}/${coverArt.name}`) : null;
-      const musicRefTaggedMp3 = processedAudioFile ? ref(storage, `${storagePath}/${processedAudioFile.name}`) : null;
+      const musicRefTaggedMp3 = ref(storage, `${storagePath}/${processedAudioFile.name}`);
+      const zipRef = zipFile ? ref(storage, `${storagePath}/${zipFile.name}`) : null;
 
       const uploadTasks = [
-        musicRefMp3 && uploadBytesResumable(musicRefMp3, audioFileMp3),
-        musicRefWav && uploadBytesResumable(musicRefWav, audioFileWav),
+        uploadBytesResumable(musicRefMp3, audioFileMp3),
+        uploadBytesResumable(musicRefWav, audioFileWav),
         coverRef && uploadBytesResumable(coverRef, coverArt),
-        musicRefTaggedMp3 && uploadBytesResumable(musicRefTaggedMp3, processedAudioFile),
+        uploadBytesResumable(musicRefTaggedMp3, processedAudioFile),
+        zipRef && uploadBytesResumable(zipRef, zipFile),
       ].filter(Boolean);
 
       uploadTasks.forEach((task) => {
@@ -150,13 +170,19 @@ const AdminUploadMusicPage = () => {
 
       await Promise.all(uploadTasks);
 
-      const musicUrlMp3 = musicRefMp3 ? await getDownloadURL(musicRefMp3) : "";
-      const musicUrlWav = musicRefWav ? await getDownloadURL(musicRefWav) : "";
+      const musicUrlMp3 = await getDownloadURL(musicRefMp3);
+      const musicUrlWav = await getDownloadURL(musicRefWav);
       const coverUrl = coverRef ? await getDownloadURL(coverRef) : "";
-      const musicUrlTaggedMp3 = musicRefTaggedMp3 ? await getDownloadURL(musicRefTaggedMp3) : "";
+      const musicUrlTaggedMp3 = await getDownloadURL(musicRefTaggedMp3);
+      const zipUrl = zipRef ? await getDownloadURL(zipRef) : "";
 
       await updateDoc(newDocRef, {
-        musicUrls: { mp3: musicUrlMp3, wav: musicUrlWav, taggedMp3: musicUrlTaggedMp3 },
+        musicUrls: {
+          mp3: musicUrlMp3,
+          wav: musicUrlWav,
+          taggedMp3: musicUrlTaggedMp3,
+          zipUrl: zipUrl || "",
+        },
         coverUrl,
       });
 
@@ -167,13 +193,14 @@ const AdminUploadMusicPage = () => {
       setAudioFileWav(null);
       setCoverArt(null);
       setCoverPreview(null);
+      setZipFile(null); // Reset ZIP file state
       setSelectedMusic(null);
-      setProgress(0);
+      setProgress(0); // Reset progress bar
     } catch (error) {
       console.error("Upload error:", error);
-      alert("Upload failed. Make sure you have both MP3 and WAV uploaded.");
+      alert("Upload failed. Make sure you have all required files uploaded.");
     }
-  }, [musicTitle, email, audioFileMp3, audioFileWav, coverArt, processedAudioFile, metadata, monetization, db, storage]);
+  }, [musicTitle, email, audioFileMp3, audioFileWav, coverArt, processedAudioFile, zipFile, metadata, monetization, db, storage, username, uid]);
 
   useEffect(() => {
     setUploadMusic(() => uploadMusic);

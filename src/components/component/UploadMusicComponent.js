@@ -75,12 +75,22 @@ const UploadMusicComponent = ({ handleInputChange, handleFileSelect }) => {
 
     try {
       const musicCollectionRef = collection(db, "beats");
+      const userDocRef = collection(db, "users");
+      const userSnapshot = await getAuth().currentUser;
+      const userQuery = await userDocRef.where("uid", "==", userSnapshot.uid).get();
+
+      let username = email; // Default to email if username is not found
+      if (!userQuery.empty) {
+        const userData = userQuery.docs[0].data();
+        username = userData.username || "";
+      }
+
       const newDocRef = await addDoc(musicCollectionRef, {
         title: musicTitle,
         musicUrls: {},
         coverUrl: "",
         status: true,
-        uploadedBy: email,
+        uploadedBy: username,
         timestamp: Timestamp.now(),
       });
 

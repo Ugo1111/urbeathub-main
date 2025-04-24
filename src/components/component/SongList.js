@@ -76,7 +76,7 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
               playSong(songIndex);
             }}
             ref={index === displayedSongs.length - 1 ? lastSongElementRef : null}
-          >
+            >
             <img
               src={song.coverUrl || djImage}
               className="listimage"
@@ -85,32 +85,33 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
             <div className="songListTitle">
               {song.title || "Unknown Title"}
               <div style={{ fontSize: "0.8em" }}>
-                <LikeButton songId={song.id} />
+              {song.username || ""}
+              <LikeButton songId={song.id} />
               </div>
             </div>
 
             <div className="market">
               <div className="songlist-taglist">
-                {song.metadata?.tags?.map((tag, index) => (
-                  <span key={index} className="songlist-tag">
-                    {tag.trim()}
-                  </span>
-                ))}
+              {song.metadata?.tags?.map((tag, index) => (
+                <span key={index} className="songlist-tag">
+                {tag.trim()}
+                </span>
+              ))}
               </div>
 
               <Link to="/addToCart" state={{ song }}>
-                <button className="songlist-addtochart">
-                  <FaCartShopping style={{ marginRight: "6px" }} />${song.monetization?.basic?.price}
-                </button>
+              <button className="songlist-addtochart">
+                <FaCartShopping style={{ marginRight: "6px" }} />${song.monetization?.basic?.price}
+              </button>
               </Link>
 
               <MoreOptions song={song} openShareModal={openShareModal} className="MoreOptions-" />
             </div>
+            </div>
+          ))}
           </div>
-        ))}
-      </div>
 
-      {/* Share Modal */}
+          {/* Share Modal */}
       {selectedSong && (
         <ShareModal song={selectedSong} onClose={() => setSelectedSong(null)} />
       )}
