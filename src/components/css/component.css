@@ -677,6 +677,20 @@ border-radius: 50%;
   z-index: 2;
 }
 
+.sellbeat1 {
+  display: flex;
+  flex-direction: row; 
+  align-items: flex-start;
+  justify-content: center; 
+  padding: 20px;
+  background-color: #1c1c1c;
+  width: 100vw;
+  border-bottom: #ffffff 2px dashed;
+  position: relative;
+  z-index: 2;
+}
+
+
 
 .sellbeat-container{background-color: #000000;
   color:#ffffff;
@@ -696,12 +710,26 @@ text-align: left;}
   text-align: left;
   padding: 30px;
 }
+
+.sellbeat-container1a{
+  text-align: left;
+  padding: 30px;
+}
   
   .sellbeat-container1 h2{font-size: 1.5rem;
   color: #db3056;
   }
+
+  .sellbeat-container1a h2{font-size: 1.5rem;
+    color: #db3056;
+    }
   
   .sellbeat-container1 li{font-size: 1rem;
+  padding:10px;
+  color: #ffffff;
+} 
+
+.sellbeat-container1a li{font-size: 1rem;
   padding:10px;
   color: #ffffff;
 } 
@@ -882,11 +910,23 @@ color:#ffffff;}
     padding: 15px;
   }
 
+  .sellbeat-container, .sellbeat-container1a {
+    padding: 15px;
+  }
+
   .sellbeat-container h2, .sellbeat-container1 h2 {
     font-size: 1.5rem;
   }
 
+  .sellbeat-container h2, .sellbeat-container1a h2 {
+    font-size: 1.5rem;
+  }
+
   .sellbeat-container ul li, .sellbeat-container1 ul li {
+    font-size: 0.95rem;
+  }
+
+  .sellbeat-container ul li, .sellbeat-container1a ul li {
     font-size: 0.95rem;
   }
 
@@ -956,11 +996,12 @@ color:#ffffff;}
       .ProfilePage h1{
         font-size: 1.5rem;
       }
-      .sellbeat {
-        flex-direction: row;
-        justify-content: center;
       
+      .sellbeat1 {
+        flex-direction: column; /* Switch to column for smaller screens */
+        justify-content: center; /* Center content vertically */
       }
+      
     
       .sellbeat {
         flex-direction: column; /* Switch to column for smaller screens */
@@ -979,6 +1020,7 @@ color:#ffffff;}
       border-radius: 8px;
       margin-bottom: 20px;
     }
+
     .sellbeat-container1{
       max-width: 1200px;
       width: 100%;
@@ -989,8 +1031,20 @@ color:#ffffff;}
       color: #ffffff;
       border-radius: 8px;
       margin-bottom: 20px;
+}
 
-    }
+.sellbeat-container1a{
+  max-width: 1200px;
+  width: 100%;
+  text-align: left;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #1c1c1c;
+  color: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 20px;
+
+}
     
     .sellbeat-container h2  {
       font-size: 1.5rem;
@@ -1002,8 +1056,20 @@ color:#ffffff;}
       margin-bottom: 20px;
       color: #ffffff;
     }
+
+    .sellbeat-container1a h2{
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
     
     .sellbeat-container ul, .sellbeat-container1 ul {
+      
+      padding: 0;
+      margin: 0;
+    }
+
+    .sellbeat-container ul, .sellbeat-container1a ul {
       
       padding: 0;
       margin: 0;
@@ -1015,6 +1081,12 @@ color:#ffffff;}
       color: #ffffff;
     }
     
+    .sellbeat-container ul li, .sellbeat-container1a ul li {
+      font-size: 1rem;
+      margin: 10px 0;
+      color: #ffffff;
+    }
+
     .sellbeat-container .buy-link {
       display: inline-block;
       margin-top: 20px;
