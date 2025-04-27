@@ -1,10 +1,14 @@
 import React from 'react';
 import "../css/addToCart.css";
 import { GroupF, GroupG } from "../component/footer";
+import { Helmet } from 'react-helmet';
 
 function RefundPolicy() {
   return (
     <>
+    <Helmet>
+                <title>Refund Policy</title>
+              </Helmet>
       <div className="refund-policy-container">
         <h1>Refund Policy for Ur BeatHub</h1>
         <p>

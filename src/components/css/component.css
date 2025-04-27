@@ -139,7 +139,21 @@ hr{
 }
 
 
+.forgot-password-container{
+  margin-top: 50px;
+    height: 90vh;  
+    width: 500px;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    min-height: 6cap; /* Full viewport height */
+    background-color: #1d1d1d; /* Light background color */
+    padding: 20px; /* Space around the content */
+    border-radius: 10px;
+    border: #343434 solid 2px;
 
+}
 /* Center the form container on the screen */
 .login-form-container {
     margin-top: 50px;
@@ -156,8 +170,9 @@ hr{
     border: #343434 solid 2px;
   }
   
+  
   /* Form title styling */
-  .login-title {
+  .login-title, .forgot-password-title {
     font-size: 2em;
     font-weight: bold;
     color: #ffffff; /* Dark text color */
@@ -168,7 +183,8 @@ hr{
   /* Input fields styling */
   .login-email,
   .login-password,
-  .login-username {
+  .login-username,
+  .forgot-password-email {
     width: 100%; /* Full width */
     max-width: 300px; /* Limit the width */
     padding: 10px; /* Inner padding */
@@ -190,7 +206,7 @@ hr{
   }
   
   /* Button styling */
-  .login-button {
+  .login-button, .forgot-password-button {
     width: 100%; /* Full width */
     max-width: 300px; /* Limit the width */
     padding: 10px 15px; /* Inner padding */
@@ -796,7 +812,7 @@ color:#ffffff;}
 /* Slide-in Animation Keyframes */
 @keyframes slideIn {
   0% {
-    opacity: 1;
+    opacity: 0;
     transform: translateX(-50px);
   }
   100% {
@@ -968,7 +984,8 @@ color:#ffffff;}
   .login-email,
   .login-password,
   .login-username,
-  .login-button {
+  .login-button,
+  .forgot-password-button {
     max-width: 100%; /* Allow inputs to stretch fully on smaller screens */
   }
   .ProfilePage-userName-container{

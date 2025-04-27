@@ -121,7 +121,7 @@ function HomePage() {
       property="og:description"
       content="Discover high quality instrumental beats for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
     />
-    <meta property="og:image" content="%PUBLIC_URL%/ur beathub favicon.png" />
+    <meta property="og:image" content="https://urbeathub.com/ur_beathub_og_image_1200x630.png" />
     <meta property="og:url" content="https://urbeathub.com" /> 
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -130,7 +130,7 @@ function HomePage() {
       name="twitter:description"
       content="Discover high quality instrumental beats for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
     />
-    <meta name="twitter:image" content="%PUBLIC_URL%/ur beathub favicon.png" />
+    <meta name="twitter:image" content="https://urbeathub.com/ur_beathub_og_image_1200x630.png" />
   </Helmet>
     <div className="homepageWrapper">
     <div className="overlay"></div> 

@@ -14,19 +14,19 @@ function startsellingpage() {
           name="description"
           content="Join Ur BeatHub and start selling your high quality instrumental beats to artists worldwide. Easy setup, fast payouts, and full creative control."
         />
-        <meta property="og:title" content="High Quality Instrumental beats for Artists | Buy & Download Instantly" />
+        <meta property="og:title" content="Sell Your High Quality Instrumental Beats Online | Ur BeatHub" />
         <meta
           property="og:description"
-          content="Discover high quality instrumental beats for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
+          content="Join Ur BeatHub and start selling your high quality instrumental beats to artists worldwide. Easy setup, fast payouts, and full creative control."
         />
         <meta property="og:image" content="https://urbeathub.com/ur_beathub_og_image_1200x630.png" />
         <meta property="og:url" content="https://urbeathub.com" /> 
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="High Quality Instrumental Beats for Artists | Buy & Download Instantly" />
+        <meta name="twitter:title" content="Sell Your High Quality Instrumental Beats Online | Ur BeatHub" />
         <meta
           name="twitter:description"
-          content="Discover high quality instrumental beats for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
+          content="Join Ur BeatHub and start selling your high quality instrumental beats to artists worldwide. Easy setup, fast payouts, and full creative control."
         />
         <meta name="twitter:image" content="https://urbeathub.com/ur_beathub_og_image_1200x630.png" />
       </Helmet>
