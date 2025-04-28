@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from "react";
 import "../css/addToCart.css";
 import { GroupF, GroupG } from "../component/footer"; 
+import { Helmet } from 'react-helmet';
 
 const licenses = [
   { 
@@ -165,6 +166,10 @@ export default function BeatLicenses() {
   const [activeLicense, setActiveLicense] = useState(null);
 
   return (
+    <>
+      <Helmet>
+            <title>Beat License Information</title>
+          </Helmet>
     <div>
       <div className="beatlicenses">
         <h1 className="beatlicenses1">Beat License Information</h1>
@@ -187,5 +192,6 @@ export default function BeatLicenses() {
       <GroupF /> {/* Add the footer-wrapper */}
       <GroupG /> {/* Add the footer */}
     </div>
+    </>
   );
 }

@@ -8,6 +8,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import { FaPlay, FaPause } from "react-icons/fa"; // Import Icons
 import "../css/checkout.css";
 import djImage from '../../images/dj.jpg';
+import { Helmet } from 'react-helmet';
 
 
 function FavouritePage() {
@@ -89,6 +90,10 @@ function FavouritePage() {
   };
 
   return (
+    <>
+    <Helmet>
+    <title>Favourite Page</title>
+  </Helmet>
     <div className="favourite-page">
       <GroupA />
       <h1>Favourite Tracks</h1>
@@ -139,6 +144,7 @@ function FavouritePage() {
         </ol>
       )}
     </div>
+    </>
   );
 }
 

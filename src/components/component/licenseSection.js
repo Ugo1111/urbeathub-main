@@ -63,14 +63,13 @@ export default function LicensingSection({ song, addToCart }) {
       price: song?.monetization?.unlimited?.price ? `$${song.monetization.unlimited.price}` : "$85.00",
       details: "STEMS, MP3, WAV",
       usageTerms: [
-        "Distribution Copies:	Unlimited",
-"Performances (Non Profit)	Unlimited",
-"Paid Performances	Unlimited",
-"Music Videos	Unlimited",
-"Audio Streams	Unlimited",
-"Video Streams	Unlimited",
-"Broadcasting Rights ✅",	
-"Number of Radio Stations	Unlimited",
+         "Receive HQ MP3, WAV & Trackouts",
+         "Use It Commercially",
+         "Sell Up To 20,000 Copies",
+          "Limited to 100,000 Streams",
+          "YT Monetization + 1 Music Video",
+           "Must Credit Ur BeatHub",
+
       ],
     },
     exclusive: {
@@ -80,8 +79,8 @@ export default function LicensingSection({ song, addToCart }) {
       details: "STEMS, MP3, WAV",
       usageTerms: [
         "Used for Music Recording",
-        "Distribute up to 12,500 copies",
-        "500,000 Online Audio Streams",
+        "Use It Commercially",
+        "Unlimited Audio Streams",
         "UNLIMITED Music Video",
         "For Profit Live Performances",
         "Radio Broadcasting rights (62 Stations)",

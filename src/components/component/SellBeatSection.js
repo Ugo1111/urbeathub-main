@@ -38,7 +38,7 @@ function SellBeatSection() {
             <li>Dashboard Access</li>
             <li>All this 100% FREE. No upfront payment needed</li>
           </ul>
-          <a className="buy-link">Start Selling</a>
+          <a href="/startsellingpage" className="buy-link">Start Selling</a>
         </div>
 
         <div className="sellbeat-container1">
