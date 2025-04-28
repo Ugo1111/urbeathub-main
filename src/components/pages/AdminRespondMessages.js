@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase/firebase"; // Firestore import
-import { collection, query, orderBy, onSnapshot, addDoc, updateDoc, serverTimestamp, doc} from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot, addDoc, updateDoc, serverTimestamp, doc, getDocs } from "firebase/firestore";
 import { formatDistanceToNow } from "date-fns"; // Import date-fns for relative time formatting
 import "../css/adminRespondMessages.css"; 
 function AdminRespondMessages() {
@@ -19,11 +19,36 @@ function AdminRespondMessages() {
   useEffect(() => {
     const unsubscribe = onSnapshot(
       collection(db, "beatHubUsers"),
-      (querySnapshot) => {
-        const usersList = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+      async (querySnapshot) => {
+        const usersList = await Promise.all(
+          querySnapshot.docs.map(async (doc) => {
+            const userData = { id: doc.id, ...doc.data() };
+
+            // Check if the user has unread messages
+            const topicsQuery = collection(db, "beatHubUsers", userData.id, "messages");
+            const topicsSnapshot = await getDocs(topicsQuery);
+
+            const hasUnread = await Promise.all(
+              topicsSnapshot.docs.map(async (topicDoc) => {
+                const topicMessagesQuery = collection(
+                  db,
+                  "beatHubUsers",
+                  userData.id,
+                  "messages",
+                  topicDoc.id,
+                  "messages"
+                );
+                const messagesSnapshot = await getDocs(topicMessagesQuery);
+                return messagesSnapshot.docs.some(
+                  (msgDoc) => !msgDoc.data().read && msgDoc.data().senderId !== "admin"
+                );
+              })
+            );
+
+            userData.hasUnread = hasUnread.some((unread) => unread); // Add `hasUnread` flag
+            return userData;
+          })
+        );
 
         // Sort users by the timestamp of their latest message or topic update
         usersList.sort((a, b) => {
@@ -64,12 +89,17 @@ function AdminRespondMessages() {
         // Check for new messages
         const newMessagesIndicator = {};
         userTopics.forEach((topic) => {
-          const messages = topic.messages;
-          if (messages && messages.some((msg) => !msg.read && msg.senderId !== "admin")) {
-            newMessagesIndicator[topic.id] = true;
-          }
+          const topicMessagesQuery = collection(db, "beatHubUsers", selectedUser, "messages", topic.id, "messages");
+          getDocs(topicMessagesQuery).then((querySnapshot) => {
+            const hasUnread = querySnapshot.docs.some(
+              (doc) => !doc.data().read && doc.data().senderId !== "admin"
+            );
+            if (hasUnread) {
+              newMessagesIndicator[topic.id] = true;
+            }
+            setNewMessages(newMessagesIndicator);
+          });
         });
-        setNewMessages(newMessagesIndicator);
       });
 
       return () => unsubscribe(); // Cleanup on unmount
@@ -110,21 +140,24 @@ function AdminRespondMessages() {
   };
 
   // Handle topic selection
-  const handleTopicSelect = (topicId) => {
+  const handleTopicSelect = async (topicId) => {
     setSelectedTopic(topicId); // Set the selected topic
     setMessages([]); // Clear existing messages when switching topics
 
-    // Mark messages as read
-    const user = users.find((user) => user.id === selectedUser);
-    if (user && user.messages) {
-      const topic = user.messages.find((topic) => topic.id === topicId);
-      if (topic) {
-        topic.messages.forEach((msg) => {
-          if (!msg.read && msg.senderId !== "admin") {
-            msg.read = true;
-          }
-        });
-      }
+    try {
+      // Fetch messages for the selected topic
+      const topicMessagesQuery = collection(db, "beatHubUsers", selectedUser, "messages", topicId, "messages");
+      const querySnapshot = await getDocs(topicMessagesQuery);
+
+      querySnapshot.forEach(async (doc) => {
+        const messageData = doc.data();
+        if (!messageData.read && messageData.senderId !== "admin") {
+          // Mark the message as read in Firestore
+          await updateDoc(doc.ref, { read: true });
+        }
+      });
+    } catch (err) {
+      console.error("Error marking messages as read:", err);
     }
   };
 
@@ -149,7 +182,7 @@ function AdminRespondMessages() {
           senderId: "admin", // The sender of the message
           message: message.trim(), // The content of the message
           timestamp: new Date(), // Timestamp of the message
-          read: true, // Mark the message as read
+          read: false, // Mark the message as unread for the producer
         });
 
         // Update the last updated time for the topic
@@ -161,7 +194,6 @@ function AdminRespondMessages() {
         await updateDoc(doc(db, "beatHubUsers", selectedUser), {
           messageLastUpdated: serverTimestamp(),
         });
-
 
         setMessage(""); // Clear the input field after submission
         setError(""); // Clear any existing error messages
@@ -213,8 +245,18 @@ function AdminRespondMessages() {
                 >
                   {user.name || user.email} {/* Display user name or email */}
                   <span className="timestamp">
-                    {user.messageLastUpdated ? ` (${formatDistanceToNow(new Date(user.messageLastUpdated.seconds * 1000), { addSuffix: true })})` : ""}
+                    {user.messageLastUpdated
+                      ? ` (${formatDistanceToNow(new Date(user.messageLastUpdated.seconds * 1000), {
+                          addSuffix: true,
+                        })})`
+                      : ""}
                   </span>
+                  {user.hasUnread && (
+                    <>
+                      <span className="new-message-indicator">New</span> {/* Add new message indicator */}
+                      <span className="new-message-dot"></span> {/* Add new message dot */}
+                    </>
+                  )}
                 </li>
               ))}
             </ul>
