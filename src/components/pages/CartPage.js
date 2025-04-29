@@ -8,6 +8,7 @@ import GroupA from "../component/header.js";
 import PaystackPayment from "../component/PaystackPayment";
 import { GroupE, GroupF, GroupG } from "../component/footer.js";
 import Modal from "../Modal"; // Import the Modal component
+import { Helmet } from 'react-helmet';
 
 function CartPage() {
     const [cart, setCart] = useState([]); 
@@ -63,6 +64,10 @@ function CartPage() {
     };
 
     return (
+        <>
+        <Helmet>
+            <title>Cart Page</title>
+          </Helmet>
         <div className="CheckoutContainer">
             <GroupA />
             <h1 className="CheckoutTitle">Cart</h1>
@@ -134,6 +139,7 @@ function CartPage() {
                     </div>
                 </div>
             </div>
+            
 
             {showEmptyCartModal && (
                 <Modal
@@ -143,6 +149,7 @@ function CartPage() {
                 />
             )}
         </div>
+        </> 
     );
 }
 

@@ -18,7 +18,7 @@ export function GroupF() {
               <a href="/Licensedetails" target="_blank">License</a>
             </p>
             <p>
-              <a>Start Selling</a>
+              <a href="/startsellingpage">Start Selling</a>
             </p>
             <p>
               <a href="/privacy" target="_blank">Privacy Policy</a>

@@ -1098,6 +1098,163 @@ font-style: italic;
   text-decoration: underline;
 }
 
+.video-wrap {
+  position: relative;
+  width: 100vw;
+  height: 50vh; /* 50% of viewport height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+} 
+
+.video-wrap video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%; /* match container height */
+  object-fit: cover;
+}
+
+/* New wrapper to group and center text/button */
+.video-content {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.video-content h1 {
+  font-size: 3rem;
+}
+
+.video-content p {
+  font-size: 1rem;
+}
+
+.start-selling-button {
+  background-color: #db3056;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+}
+
+.why-sell-beat {
+  width: 100%;
+  padding: 4rem 2rem;
+  background-color: #111; /* Dark background */
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.why-sell-beat-container {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap; /* Allows stacking on small screens */
+  max-width: 1000px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.why-sell-beat-box {
+  background-color: #1c1c1c;
+  padding: 2rem;
+  border-radius: 1rem;
+  flex: 1 1 45%; /* Responsive: take 45% of the row */
+  min-width: 250px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease;
+}
+
+.why-sell-beat-box:hover {
+  transform: translateY(-5px);
+}
+
+.why-sell-beat-box h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.why-sell-beat-box p {
+  font-size: 1rem;
+  color: #ccc;
+}
+.lease-section {
+  padding: 50px 20px;
+  background-color: #000000;
+  text-align: center;
+}
+
+.lease-title {
+  font-size: 32px;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+.lease-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.lease-card {
+  background: #1e1c1c;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  width: 300px;
+  padding: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.lease-card:hover {
+  transform: translateY(-5px);
+}
+
+.highlight {
+  border: 3px solid #db3056;
+}
+
+.lease-card-title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.lease-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.lease-features li {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
 
 /* responsive mode */
 
@@ -1141,6 +1298,23 @@ font-style: italic;
     .item-actions{
       display: none;
     }
+    .video-wrap {
+      height: 55vh;
+    }
+  
+    .video-content h1 {
+      font-size: 2.2rem;
+    }
+  
+    .video-content p {
+      font-size: 1rem;
+    }
+  
+    .start-selling-button {
+      font-size: 1rem;
+      padding: 10px 18px;
+    }
+    
     }
     
     
@@ -1235,14 +1409,32 @@ font-style: italic;
     margin: auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  }               
-      
-      
-        
-      
-      
-       
-    
+
+  .video-wrap {
+    height: 60vh; /* slightly taller on smaller screens */
+  }
+
+  .video-content h1 {
+    font-size: 1.6rem;
+  }
+
+  .video-content p {
+    font-size: 0.9rem;
+  }
+
+  .start-selling-button {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+
+  }
+
+
+
+
+
+
+
 
 
 

@@ -139,7 +139,21 @@ hr{
 }
 
 
+.forgot-password-container{
+  margin-top: 50px;
+    height: 90vh;  
+    width: 500px;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    min-height: 6cap; /* Full viewport height */
+    background-color: #1d1d1d; /* Light background color */
+    padding: 20px; /* Space around the content */
+    border-radius: 10px;
+    border: #343434 solid 2px;
 
+}
 /* Center the form container on the screen */
 .login-form-container {
     margin-top: 50px;
@@ -156,8 +170,9 @@ hr{
     border: #343434 solid 2px;
   }
   
+  
   /* Form title styling */
-  .login-title {
+  .login-title, .forgot-password-title {
     font-size: 2em;
     font-weight: bold;
     color: #ffffff; /* Dark text color */
@@ -168,7 +183,8 @@ hr{
   /* Input fields styling */
   .login-email,
   .login-password,
-  .login-username {
+  .login-username,
+  .forgot-password-email {
     width: 100%; /* Full width */
     max-width: 300px; /* Limit the width */
     padding: 10px; /* Inner padding */
@@ -190,7 +206,7 @@ hr{
   }
   
   /* Button styling */
-  .login-button {
+  .login-button, .forgot-password-button {
     width: 100%; /* Full width */
     max-width: 300px; /* Limit the width */
     padding: 10px 15px; /* Inner padding */
@@ -677,6 +693,20 @@ border-radius: 50%;
   z-index: 2;
 }
 
+.sellbeat1 {
+  display: flex;
+  flex-direction: row; 
+  align-items: flex-start;
+  justify-content: center; 
+  padding: 20px;
+  background-color: #1c1c1c;
+  width: 100vw;
+  border-bottom: #ffffff 2px dashed;
+  position: relative;
+  z-index: 2;
+}
+
+
 
 .sellbeat-container{background-color: #000000;
   color:#ffffff;
@@ -696,12 +726,26 @@ text-align: left;}
   text-align: left;
   padding: 30px;
 }
+
+.sellbeat-container1a{
+  text-align: left;
+  padding: 30px;
+}
   
   .sellbeat-container1 h2{font-size: 1.5rem;
   color: #db3056;
   }
+
+  .sellbeat-container1a h2{font-size: 1.5rem;
+    color: #db3056;
+    }
   
   .sellbeat-container1 li{font-size: 1rem;
+  padding:10px;
+  color: #ffffff;
+} 
+
+.sellbeat-container1a li{font-size: 1rem;
   padding:10px;
   color: #ffffff;
 } 
@@ -768,7 +812,7 @@ color:#ffffff;}
 /* Slide-in Animation Keyframes */
 @keyframes slideIn {
   0% {
-    opacity: 1;
+    opacity: 0;
     transform: translateX(-50px);
   }
   100% {
@@ -882,11 +926,23 @@ color:#ffffff;}
     padding: 15px;
   }
 
+  .sellbeat-container, .sellbeat-container1a {
+    padding: 15px;
+  }
+
   .sellbeat-container h2, .sellbeat-container1 h2 {
     font-size: 1.5rem;
   }
 
+  .sellbeat-container h2, .sellbeat-container1a h2 {
+    font-size: 1.5rem;
+  }
+
   .sellbeat-container ul li, .sellbeat-container1 ul li {
+    font-size: 0.95rem;
+  }
+
+  .sellbeat-container ul li, .sellbeat-container1a ul li {
     font-size: 0.95rem;
   }
 
@@ -928,7 +984,8 @@ color:#ffffff;}
   .login-email,
   .login-password,
   .login-username,
-  .login-button {
+  .login-button,
+  .forgot-password-button {
     max-width: 100%; /* Allow inputs to stretch fully on smaller screens */
   }
   .ProfilePage-userName-container{
@@ -956,11 +1013,12 @@ color:#ffffff;}
       .ProfilePage h1{
         font-size: 1.5rem;
       }
-      .sellbeat {
-        flex-direction: row;
-        justify-content: center;
       
+      .sellbeat1 {
+        flex-direction: column; /* Switch to column for smaller screens */
+        justify-content: center; /* Center content vertically */
       }
+      
     
       .sellbeat {
         flex-direction: column; /* Switch to column for smaller screens */
@@ -979,6 +1037,7 @@ color:#ffffff;}
       border-radius: 8px;
       margin-bottom: 20px;
     }
+
     .sellbeat-container1{
       max-width: 1200px;
       width: 100%;
@@ -989,8 +1048,20 @@ color:#ffffff;}
       color: #ffffff;
       border-radius: 8px;
       margin-bottom: 20px;
+}
 
-    }
+.sellbeat-container1a{
+  max-width: 1200px;
+  width: 100%;
+  text-align: left;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #1c1c1c;
+  color: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 20px;
+
+}
     
     .sellbeat-container h2  {
       font-size: 1.5rem;
@@ -1002,8 +1073,20 @@ color:#ffffff;}
       margin-bottom: 20px;
       color: #ffffff;
     }
+
+    .sellbeat-container1a h2{
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
     
     .sellbeat-container ul, .sellbeat-container1 ul {
+      
+      padding: 0;
+      margin: 0;
+    }
+
+    .sellbeat-container ul, .sellbeat-container1a ul {
       
       padding: 0;
       margin: 0;
@@ -1015,6 +1098,12 @@ color:#ffffff;}
       color: #ffffff;
     }
     
+    .sellbeat-container ul li, .sellbeat-container1a ul li {
+      font-size: 1rem;
+      margin: 10px 0;
+      color: #ffffff;
+    }
+
     .sellbeat-container .buy-link {
       display: inline-block;
       margin-top: 20px;

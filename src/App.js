@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactGA from 'react-ga4';
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";  // Ensure Router is imported correctly
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";  
 import HomePage from "./components/pages/HomePage";
 import { ProfilePage } from './components/pages/profilePage';
 import AddToCart from "./components/pages/addToCart";
@@ -8,8 +8,8 @@ import Passage from "./components/pages/loginPage";
 import Enroll from "./components/pages/SignUpPage";
 import CheckoutPage from "./components/pages/checkoutPage";
 import AdminDashboard from './components/pages/AdminDashboard';
-import FavouritePage from './components/pages/FavouritePage';
-import PurchasedTracksPage from './components/pages/purchasedPage';
+import FavouritePage from "./components/pages/FavouritePage";
+import PurchasedTracksPage from "./components/pages/purchasedPage";
 import CartPage from "./components/pages/CartPage";
 import SellBeatPage from "./components/pages/sellBeatPage";
 import UploadedbeatsPage from "./components/pages/UploadedbeatsPage";
@@ -27,18 +27,28 @@ import { MusicUploadProvider } from "./components/context/MusicUploadProvider";
 import "./App.css";
 import Privacy from "./components/pages/privacy";
 import Licensedetails from "./components/pages/Licensedetails";
+import Startsellingpage from "./components/pages/startsellingpage";
 import Refundpolicy from "./components/pages/Refundpolicy";
 import CookieConsent from "react-cookie-consent";
-import ForgotPassword from "./components/ForgotPassword"; // Import the ForgotPassword component
+import ForgotPassword from "./components/ForgotPassword"; 
 
 // Initialize Google Analytics
 ReactGA.initialize('G-8Q9JH9G3KH');
+
+// Helper function to track custom events
+export function trackEvent({ category, action, label }) {
+  ReactGA.event({
+    category,
+    action,
+    label,
+  });
+}
 
 // Define the App component
 function App() {
   return (
     <Router>
-      <RouteTracker />  {/* Add RouteTracker component to handle page views */}
+      <RouteTracker />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/addToCart" element={<AddToCart />} />
@@ -65,6 +75,7 @@ function App() {
         <Route path="/PageTwo" element={<PageTwo />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/Licensedetails" element={<Licensedetails />} />
+        <Route path="/startsellingpage" element={<Startsellingpage />} />
         <Route path="/Refundpolicy" element={<Refundpolicy />} />
         <Route path="/EditTrackPage" element={<EditTrackPage />} />
         <Route path="/usersUploadMusicPage" element={
@@ -79,21 +90,21 @@ function App() {
         } />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
       </Routes>
+
       <CookieConsent
-       
         location="bottom"
         buttonText="Accept"
         cookieName="myAwesomeCookieName2"
         style={{ background: "#000000" }}
-        buttonStyle={{background:" #db3056", color: "#ffffff", fontSize: "13px" }}
+        buttonStyle={{ background: "#db3056", color: "#ffffff", fontSize: "13px" }}
         expires={30}
-        declineButtonStyle={{ background: "#ffffff", color: "#db3056", fontSize: "13px", }} 
+        declineButtonStyle={{ background: "#ffffff", color: "#db3056", fontSize: "13px" }}
         declineButtonText="Decline"
         enableDeclineButton={true}
-        setDeclineCookie={true} 
+        setDeclineCookie={true}
         onDecline={() => {}}
       >
-        This website uses cookies to enhance the user experience. see our  <a href="/privacy" style={{ color: "#db3056", textDecoration: "none" }}>privacy policy</a> to learn more.
+        This website uses cookies to enhance the user experience. see our <a href="/privacy" style={{ color: "#db3056", textDecoration: "none" }}>privacy policy</a> to learn more.
       </CookieConsent>
     </Router>
   );
@@ -101,12 +112,12 @@ function App() {
 
 // Component for tracking page views
 function RouteTracker() {
-  const location = useLocation();  // Now inside Router, this will work
+  const location = useLocation();
   useEffect(() => {
     ReactGA.send({ hitType: "pageview", page: location.pathname });
   }, [location]);
 
-  return null;  
+  return null;
 }
 
 export default App;
