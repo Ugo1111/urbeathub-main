@@ -112,6 +112,7 @@ function HomePage() {
     <div>
     <Helmet>
     <title>High Quality Instrumental beats for Artists | Buy & Download Instantly</title>
+    <meta name="google-site-verification" content="0e9f64374759b734" />
     <meta
       name="description"
       content="Discover high quality instrumental beats for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
