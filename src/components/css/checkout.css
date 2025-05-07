@@ -103,6 +103,8 @@ padding: 5px 10px ;
 /* border: solid; */
 background-color: rgb(0, 0, 0);
 contain: content;
+
+
 }
 
 .cart-component-list{
@@ -147,7 +149,6 @@ border-radius: 10px;
   font-size: xx-large;
   color: #5e5a5a;
   align-content: center;
- 
 }
 
 
@@ -174,6 +175,7 @@ font-size:x-large;
   /* border: solid rgb(102, 255, 1);  */
   font-size:larger;
   margin: 10px;
+  
 }
 
 .cart-list-remove-btn{
@@ -197,7 +199,7 @@ font-size:x-large;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
- 
+  
 }
 
 .cart-list-item-license{
@@ -211,7 +213,7 @@ color: rgb(74, 74, 74);
   flex-direction: column;
   justify-content: space-evenly;
 align-items: flex-end;
-row-gap: 20px;
+row-gap: 30px;
   /* align-content: space-between; */
   /* border: solid rgb(234, 234, 234);  */
 }

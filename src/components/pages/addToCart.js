@@ -7,6 +7,7 @@ import GroupA from "../component/header.js";
 import { GroupE, GroupF, GroupG } from "../component/footer.js";
 import { TbSend } from "react-icons/tb";
 import { Helmet } from 'react-helmet';
+import { ToastContainer, toast } from 'react-toastify';
 import {
   FaPlay,
   FaShareAlt,
@@ -204,7 +205,8 @@ function SongBio({ song }) {
 
   const handleReportSubmit = async () => {
     if (!reportReason) {
-      alert("Please select a reason for reporting.");
+      toast.error("Please select a reason for reporting.",{
+      position: "top-center",});
       return;
     }
 
@@ -217,13 +219,18 @@ function SongBio({ song }) {
         timestamp: new Date(),
       });
 
-      alert("Report submitted successfully.");
+      toast.success("Report submitted successfully.",{
+ position: "top-center",
+      });
+      
       setReportReason("");
       setReportComment("");
       closeReportModal();
     } catch (error) {
       console.error("Error submitting report:", error);
-      alert("Failed to submit report. Try again.");
+      toast.error("Failed to submit report. Try again.",{
+        position: "top-center",
+      });
     }
   };
 
@@ -352,6 +359,7 @@ function CoverArt({ coverUrl }) {
       <img src={coverUrl || djImage} alt="Trending Instrumental" />
     </div>
   );
+  
 }
 
 // function Genre() {

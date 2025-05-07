@@ -9,6 +9,9 @@ import Metadata from "./metaDataUpload"; // Import Metadata component
 import Monetization from "./Monetization"; // Import Monetization component
 import Modal from "react-modal"; // Import Modal
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { ToastContainer, toast } from "react-toastify";
+import { Helmet } from "react-helmet";
+
 
 const UsersUploadMusicPage = () => {
   const {
@@ -95,27 +98,39 @@ const UsersUploadMusicPage = () => {
   // Upload music function (memoized with useCallback)
   const uploadMusic = useCallback(async () => {
     if (!musicTitle) {
-      alert("Please provide a music title.");
+      toast.error("Please provide a music title.", {
+        position: "top-center",
+      });
       return;
     }
     if (!email) {
-      alert("Please ensure you are logged in.");
+      toast.error("Please ensure you are logged in.", {
+        position: "top-center",
+      });
       return;
     }
     if (!audioFileMp3 || !audioFileWav) {
-      alert("Both MP3 and WAV files must be uploaded.");
+      toast.error("Both MP3 and WAV files must be uploaded.", {
+        position: "top-center",
+      });
       return;
     }
     if (!processedAudioFile) {
-      alert("Please process the audio file with watermark.");
+      toast.error("Please process the audio file with watermark.", {
+        position: "top-center",
+      });
       return;
     }
     if (!metadata) {
-      alert("Please provide metadata.");
+      toast.error("Please provide metadata.", {
+        position: "top-center",
+      });
       return;
     }
     if (!monetization) {
-      alert("Please provide monetization details.");
+      toast.error("Please provide monetization details.", {
+        position: "top-center",
+      });
       return;
     }
 
@@ -200,6 +215,10 @@ const UsersUploadMusicPage = () => {
   }, [uploadMusic]);
 
   return (
+    <>
+    <Helmet>
+      <title>Upload Track Page</title>
+    </Helmet>
     <form className="uploadMusicContainer">
       <h1>Upload A Track</h1>
       <div className="cover-title">
@@ -266,6 +285,7 @@ const UsersUploadMusicPage = () => {
         )}
       </Modal>
     </form>
+    </>
   );
 };
 export default UsersUploadMusicPage;

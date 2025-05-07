@@ -3,6 +3,7 @@ import { PaystackButton } from 'react-paystack';
 import { getFirestore, doc, collection, addDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import Modal from 'react-modal'; // Import Modal
+import { ToastContainer, toast } from "react-toastify";
 
 const GuestPaystackPayment = ({ email, amount, last, song, license, uid, beatId }) => {
   const publicKey = 'pk_live_5792ddb6cca1c8c89244595e5607e81e9a63e35c'; // Keep this as it was
@@ -34,7 +35,7 @@ const GuestPaystackPayment = ({ email, amount, last, song, license, uid, beatId 
           license: license || 'N/A',
           amount: amount || 0, // Default amount in USD
           userId: uid || 'N/A',
-          beatId: beatId || 'N/A',
+          beatId: beatId || 'N/A', 
           timestamp: new Date(), // Add current timestamp
         };
 
@@ -68,7 +69,9 @@ const GuestPaystackPayment = ({ email, amount, last, song, license, uid, beatId 
       }
     },
     onClose: () => {
-      alert('Transaction was not completed, window closed.');
+      toast.error('Transaction was not completed, window closed.', {
+        position: 'top-center',
+      });
     },
     metadata: { last },
     className: 'PaymentPage-button',

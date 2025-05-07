@@ -31,6 +31,9 @@ import Startsellingpage from "./components/pages/startsellingpage";
 import Refundpolicy from "./components/pages/Refundpolicy";
 import CookieConsent from "react-cookie-consent";
 import ForgotPassword from "./components/ForgotPassword"; 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 // Initialize Google Analytics
 ReactGA.initialize('G-8Q9JH9G3KH');
@@ -106,6 +109,8 @@ function App() {
       >
         This website uses cookies to enhance the user experience. see our <a href="/privacy" style={{ color: "#db3056", textDecoration: "none" }}>privacy policy</a> to learn more.
       </CookieConsent>
+      <ToastContainer />
+
     </Router>
   );
 }
