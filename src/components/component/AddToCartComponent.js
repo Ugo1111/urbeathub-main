@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { ToastContainer, toast } from 'react-toastify'
 import {
   getFirestore,
   doc,
@@ -89,7 +90,9 @@ export default function HandleAddToCart({ song, selectedLicense }) {
           cart: updatedCart,
         });
 
-        alert("Updated license in cart!");
+        toast.success("Updated license in cart!", {
+          position: "top-center",
+        });
         setIsInCart(true);
       } else {
         // Add new item to cart if it doesn't exist with the same license
@@ -107,12 +110,16 @@ export default function HandleAddToCart({ song, selectedLicense }) {
           { merge: true }
         );
 
-        alert("Added to cart!");
+        toast.success("Added to cart!", {
+          position: "top-center",
+        });
         setIsInCart(true); // Update the state to reflect the item is now in the cart
       }
     } catch (error) {
       console.error("Error adding/updating cart:", error);
-      alert("Failed to add or update cart.");
+      toast.error("Failed to add or update cart.", {
+        position: "top-center",
+      });
     } finally {
       setIsAdding(false);
     }

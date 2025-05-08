@@ -8,6 +8,8 @@ import ShareModal from "./ShareModal";
 import MoreOptions from "./moreOptions.js";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import djImage from '../../images/dj.jpg';
+import { trackEvent } from "../../App"; // adjust path if needed
+
 
 
 function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
@@ -73,6 +75,12 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
                 console.error("Invalid song or missing audio URL:", song.title || "Untitled");
                 return;
               }
+              // Track play event in GA
+  trackEvent({
+    category: "Audio",
+    action: "Play",
+    label: song.title || "Unknown Track",
+  });
               playSong(songIndex);
             }}
             ref={index === displayedSongs.length - 1 ? lastSongElementRef : null}
