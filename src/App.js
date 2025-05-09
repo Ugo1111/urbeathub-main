@@ -26,13 +26,15 @@ import UsersUploadMusicPage from "./components/component/UsersUploadMusicPage";
 import { MusicUploadProvider } from "./components/context/MusicUploadProvider";
 import "./App.css";
 import Privacy from "./components/pages/privacy";
+import Termsandcondition from "./components/pages/Termsandcondition";
 import Licensedetails from "./components/pages/Licensedetails";
 import Startsellingpage from "./components/pages/startsellingpage";
 import Refundpolicy from "./components/pages/Refundpolicy";
 import CookieConsent from "react-cookie-consent";
 import ForgotPassword from "./components/ForgotPassword"; 
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
 
 
 // Initialize Google Analytics
@@ -49,6 +51,34 @@ export function trackEvent({ category, action, label }) {
 
 // Define the App component
 function App() {
+  useEffect(() => {
+  const hasNotified = sessionStorage.getItem("visitorNotified");
+
+  if (!hasNotified) {
+    const sendVisitorInfo = async () => {
+      try {
+        const locationRes = await axios.get("https://ipapi.co/json/");
+        const { city, country_name: country, ip } = locationRes.data;
+
+        await axios.post("https://urbeathub-server.onrender.com/notify-telegram", {
+          browser: navigator.userAgent,
+          ip,
+          city,
+          country,
+        });
+
+        sessionStorage.setItem("visitorNotified", "true");
+        console.log("✅ Visitor notification sent once per session.");
+      } catch (error) {
+        console.error("❌ Error sending visitor info:", error.message);
+      }
+    };
+
+    sendVisitorInfo();
+  }
+}, []);
+
+
   return (
     <Router>
       <RouteTracker />
@@ -78,6 +108,7 @@ function App() {
         <Route path="/PageTwo" element={<PageTwo />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/Licensedetails" element={<Licensedetails />} />
+        <Route path="/termsandcondition" element={<Termsandcondition />} />
         <Route path="/startsellingpage" element={<Startsellingpage />} />
         <Route path="/Refundpolicy" element={<Refundpolicy />} />
         <Route path="/EditTrackPage" element={<EditTrackPage />} />

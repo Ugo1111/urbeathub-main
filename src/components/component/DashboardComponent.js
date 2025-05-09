@@ -82,6 +82,11 @@ const toggleChatOptions = () => {
   setIsChatOpen(!isChatOpen);
 };
 
+const [isFormOpen, setIsFormOpen] = useState(false);
+
+const toggleFeedbackForm = () => {
+  setIsFormOpen(!isFormOpen);
+};
 
   return (
     <div>
@@ -180,6 +185,31 @@ const toggleChatOptions = () => {
           </div>
         )}
       </div>
+        {/* Feedback Form Button */}
+<button className="vertical-feedback-btn" onClick={toggleFeedbackForm}>
+  FEEDBACK
+</button>
+
+{/* Feedback Form Box */}
+{isFormOpen && (
+  <div id="feedback-box">
+    <h3>Send us your feedback</h3>
+    <form id="feedback-form" onSubmit={(e) => {
+      e.preventDefault();
+      const email = e.target.elements["feedback-email"].value;
+      const message = e.target.elements["feedback-text"].value;
+      console.log("Feedback submitted:", { email, message });
+      // Optional: send to backend, Firebase, or email service
+      alert("Thank you for your feedback!");
+      e.target.reset();
+      setIsFormOpen(false);
+    }}>
+      <input type="email" id="feedback-email" placeholder="Your email" required />
+      <textarea id="feedback-text" placeholder="Your feedback..." rows="3" required />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+)}
     </div>
   );
 };
