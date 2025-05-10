@@ -32,7 +32,7 @@ function SellBeatSection() {
             <li>Accept Bank card and Mobile Money Payment</li>
             <li>Upload unlimited beats</li>
             <li>Offer Unlimited free downloads</li>
-            <li>Keep 70% of your earnings per transaction</li>
+            <li>Keep 80% of your earnings per transaction</li>
             <li>Right audience for your beats</li>
             <li>Get premium support</li>
             <li>Dashboard Access</li>
