@@ -21,10 +21,10 @@ jobs:
           HOST: ${{ secrets.SFTP_HOST }}
           USERNAME: ${{ secrets.SFTP_USERNAME }}
           PASSWORD: ${{ secrets.SFTP_PASSWORD }}
-          PORT: ${{ secrets.SFTP_PORT || 22 }}
+          PORT: ${{ secrets.SFTP_PORT }}
         run: |
           lftp -e "
             set sftp:auto-confirm yes;
-            mirror -R ./ public_html/;
+            mirror -R ./ www/;
             quit
           " -u "$USERNAME","$PASSWORD" sftp://$HOST:$PORT
