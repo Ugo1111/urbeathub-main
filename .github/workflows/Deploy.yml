@@ -26,6 +26,6 @@ jobs:
           PORT="${PORT:-22}"
           lftp -u "$USERNAME","$PASSWORD" sftp://$HOST:$PORT -e "
             set sftp:auto-confirm yes;
-            mirror -R ./ /;
+            mirror -R ./ www/;
             quit
           "
