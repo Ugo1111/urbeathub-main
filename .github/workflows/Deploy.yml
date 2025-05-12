@@ -3,7 +3,7 @@ name: Deploy via SFTP
 on:
   push:
     branches:
-      - main  # or your preferred branch
+      - main
 
 jobs:
   deploy:
@@ -23,8 +23,9 @@ jobs:
           PASSWORD: ${{ secrets.SFTP_PASSWORD }}
           PORT: ${{ secrets.SFTP_PORT }}
         run: |
-          lftp -e "
+          PORT="${PORT:-22}"
+          lftp -u "$USERNAME","$PASSWORD" sftp://$HOST:$PORT -e "
             set sftp:auto-confirm yes;
-            mirror -R ./ public_html/;
+            mirror -R ./ www/;
             quit
-          " -u "$USERNAME","$PASSWORD" sftp://$HOST:$PORT
+          "
