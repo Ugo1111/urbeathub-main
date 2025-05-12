@@ -25,6 +25,6 @@ jobs:
         run: |
           lftp -e "
             set sftp:auto-confirm yes;
-            mirror -R ./home/urbeathub.com/;
+            mirror -R ./www/;
             quit
           " -u "$USERNAME","$PASSWORD" sftp://$HOST:$PORT
