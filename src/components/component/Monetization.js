@@ -2,6 +2,41 @@ import React, { useEffect, useCallback } from "react";
 import { db } from "../../firebase/firebase";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { useMusicUploadContext } from "../context/MusicUploadProvider";
+import { HiOutlineInformationCircle } from "react-icons/hi";
+
+
+const LICENSE_DESCRIPTIONS = {
+  basic: `Receive a High Quality MP3
+Use It Commercially
+Sell Up To 5,000 Copies
+Available For 10,000 Streams
+No YouTube Monetization
+Must Credit Ur BeatHub`,
+
+  premium: `Receive MP3 + WAV files
+Sell Up To 10,000 Copies
+Up to 100,000 Streams
+Monetize on YouTube
+Must Credit Ur BeatHub`,
+
+  unlimited: `Receive HQ MP3, WAV & Trackouts
+Use It Commercially
+Sell Up To 20,000 Copies
+Limited to 100,000 Streams
+YT Monetization + 1 Music Video
+Must Credit Ur BeatHub`,
+
+  exclusive: `All rights transferred to you
+Unlimited sales, streams, monetization
+No credit required
+Beat is removed from store
+Best for artists wanting ownership`,
+
+  free: `Free download for non-commercial use
+Streaming only
+Must credit Ur BeatHub
+No monetization rights`,
+};
 
 const Monetization = () => {
     const { monetization, setMonetization, beatId, setHandlePublish } = useMusicUploadContext();
@@ -52,6 +87,10 @@ const Monetization = () => {
             {Object.entries(monetization).map(([key, { enabled, price }]) => (
                 <div key={key} className="Basic-License">
                     <div>{key.charAt(0).toUpperCase() + key.slice(1)} License</div>
+                    <div className="tooltip">
+              <span style={{ cursor: "pointer" }}>< HiOutlineInformationCircle /></span>
+              <span className="tooltip-text">{LICENSE_DESCRIPTIONS[key]}</span>
+            </div>
                     {key !== "free" && (
                         <div>
                             <label>Price:</label>

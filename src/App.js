@@ -52,31 +52,38 @@ export function trackEvent({ category, action, label }) {
 // Define the App component
 function App() {
   useEffect(() => {
-  const hasNotified = sessionStorage.getItem("visitorNotified");
+    const hasNotified = sessionStorage.getItem("visitorNotified");
+    const hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
 
-  if (!hasNotified) {
-    const sendVisitorInfo = async () => {
-      try {
-        const locationRes = await axios.get("https://ipapi.co/json/");
-        const { city, country_name: country, ip } = locationRes.data;
+    if (!hasNotified) {
+      const sendVisitorInfo = async () => {
+        try {
+          const locationRes = await axios.get("https://ipapi.co/json/");
+          const { city, country_name: country, ip } = locationRes.data;
 
-        await axios.post("https://urbeathub-server.onrender.com/notify-telegram", {
-          browser: navigator.userAgent,
-          ip,
-          city,
-          country,
-        });
+          await axios.post("https://urbeathub-server.onrender.com/notify-telegram", {
+            browser: navigator.userAgent,
+            ip,
+            city,
+            country,
+            isReturning: !!hasVisitedBefore,
+          });
 
-        sessionStorage.setItem("visitorNotified", "true");
-        console.log("✅ Visitor notification sent once per session.");
-      } catch (error) {
-        console.error("❌ Error sending visitor info:", error.message);
-      }
-    };
+          localStorage.setItem("hasVisitedBefore", "true");
+          sessionStorage.setItem("visitorNotified", "true");
 
-    sendVisitorInfo();
-  }
-}, []);
+          console.log(hasVisitedBefore ? "🔁 Returning visitor" : "🆕 New visitor");
+          console.log("✅ Visitor notification sent once per session.");
+        } catch (error) {
+          console.error("❌ Error sending visitor info:", error.message);
+        }
+      };
+
+      sendVisitorInfo();
+    }
+  }, []);
+
+
 
 
   return (

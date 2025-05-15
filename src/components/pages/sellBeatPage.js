@@ -7,8 +7,9 @@ import UploadedBeatListComponent from "../component/UploadedBeatListComponent.js
 import Payout from "../component/Payout.js";
 import DashboardComponent from "../component/DashboardComponent.js";
 import ProducerMessages from "../component/producerMessages.js";
+import Termsandcondition from "../pages/Termsandcondition.js";
 import { GrCloudUpload } from "react-icons/gr";
-import { IoReturnUpBackSharp, IoMusicalNotes, IoChatbubbles, IoWallet, IoPerson, IoStatsChart } from "react-icons/io5";
+import { IoReturnUpBackSharp, IoMusicalNotes, IoChatbubbles, IoWallet, IoPerson, IoStatsChart, IoDocumentTextOutline } from "react-icons/io5";
 import ProfilePage from "../component/profilePageDublicate4Component.js";
 import UsersUploadMusicPage from "../component/UsersUploadMusicPage.js";
 
@@ -157,6 +158,19 @@ const SellBeatPage = () => {
               {isMobile ? <IoPerson /> : "Profile Page"}
             </Link>
           </li>
+          <li>
+            <Link
+              to="#"
+              onClick={() => setActiveComponent("Termsandcondition")}
+              style={{
+                backgroundColor: activeComponent === "Termsandcondition" ? getRandomColor() : "",
+              }}
+              className={activeComponent === "Termsandcondition" ? "active" : ""}
+            >
+              {isMobile ? <IoDocumentTextOutline /> : "Terms and Conditions"}
+            </Link>
+          </li>
+
         </ul>
       </nav>
 
@@ -167,6 +181,7 @@ const SellBeatPage = () => {
         {activeComponent === "profilePage" && <ProfilePage />}
         {activeComponent === "payout" && <Payout />}
         {activeComponent === "messages" && <ProducerMessages />}
+        {activeComponent === "Termsandcondition" && <Termsandcondition />}
         {activeComponent === null && <DashboardComponent />}
       </div>
     </div>
