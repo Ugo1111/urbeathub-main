@@ -1,0 +1,31 @@
+name: Deploy via SFTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Deploy to server using SFTP
+        env:
+          HOST: ${{ secrets.SFTP_HOST }}
+          USERNAME: ${{ secrets.SFTP_USERNAME }}
+          PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          PORT: ${{ secrets.SFTP_PORT }}
+        run: |
+          PORT="${PORT:-22}"
+          lftp -u "$USERNAME","$PASSWORD" sftp://$HOST:$PORT -e "
+            set sftp:auto-confirm yes;
+            mirror -R ./ www/;
+            quit
+          "
