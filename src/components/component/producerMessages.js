@@ -8,9 +8,7 @@ import {
   addDoc,
   updateDoc,
   doc,
-  getDocs,
 } from "firebase/firestore";
-import { formatDistanceToNow } from "date-fns"; // Import date-fns for formatting timestamps
 
 function ProducerMessages() {
   const [topics, setTopics] = useState([]); // List of topics for the current user
@@ -25,30 +23,17 @@ function ProducerMessages() {
     const user = auth.currentUser; // Get the current user
 
     if (user) {
-      const topicsQuery = collection(db, "beatHubUsers", user.uid, "messages");
-
-      // Firestore listener to fetch topics for the current user
-      const unsubscribe = onSnapshot(topicsQuery, async (querySnapshot) => {
-        const topicsList = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        // Check for new messages
-        const updatedTopics = await Promise.all(
-          topicsList.map(async (topic) => {
-            const topicMessagesQuery = collection(db, "beatHubUsers", user.uid, "messages", topic.id, "messages");
-            const querySnapshot = await getDocs(topicMessagesQuery);
-            const hasUnread = querySnapshot.docs.some(
-              (doc) => !doc.data().read && doc.data().senderId !== user.uid
-            );
-            return { ...topic, hasUnread }; // Add the `hasUnread` flag to the topic
-          })
-        );
-
-        setTopics(updatedTopics); // Update the topics with the `hasUnread` flag
-      });
-
+      // Firestore listener to fetch the topics for this user
+      const unsubscribe = onSnapshot(
+        collection(db, "beatHubUsers", user.uid, "messages"),
+        (querySnapshot) => {
+          const topicsList = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setTopics(topicsList); // Set the list of topics for the user
+        }
+      );
       return () => unsubscribe(); // Cleanup on unmount
     }
   }, []);
@@ -73,28 +58,9 @@ function ProducerMessages() {
   }, [selectedTopic]);
 
   // Handle topic selection
-  const handleTopicSelect = async (topicId) => {
+  const handleTopicSelect = (topicId) => {
     setSelectedTopic(topicId); // Set the selected topic
     setMessages([]); // Clear existing messages when switching topics
-
-    try {
-      const user = auth.currentUser; // Get the current user
-      if (user) {
-        // Fetch messages for the selected topic
-        const topicMessagesQuery = collection(db, "beatHubUsers", user.uid, "messages", topicId, "messages");
-        const querySnapshot = await getDocs(topicMessagesQuery);
-
-        querySnapshot.forEach(async (doc) => {
-          const messageData = doc.data();
-          if (!messageData.read && messageData.senderId !== user.uid) {
-            // Mark the message as read in Firestore
-            await updateDoc(doc.ref, { read: true });
-          }
-        });
-      }
-    } catch (err) {
-      console.error("Error marking messages as read:", err);
-    }
   };
 
   // Handle new topic creation
@@ -141,7 +107,7 @@ function ProducerMessages() {
       const user = auth.currentUser; // Get the current user
       if (user && selectedTopic) {
         // Create a timestamp
-        const timestamp = new Date();
+        const timestamp = new Date(); 
 
         // Add the message to Firestore under the selected topic
         await addDoc(
@@ -150,7 +116,6 @@ function ProducerMessages() {
             senderId: user.uid, // The sender of the message
             message: message.trim(), // The content of the message
             timestamp, // Timestamp of the message
-            read: false, // Mark the message as unread for the admin
           }
         );
 
@@ -192,28 +157,20 @@ function ProducerMessages() {
             <h3>Select or Start a New Topic</h3>
 
             {topics.length > 0 ? (
-              <ul>
-                {topics.map((topic) => (
-                  <li
-                    key={topic.id}
-                    className={selectedTopic === topic.id ? "producermessage-selected" : ""}
-                    onClick={() => handleTopicSelect(topic.id)}
-                  >
-                    {topic.name}
-                    {topic.messageLastUpdated && (
-                      <span className="timestamp">
-                        {` (${formatDistanceToNow(new Date(topic.messageLastUpdated.seconds * 1000), { addSuffix: true })})`}
-                      </span>
-                    )}
-                    {topic.hasUnread && (
-                      <>
-                        <span className="new-message-indicator">New</span> {/* Add new message indicator */}
-                        <span className="new-message-dot"></span> {/* Add new message dot */}
-                      </>
-                    )}
-                  </li>
-                ))}
-              </ul>
+              <>
+                <ul>
+                  {topics.map((topic) => (
+                    <li
+                      key={topic.id}
+                      className={selectedTopic === topic.id ? "producermessage-selected" : ""}
+                      onClick={() => handleTopicSelect(topic.id)}
+                    >
+                      {topic.name}
+                    </li>
+                  ))}
+                </ul>
+                <button onClick={() => setSelectedTopic(null)}>Start a New Message</button>
+              </>
             ) : (
               <p>No topics available. Please start a new message below.</p>
             )}

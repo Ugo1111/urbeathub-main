@@ -1,0 +1,27 @@
+.admin-feedback-page {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-feedback-page h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.feedback-item {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.feedback-item p {
+  margin: 5px 0;
+}
+
+.feedback-item strong {
+  font-weight: bold;
+}

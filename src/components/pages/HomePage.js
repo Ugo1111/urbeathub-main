@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback} from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import GroupA from "../component/header.js";
 import { GroupE, GroupF, GroupG } from "../component/footer.js";
 import SellBeatSection from "../component/SellBeatSection.js"; 
@@ -6,10 +6,12 @@ import "../css/HomePage.css";
 import "../css/component.css";
 import MusicPlayer from "../component/MusicPlayer";
 import SongList from "../component/SongList";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
+import FeedbackForm from "../component/FeedbackForm"; // Import FeedbackForm
+import { collection, getDocs } from "firebase/firestore"; // Import Firestore methods
+import { db } from "../../firebase/firebase"; // Import Firestore
 import HeroPage from "../component/HeroPage"; // Adjust path as needed
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet";
+
 function HomePage() {
   const [songs, setSongs] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -19,6 +21,7 @@ function HomePage() {
   const [volume, setVolume] = useState(1);
   const audioRef = useRef(null);
   const [selectedSong, setSelectedSong] = useState(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
     const fetchMusic = async () => {
@@ -43,6 +46,10 @@ function HomePage() {
       audioRef.current.volume = volume; // Sync default volume
     }
   }, [volume]);
+
+  const toggleFeedbackForm = () => {
+    setIsFormOpen(!isFormOpen);
+  };
 
   const playSong = (index) => {
     if (!songs[index]) {
@@ -110,81 +117,75 @@ function HomePage() {
 
   const [isChatOpen, setIsChatOpen] = useState(false);
 
-const toggleChatOptions = () => {
-  setIsChatOpen(!isChatOpen);
-};
-
-const [isFormOpen, setIsFormOpen] = useState(false);
-
-const toggleFeedbackForm = () => {
-  setIsFormOpen(!isFormOpen);
-};
+  const toggleChatOptions = () => {
+    setIsChatOpen(!isChatOpen);
+  };
 
   return (
     <div>
-    <Helmet>
-    <title>High Quality Instrumental beats for Artists | Buy & Download Instantly</title>
-    <meta name="google-site-verification" content="K0fOZTnTt94pq3xFMMzzOFU7DYpQGUG0F7Mv2zq8F8I" />
-    <meta
-      name="description"
-      content="Discover high quality instrumental beats for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
-    />
-    <meta property="og:title" content="High Quality Instrumental beats for Artists | Buy & Download Instantly" />
-    <meta
-      property="og:description"
-      content="Discover high quality instrumental beats for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
-    />
-    <meta property="og:image" content="https://urbeathub.com/ur_beathub_og_image_1200x630.png" />
-    <meta property="og:url" content="https://urbeathub.com" /> 
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="High Quality Instrumental Beats for Artists | Buy & Download Instantly" />
-    <meta
-      name="twitter:description"
-      content="Discover high quality instrumental beats for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
-    />
-    <meta name="twitter:image" content="https://urbeathub.com/ur_beathub_og_image_1200x630.png" />
-  </Helmet>
-    <div className="homepageWrapper">
-    <div className="overlay"></div> 
-      <GroupA />
-      <HeroPage />
-       {/* Hidden Audio Player */}
-       <audio 
-  ref={audioRef}
-  onCanPlay={() => {
-    if (isPlaying && audioRef.current) {
-      audioRef.current.play().catch((error) => console.error("Playback failed:", error));
-    }
-  }} // Auto-play when ready
-  onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
-  onLoadedMetadata={() => setDuration(audioRef.current.duration)}
-  onEnded={playNext}
-/>
+      <Helmet>
+        <title>High Quality Instrumental beats for Artists | Buy & Download Instantly</title>
+        <meta name="google-site-verification" content="K0fOZTnTt94pq3xFMMzzOFU7DYpQGUG0F7Mv2zq8F8I" />
+        <meta
+          name="description"
+          content="Discover high quality instrumental beats for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
+        />
+        <meta property="og:title" content="High Quality Instrumental beats for Artists | Buy & Download Instantly" />
+        <meta
+          property="og:description"
+          content="Discover high quality instrumental beats for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
+        />
+        <meta property="og:image" content="https://urbeathub.com/ur_beathub_og_image_1200x630.png" />
+        <meta property="og:url" content="https://urbeathub.com" /> 
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="High Quality Instrumental Beats for Artists | Buy & Download Instantly" />
+        <meta
+          name="twitter:description"
+          content="Discover high quality instrumental beats for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
+        />
+        <meta name="twitter:image" content="https://urbeathub.com/ur_beathub_og_image_1200x630.png" />
+      </Helmet>
+      <div className="homepageWrapper">
+        <div className="overlay"></div> 
+        <GroupA />
+        <HeroPage />
+        {/* Hidden Audio Player */}
+        <audio 
+          ref={audioRef}
+          onCanPlay={() => {
+            if (isPlaying && audioRef.current) {
+              audioRef.current.play().catch((error) => console.error("Playback failed:", error));
+            }
+          }} // Auto-play when ready
+          onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
+          onLoadedMetadata={() => setDuration(audioRef.current.duration)}
+          onEnded={playNext}
+        />
 
-    <MusicPlayer 
-      currentSong={songs[currentIndex]}
-      isPlaying={isPlaying}
-      togglePlayPause={togglePlayPause}
-      currentTime={currentTime}
-      duration={duration}
-      formatTime={formatTime}
-      handleSliderChange={handleSliderChange}
-      playPrevious={playPrevious}
-      playNext={playNext}
-      volume={volume}
-      handleVolumeChange={handleVolumeChange}
-      increaseVolume={() => setVolume(Math.min(1, volume + 0.1))}
-      decreaseVolume={() => setVolume(Math.max(0, volume - 0.1))}
-    />
+        <MusicPlayer 
+          currentSong={songs[currentIndex]}
+          isPlaying={isPlaying}
+          togglePlayPause={togglePlayPause}
+          currentTime={currentTime}
+          duration={duration}
+          formatTime={formatTime}
+          handleSliderChange={handleSliderChange}
+          playPrevious={playPrevious}
+          playNext={playNext}
+          volume={volume}
+          handleVolumeChange={handleVolumeChange}
+          increaseVolume={() => setVolume(Math.min(1, volume + 0.1))}
+          decreaseVolume={() => setVolume(Math.max(0, volume - 0.1))}
+        />
 
-    <SongList songs={songs} playSong={playSong} selectedSong={selectedSong} setSelectedSong={setSelectedSong} />
-   <SellBeatSection />
-    <GroupF />
-<GroupG/> 
-  </div>
-    {/* WhatsApp Chat Button */}
-    <div id="whatsapp-chat" style={{ position: "fixed", bottom: 20, right: 20, zIndex: 1000 }}>
+        <SongList songs={songs} playSong={playSong} selectedSong={selectedSong} setSelectedSong={setSelectedSong} />
+        <SellBeatSection />
+        <GroupF />
+        <GroupG /> 
+      </div>
+      {/* WhatsApp Chat Button */}
+      <div id="whatsapp-chat" style={{ position: "fixed", bottom: 20, right: 20, zIndex: 1000 }}>
         <button
           onClick={toggleChatOptions}
           style={{
@@ -234,34 +235,14 @@ const toggleFeedbackForm = () => {
           </div>
         )}
       </div>
-     {/* Feedback Form Button */}
-<button className="vertical-feedback-btn" onClick={toggleFeedbackForm}>
-  FEEDBACK
-</button>
+      {/* Feedback Form Button */}
+      <button className="vertical-feedback-btn" onClick={toggleFeedbackForm}>
+        FEEDBACK
+      </button>
 
-{/* Feedback Form Box */}
-{isFormOpen && (
-  <div id="feedback-box">
-    <h3>Send us your feedback</h3>
-    <form id="feedback-form" onSubmit={(e) => {
-      e.preventDefault();
-      const email = e.target.elements["feedback-email"].value;
-      const message = e.target.elements["feedback-text"].value;
-      console.log("Feedback submitted:", { email, message });
-      // Optional: send to backend, Firebase, or email service
-      alert("Thank you for your feedback!");
-      e.target.reset();
-      setIsFormOpen(false);
-    }}>
-      <input type="email" id="feedback-email" placeholder="Your email" required />
-      <textarea id="feedback-text" placeholder="Your feedback..." rows="3" required />
-      <button type="submit">Send</button>
-    </form>
-  </div>
-)}
-
-
-  </div>
+      {/* Feedback Form */}
+      {isFormOpen && <FeedbackForm onClose={toggleFeedbackForm} />}
+    </div>
   );
 }
 

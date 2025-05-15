@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AdminPage from "./adminPage";
-import AdminUploadMusicPage from "./AdminUploadMusicPage"; // Import AdminUploadMusicPage
+import AdminUploadMusicPage from "./AdminUploadMusicPage";
 import UploadedMusicComponent from "../component/UploadedMusicComponent";
-import AdminRespondMessages from "./AdminRespondMessages"; // Import AdminRespondMessages
-import AdminReportsPage from "./AdminReportsPage"; // Import AdminReportsPage
-import AdminNegotiationsPage from "./AdminNegotiationsPage"; // Import AdminNegotiationsPage
-import { MusicUploadProvider } from "../context/MusicUploadProvider"; // Import the provider
-import "../css/adminDashboard.css"; // Import CSS for styling
-import { getAuth, onAuthStateChanged } from "firebase/auth"; // Import Firebase auth
+import AdminRespondMessages from "./AdminRespondMessages";
+import AdminReportsPage from "./AdminReportsPage";
+import AdminNegotiationsPage from "./AdminNegotiationsPage";
+import AdminUsersPage from "./AdminUsersPage"; // Import AdminUsersPage
+import AdminFeedbackPage from "./AdminFeedbackPage"; // Import AdminFeedbackPage
+import { MusicUploadProvider } from "../context/MusicUploadProvider";
+import "../css/adminDashboard.css";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const AdminDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState("dashboard"); // State to track the active tab
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(getAuth(), async (user) => {
@@ -48,27 +51,31 @@ const AdminDashboard = () => {
     <div className="adminDashboard">
       <nav className="adminNav">
         <ul>
-          <li><Link to="/admin">Dashboard</Link></li> {/* Update the link to point to /admin */}
-          <li><Link to="/admin/upload">Upload Music</Link></li>
-          <li><Link to="/admin/uploaded">Uploaded Music</Link></li>
-          <li><Link to="/admin/respond">Respond to Messages</Link></li> {/* Add link to respond to messages */}
-          <li><Link to="/admin/reports">Reports</Link></li> {/* Add link to reports */}
-          <li><Link to="/admin/negotiations">Negotiations</Link></li> {/* Add link to negotiations */}
+          <li onClick={() => setActiveTab("dashboard")}>Dashboard</li>
+          <li onClick={() => setActiveTab("upload")}>Upload Music</li>
+          <li onClick={() => setActiveTab("uploaded")}>Uploaded Music</li>
+          <li onClick={() => setActiveTab("respond")}>Respond to Messages</li>
+          <li onClick={() => setActiveTab("reports")}>Reports</li>
+          <li onClick={() => setActiveTab("negotiations")}>Negotiations</li>
+          <li onClick={() => setActiveTab("users")}>Users</li> {/* Add Users tab */}
+          <li onClick={() => setActiveTab("feedback")}>Feedback</li> {/* Add Feedback tab */}
         </ul>
       </nav>
 
-      <Routes>
-        <Route path="/" element={<AdminPage />} /> {/* Update the route to match the link */}
-        <Route path="/upload" element={
+      <div className="adminContent">
+        {activeTab === "dashboard" && <AdminPage />}
+        {activeTab === "upload" && (
           <MusicUploadProvider>
             <AdminUploadMusicPage />
           </MusicUploadProvider>
-        } /> {/* Wrap AdminUploadMusicPage with MusicUploadProvider */}
-        <Route path="/uploaded" element={<UploadedMusicComponent />} />
-        <Route path="/respond" element={<AdminRespondMessages />} /> {/* Add route for responding to messages */}
-        <Route path="/reports" element={<AdminReportsPage />} /> {/* Add route for reports */}
-        <Route path="/negotiations" element={<AdminNegotiationsPage />} /> {/* Add route for negotiations */}
-      </Routes>
+        )}
+        {activeTab === "uploaded" && <UploadedMusicComponent />}
+        {activeTab === "respond" && <AdminRespondMessages />}
+        {activeTab === "reports" && <AdminReportsPage />}
+        {activeTab === "negotiations" && <AdminNegotiationsPage />}
+        {activeTab === "users" && <AdminUsersPage />} {/* Render AdminUsersPage */}
+        {activeTab === "feedback" && <AdminFeedbackPage />} {/* Render AdminFeedbackPage */}
+      </div>
     </div>
   );
 };

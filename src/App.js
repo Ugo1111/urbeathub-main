@@ -35,7 +35,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
-
+import UserProfilePage from "./components/pages/UserProfilePage"; // Import UserProfilePage
 
 // Initialize Google Analytics
 ReactGA.initialize('G-8Q9JH9G3KH');
@@ -123,6 +123,7 @@ function App() {
           </MusicUploadProvider>
         } />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/profile/:userId" element={<UserProfilePage />} /> {/* Add route for UserProfilePage */}
       </Routes>
 
       <CookieConsent

@@ -1,0 +1,29 @@
+.admin-users-page {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-users-page h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.user-item {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.user-item p {
+  margin: 5px 0;
+}
+
+.new-message-indicator {
+  color: red;
+  font-weight: bold;
+  margin-left: 10px;
+}

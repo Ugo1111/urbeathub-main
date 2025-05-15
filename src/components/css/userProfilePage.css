@@ -1,0 +1,51 @@
+.user-profile-page {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+  margin-bottom: 20px;
+}
+
+.profile-header h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.profile-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.profile-tabs button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+}
+
+.profile-tabs button.active {
+  background-color: #0056b3;
+}
+
+.profile-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-item,
+.track-item {
+  margin-bottom: 20px;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #888;
+}
