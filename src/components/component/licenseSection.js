@@ -78,12 +78,11 @@ export default function LicensingSection({ song, addToCart }) {
       price: "Negotiate price",
       details: "STEMS, MP3, WAV",
       usageTerms: [
-        "Used for Music Recording",
-        "Use It Commercially",
-        "Unlimited Audio Streams",
-        "UNLIMITED Music Video",
-        "For Profit Live Performances",
-        "Radio Broadcasting rights (62 Stations)",
+        "All rights transferred to you",
+         "Unlimited sales, streams, monetization",
+         "No credit required",
+           "Beat is removed from store",
+            "Best for artists wanting ownership",
       ],
     },
   };
