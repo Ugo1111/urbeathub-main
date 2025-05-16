@@ -1,10 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db, auth } from "../../firebase/firebase";
+import { ToastContainer, toast } from "react-toastify";
 
 function FeedbackForm({ onClose }) {
   const [error, setError] = useState("");
   const [satisfaction, setSatisfaction] = useState(null); // State for satisfaction level
+  const formRef = useRef(null); // Reference to the form
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (formRef.current && !formRef.current.contains(event.target)) {
+        onClose(); // Close form when clicking outside of it
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onClose]);
 
   const handleFeedbackSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +49,9 @@ function FeedbackForm({ onClose }) {
         });
       }
 
-      alert("Thank you for your feedback!");
+      toast.success("Thank you for your feedback!", {
+         position: "top-center",
+      });
       e.target.reset();
       onClose(); // Close the feedback form
     } catch (error) {
@@ -44,7 +61,8 @@ function FeedbackForm({ onClose }) {
   };
 
   return (
-    <div id="feedback-box">
+     <div className="feedback-overlay" style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.3)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 999 }}>
+      <div ref={formRef} id="feedback-box">
       <h3>Send us your feedback</h3>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <form id="feedback-form" onSubmit={handleFeedbackSubmit}>
@@ -127,6 +145,7 @@ function FeedbackForm({ onClose }) {
 
         <button type="submit">Send</button>
       </form>
+    </div>
     </div>
   );
 }

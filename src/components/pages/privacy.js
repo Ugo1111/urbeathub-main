@@ -2,6 +2,7 @@ import React from 'react';
 import "../css/addToCart.css";
 import { GroupF, GroupG } from "../component/footer"; // Import GroupF and GroupG for the footer
 import { Helmet } from 'react-helmet';
+import GroupA from "../component/header.js";
 
 function Privacy() {
   return (
@@ -9,6 +10,7 @@ function Privacy() {
     <Helmet>
             <title>Privacy Policy</title>
           </Helmet>
+          <GroupA />
     <div>
     <div className="privacy-policy">
       <h2>Privacy Policy</h2>
