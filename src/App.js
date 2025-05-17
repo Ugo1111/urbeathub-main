@@ -51,37 +51,95 @@ export function trackEvent({ category, action, label }) {
 
 // Define the App component
 function App() {
-  useEffect(() => {
-    const hasNotified = sessionStorage.getItem("visitorNotified");
-    const hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
+ useEffect(() => {
+  const hasNotified = sessionStorage.getItem("visitorNotified");
+  const hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
 
-    if (!hasNotified) {
-      const sendVisitorInfo = async () => {
-        try {
-          const locationRes = await axios.get("https://ipapi.co/json/");
-          const { city, country_name: country, ip } = locationRes.data;
+  if (!hasNotified) {
+    const sendVisitorInfo = async () => {
+      try {
+        // Get location data
+        const locationRes = await axios.get("https://ipapi.co/json/");
+        const { city, country_name: country, ip } = locationRes.data;
 
-          await axios.post("https://urbeathub-server.onrender.com/notify-telegram", {
-            browser: navigator.userAgent,
-            ip,
-            city,
-            country,
-            isReturning: !!hasVisitedBefore,
-          });
+        // Get referrer
+        const referrer = document.referrer || "";
 
-          localStorage.setItem("hasVisitedBefore", "true");
-          sessionStorage.setItem("visitorNotified", "true");
+        // UTM params from URL
+        const params = new URLSearchParams(window.location.search);
+        const utm = {
+          source: params.get("utm_source"),
+          medium: params.get("utm_medium"),
+          campaign: params.get("utm_campaign"),
+        };
 
-          console.log(hasVisitedBefore ? "🔁 Returning visitor" : "🆕 New visitor");
-          console.log("✅ Visitor notification sent once per session.");
-        } catch (error) {
-          console.error("❌ Error sending visitor info:", error.message);
+        // Known social media domains
+        const socialMediaSites = [
+          "facebook.com",
+          "twitter.com",
+          "instagram.com",
+          "linkedin.com",
+          "t.co",
+          "reddit.com",
+          "pinterest.com",
+          "tiktok.com",
+        ];
+
+        // Known search engine domains
+        const searchEngines = [
+          "google.",
+          "bing.com",
+          "yahoo.com",
+          "duckduckgo.com",
+          "baidu.com",
+          "yandex.com",
+        ];
+
+        // Helper to check if referrer matches list
+        function matchesDomainList(ref, domains) {
+          return domains.some(domain => ref.includes(domain));
         }
-      };
 
-      sendVisitorInfo();
-    }
-  }, []);
+        // Determine traffic source
+        let trafficSource = "Direct";
+
+        if (utm.source) {
+          trafficSource = `UTM: ${utm.source}`;
+        } else if (referrer) {
+          if (matchesDomainList(referrer, socialMediaSites)) {
+            trafficSource = "Social Media";
+          } else if (matchesDomainList(referrer, searchEngines)) {
+            trafficSource = "Search Engine";
+          } else {
+            trafficSource = `Referral: ${new URL(referrer).hostname}`;
+          }
+        }
+
+        // Send visitor info to backend
+        await axios.post("https://urbeathub-server.onrender.com/notify-telegram", {
+          browser: navigator.userAgent,
+          ip,
+          city,
+          country,
+          isReturning: !!hasVisitedBefore,
+          trafficSource,
+          utm,
+        });
+
+        localStorage.setItem("hasVisitedBefore", "true");
+        sessionStorage.setItem("visitorNotified", "true");
+
+        console.log(hasVisitedBefore ? "🔁 Returning visitor" : "🆕 New visitor");
+        console.log("Traffic Source:", trafficSource);
+        console.log("✅ Visitor notification sent once per session.");
+      } catch (error) {
+        console.error("❌ Error sending visitor info:", error.message);
+      }
+    };
+
+    sendVisitorInfo();
+  }
+}, []);
 
 
 
