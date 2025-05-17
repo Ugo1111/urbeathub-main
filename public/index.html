@@ -2,7 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
+   <!-- For older browsers and SEO -->
+<link rel="icon" href="%PUBLIC_URL%/favicon.ico" type="image/x-icon" />
+
+<!-- For modern browsers -->
+<link rel="icon" type="image/png" href="%PUBLIC_URL%/favicon.png" sizes="32x32" />
+
 <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="google-site-verification" content="K0fOZTnTt94pq3xFMMzzOFU7DYpQGUG0F7Mv2zq8F8I" />
@@ -46,7 +51,7 @@
         "@context": "https://schema.org",
         "@type": "Organization",
         "url": "https://urbeathub.com",
-        "logo": "https://urbeathub.com/favicon.png"
+        "logo": "https://urbeathub.com/logo.png"
       }
       </script>
       
