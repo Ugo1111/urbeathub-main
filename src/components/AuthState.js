@@ -88,7 +88,7 @@ const AuthState = ({ fontSize = "1em" }) => {
 
   const handleStartSelling = async () => {
     if (!user) {
-      navigate("/signUpPage"); // Redirect to sign-up page if user is not signed in
+      navigate("/startsellingpage"); // Redirect to sign-up page if user is not signed in
       return;
     }
 

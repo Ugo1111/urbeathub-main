@@ -1165,6 +1165,11 @@ overflow-y: auto;
   border: none;
   cursor: pointer;
 }
+.start-selling-button:hover {
+  background-color: #f31646;
+  transform: scale(1.05); /* Slightly enlarge on hover */
+  transition: transform 0.3s ease;
+}
 
 .why-sell-beat {
   width: 100%;

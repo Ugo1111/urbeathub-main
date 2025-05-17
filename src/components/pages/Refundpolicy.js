@@ -2,6 +2,7 @@ import React from 'react';
 import "../css/addToCart.css";
 import { GroupF, GroupG } from "../component/footer";
 import { Helmet } from 'react-helmet';
+import GroupA from "../component/header.js";
 
 function RefundPolicy() {
   return (
@@ -9,6 +10,7 @@ function RefundPolicy() {
     <Helmet>
                 <title>Refund Policy</title>
               </Helmet>
+      <GroupA />
       <div className="refund-policy-container">
         <h1>Refund Policy for Ur BeatHub</h1>
         <p>
