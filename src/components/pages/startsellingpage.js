@@ -1,13 +1,17 @@
 import React from 'react';
 import "../css/component.css";
+import GroupA from "../component/header.js";
 import { GroupF, GroupG } from "../component/footer"; 
 import { Helmet } from 'react-helmet';
+import { useNavigate } from 'react-router-dom';
 const myVideo = "/images/studio3.mp4"; // Correct path for public assets
 
 
-function startsellingpage() {
+function StartSellingPage() {
+  const navigate = useNavigate();
   return (
     <>
+    
     <Helmet>
         <title>Sell Your High Quality Instrumental Beats Online | Ur BeatHub</title>
         <meta
@@ -30,13 +34,13 @@ function startsellingpage() {
         />
         <meta name="twitter:image" content="https://urbeathub.com/ur_beathub_og_image_1200x630.png" />
       </Helmet>
-
+      <GroupA />
     <div className="video-wrap">
   <video src={myVideo} autoPlay muted loop></video>
   <div className="video-content">
     <h1>Sell Beats and Build Your Brand</h1>
     <p>Join the next generation of music entrepreneurs and reach millions of creators looking to buy beats.</p>
-    <button className="start-selling-button">GET STARTED</button>
+    <button className="start-selling-button" onClick={() => navigate('/signUpPage')}>GET STARTED</button>
   </div>
 </div>
 
@@ -92,6 +96,17 @@ function startsellingpage() {
         <li>Must Credit Ur BeatHub</li>
       </ul>
     </div>
+
+    <div className="lease-card highlight">
+      <h3 className="lease-card-title">Exclusive License</h3>
+      <ul className="lease-features">
+        <li>All rights transferred to you</li>
+        <li>Unlimited sales, streams, monetization</li>
+        <li>No credit required</li>
+        <li>Beat is removed from store</li>
+        <li>Best for artists wanting ownership</li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -104,13 +119,13 @@ function startsellingpage() {
             <li>Accept Bank card and Mobile Money Payment</li>
             <li>Upload unlimited beats</li>
             <li>Offer Unlimited free downloads</li>
-            <li>Keep 80% of your earnings per transaction</li>
+            <li>Keep 90% of your earnings per transaction</li>
             <li>Right audience for your beats</li>
             <li>Get premium support</li>
             <li>Dashboard Access</li>
             <li>All this 100% FREE. No upfront payment needed</li>
           </ul>
-          <a className="buy-link">Start Selling</a>
+          <button className="start-selling-button" onClick={() => navigate('/signUpPage')}>Start Selling</button>
         </div>
 
         <div className="sellbeat-container1a">
@@ -132,4 +147,4 @@ function startsellingpage() {
   );
 }
 
-export default startsellingpage;
+export default StartSellingPage;

@@ -3,6 +3,7 @@ import { useState } from "react";
 import "../css/addToCart.css";
 import { GroupF, GroupG } from "../component/footer"; 
 import { Helmet } from 'react-helmet';
+import GroupA from "../component/header.js";
 
 const licenses = [
   { 
@@ -170,6 +171,7 @@ export default function BeatLicenses() {
       <Helmet>
             <title>Beat License Information</title>
           </Helmet>
+          <GroupA />
     <div>
       <div className="beatlicenses">
         <h1 className="beatlicenses1">Beat License Information</h1>
