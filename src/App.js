@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import ReactGA from 'react-ga4';
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";  
 import HomePage from "./components/pages/HomePage";
-import { ProfilePage } from './components/pages/profilePage';
+import { ProfileSettingPage } from './components/pages/profileSettingPage'; // Updated import
 import AddToCart from "./components/pages/addToCart";
 import Passage from "./components/pages/loginPage";
 import Enroll from "./components/pages/SignUpPage";
@@ -88,7 +88,7 @@ function App() {
         <Route path="/loginPage" element={<Passage />} />
         <Route path="/signUpPage" element={<Enroll />} />
         <Route path="/checkoutPage" element={<CheckoutPage />} />
-        <Route path="/profilePage" element={<ProfilePage />} />
+        <Route path="/profileSettingPage" element={<ProfileSettingPage />} /> {/* Updated route */}
         <Route path="/admin/*" element={<AdminDashboard />} />
         <Route path="/FavouritePage" element={<FavouritePage />} />
         <Route path="/purchasedPage" element={<PurchasedTracksPage />} />

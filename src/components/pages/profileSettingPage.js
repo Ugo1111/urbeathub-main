@@ -5,7 +5,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import GroupA from "../component/header.js";
 import UploadProfilePic from "../component/UploadProfilePic.js";  // Import the upload component
 
-function ProfilePageContent({ uid, isNew, last, first, biography, location, username, setLast, setFirst, setBiography, setLocation, setUsername, handleSubmit, successMessage }) {
+function ProfileSettingContent({ uid, isNew, last, first, biography, location, username, setLast, setFirst, setBiography, setLocation, setUsername, handleSubmit, successMessage }) {
   return (
     <form className="ProfilePage" onSubmit={handleSubmit}> {/* Wrap content in a form */}
       <h1>{isNew ? "Complete Your Profile" : "UPDATE Your Profile"}</h1>
@@ -67,7 +67,7 @@ function ProfilePageContent({ uid, isNew, last, first, biography, location, user
   );
 }
 
-function ProfilePage() {
+function ProfileSettingPage() {
   const [last, setLast] = useState("");
   const [first, setFirst] = useState("");
   const [biography, setBiography] = useState("");
@@ -163,7 +163,7 @@ function ProfilePage() {
   return (
     <>
       <GroupA />
-      <ProfilePageContent
+      <ProfileSettingContent
         uid={uid}
         isNew={isNew}
         last={last}
@@ -183,7 +183,7 @@ function ProfilePage() {
   );
 }
 
-function ProfilePageWithoutHeaderForDashboardPage() {
+function ProfileSettingPageWithoutHeaderForDashboardPage() {
   const [last, setLast] = useState("");
   const [first, setFirst] = useState("");
   const [biography, setBiography] = useState("");
@@ -277,7 +277,7 @@ function ProfilePageWithoutHeaderForDashboardPage() {
   };
 
   return (
-    <ProfilePageContent
+    <ProfileSettingContent
       uid={uid}
       isNew={isNew}
       last={last}
@@ -296,4 +296,4 @@ function ProfilePageWithoutHeaderForDashboardPage() {
   );
 }
 
-export { ProfilePage, ProfilePageWithoutHeaderForDashboardPage };
+export { ProfileSettingPage, ProfileSettingPageWithoutHeaderForDashboardPage };

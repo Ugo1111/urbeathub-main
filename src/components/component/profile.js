@@ -82,7 +82,7 @@ export default function Profile() {
             // Display user data if available
             userData ? (
               <>
-                <Link to="/profilePage" className="avatar2">
+                <Link to="/profileSettingPage" className="avatar2"> {/* Updated route */}
                   <a href="#home" className="userEmail">
                     {/* Display username and profile picture */}
                     {userData.profilePicture ? (
@@ -90,7 +90,6 @@ export default function Profile() {
                         src={userData.profilePicture}
                         alt="Profile"
                         className="profile-pic"
-                       
                       />
                     ) : (
                       <IoIosContact className="default-icon" style={{ marginRight: "8px" }} />

@@ -9,7 +9,7 @@ import DashboardComponent from "../component/DashboardComponent.js";
 import ProducerMessages from "../component/producerMessages.js";
 import { GrCloudUpload } from "react-icons/gr";
 import { IoReturnUpBackSharp, IoMusicalNotes, IoChatbubbles, IoWallet, IoPerson, IoStatsChart } from "react-icons/io5";
-import ProfilePage from "../component/profilePageDublicate4Component.js";
+import { ProfileSettingPageWithoutHeaderForDashboardPage } from "../pages/profileSettingPage.js"; // Updated import
 import UsersUploadMusicPage from "../component/UsersUploadMusicPage.js";
 
 const SellBeatPage = () => {
@@ -164,7 +164,7 @@ const SellBeatPage = () => {
         {activeComponent === "uploaded" && <UploadedBeatListComponent />}
         {activeComponent === "upload" && <UsersUploadMusicPage />}
         {activeComponent === "performance" && <DashboardComponent />}
-        {activeComponent === "profilePage" && <ProfilePage />}
+        {activeComponent === "profilePage" && <ProfileSettingPageWithoutHeaderForDashboardPage />}
         {activeComponent === "payout" && <Payout />}
         {activeComponent === "messages" && <ProducerMessages />}
         {activeComponent === null && <DashboardComponent />}
