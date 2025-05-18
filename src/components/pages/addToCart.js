@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { getFirestore, collection, addDoc, doc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, doc, getDoc } from "firebase/firestore";
 import "../css/addToCart.css";
 import { useLocation } from "react-router-dom";
 import { Profilepicture } from "../AuthState";
@@ -26,8 +26,6 @@ import ShareModal from "../component/ShareModal";
 import { Timestamp } from "firebase/firestore"; // Import Firestore Timestamp
 import djImage from '../../images/dj.jpg';
 
-
-
 function AddToCart() {
   const location = useLocation();
   const song = location.state?.song; // Get the song passed through state
@@ -38,7 +36,29 @@ function AddToCart() {
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState(song?.comments || []);
   const [accordionOpen, setAccordionOpen] = useState(true);
+  const [isDownloadEnabled, setIsDownloadEnabled] = useState(false);
   const audioRef = useRef(null); // Reference to audio element
+  const db = getFirestore();
+
+  useEffect(() => {
+    const fetchMonetizationData = async () => {
+      if (!song?.id) return;
+
+      try {
+        const songDocRef = doc(db, `beats/${song.id}`);
+        const songDocSnap = await getDoc(songDocRef);
+
+        if (songDocSnap.exists()) {
+          const monetization = songDocSnap.data().monetization;
+          setIsDownloadEnabled(monetization?.free?.enabled === true);
+        }
+      } catch (error) {
+        console.error("Error fetching monetization data:", error);
+      }
+    };
+
+    fetchMonetizationData();
+  }, [song?.id, db]);
 
   // Handle play/pause toggle
   const handlePlayPause = () => {
@@ -112,7 +132,7 @@ function AddToCart() {
       <GroupA />
       <div className="theMainContainer">
         <div className="container">
-          <SongBio song={song} />
+          <SongBio song={song} isDownloadEnabled={isDownloadEnabled} />
           <div className="secondContainer">
             <Mp3player
               song={song}
@@ -191,7 +211,7 @@ function Mp3player({
   );
 }
 
-function SongBio({ song }) {
+function SongBio({ song, isDownloadEnabled }) {
   const [showModal, setShowModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [reportReason, setReportReason] = useState("");
@@ -268,15 +288,17 @@ function SongBio({ song }) {
         </div> */}
       </span>
 
-      <a
-        href={song.musicUrls.taggedMp3}
-        download={song.title}
-        style={{ textDecoration: "none" }}
-      >
-        <div className="IoMdDownload">
-          <IoMdDownload size="1.5em" /> Download for Free
-        </div>
-      </a>
+      {isDownloadEnabled && (
+        <a
+          href={song.musicUrls.taggedMp3}
+          download={song.title}
+          style={{ textDecoration: "none" }}
+        >
+          <div className="IoMdDownload">
+            <IoMdDownload size="1.5em" /> Download for Free
+          </div>
+        </a>
+      )}
 
       <hr />
 

@@ -2,20 +2,40 @@ import React, { useState, useEffect } from "react";
 import "../css/component.css";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaShareAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { SlOptionsVertical } from "react-icons/sl"; 
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 import Download from "../component/download.js";
 
 export default function MoreOptions({ song, openShareModal }) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isDownloadEnabled, setIsDownloadEnabled] = useState(false);
+    const db = getFirestore();
 
-    // Toggle dropdown visibility
+    useEffect(() => {
+        const fetchMonetizationData = async () => {
+            if (!song?.id) return;
+
+            try {
+                const songDocRef = doc(db, `beats/${song.id}`);
+                const songDocSnap = await getDoc(songDocRef);
+
+                if (songDocSnap.exists()) {
+                    const monetization = songDocSnap.data().monetization;
+                    setIsDownloadEnabled(monetization?.free?.enabled === true);
+                }
+            } catch (error) {
+                console.error("Error fetching monetization data:", error);
+            }
+        };
+
+        fetchMonetizationData();
+    }, [song?.id, db]);
+
     const toggleDropdown = (event) => {
-        event.stopPropagation(); // Prevent triggering play on click
+        event.stopPropagation();
         setIsDropdownOpen((prev) => !prev);
     };
 
-    // Close the dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (!event.target.closest(".dropdown")) {
@@ -36,18 +56,7 @@ export default function MoreOptions({ song, openShareModal }) {
             </button>
             {isDropdownOpen && (
                 <div id="myDropdown" className="dropdown-content">
-                    {/* <Link to="/buysong" state={{ song }}>
-                       <button><FaCartShopping size="1.5em" /> Buy</button>
-                    </Link> */}
-
-                    <Download song={song} />
-
-                   {/* <button onClick={(event) => {
-                        event.stopPropagation();
-                        openShareModal(song, event);
-                    }}>
-                       <FaShareAlt size="1.5em" /> Share
-                    </button>  */}
+                    {isDownloadEnabled && <Download song={song} />}
                 </div>
             )}
         </div>
