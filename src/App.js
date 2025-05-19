@@ -41,106 +41,112 @@ import UserProfilePage from "./components/pages/UserProfilePage"; // Import User
 ReactGA.initialize('G-8Q9JH9G3KH');
 
 // Helper function to track custom events
-export function trackEvent({ category, action, label }) {
-  ReactGA.event({
-    category,
-    action,
-    label,
+export function trackEvent({ eventName, songTitle, artist }) {
+  ReactGA.event(eventName, {
+    song_title: songTitle || "Unknown Track",
+    artist: artist || "Unknown Artist",
   });
 }
 
 // Define the App component
 function App() {
- useEffect(() => {
-  const hasNotified = sessionStorage.getItem("visitorNotified");
-  const hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
+useEffect(() => {
+    const hasNotified = sessionStorage.getItem("visitorNotified");
+    const hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
 
-  if (!hasNotified) {
-    const sendVisitorInfo = async () => {
-      try {
-        // Get location data
-        const locationRes = await axios.get("https://ipapi.co/json/");
-        const { city, country_name: country, ip } = locationRes.data;
-
-        // Get referrer
-        const referrer = document.referrer || "";
-
-        // UTM params from URL
-        const params = new URLSearchParams(window.location.search);
-        const utm = {
-          source: params.get("utm_source"),
-          medium: params.get("utm_medium"),
-          campaign: params.get("utm_campaign"),
-        };
-
-        // Known social media domains
-        const socialMediaSites = [
-          "facebook.com",
-          "twitter.com",
-          "instagram.com",
-          "linkedin.com",
-          "t.co",
-          "reddit.com",
-          "pinterest.com",
-          "tiktok.com",
-        ];
-
-        // Known search engine domains
-        const searchEngines = [
-          "google.",
-          "bing.com",
-          "yahoo.com",
-          "duckduckgo.com",
-          "baidu.com",
-          "yandex.com",
-        ];
-
-        // Helper to check if referrer matches list
+    if (!hasNotified) {
+      const sendVisitorInfo = async () => {
+        // Helper to check if referrer matches domains
         function matchesDomainList(ref, domains) {
           return domains.some(domain => ref.includes(domain));
         }
 
-        // Determine traffic source
-        let trafficSource = "Direct";
+        // Simplified browser + device detection
+        function getBrowserInfo() {
+          const ua = navigator.userAgent;
+          let browser = "Unknown";
 
-        if (utm.source) {
-          trafficSource = `UTM: ${utm.source}`;
-        } else if (referrer) {
-          if (matchesDomainList(referrer, socialMediaSites)) {
-            trafficSource = "Social Media";
-          } else if (matchesDomainList(referrer, searchEngines)) {
-            trafficSource = "Search Engine";
-          } else {
-            trafficSource = `Referral: ${new URL(referrer).hostname}`;
+          if (ua.includes("Chrome") && !ua.includes("Edg") && !ua.includes("OPR")) {
+            browser = "Chrome";
+          } else if (ua.includes("Firefox")) {
+            browser = "Firefox";
+          } else if (ua.includes("Safari") && !ua.includes("Chrome")) {
+            browser = "Safari";
+          } else if (ua.includes("Edg")) {
+            browser = "Edge";
+          } else if (ua.includes("OPR") || ua.includes("Opera")) {
+            browser = "Opera";
           }
+
+          // Detect mobile or desktop based on user agent keywords
+          const device = /Mobi|Android|iPhone|iPad/i.test(ua) ? "Mobile" : "Desktop";
+          return `${browser} (${device})`;
         }
 
-        // Send visitor info to backend
-        await axios.post("https://urbeathub-server.onrender.com/notify-telegram", {
-          browser: navigator.userAgent,
-          ip,
-          city,
-          country,
-          isReturning: !!hasVisitedBefore,
-          trafficSource,
-          utm,
-        });
+        try {
+          // Fetch location info
+          const locationRes = await axios.get("https://ipapi.co/json/");
+          const { city, country_name: country, ip } = locationRes.data;
 
-        localStorage.setItem("hasVisitedBefore", "true");
-        sessionStorage.setItem("visitorNotified", "true");
+          // Referrer URL
+          const referrer = document.referrer || "";
 
-        console.log(hasVisitedBefore ? "🔁 Returning visitor" : "🆕 New visitor");
-        console.log("Traffic Source:", trafficSource);
-        console.log("✅ Visitor notification sent once per session.");
-      } catch (error) {
-        console.error("❌ Error sending visitor info:", error.message);
-      }
-    };
+          // UTM params from URL
+          const params = new URLSearchParams(window.location.search);
+          const utm = {
+            source: params.get("utm_source"),
+            medium: params.get("utm_medium"),
+            campaign: params.get("utm_campaign"),
+          };
 
-    sendVisitorInfo();
-  }
-}, []);
+          // Known domains for social media & search engines
+          const socialMediaSites = [
+            "facebook.com", "twitter.com", "instagram.com", "linkedin.com",
+            "t.co", "reddit.com", "pinterest.com", "tiktok.com"
+          ];
 
+          const searchEngines = [
+            "google.", "bing.com", "yahoo.com", "duckduckgo.com", "baidu.com", "yandex.com"
+          ];
+
+          // Determine traffic source
+          let trafficSource = "Direct";
+
+          if (utm.source) {
+            trafficSource = `UTM: ${utm.source}`;
+          } else if (referrer) {
+            if (matchesDomainList(referrer, socialMediaSites)) {
+              trafficSource = "Social Media";
+            } else if (matchesDomainList(referrer, searchEngines)) {
+              trafficSource = "Search Engine";
+            } else {
+              trafficSource = `Referral: ${new URL(referrer).hostname}`;
+            }
+          }
+
+          // Send visitor info to backend
+          await axios.post("https://urbeathub-server.onrender.com/notify-telegram", {
+            browser: getBrowserInfo(),
+            ip,
+            city,
+            country,
+            isReturning: !!hasVisitedBefore,
+            trafficSource,
+            utm,
+          });
+
+          localStorage.setItem("hasVisitedBefore", "true");
+          sessionStorage.setItem("visitorNotified", "true");
+
+          console.log(hasVisitedBefore ? "🔁 Returning visitor" : "🆕 New visitor");
+        } catch (error) {
+          console.error("❌ Error sending visitor info:", error.message);
+        }
+      };
+
+      sendVisitorInfo();
+    }
+  }, []);
 
 
 

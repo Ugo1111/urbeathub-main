@@ -77,9 +77,9 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
               }
               // Track play event in GA
   trackEvent({
-    category: "Audio",
-    action: "Play",
-    label: song.title || "Unknown Track",
+    eventName: "play_song",
+    songTitle: song.title,
+    artist: song.username,
   });
               playSong(songIndex);
             }}
