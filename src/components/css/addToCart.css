@@ -268,6 +268,7 @@ gap: 20px;
   width: 100%;
   max-width: 300px; /* You can change this max size */
   aspect-ratio: 1 / 1; /* Keeps it square */
+  margin-top: 20px;
 }
 
 .image-placeholder img {
@@ -1299,6 +1300,7 @@ overflow-y: auto;
   }
   .image-placeholder {
     margin: 0 auto;
+     margin-top: 20px;
   }
 
     .Mp3player {
@@ -1358,6 +1360,7 @@ width: 95%;
 
        .image-placeholder {
     margin: 0 auto;
+     margin-top: 20px;
   }
     
       .songBioSection {
