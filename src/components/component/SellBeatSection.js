@@ -3,6 +3,7 @@ import "../css/component.css";
 // Use a relative path for public assets
 const Mixer = "/images/Mixer.jpg";
 
+
 function SellBeatSection() {
   return (
     <>
