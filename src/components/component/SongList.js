@@ -83,7 +83,7 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
   });
               playSong(songIndex);
             }}
-            ref={index === displayedSongs.length - 1 ? lastSongElementRef : null}
+            ref={index === displayedSongs.length - 1 ? lastSongElementRef : null}  
             >
             <img
               src={song.coverUrl || djImage}

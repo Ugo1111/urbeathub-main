@@ -124,7 +124,7 @@ function HomePage() {
   return (
     <div>
       <Helmet>
-        <title>High Quality Instrumental beats for Artists | Buy & Download Instantly</title>
+        <title>Browse & Buy Beats – Trap, Drill, Afrobeats & More</title>
         <meta name="google-site-verification" content="K0fOZTnTt94pq3xFMMzzOFU7DYpQGUG0F7Mv2zq8F8I" />
         <meta
           name="description"

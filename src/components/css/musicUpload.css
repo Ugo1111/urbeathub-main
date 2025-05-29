@@ -201,7 +201,8 @@
   
     .uploadMusicContainer {
       width: 100vw; 
-      height: 300vh; 
+      height: 300vh;
+      height: fit-content; 
       background-color: #ffffff; 
       display: flex; 
       flex-direction: column;

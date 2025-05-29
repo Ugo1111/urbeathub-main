@@ -28,6 +28,8 @@ import "./App.css";
 import Privacy from "./components/pages/privacy";
 import Termsandcondition from "./components/pages/Termsandcondition";
 import Licensedetails from "./components/pages/Licensedetails";
+import CoverArt from "./components/pages/CoverArt"; // Import CoverArt component
+import Front from "./components/pages/Front"; // Import Front component
 import Startsellingpage from "./components/pages/startsellingpage";
 import Refundpolicy from "./components/pages/Refundpolicy";
 import CookieConsent from "react-cookie-consent";
@@ -154,7 +156,8 @@ useEffect(() => {
     <Router>
       <RouteTracker />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Front />} />
+        <Route path="/homePage" element={<HomePage />} />
         <Route path="/addToCart" element={<AddToCart />} />
         <Route path="/loginPage" element={<Passage />} />
         <Route path="/signUpPage" element={<Enroll />} />
@@ -179,6 +182,8 @@ useEffect(() => {
         <Route path="/PageTwo" element={<PageTwo />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/Licensedetails" element={<Licensedetails />} />
+        <Route path="/coverart" element={<CoverArt />} />
+        <Route path="/front" element={<Front />} />
         <Route path="/termsandcondition" element={<Termsandcondition />} />
         <Route path="/startsellingpage" element={<Startsellingpage />} />
         <Route path="/Refundpolicy" element={<Refundpolicy />} />
