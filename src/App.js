@@ -183,7 +183,7 @@ useEffect(() => {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/Licensedetails" element={<Licensedetails />} />
         <Route path="/coverart" element={<CoverArt />} />
-        <Route path="/front" element={<Front />} />
+      
         <Route path="/termsandcondition" element={<Termsandcondition />} />
         <Route path="/startsellingpage" element={<Startsellingpage />} />
         <Route path="/Refundpolicy" element={<Refundpolicy />} />
