@@ -1096,7 +1096,7 @@ color:#ffffff;}
 /* Adjust image size so 4 fit inside the container */
 .design-button {
   flex: 0 0 auto;
-  width: 90px;  /* Adjust so 4 fit in container width */
+  width: 100px;  /* Adjust so 4 fit in container width */
 }
 
 .design-preview {
@@ -1777,4 +1777,20 @@ color:#ffffff;}
      .hero2-container1 li{
       font-size: 0.9rem
      }
+     .design-button {
+  flex: 0 0 auto;
+  width: 130px;  /* Adjust so 4 fit in container width */
+}
+.design-picker-container {
+  width: 100%;
+  max-width: 250px; /* Adjust this to control how many images show at once */
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  margin: 0 auto;
+  padding-bottom: 10px;
+  position: relative;
+}
 }
