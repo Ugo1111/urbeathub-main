@@ -1,3 +1,5 @@
+import React from "react";
+
 export function GroupF() {
     return (
       <div className="GroupF">
@@ -71,7 +73,7 @@ export function GroupF() {
     );
   }
 
-  export function GroupG() {
+export function GroupG() {
     return (
       <footer className="footer">
         {/*Group Cb */}

@@ -153,6 +153,9 @@ overflow: hidden;
 
   
 
+
+
+
   .HeroPage {
     padding: 5px;
     width: 95%;
@@ -162,6 +165,42 @@ overflow: hidden;
     position: relative;
     z-index: 2;
 }
+
+
+
+/* Style for HeroPageProducer */
+.HeroPageProducer {
+  color: #fff;
+  margin: 200px 0 200px 0 ; /* Adjusted margin for spacing */
+}
+
+/* Style for HeroTextProducer */
+.HeroTextProducer {
+  max-width: 800px; /* Limit width for better readability */
+  margin: 0 auto; /* Center the text */
+}
+
+.HeroTextProducer h5 {
+  font-size: 1rem;
+  text-align: center;
+  width: 95%;
+  margin: 0 auto; /* Centers the block element horizontally */
+  position: relative;
+  z-index: 2;
+}
+
+.HeroTextProducer h1 {
+  margin: 0 auto; 
+  width: 95%;
+  font-size: 4rem;
+  color: #db3056;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  position: relative;
+  z-index: 2;
+}
+
 
 .HeroPage  div {
 color: #fff;

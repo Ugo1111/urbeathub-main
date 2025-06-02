@@ -1,18 +1,19 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import GroupA from "../component/header.js";
-import { GroupE, GroupF, GroupG } from "../component/footer.js";
-import SellBeatSection from "../component/SellBeatSection.js"; 
+import { ProducerGroupA } from "../component/header.js"; // Default import
 import "../css/HomePage.css";
+import AboutProducer from "../component/AboutProducer.js"; // Default import
+import { GroupG } from "../component/footer.js"; // Use named import for GroupG
 import "../css/component.css";
-import MusicPlayer from "../component/MusicPlayer";
-import SongList from "../component/SongList";
-import FeedbackForm from "../component/FeedbackForm"; // Import FeedbackForm
-import { collection, getDocs } from "firebase/firestore"; // Import Firestore methods
-import { db } from "../../firebase/firebase"; // Import Firestore
-import { HeroPage } from "../component/HeroPage"; // Use named import for HeroPage
+import MusicPlayer from "../component/MusicPlayer"; // Default import
+import SongList from "../component/SongList"; // Default import
+import FeedbackForm from "../component/FeedbackForm"; // Default import
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase/firebase";
+import { ProducersHeroPage } from "../component/HeroPage"; // Use named import for ProducersHeroPage
 import { Helmet } from "react-helmet";
+import { useParams } from "react-router-dom";
 
-function HomePage() {
+function ProducersStore() {
   const [songs, setSongs] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -23,23 +24,29 @@ function HomePage() {
   const [selectedSong, setSelectedSong] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
+  const { userId } = useParams();
+
   useEffect(() => {
     const fetchMusic = async () => {
       try {
         const musicCollectionRef = collection(db, "beats");
         const querySnapshot = await getDocs(musicCollectionRef);
-        const musicList = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })).filter((music) => music.status === true);
+        const musicList = querySnapshot.docs
+          .map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+          .filter((music) => music.status === true && music.userId === userId);
         setSongs(musicList);
       } catch (error) {
         console.error("Error fetching music:", error);
       }
     };
 
-    fetchMusic();
-  }, []);
+    if (userId) {
+      fetchMusic();
+    }
+  }, [userId]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -70,11 +77,11 @@ function HomePage() {
       return;
     }
 
-    setCurrentIndex(index); // Update the song index
-    setIsPlaying(true); // Mark as playing
+    setCurrentIndex(index);
+    setIsPlaying(true);
 
-    audioRef.current.src = audioUrl; // Set the source of the audio to taggedMp3
-    audioRef.current.load(); // Reload to ensure we have the latest song URL
+    audioRef.current.src = audioUrl;
+    audioRef.current.load();
 
     audioRef.current.oncanplaythrough = () => {
       if (audioRef.current) {
@@ -87,18 +94,18 @@ function HomePage() {
 
   const togglePlayPause = () => {
     if (!audioRef.current) return;
-  
+
     if (isPlaying) {
-      audioRef.current.pause(); // Pause the current song
+      audioRef.current.pause();
     } else {
       if (!audioRef.current.src && songs.length > 0) {
-        playSong(currentIndex); // Play the current song if not already loaded
+        playSong(currentIndex);
       } else {
-        audioRef.current.play().catch((error) => console.error("Playback failed:", error)); // Play the current song
+        audioRef.current.play().catch((error) => console.error("Playback failed:", error));
       }
     }
-    
-    setIsPlaying(!isPlaying); // Toggle the state for play/pause
+
+    setIsPlaying(!isPlaying);
   };
 
   const playNext = useCallback(() => {
@@ -112,8 +119,16 @@ function HomePage() {
   }, [currentIndex, songs]);
 
   const formatTime = (time) => `${Math.floor(time / 60)}:${("0" + Math.floor(time % 60)).slice(-2)}`;
-  const handleSliderChange = useCallback((e) => { audioRef.current.currentTime = e.target.value; setCurrentTime(e.target.value); }, []);
-  const handleVolumeChange = useCallback((e) => { setVolume(e.target.value); audioRef.current.volume = e.target.value; }, []);
+
+  const handleSliderChange = useCallback((e) => {
+    audioRef.current.currentTime = e.target.value;
+    setCurrentTime(e.target.value);
+  }, []);
+
+  const handleVolumeChange = useCallback((e) => {
+    setVolume(e.target.value);
+    audioRef.current.volume = e.target.value;
+  }, []);
 
   const [isChatOpen, setIsChatOpen] = useState(false);
 
@@ -136,7 +151,7 @@ function HomePage() {
           content="Discover high quality instrumental beats for artists, ready for your next hit. Browse exclusive and royalty-free beats with instant download and licensing."
         />
         <meta property="og:image" content="https://urbeathub.com/ur_beathub_og_image_1200x630.png" />
-        <meta property="og:url" content="https://urbeathub.com" /> 
+        <meta property="og:url" content="https://urbeathub.com" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="High Quality Instrumental Beats for Artists | Buy & Download Instantly" />
@@ -147,23 +162,23 @@ function HomePage() {
         <meta name="twitter:image" content="https://urbeathub.com/ur_beathub_og_image_1200x630.png" />
       </Helmet>
       <div className="homepageWrapper">
-        <div className="overlay"></div> 
-        <GroupA />
-        <HeroPage />
+        <div className="overlay"></div>
+        <ProducerGroupA />
+        <ProducersHeroPage />
         {/* Hidden Audio Player */}
-        <audio 
+        <audio
           ref={audioRef}
           onCanPlay={() => {
             if (isPlaying && audioRef.current) {
               audioRef.current.play().catch((error) => console.error("Playback failed:", error));
             }
-          }} // Auto-play when ready
+          }}
           onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
           onLoadedMetadata={() => setDuration(audioRef.current.duration)}
           onEnded={playNext}
         />
 
-        <MusicPlayer 
+        <MusicPlayer
           currentSong={songs[currentIndex]}
           isPlaying={isPlaying}
           togglePlayPause={togglePlayPause}
@@ -180,9 +195,11 @@ function HomePage() {
         />
 
         <SongList songs={songs} playSong={playSong} selectedSong={selectedSong} setSelectedSong={setSelectedSong} />
-        <SellBeatSection />
-        <GroupF />
-        <GroupG /> 
+
+        {/* About Producer Section */}
+        <AboutProducer />
+
+        <GroupG />
       </div>
       {/* WhatsApp Chat Button */}
       <div id="whatsapp-chat" style={{ position: "fixed", bottom: 20, right: 20, zIndex: 1000 }}>
@@ -205,7 +222,6 @@ function HomePage() {
           💬
         </button>
 
-        {/* Chat options (hidden/show dynamically) */}
         {isChatOpen && (
           <div
             style={{
@@ -222,19 +238,24 @@ function HomePage() {
           >
             <p style={{ margin: 0, color: "black" }}>Chat with:</p>
             <a href="https://wa.me/447776727121?text=Hi%20I%20need%20assistance" target="_blank" rel="noopener noreferrer">
-              <button style={{ backgroundColor: "#db3056", color: "white", padding: "10px", borderRadius: "5px", margin: "5px" }}>
+              <button
+                style={{ backgroundColor: "#db3056", color: "white", padding: "10px", borderRadius: "5px", margin: "5px" }}
+              >
                 Lee
               </button>
             </a>
             or
             <a href="https://wa.me/2347011886514?text=Hi%20I%20need%20help%20with%20your%20services" target="_blank" rel="noopener noreferrer">
-              <button style={{ backgroundColor: "#db3056", color: "white", padding: "10px", borderRadius: "5px", margin: "5px" }}>
+              <button
+                style={{ backgroundColor: "#db3056", color: "white", padding: "10px", borderRadius: "5px", margin: "5px" }}
+              >
                 Tayexy
               </button>
             </a>
           </div>
         )}
       </div>
+
       {/* Feedback Form Button */}
       <button className="vertical-feedback-btn" onClick={toggleFeedbackForm}>
         FEEDBACK
@@ -246,4 +267,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default ProducersStore;

@@ -14,6 +14,14 @@ export function Headerlogo() {
   );
 }
 
+// /Header Logo for Producer storepage
+export function ProducerHeaderlogo() {
+  return (<div>#Producer</div>
+   
+  );
+}
+
+
 //Header search bar
 export function HeaderSearchBar() {
   function setSearchTerm(){}
@@ -55,5 +63,15 @@ export default function GroupA() {
     );
   }
 
+
+  export function ProducerGroupA() {
+    return (
+      <div className="GroupA">
+        <ProducerHeaderlogo />  <AuthState /> 
+        
+
+      </div>
+    );
+  }
 
  
