@@ -136,7 +136,7 @@ const toggleFeedbackForm = () => {
     </div>
     </div>
      {/* WhatsApp Chat Button */}
-     <div id="whatsapp-chat" style={{ position: "fixed", bottom: 20, right: 20, zIndex: 1000 }}>
+      <div id="whatsapp-chat" style={{ position: "fixed", bottom: 20, right: 20, zIndex: 1000 }}>
         <button
           onClick={toggleChatOptions}
           style={{
@@ -172,15 +172,15 @@ const toggleFeedbackForm = () => {
             }}
           >
             <p style={{ margin: 0, color: "black" }}>Chat with:</p>
-            <a href="https://wa.me/2347039426515?text=Hi%20I%20need%20assistance" target="_blank" rel="noopener noreferrer">
+             <a href="https://wa.me/447776727121?text=Hi%20I%20need%20help%20with%20urbeathub%20services" target="_blank" rel="noopener noreferrer">
               <button style={{ backgroundColor: "#db3056", color: "white", padding: "10px", borderRadius: "5px", margin: "5px" }}>
-                Tayexy 
+                Lee
               </button>
             </a>
             or
-            <a href="https://wa.me/2347011886514?text=Hi%20I%20need%20help%20with%20your%20services" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/2347011886514?text=Hi%20I%20need%20help%20with%20urbeathub%20services" target="_blank" rel="noopener noreferrer">
               <button style={{ backgroundColor: "#db3056", color: "white", padding: "10px", borderRadius: "5px", margin: "5px" }}>
-                Lee
+                Tayexy
               </button>
             </a>
           </div>

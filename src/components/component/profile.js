@@ -111,15 +111,16 @@ export default function Profile() {
         Cart
           </Link>
 
-         
+          <Link to="/coverArt" className="">
+        Cover Art
+          </Link>
 
+         
           {isProducer && (
             <Link to="/sellBeatPage" className="">Dashboard</Link>
           )}
 
-           {isProducer && (
-            <Link to="/coverArt" className="">Cover Art</Link>
-          )}
+           
           <div><Logout /></div>
         </div>
       )}
