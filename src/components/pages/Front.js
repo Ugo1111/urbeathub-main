@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import '../css/component.css';
 import { useNavigate } from 'react-router-dom';
 import GroupA from "../component/header.js";
@@ -11,49 +11,12 @@ import { Helmet } from 'react-helmet';
 const sound = "/images/prdoucer studio.jpg";
 const Art = "/images/Urbeathub art.jpg";
 const Mixer = "/images/Mixer.jpg";
-
-const videos = [
-  "/images/urbeathubfrontpage.mp4",
-  "/images/Mastering urbeathub.mp4",
-  "/images/STUDIO MIXER urbeathub.mp4"
-];
+const myVideo = "/images/new video.mp4"; // Correct path for public assets
 
 
 function Front() {
   const navigate = useNavigate();
-  const videoRef = useRef(null);
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-
-  useEffect(() => {
-    const videoElement = videoRef.current;
-
-    const handleEnded = () => {
-      setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
-    };
-
-    videoElement.addEventListener("ended", handleEnded);
-
-    return () => {
-      videoElement.removeEventListener("ended", handleEnded);
-    };
-  }, []);
-
-  useEffect(() => {
-    const videoElement = videoRef.current;
-
-    const playVideo = async () => {
-      try {
-        videoElement.src = videos[currentVideoIndex];
-        await videoElement.load();
-        await videoElement.play();
-      } catch (err) {
-        console.warn("Autoplay was interrupted or blocked:", err);
-      }
-    };
-
-    playVideo();
-  }, [currentVideoIndex]);
-
+ 
    const [isChatOpen, setIsChatOpen] = useState(false);
   
   const toggleChatOptions = () => {
@@ -94,7 +57,7 @@ function Front() {
       </Helmet>
       <GroupA />
       <div className="video-wrap">
-        <video ref={videoRef} muted playsInline autoPlay />
+        <video src={myVideo} autoPlay muted loop></video>
         <div className="video-content">
           <h1>Buy premium beats made by the world’s top producers.</h1>
           <p>Discover the latest beats that are making waves in the music scene.</p>
@@ -200,7 +163,7 @@ function Front() {
     
 
     {/* WhatsApp Chat Button */}
-     <div id="whatsapp-chat" style={{ position: "fixed", bottom: 20, right: 20, zIndex: 1000 }}>
+      <div id="whatsapp-chat" style={{ position: "fixed", bottom: 20, right: 20, zIndex: 1000 }}>
         <button
           onClick={toggleChatOptions}
           style={{
@@ -236,15 +199,15 @@ function Front() {
             }}
           >
             <p style={{ margin: 0, color: "black" }}>Chat with:</p>
-            <a href="https://wa.me/2347039426515?text=Hi%20I%20need%20assistance" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/447776727121?text=Hi%20I%20need%20help%20with%20your%20services" target="_blank" rel="noopener noreferrer">
               <button style={{ backgroundColor: "#db3056", color: "white", padding: "10px", borderRadius: "5px", margin: "5px" }}>
-                Tayexy 
+                Lee
               </button>
             </a>
             or
             <a href="https://wa.me/2347011886514?text=Hi%20I%20need%20help%20with%20your%20services" target="_blank" rel="noopener noreferrer">
               <button style={{ backgroundColor: "#db3056", color: "white", padding: "10px", borderRadius: "5px", margin: "5px" }}>
-                Lee
+                Tayexy
               </button>
             </a>
           </div>
