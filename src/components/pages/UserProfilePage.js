@@ -8,6 +8,7 @@ import "../css/userProfilePage.css";
 import { formatDistanceToNow } from "date-fns"; // Import date-fns for formatting timestamps
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"; // Import Firebase Storage
 import { SlOptionsVertical } from "react-icons/sl"; // Import three-dot icon
+import { ToastContainer, toast } from "react-toastify";
 
 const UserProfilePage = () => {
   const { userId } = useParams();
@@ -306,7 +307,10 @@ const UserProfilePage = () => {
               timestamp: newPost.timestamp,
             });
 
-            alert("Post created successfully!");
+            toast.success("Post created successfully! 🎉", {
+              position: "top-right",
+              autoClose: 3000,
+            });
             setIsPostModalOpen(false);
             setPostContent("");
             setPostFile(null);
@@ -316,7 +320,10 @@ const UserProfilePage = () => {
       }
     } catch (error) {
       console.error("Error creating post:", error);
-      alert("Failed to create post. Please try again.");
+      toast.error("Failed to create post. Please try again." , {
+              position: "top-center",
+              autoClose: 3000,
+            });
     }
   };
 
@@ -338,10 +345,16 @@ const UserProfilePage = () => {
       // Update local state to remove the post
       setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
 
-      alert("Post deleted successfully!");
+      toast.success("Post deleted successfully!" , {
+              position: "top-center",
+              autoClose: 3000,
+            }); 
     } catch (error) {
       console.error("Error deleting post:", error);
-      alert("Failed to delete post. Please try again.");
+      toast.error("Failed to delete post. Please try again." , {
+              position: "top-center",
+              autoClose: 3000,
+            });
     }
   };
 
@@ -356,6 +369,7 @@ const UserProfilePage = () => {
               className="profile-picture"
             />
             <h1>{user.username || "Unnamed Artist"}</h1>
+            <div className="profile-stats">
             <span>
               <div>{postCount}</div>
               <div>posts</div>
@@ -368,8 +382,10 @@ const UserProfilePage = () => {
               <div>{followingCount}</div>
               <div>following</div>
             </span>
+            </div>
           </div>
           <p className="biography">{user.biography || "No bio yet. Stay tuned!"}</p>
+          <div className="profile-buttons">
           <button
             className="follow-button"
             onClick={user.isFollowing ? handleUnfollow : handleFollow}
@@ -382,11 +398,12 @@ const UserProfilePage = () => {
           >
             View Store
           </button>
+          </div>
           <p className="email">{user.email}</p>
 
           {/* Display Create a Post Modal */}
           {isPostModalOpen && (
-            <div className="post-modal" style={{ marginBottom: "20px" }}>
+            <div className="post-modal" style={{ marginBottom: "20px", position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 2000 }}>
               <div className="post-modal-content">
                 <h2>Create a Post</h2>
                 <textarea
@@ -407,10 +424,12 @@ const UserProfilePage = () => {
                     <progress value={uploadProgress} max="100" style={{ width: "100%" }} />
                   </div>
                 )}
-                <button onClick={handlePostSubmit} style={{ marginRight: "10px" }}>
+                <button onClick={handlePostSubmit} style={{ marginRight: "10px", backgroundColor: "#db3056", color: "white", padding: "10px 20px",
+                   borderRadius: "5px", border: "none", cursor: "pointer" }}>
                   Submit
                 </button>
-                <button onClick={togglePostModal}>Cancel</button>
+                <button onClick={togglePostModal} style={{backgroundColor: "black", color: "#ffffff", borderRadius: "5px", 
+                  border: "none", cursor: "pointer", padding: "10px 20px"}}>Cancel</button>
               </div>
             </div>
           )}
@@ -507,8 +526,8 @@ const UserProfilePage = () => {
                     className="post-like"
                     style={{
                       position: "absolute",
-                      bottom: "10px",
-                      left: "10px",
+                      bottom: "0",
+                      left: "0",
                       cursor: "pointer",
                     }}
                   >
@@ -532,8 +551,8 @@ const UserProfilePage = () => {
                     className="post-share"
                     style={{
                       position: "absolute",
-                      bottom: "10px",
-                      right: "10px",
+                      bottom: "0",
+                      right: "0",
                       cursor: "pointer",
                     }}
                   >
@@ -570,25 +589,44 @@ const UserProfilePage = () => {
                   {/* Post Content */}
                   <p style={{ fontSize: "0.9em", marginBottom: "10px" }}>{post.content}</p>
                   {post.fileUrl && post.fileType && (
-                    <div style={{ marginBottom: "10px" }}>
-                      {post.fileType === "video" ? (
-                        <video
-                          src={post.fileUrl}
-                          controls
-                          width="100%"
-                          preload="none"
-                          style={{ maxHeight: "400px", objectFit: "contain" }}
-                        />
-                      ) : (
-                        <img
-                          src={post.fileUrl}
-                          alt="Post content"
-                          width="100%"
-                          style={{ maxHeight: "400px", objectFit: "contain" }}
-                        />
-                      )}
-                    </div>
-                  )}
+  <div
+   style={{
+      width: "100%",
+      maxWidth: "400px",
+      aspectRatio: "1 / 1",
+      overflow: "hidden",
+      backgroundColor: "#f0f0f0",
+      margin: "0 auto 10px",
+    }}
+  >
+    {post.fileType === "video" ? (
+      <video
+        src={post.fileUrl}
+        controls
+        preload="none"
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          borderRadius: "10px",
+          display: "block",
+        }}
+      />
+    ) : (
+      <img
+        src={post.fileUrl}
+        alt="Post content"
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          borderRadius: "10px",
+          display: "block",
+        }}
+      />
+    )}
+  </div>
+)}
                 </div>
               ))
             ) : (
@@ -620,6 +658,7 @@ const UserProfilePage = () => {
             border: "none",
             boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
             cursor: "pointer",
+            
           }}
         >
           +
