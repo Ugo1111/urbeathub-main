@@ -1,31 +1,59 @@
-import React from 'react';
-import "../css/component.css"; 
-// Use a relative path for public assets
-const Mixer = "/images/Mixer.jpg";
-
+import React, { useState, useEffect } from "react";
+import "../css/component.css";
+import { db, auth } from "../../firebase/firebase"; // Import Firestore and Auth
+import { doc, getDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import { useParams } from "react-router-dom"; // Import useParams for dynamic userId
 
 function AboutProducer() {
+  const [studioImage, setStudioImage] = useState("");
+  const [aboutProducer, setAboutProducer] = useState("");
+  const [brandName, setBrandName] = useState("");
+  const { userId } = useParams(); // Get userId from URL parameters
+
+  useEffect(() => {
+    const fetchProducerData = async () => {
+      try {
+        const targetUserId = userId || auth.currentUser?.uid; // Use userId from URL or logged-in user
+        if (!targetUserId) return;
+
+        const userDocRef = doc(db, "beatHubUsers", targetUserId, "store front", "details");
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+          const data = userDoc.data();
+          setStudioImage(data.studioImage || "/images/Mixer.jpg"); // Fallback to default image
+          setAboutProducer(data.aboutProducer || ""); // Fetch aboutProducer dynamically
+          setBrandName(data.brandName || ""); // Fetch brandName dynamically
+        }
+      } catch (error) {
+        console.error("Error fetching producer data:", error);
+      }
+    };
+
+    fetchProducerData();
+  }, [userId]);
+
   return (
     <>
       <section className="hero2">
         <div className="hero2-overlay"></div>
         <div className="hero2-wrapper">
           <div className="hero2-container">
-            <img src={Mixer} alt="Mixer" className="mixer" /> 
+            <img
+              src={studioImage || "/images/Mixer.jpg"} // Fallback to Mixer.jpg
+              alt="Studio"
+              className="mixer"
+            /> {/* Dynamic studio image */}
           </div>
           <div className="hero2-container1">
-            <h2>About #producer</h2>
+            <h2>About {brandName}</h2> {/* Dynamic brand name */}
             <div>
-              Dive into a world of exceptional instrumentals carefdivly crafted to elevate your music
-              Whether you're seeking the perfect beat for a new track or a signature sound for your next project, our collection has you covered
-              Simple licensing options. Our contracts are not confusing. Spend less time scratching your head and more time recording your next hit.
-          Find the perfect beat that resonates with your unique style and take your music to the next level
-            </div>
+              {aboutProducer || "Passionate music producer blending innovative beats with authentic storytelling. Known for genre versatility, dynamic soundscapes, and emotive rhythms."}
+            </div> {/* Dynamic aboutProducer text with fallback */}
           </div>
         </div>
       </section>
-
-    
     </>
   );
 }

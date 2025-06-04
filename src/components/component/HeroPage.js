@@ -1,6 +1,10 @@
-import React, { useRef, useEffect } from "react"; // Import useRef and useEffect
+import React, { useRef, useEffect, useState } from "react"; // Import useRef, useEffect, and useState
 import "../css/component.css"; // Ensure the path is correct for styles
 import Typed from "typed.js"; // Import Typed.js for the typing effect
+import { db, auth } from "../../firebase/firebase"; // Import Firestore and Auth
+import { doc, getDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import { useParams } from "react-router-dom"; // Import useParams for dynamic userId
 
 function HeroPage() {
   const typedElement = useRef(null);
@@ -38,11 +42,37 @@ function HeroPage() {
 }
 
 function ProducersHeroPage() {
+  const [storeTitle1, setStoreTitle1] = useState("");
+  const [storeTitle2, setStoreTitle2] = useState("");
+  const { userId } = useParams(); // Get userId from URL parameters
+
+  useEffect(() => {
+    const fetchStoreTitles = async () => {
+      try {
+        const targetUserId = userId || auth.currentUser?.uid; // Use userId from URL or logged-in user
+        if (!targetUserId) return;
+
+        const userDocRef = doc(db, "beatHubUsers", targetUserId, "store front", "details");
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+          const data = userDoc.data();
+          setStoreTitle1(data.storeTitle1 || "");
+          setStoreTitle2(data.storeTitle2 || "");
+        }
+      } catch (error) {
+        console.error("Error fetching store titles:", error);
+      }
+    };
+
+    fetchStoreTitles();
+  }, [userId]);
+
   return (
     <div className="HeroPageProducer">
       <div className="HeroText">
-        <h5>Official website of #producer</h5>
-        <h1>Shaping the sound of modern African music</h1>
+        <h5>{storeTitle1}</h5> {/* Dynamic store title 1 */}
+        <h1>{storeTitle2 || "Shaping the sound of modern music."}</h1> {/* Dynamic store title 2 with fallback */}
       </div>
     </div>
   );
