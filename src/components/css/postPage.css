@@ -1,0 +1,33 @@
+.post-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.post-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-container h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.post-container p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.post-container img,
+.post-container video {
+  display: block;
+  margin: 20px auto;
+  max-width: 100%;
+  border-radius: 8px;
+}
