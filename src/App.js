@@ -40,6 +40,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import UserProfilePage from "./components/pages/UserProfilePage"; // Import UserProfilePage
 import ProducersStore from "./components/pages/store.js"; // Import UserProfilePage
+import PostPage from "./components/pages/PostPage"; // Import PostPage component
 
 // Initialize Google Analytics
 ReactGA.initialize('G-8Q9JH9G3KH');
@@ -203,6 +204,7 @@ useEffect(() => {
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/profile/:userId" element={<UserProfilePage />} /> {/* Add route for UserProfilePage */}
         <Route path="/store/:userId" element={<ProducersStore />} /> {/* Add route for UserProfilePage */}
+        <Route path="/post/:postId" element={<PostPage />} /> {/* Add route for individual post page */}
       </Routes>
 
       <CookieConsent
