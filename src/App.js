@@ -32,6 +32,7 @@ import CoverArt from "./components/pages/CoverArt"; // Import CoverArt component
 import Front from "./components/pages/Front"; // Import Front component
 import Startsellingpage from "./components/pages/startsellingpage";
 import Refundpolicy from "./components/pages/Refundpolicy";
+import MusicDistributionForm from "./components/pages/MusicDistributionForm.js";
 import CookieConsent from "react-cookie-consent";
 import ForgotPassword from "./components/ForgotPassword"; 
 import { toast, ToastContainer } from 'react-toastify';
@@ -184,7 +185,7 @@ useEffect(() => {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/Licensedetails" element={<Licensedetails />} />
         <Route path="/coverart" element={<CoverArt />} />
-      
+      <Route path="/musicDistributionForm" element={<MusicDistributionForm />} />
         <Route path="/termsandcondition" element={<Termsandcondition />} />
         <Route path="/startsellingpage" element={<Startsellingpage />} />
         <Route path="/Refundpolicy" element={<Refundpolicy />} />
