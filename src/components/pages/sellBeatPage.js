@@ -9,9 +9,10 @@ import DashboardComponent from "../component/DashboardComponent.js";
 import ProducerMessages from "../component/producerMessages.js";
 import Termsandcondition from "../pages/Termsandcondition.js";
 import { GrCloudUpload } from "react-icons/gr";
-import { IoReturnUpBackSharp, IoMusicalNotes, IoChatbubbles, IoWallet, IoPerson, IoStatsChart,  IoDocumentTextOutline } from "react-icons/io5";
+import { IoReturnUpBackSharp, IoMusicalNotes, IoChatbubbles, IoWallet, IoPerson, IoStatsChart, IoDocumentTextOutline } from "react-icons/io5";
 import { ProfileSettingPageWithoutHeaderForDashboardPage } from "../pages/profileSettingPage.js"; // Updated import
 import UsersUploadMusicPage from "../component/UsersUploadMusicPage.js";
+import EditStoreFront from "../component/EditStoreFront"; // Ensure this is a default import
 
 const SellBeatPage = () => {
   const [activeComponent, setActiveComponent] = useState(null);
@@ -170,7 +171,18 @@ const SellBeatPage = () => {
               {isMobile ? <IoDocumentTextOutline /> : "Terms and Conditions"}
             </Link>
           </li>
-
+          <li>
+            <Link
+              to="#"
+              onClick={() => setActiveComponent("editStoreFront")}
+              style={{
+                backgroundColor: activeComponent === "editStoreFront" ? getRandomColor() : "",
+              }}
+              className={activeComponent === "editStoreFront" ? "active" : ""}
+            >
+              {isMobile ? <IoDocumentTextOutline /> : "Edit Store Front"}
+            </Link>
+          </li>
         </ul>
       </nav>
 
@@ -182,6 +194,7 @@ const SellBeatPage = () => {
         {activeComponent === "payout" && <Payout />}
         {activeComponent === "messages" && <ProducerMessages />}
         {activeComponent === "Termsandcondition" && <Termsandcondition />}
+        {activeComponent === "editStoreFront" && <EditStoreFront />}
         {activeComponent === null && <DashboardComponent />}
       </div>
     </div>

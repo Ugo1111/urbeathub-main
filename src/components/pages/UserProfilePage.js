@@ -8,7 +8,11 @@ import "../css/userProfilePage.css";
 import { formatDistanceToNow } from "date-fns"; // Import date-fns for formatting timestamps
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"; // Import Firebase Storage
 import { SlOptionsVertical } from "react-icons/sl"; // Import three-dot icon
+<<<<<<< HEAD
 import { ToastContainer, toast } from "react-toastify";
+=======
+import { IoShareSocialOutline } from "react-icons/io5"; // Import a different share icon
+>>>>>>> origin/main
 
 const UserProfilePage = () => {
   const { userId } = useParams();
@@ -119,6 +123,21 @@ const UserProfilePage = () => {
     }
   };
 
+  const handleShareProfile = () => {
+    const shareUrl = `${window.location.origin}/profile/${userId}`;
+    if (navigator.share) {
+      navigator.share({
+        title: `${user?.username || "User"}'s Profile on BeatHub`,
+        text: `Check out this profile on BeatHub: ${user?.username || "User"}`,
+        url: shareUrl,
+      }).catch((error) => console.error("Error sharing profile:", error));
+    } else {
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        alert("Profile link copied to clipboard!");
+      }).catch((error) => console.error("Error copying link:", error));
+    }
+  };
+
   useEffect(() => {
     // Fetch the logged-in user's details
     const unsubscribe = onAuthStateChanged(auth, (loggedInUser) => {
@@ -160,12 +179,13 @@ const UserProfilePage = () => {
         const postSnapshot = await getDocs(userPostRef);
         setPostCount(postSnapshot.size); // Update post count from subcollection
 
-        // Fetch posts from the "Post" collection
+        // Fetch posts from the "Post" collection and sort by timestamp
         const postCollectionRef = collection(db, "Post");
         const postSnapshotFromPostCollection = await getDocs(postCollectionRef);
         const userPosts = postSnapshotFromPostCollection.docs
           .map((doc) => ({ id: doc.id, ...doc.data() }))
-          .filter((post) => post.userId === id); // Filter posts by userId
+          .filter((post) => post.userId === id)
+          .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)); // Sort by timestamp (newest first)
         setPosts(userPosts);
 
         setUser(userData);
@@ -178,6 +198,33 @@ const UserProfilePage = () => {
       fetchUserById(userId);
     }
   }, [userId, currentUser]);
+
+  const fetchLikesCount = async (postId) => {
+    try {
+      const likesRef = collection(db, `Post/${postId}/likes`);
+      const likesSnapshot = await getDocs(likesRef);
+      return likesSnapshot.size;
+    } catch (error) {
+      console.error("Error fetching likes count:", error);
+      return 0;
+    }
+  };
+
+  useEffect(() => {
+    const fetchPostsWithLikes = async () => {
+      const updatedPosts = await Promise.all(
+        posts.map(async (post) => {
+          const likesCount = await fetchLikesCount(post.id);
+          return { ...post, likesCount };
+        })
+      );
+      setPosts(updatedPosts);
+    };
+
+    if (posts.length > 0) {
+      fetchPostsWithLikes();
+    }
+  }, [posts]);
 
   const ensureSocialDocumentExists = async (userId) => {
     const socialRef = doc(db, "Social", userId);
@@ -289,6 +336,7 @@ const UserProfilePage = () => {
             fileUrl = await getDownloadURL(uploadTask.snapshot.ref); // Get the public download URL
             fileType = postFile.type.startsWith("video") ? "video" : "image"; // Determine file type
 
+<<<<<<< HEAD
             const postCollectionRef = collection(db, "Post");
             const newPost = {
               userId: currentUser.uid,
@@ -315,8 +363,15 @@ const UserProfilePage = () => {
             setPostContent("");
             setPostFile(null);
             setUploadProgress(0); // Reset progress state
+=======
+            // Save the post after file upload
+            await savePost(fileUrl, fileType);
+>>>>>>> origin/main
           }
         );
+      } else {
+        // Save the post without file upload
+        await savePost(null, null);
       }
     } catch (error) {
       console.error("Error creating post:", error);
@@ -325,6 +380,35 @@ const UserProfilePage = () => {
               autoClose: 3000,
             });
     }
+  };
+
+  const savePost = async (fileUrl, fileType) => {
+    const postCollectionRef = collection(db, "Post");
+    const newPost = {
+      userId: currentUser.uid,
+      content: postContent,
+      fileUrl, // Use the public download URL or null
+      fileType, // Save the file type or null
+      timestamp: new Date().toISOString(),
+    };
+
+    const postDocRef = await addDoc(postCollectionRef, newPost);
+
+    // Save a reference to the post in the user's subcollection
+    const userPostRef = collection(db, `beatHubUsers/${currentUser.uid}/post`);
+    await setDoc(doc(userPostRef, postDocRef.id), {
+      postId: postDocRef.id,
+      timestamp: newPost.timestamp,
+    });
+
+    // Add the new post to the posts state
+    setPosts((prevPosts) => [{ id: postDocRef.id, ...newPost }, ...prevPosts]);
+
+    alert("Post created successfully!");
+    setIsPostModalOpen(false);
+    setPostContent("");
+    setPostFile(null);
+    setUploadProgress(0); // Reset progress state
   };
 
   const handleDeletePost = async (postId) => {
@@ -385,6 +469,7 @@ const UserProfilePage = () => {
             </div>
           </div>
           <p className="biography">{user.biography || "No bio yet. Stay tuned!"}</p>
+<<<<<<< HEAD
           <div className="profile-buttons">
           <button
             className="follow-button"
@@ -400,6 +485,52 @@ const UserProfilePage = () => {
           </button>
           </div>
           <p className="email">{user.email}</p>
+=======
+          <div className="profile-actions" style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "10px" }}>
+            <button
+              className="follow-button"
+              onClick={user.isFollowing ? handleUnfollow : handleFollow}
+              style={{
+                backgroundColor: "#db3056",
+                color: "white",
+                border: "none",
+                borderRadius: "5px",
+                padding: "10px 15px",
+                cursor: "pointer",
+              }}
+            >
+              {user.isFollowing ? "Unfollow" : "Follow"}
+            </button>
+            <button
+              className="view-store-button"
+              onClick={() => navigate(`/store/${user.id}`)}
+              style={{
+                backgroundColor: "#007bff",
+                color: "white",
+                border: "none",
+                borderRadius: "5px",
+                padding: "10px 15px",
+                cursor: "pointer",
+              }}
+            >
+              View Store
+            </button>
+            <button
+              className="share-profile-button"
+              onClick={handleShareProfile}
+              style={{
+                backgroundColor: "transparent",
+                border: "none",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+              }}
+              title="Share Profile" // Tooltip for accessibility
+            >
+              <IoShareSocialOutline size="1.5em" color="#007bff" />
+            </button>
+          </div>
+>>>>>>> origin/main
 
           {/* Display Create a Post Modal */}
           {isPostModalOpen && (
