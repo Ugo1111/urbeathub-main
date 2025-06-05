@@ -8,11 +8,9 @@ import "../css/userProfilePage.css";
 import { formatDistanceToNow } from "date-fns"; // Import date-fns for formatting timestamps
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"; // Import Firebase Storage
 import { SlOptionsVertical } from "react-icons/sl"; // Import three-dot icon
-<<<<<<< HEAD
 import { ToastContainer, toast } from "react-toastify";
-=======
 import { IoShareSocialOutline } from "react-icons/io5"; // Import a different share icon
->>>>>>> origin/main
+
 
 const UserProfilePage = () => {
   const { userId } = useParams();
@@ -336,37 +334,8 @@ const UserProfilePage = () => {
             fileUrl = await getDownloadURL(uploadTask.snapshot.ref); // Get the public download URL
             fileType = postFile.type.startsWith("video") ? "video" : "image"; // Determine file type
 
-<<<<<<< HEAD
-            const postCollectionRef = collection(db, "Post");
-            const newPost = {
-              userId: currentUser.uid,
-              content: postContent,
-              fileUrl, // Use the public download URL
-              fileType, // Save the file type
-              timestamp: new Date().toISOString(),
-            };
-
-            const postDocRef = await addDoc(postCollectionRef, newPost);
-
-            // Save a reference to the post in the user's subcollection
-            const userPostRef = collection(db, `beatHubUsers/${currentUser.uid}/post`);
-            await setDoc(doc(userPostRef, postDocRef.id), {
-              postId: postDocRef.id,
-              timestamp: newPost.timestamp,
-            });
-
-            toast.success("Post created successfully! 🎉", {
-              position: "top-right",
-              autoClose: 3000,
-            });
-            setIsPostModalOpen(false);
-            setPostContent("");
-            setPostFile(null);
-            setUploadProgress(0); // Reset progress state
-=======
             // Save the post after file upload
             await savePost(fileUrl, fileType);
->>>>>>> origin/main
           }
         );
       } else {
@@ -469,23 +438,6 @@ const UserProfilePage = () => {
             </div>
           </div>
           <p className="biography">{user.biography || "No bio yet. Stay tuned!"}</p>
-<<<<<<< HEAD
-          <div className="profile-buttons">
-          <button
-            className="follow-button"
-            onClick={user.isFollowing ? handleUnfollow : handleFollow}
-          >
-            {user.isFollowing ? "Unfollow" : "Follow"}
-          </button>
-          <button
-            className="view-store-button"
-            onClick={() => navigate(`/store/${user.id}`)}
-          >
-            View Store
-          </button>
-          </div>
-          <p className="email">{user.email}</p>
-=======
           <div className="profile-actions" style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "10px" }}>
             <button
               className="follow-button"
@@ -530,7 +482,6 @@ const UserProfilePage = () => {
               <IoShareSocialOutline size="1.5em" color="#007bff" />
             </button>
           </div>
->>>>>>> origin/main
 
           {/* Display Create a Post Modal */}
           {isPostModalOpen && (
