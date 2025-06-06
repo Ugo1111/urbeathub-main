@@ -28,7 +28,9 @@ export function GroupF() {
             <p>
               <a href="/Refundpolicy" target="_blank">Refund Policy</a>
             </p>
-            
+            <p>
+              <a href="/MusicDistributionForm" target="_blank">Distribution</a>
+            </p>
             <div className="social-links">
               <a href="https://www.facebook.com/share/15xxw68L9H/" target="_blank">
                 <i className="fab fa-facebook"></i>
