@@ -59,8 +59,8 @@ function Front() {
       <div className="video-wrap">
         <video src={myVideo} autoPlay muted loop></video>
         <div className="video-content">
-          <h1>Buy premium beats made by the world’s top producers.</h1>
-          <p>Discover the latest beats that are making waves in the music scene.</p>
+          <h1>Buy premium High-Quality Instrumental Beat.</h1>
+          <p>Discover the latest high-quality beats that are making waves in the music scene.</p>
           <button className="start-selling-button" onClick={() => navigate('/Homepage')}>
             GET STARTED →
           </button>

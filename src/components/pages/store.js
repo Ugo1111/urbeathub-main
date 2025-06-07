@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { ProducerGroupA } from "../component/header.js"; // Default import
 import "../css/HomePage.css";
 import AboutProducer from "../component/AboutProducer.js"; // Default import
-import { GroupG } from "../component/footer.js"; // Use named import for GroupG
+import { GroupG, GroupF } from "../component/footer.js"; // Use named import for GroupG
 import "../css/component.css";
 import MusicPlayer from "../component/MusicPlayer"; // Default import
 import SongList from "../component/SongList"; // Default import
@@ -198,7 +198,7 @@ function ProducersStore() {
 
         {/* About Producer Section */}
         <AboutProducer />
-
+         <GroupF />
         <GroupG />
       </div>
       {/* WhatsApp Chat Button */}

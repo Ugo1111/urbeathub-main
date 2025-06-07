@@ -171,13 +171,18 @@ overflow: hidden;
 /* Style for HeroPageProducer */
 .HeroPageProducer {
   color: #fff;
-  margin: 200px 0 200px 0 ; /* Adjusted margin for spacing */
+  margin: 200px 0 0 0 ; /* Adjusted margin for spacing */
 }
 
 /* Style for HeroTextProducer */
 .HeroTextProducer {
-  max-width: 800px; /* Limit width for better readability */
-  margin: 0 auto; /* Center the text */
+ padding: 5px;
+    width: 95%;
+    height: 40vmin;
+    text-align: center;
+    margin-bottom: 20px; 
+    position: relative;
+    z-index: 2;
 }
 
 .HeroTextProducer h5 {
@@ -191,14 +196,14 @@ overflow: hidden;
 
 .HeroTextProducer h1 {
   margin: 0 auto; 
-  width: 95%;
-  font-size: 4rem;
-  color: #db3056;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
-  position: relative;
-  z-index: 2;
+    width: 95%;
+    font-size: 4rem;
+    color: #db3056;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    position: relative;
+    z-index: 2;
 }
 
 
@@ -776,8 +781,25 @@ flex-direction: row;
     
      font-size: 1em;
      color: #ffffff;
-     
-   }
+     }
+
+     .HeroPageProducer {
+   width: 90%;
+}
+
+
+
+.HeroTextProducer h1 {
+   font-size: 2rem;
+ color: #db3056;
+ font-weight: bold;
+ margin-bottom: 30px;
+  }
+
+  .HeroTextProducer h5 {
+    font-size: 1em;
+     color: #ffffff;
+  }
 
    .GroupC2{
     font-size: small;
@@ -873,6 +895,7 @@ flex-direction: row;
   .HeroPage {
     width: 95vw;
     }
+    
   .Typed{
     font-size: 0.6rem;
   }
@@ -898,6 +921,31 @@ flex-direction: row;
     text-align: center;
     margin-top: 40px;
   }
+
+.HeroPageProducer {
+   width: 95vw;
+}
+
+
+
+.HeroTextProducer h1 {
+    width: 90vw;
+    font-size: 1.2rem;
+    color: #db3056;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .HeroTextProducer h5 {
+    width: 95vw;
+    max-width: 60ch;
+    font-size: 0.69rem;
+    color: #ffffff;
+    text-align: center;
+    
+  }
+  
+
 
   .GroupC2 {
     font-size: 0.85rem;

@@ -9,7 +9,7 @@ import DashboardComponent from "../component/DashboardComponent.js";
 import ProducerMessages from "../component/producerMessages.js";
 import Termsandcondition from "../pages/Termsandcondition.js";
 import { GrCloudUpload } from "react-icons/gr";
-import { IoReturnUpBackSharp, IoMusicalNotes, IoChatbubbles, IoWallet, IoPerson, IoStatsChart, IoDocumentTextOutline } from "react-icons/io5";
+import { IoReturnUpBackSharp, IoMusicalNotes, IoChatbubbles, IoWallet, IoPerson, IoStatsChart, IoDocumentTextOutline, IoStorefront } from "react-icons/io5";
 import { ProfileSettingPageWithoutHeaderForDashboardPage } from "../pages/profileSettingPage.js"; // Updated import
 import UsersUploadMusicPage from "../component/UsersUploadMusicPage.js";
 import EditStoreFront from "../component/EditStoreFront"; // Ensure this is a default import
@@ -180,7 +180,7 @@ const SellBeatPage = () => {
               }}
               className={activeComponent === "editStoreFront" ? "active" : ""}
             >
-              {isMobile ? <IoDocumentTextOutline /> : "Edit Store Front"}
+              {isMobile ? <IoStorefront /> : "Edit Store Front"}
             </Link>
           </li>
         </ul>
