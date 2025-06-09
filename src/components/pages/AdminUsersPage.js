@@ -82,6 +82,7 @@ const AdminUsersPage = () => {
             <li key={user.id} className="user-item">
               <p><strong>Username:</strong> {user.username || "N/A"}</p>
               <p><strong>Created:</strong> {user.createdAt ? formatDate(user.createdAt) : "N/A"}</p>
+              <p><strong>Location:</strong> {user.location || "Unknown"}</p> {/* Display location */}
               <button onClick={() => toggleExpandUser(user.id)}>
                 {expandedUsers[user.id] ? "Show Less" : "Show More"}
               </button>

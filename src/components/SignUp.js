@@ -1,16 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { signUp } from "../firebase/authFunctions"; // Ensure correct import path
+import { signUp, signInWithGoogle } from "../firebase/authFunctions"; // Import signInWithGoogle
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios"; // Import axios for fetching location
+import { FcGoogle } from "react-icons/fc"; // Import Google icon
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");  // New state for username
+  const [username, setUsername] = useState(""); // New state for username
   const [error, setError] = useState(null); // State to handle errors
   const [IsProducer, setIsProducer] = useState(false); // State for IsProducer
+  const [location, setLocation] = useState("Fetching location..."); // State for location
+  const [locationFetched, setLocationFetched] = useState(false); // Flag for location readiness
   const navigate = useNavigate();
-  const [auth, setAuth] = useState(null);  // State to hold auth object
+  const [auth, setAuth] = useState(null); // State to hold auth object
+
+  // Fetch user's location
+  useEffect(() => {
+    const fetchLocation = async () => {
+      try {
+        const response = await axios.get("https://ipapi.co/json/");
+        const { city, country_name: country } = response.data;
+        if (city && country) {
+          setLocation(`${city}, ${country}`);
+        } else {
+          setLocation("Location unavailable");
+        }
+        setLocationFetched(true); // Mark location as fetched
+      } catch (error) {
+        console.error("Error fetching location:", error);
+        setLocation("Location unavailable");
+        setLocationFetched(true); // Mark location as fetched even if failed
+      }
+    };
+
+    fetchLocation();
+  }, []);
 
   // Initialize auth when component mounts
   useEffect(() => {
@@ -19,7 +45,7 @@ const SignUp = () => {
 
     const unsubscribe = onAuthStateChanged(authInstance, (user) => {
       if (user) {
-        alert("Sign-up successful! A verification email has been sent to your email address. Please verify your email before logging in.");
+        alert("Sign-up successful!");
         navigate("/loginPage"); // Redirect to login page after sign-up
       }
     });
@@ -27,15 +53,24 @@ const SignUp = () => {
     return () => unsubscribe(); // Clean up subscription
   }, [navigate]);
 
+  const handleGoogleSignUp = async () => {
+    try {
+      const user = await signInWithGoogle();
+      alert(`Welcome ${user.displayName || "Google User"}!`);
+      navigate("/homePage"); // Redirect to home page after Google Sign-Up
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   const handleSignUp = async () => {
     if (!auth) return;
     try {
       setError(null);
-      const { user, requiresVerification } = await signUp(email, password, username, IsProducer);
-      if (requiresVerification) {
-        alert("Sign-up successful! A verification email has been sent to your email address. Please verify your email before logging in.");
-        navigate("/loginPage"); // Redirect to login page after sign-up
-      }
+      console.log("Location being sent to Firestore:", location); // Log location value
+      const { user } = await signUp(email, password, username, IsProducer, location); // Pass location to signUp
+      alert("Sign-up successful!"); // Updated success message
+      navigate("/loginPage"); // Redirect to login page after sign-up
     } catch (error) {
       setError(error.message);
     }
@@ -46,7 +81,7 @@ const SignUp = () => {
       <a href="/" className="Headerlogo">
         <img
           src="./beathub1.PNG"
-          style={{ width: "100px", height: "100px", paddingBottom: "50px" }}
+          style={{ width: "100px", height: "164px", paddingBottom: "70px" }}
           alt="Logo"
         />
       </a>
@@ -70,7 +105,7 @@ const SignUp = () => {
       />
       <br />
       <input
-        className="login-username"  // New input field for username
+        className="login-username" // New input field for username
         type="text"
         placeholder="Username"
         value={username}
@@ -78,31 +113,56 @@ const SignUp = () => {
       />
       <br />
       <div className="radio-group-container">
- <div className="radio-group">
-        <input
-          type="radio"
-          id="sellBeats"
-          name="IsProducer"
-          
-          checked={IsProducer === true}
+        <div className="radio-group">
+          <input
+            type="radio"
+            id="sellBeats"
+            name="IsProducer"
+            checked={IsProducer === true}
             onChange={() => setIsProducer(true)}
-        />
-        <label htmlFor="sellBeats">Sell Beats</label>
+          />
+          <label htmlFor="sellBeats">Sell Beats</label>
+        </div>
+        <div className="radio-group">
+          <input
+            type="radio"
+            id="buyBrowse"
+            name="IsProducer"
+            checked={IsProducer === false}
+            onChange={() => setIsProducer(false)}
+          />
+          <label htmlFor="buyBrowse">Buy and Browse</label>
+        </div>
       </div>
-      <div className="radio-group">
-        <input
-          type="radio"
-          id="buyBrowse"
-          name="IsProducer"
-         
-          checked={IsProducer === false}
-          onChange={() => setIsProducer(false)}
-        />
-        <label htmlFor="buyBrowse">Buy and Browse</label>
-      </div>
-      </div>
-      <button className="login-button" onClick={handleSignUp}>
+      <button
+        className="login-button"
+        onClick={handleSignUp}
+        disabled={!locationFetched} // Disable button until location is ready
+        style={{
+          backgroundColor: locationFetched ? "#db3056" : "#ccc", // Change color based on readiness
+          cursor: locationFetched ? "pointer" : "not-allowed",
+        }}
+      >
         Sign Up
+      </button>
+      <br />
+      <button
+        className="google-signup-button"
+        onClick={handleGoogleSignUp}
+        style={{
+          backgroundColor: "#4285F4",
+          color: "white",
+          padding: "10px 20px",
+          borderRadius: "5px",
+          border: "none",
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+        }}
+      >
+        <FcGoogle size="1.5em" /> {/* Add Google icon */}
+        Sign Up with Google
       </button>
       <br />
       <div>
