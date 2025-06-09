@@ -26,6 +26,10 @@ const UserProfilePage = () => {
   const [posts, setPosts] = useState([]); // State for posts
   const [uploadProgress, setUploadProgress] = useState(0); // State for upload progress
   const [activePostOptions, setActivePostOptions] = useState(null); // State to track active post options
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false); // State for edit modal
+  const [editPostContent, setEditPostContent] = useState(""); // State for edited post content
+  const [editPostFile, setEditPostFile] = useState(null); // State for edited post file
+  const [editPostId, setEditPostId] = useState(null); // State for the post being edited
 
   const togglePostModal = () => {
     setIsPostModalOpen((prevState) => !prevState); // Toggle modal state
@@ -39,6 +43,15 @@ const UserProfilePage = () => {
 
   const togglePostOptions = (postId) => {
     setActivePostOptions((prev) => (prev === postId ? null : postId)); // Toggle active post options
+  };
+
+  const toggleEditModal = (post) => {
+    setIsEditModalOpen((prevState) => !prevState);
+    if (!isEditModalOpen) {
+      setEditPostContent(post.content);
+      setEditPostFile(null);
+      setEditPostId(post.id);
+    }
   };
 
   const toggleLikePost = async (postId) => {
@@ -305,7 +318,10 @@ const UserProfilePage = () => {
 
   const handlePostSubmit = async () => {
     if (!currentUser) {
-      alert("Please log in to create a post.");
+      toast.error("Please log in to create a post.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
       navigate("/loginPage");
       return;
     }
@@ -328,7 +344,10 @@ const UserProfilePage = () => {
           },
           (error) => {
             console.error("Error uploading file:", error);
-            alert("Failed to upload file. Please try again.");
+            toast.error("Failed to upload file. Please try again.", {
+              position: "top-center",
+              autoClose: 3000,
+            });
           },
           async () => {
             fileUrl = await getDownloadURL(uploadTask.snapshot.ref); // Get the public download URL
@@ -344,10 +363,10 @@ const UserProfilePage = () => {
       }
     } catch (error) {
       console.error("Error creating post:", error);
-      toast.error("Failed to create post. Please try again." , {
-              position: "top-center",
-              autoClose: 3000,
-            });
+      toast.error("Failed to create post. Please try again.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -373,11 +392,108 @@ const UserProfilePage = () => {
     // Add the new post to the posts state
     setPosts((prevPosts) => [{ id: postDocRef.id, ...newPost }, ...prevPosts]);
 
-    alert("Post created successfully!");
+    toast.success("Post created successfully!", {
+      position: "top-center",
+      autoClose: 3000,
+    });
+
     setIsPostModalOpen(false);
     setPostContent("");
     setPostFile(null);
     setUploadProgress(0); // Reset progress state
+  };
+
+  const saveEditedPost = async (fileUrl, fileType) => {
+    const postRef = doc(db, "Post", editPostId);
+    const existingPost = posts.find((post) => post.id === editPostId); // Retrieve the existing post
+
+    const updatedPost = {
+      content: editPostContent,
+      fileUrl: fileUrl || existingPost?.fileUrl, // Retain existing file URL if not replaced
+      fileType: fileType || existingPost?.fileType, // Retain existing file type if not replaced
+      timestamp: existingPost?.timestamp, // Retain the original timestamp
+    };
+
+    try {
+      await updateDoc(postRef, updatedPost);
+
+      // Update local state to reflect the edited post
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post.id === editPostId ? { ...post, ...updatedPost } : post
+        )
+      );
+
+      toast.success("Post updated successfully!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+
+      setIsEditModalOpen(false);
+      setEditPostContent("");
+      setEditPostFile(null);
+      setUploadProgress(0); // Reset progress state
+    } catch (error) {
+      console.error("Error updating post:", error);
+      toast.error("Failed to update post. Please try again.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+    }
+  };
+
+  const handleEditPostSubmit = async () => {
+    if (!currentUser) {
+      toast.error("Please log in to edit a post.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      navigate("/loginPage");
+      return;
+    }
+
+    try {
+      const storage = getStorage(); // Initialize Firebase Storage
+      let fileUrl = null;
+      let fileType = null;
+
+      if (editPostFile) {
+        const storageRef = ref(storage, `posts/${currentUser.uid}/${editPostFile.name}`); // Create a reference in Firebase Storage
+        const uploadTask = uploadBytesResumable(storageRef, editPostFile); // Create a resumable upload task
+
+        // Monitor upload progress
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setUploadProgress(progress); // Update progress state
+          },
+          (error) => {
+            console.error("Error uploading file:", error);
+            toast.error("Failed to upload file. Please try again.", {
+              position: "top-center",
+              autoClose: 3000,
+            });
+          },
+          async () => {
+            fileUrl = await getDownloadURL(uploadTask.snapshot.ref); // Get the public download URL
+            fileType = editPostFile.type.startsWith("video") ? "video" : "image"; // Determine file type
+
+            // Save the edited post after file upload
+            await saveEditedPost(fileUrl, fileType);
+          }
+        );
+      } else {
+        // Save the edited post without file upload
+        await saveEditedPost(null, null);
+      }
+    } catch (error) {
+      console.error("Error editing post:", error);
+      toast.error("Failed to edit post. Please try again.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+    }
   };
 
   const handleDeletePost = async (postId) => {
@@ -398,16 +514,16 @@ const UserProfilePage = () => {
       // Update local state to remove the post
       setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
 
-      toast.success("Post deleted successfully!" , {
-              position: "top-center",
-              autoClose: 3000,
-            }); 
+      toast.success("Post deleted successfully!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     } catch (error) {
       console.error("Error deleting post:", error);
-      toast.error("Failed to delete post. Please try again." , {
-              position: "top-center",
-              autoClose: 3000,
-            });
+      toast.error("Failed to delete post. Please try again.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -516,6 +632,64 @@ const UserProfilePage = () => {
             </div>
           )}
 
+          {/* Display Edit Post Modal */}
+          {isEditModalOpen && (
+            <div className="post-modal">
+              <div className="post-modal-content">
+                <h2>Edit Post</h2>
+                <textarea
+                  placeholder="Edit your post content..."
+                  value={editPostContent}
+                  onChange={(e) => setEditPostContent(e.target.value)}
+                />
+                {posts.find((post) => post.id === editPostId)?.fileUrl && (
+                  <div style={{ marginBottom: "10px" }}>
+                    {posts.find((post) => post.id === editPostId)?.fileType === "video" ? (
+                      <video
+                        src={posts.find((post) => post.id === editPostId)?.fileUrl}
+                        controls
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          borderRadius: "10px",
+                          marginBottom: "10px",
+                        }}
+                      />
+                    ) : (
+                      <img
+                        src={posts.find((post) => post.id === editPostId)?.fileUrl}
+                        alt="Existing content"
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          borderRadius: "10px",
+                          marginBottom: "10px",
+                        }}
+                      />
+                    )}
+                  </div>
+                )}
+                <input
+                  type="file"
+                  accept="image/*,video/*"
+                  onChange={(e) => setEditPostFile(e.target.files[0])}
+                />
+                {uploadProgress > 0 && (
+                  <div>
+                    <p>Uploading: {Math.round(uploadProgress)}%</p>
+                    <progress value={uploadProgress} max="100" />
+                  </div>
+                )}
+                <button onClick={handleEditPostSubmit} className="submit-button">
+                  Save Changes
+                </button>
+                <button onClick={() => setIsEditModalOpen(false)} className="cancel-button">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Display Posts */}
           <div className="user-posts">
             {posts.length > 0 ? (
@@ -533,6 +707,11 @@ const UserProfilePage = () => {
                     boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
                     backgroundColor: "#fff",
                     position: "relative",
+                  }}
+                  onClick={(e) => {
+                    if (!e.target.closest(".post-options, .post-like, .post-share")) {
+                      navigate(`/view-post/${post.id}`); // Navigate to ViewPostPage
+                    }
                   }}
                 >
                   {/* Three-dot menu (visible only to the post owner) */}
@@ -575,7 +754,8 @@ const UserProfilePage = () => {
                               textAlign: "left",
                               width: "100%",
                             }}
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.stopPropagation(); // Prevent navigation when clicking delete
                               const confirmDelete = window.confirm("Are you sure you want to delete this post?");
                               if (confirmDelete) {
                                 handleDeletePost(post.id);
@@ -594,7 +774,27 @@ const UserProfilePage = () => {
                               textAlign: "left",
                               width: "100%",
                             }}
-                            onClick={() => handleSharePost(post.id)}
+                            onClick={(e) => {
+                              e.stopPropagation(); // Prevent navigation when clicking edit
+                              toggleEditModal(post);
+                            }}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            style={{
+                              backgroundColor: "transparent",
+                              border: "none",
+                              color: "#007bff",
+                              cursor: "pointer",
+                              padding: "5px 10px",
+                              textAlign: "left",
+                              width: "100%",
+                            }}
+                            onClick={(e) => {
+                              e.stopPropagation(); // Prevent navigation when clicking share
+                              handleSharePost(post.id);
+                            }}
                           >
                             Share
                           </button>
@@ -622,7 +822,10 @@ const UserProfilePage = () => {
                         padding: "5px 10px",
                         textAlign: "center",
                       }}
-                      onClick={() => toggleLikePost(post.id)}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent navigation when clicking like
+                        toggleLikePost(post.id);
+                      }}
                     >
                       ❤️ {post.likesCount || 0} Likes
                     </button>
@@ -647,7 +850,10 @@ const UserProfilePage = () => {
                         padding: "5px 10px",
                         textAlign: "center",
                       }}
-                      onClick={() => handleSharePost(post.id)}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent navigation when clicking share
+                        handleSharePost(post.id);
+                      }}
                     >
                       🔗 {post.sharesCount || 0} Shares
                     </button>
@@ -671,44 +877,43 @@ const UserProfilePage = () => {
                   {/* Post Content */}
                   <p style={{ fontSize: "0.9em", marginBottom: "10px" }}>{post.content}</p>
                   {post.fileUrl && post.fileType && (
-  <div
-   style={{
-      width: "100%",
-      maxWidth: "400px",
-      aspectRatio: "1 / 1",
-      overflow: "hidden",
-      backgroundColor: "#f0f0f0",
-      margin: "0 auto 10px",
-    }}
-  >
-    {post.fileType === "video" ? (
-      <video
-        src={post.fileUrl}
-        controls
-        preload="none"
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          borderRadius: "10px",
-          display: "block",
-        }}
-      />
-    ) : (
-      <img
-        src={post.fileUrl}
-        alt="Post content"
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          borderRadius: "10px",
-          display: "block",
-        }}
-      />
-    )}
-  </div>
-)}
+                    <div
+                      style={{
+                        width: "100%",
+                        maxWidth: "400px",
+                        aspectRatio: "1 / 1",
+                        overflow: "hidden",
+                        backgroundColor: "#f0f0f0",
+                        margin: "0 auto 10px",
+                      }}
+                    >
+                      {post.fileType === "video" ? (
+                        <video
+                          src={post.fileUrl}
+                          controls
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            borderRadius: "10px",
+                            display: "block",
+                          }}
+                        />
+                      ) : (
+                        <img
+                          src={post.fileUrl}
+                          alt="Post content"
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            borderRadius: "10px",
+                            display: "block",
+                          }}
+                        />
+                      )}
+                    </div>
+                  )}
                 </div>
               ))
             ) : (
