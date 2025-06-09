@@ -605,7 +605,7 @@ margin: 20px 0;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: #ccc; /* Light gray background for placeholder */
+  background-color: #ddd; /* Light gray background for placeholder */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -614,28 +614,13 @@ margin: 20px 0;
 
 .sellbeat-username {
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   color: #333;
   color: #5c18119b;
 }
 
 
-.sellbeat-username{
 
-
-}
-
-
-.sellbeat-profile-placeholder{
-
-
-
-}
-
-
-.sellbeat-user-profile{
-
-}
 
 
 .goBack-btn{
@@ -1287,5 +1272,18 @@ padding: 10px;
   }
 }
 
+@media (max-width: 480px) {
   
+  .sellbeat-profile-pic {
+    width: 70px;
+    height: 70px;
+  }
+  .sellbeat-username {
+  font-weight: bold;
+  font-size: 0.7rem;
+  color: #333;
+  color: #5c18119b;
+}
+
+}
   

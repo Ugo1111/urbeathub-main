@@ -70,7 +70,7 @@ function ProducersHeroPage() {
 
   return (
     <div className="HeroPageProducer">
-      <div className="HeroText">
+      <div className="HeroTextProducer">
         <h5>{storeTitle1}</h5> {/* Dynamic store title 1 */}
         <h1>{storeTitle2 || "Shaping the sound of modern music."}</h1> {/* Dynamic store title 2 with fallback */}
       </div>

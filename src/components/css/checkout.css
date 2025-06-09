@@ -382,7 +382,9 @@ width: auto;
   flex-direction: column;
   padding: 10px;
   list-style-type: none;
+ overflow-y: scroll;
 }
+
 
 /* List item styling */
 .navbarContainer li {

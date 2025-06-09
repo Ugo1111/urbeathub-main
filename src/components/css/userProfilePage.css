@@ -108,3 +108,18 @@
   font-size: 12px;
   color: #888;
 }
+
+.post-modal-content{
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 70vw;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.7);
+} 
+
+@media (max-width: 768px){
+  .post-modal-content{
+    width: 90vw;
+  }
+}
+

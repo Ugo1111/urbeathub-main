@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { db, auth } from "../../firebase/firebase"; // Import Firestore and Auth
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import "../css/MusicDistributionForm.css";
 
 const EditStoreFront = () => {
   const [brandName, setBrandName] = useState("");
@@ -82,6 +83,7 @@ const EditStoreFront = () => {
   };
 
   return (
+    <div className="edit-store-front-container">
     <div className="edit-store-front">
       <h2>Edit Store Front</h2>
       <div className="form-group">
@@ -131,12 +133,13 @@ const EditStoreFront = () => {
           placeholder="Enter store title 2"
         />
       </div>
-      <button onClick={handleSaveChanges} style={{ backgroundColor: "#007bff", color: "white", padding: "10px", borderRadius: "5px", marginRight: "10px" }}>
+      <button className="store-btn" onClick={handleSaveChanges} >
         Save Changes
       </button>
-      <button onClick={handleViewStore} style={{ backgroundColor: "#28a745", color: "white", padding: "10px", borderRadius: "5px" }}>
+      <button  className="store-btn1" onClick={handleViewStore} >
         View Store
       </button>
+    </div>
     </div>
   );
 };

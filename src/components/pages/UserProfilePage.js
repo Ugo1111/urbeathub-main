@@ -438,7 +438,7 @@ const UserProfilePage = () => {
             </div>
           </div>
           <p className="biography">{user.biography || "No bio yet. Stay tuned!"}</p>
-          <div className="profile-actions" style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "10px" }}>
+          <div className="profile-actions" style={{ display: "flex", alignItems: "center", justifyContent: "center",  gap: "10px", marginTop: "10px" }}>
             <button
               className="follow-button"
               onClick={user.isFollowing ? handleUnfollow : handleFollow}
@@ -485,14 +485,14 @@ const UserProfilePage = () => {
 
           {/* Display Create a Post Modal */}
           {isPostModalOpen && (
-            <div className="post-modal" style={{ marginBottom: "20px", position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 2000 }}>
+            <div className="post-modal" style={{ marginBottom: "20px", position: "fixed", top: "70%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 2000 }}>
               <div className="post-modal-content">
                 <h2>Create a Post</h2>
                 <textarea
                   placeholder="Write something..."
                   value={postContent}
                   onChange={(e) => setPostContent(e.target.value)}
-                  style={{ width: "100%", height: "100px", marginBottom: "10px" }}
+                  style={{ width: "100%", height: "100px", marginBottom: "10px", outline: "none", border: "1px solid #ddd", borderRadius: "5px", padding: "10px" }} 
                 />
                 <input
                   type="file"
@@ -524,12 +524,12 @@ const UserProfilePage = () => {
                   key={post.id}
                   className="post-item"
                   style={{
-                    marginBottom: "20px",
                     maxWidth: "600px",
-                    margin: "0 auto",
+                    margin: "0 auto 20px auto",
                     border: "1px solid #ddd",
                     borderRadius: "8px",
                     padding: "15px",
+                    fontSize: "1.1rem",
                     boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
                     backgroundColor: "#fff",
                     position: "relative",

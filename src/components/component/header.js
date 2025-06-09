@@ -45,7 +45,12 @@ export function ProducerHeaderlogo() {
     fetchBrandName();
   }, [userId]);
 
-  return <div>{isLoading ? "" : brandName || "My Store"}</div>; // Dynamic brand name with fallback
+ return (
+  <div className="producer-header-logo">
+    {isLoading ? "" : <span className="producer-header-logo-text">{brandName || "My Store"}</span>}
+  </div>
+);
+ // Dynamic brand name with fallback
 }
 
 //Header search bar
@@ -90,7 +95,7 @@ export default function GroupA() {
 
 export function ProducerGroupA() {
   return (
-    <div className="GroupA">
+    <div className="GroupA1">
       <ProducerHeaderlogo /> <AuthState />
     </div>
   );
