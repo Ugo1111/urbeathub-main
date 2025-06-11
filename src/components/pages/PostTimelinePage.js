@@ -64,17 +64,18 @@ const PostTimelinePage = () => {
               backgroundColor: "#fff",
               position: "relative",
             }}
-            onClick={() => navigate(`/view-post/${post.id}`)} // Navigate to ViewPostPage
           >
             {/* Post Header */}
             <div className="post-header" style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
               <img
                 src={post.userProfilePicture || "/default-avatar.png"}
                 alt={`${post.username || "User"}'s profile`}
-                style={{ width: "40px", height: "40px", borderRadius: "50%", marginRight: "10px" }}
+                style={{ width: "40px", height: "40px", borderRadius: "50%", marginRight: "10px", cursor: "pointer" }}
               />
               <div>
-                <p style={{ margin: 0, fontWeight: "bold" }}>{post.username || "Unnamed Artist"}</p>
+                <p style={{ margin: 0, fontWeight: "bold", cursor: "pointer" }}>
+                  {post.username || "Unnamed Artist"}
+                </p>
                 <p style={{ margin: 0, fontSize: "0.8em", color: "gray" }}>
                   {new Date(post.timestamp).toLocaleString()}
                 </p>
@@ -82,7 +83,12 @@ const PostTimelinePage = () => {
             </div>
 
             {/* Post Content */}
-            <p style={{ fontSize: "0.9em", marginBottom: "10px" }}>{post.content}</p>
+            <p
+              style={{ fontSize: "0.9em", marginBottom: "10px", cursor: "pointer" }}
+              onClick={() => navigate(`/view-post/${post.id}`)} // Navigate only when clicking on post content
+            >
+              {post.content}
+            </p>
             {post.fileUrl && post.fileType && (
               <div
                 style={{
@@ -92,7 +98,9 @@ const PostTimelinePage = () => {
                   overflow: "hidden",
                   backgroundColor: "#f0f0f0",
                   margin: "0 auto 10px",
+                  cursor: "pointer",
                 }}
+                onClick={() => navigate(`/view-post/${post.id}`)} // Navigate only when clicking on post content
               >
                 {post.fileType === "video" ? (
                   <video
@@ -124,10 +132,24 @@ const PostTimelinePage = () => {
 
             {/* Like and Share Info */}
             <div style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>
-              <span style={{ marginRight: "20px", color: "#db3056" }}>
+              <span
+                style={{ marginRight: "20px", color: "#db3056", cursor: "pointer" }}
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent navigation when clicking like
+                  console.log("Like clicked");
+                }}
+              >
                 ❤️ {post.likesCount || 0} Likes
               </span>
-              <span style={{ color: "#007bff" }}>🔗 {post.sharesCount || 0} Shares</span>
+              <span
+                style={{ color: "#007bff", cursor: "pointer" }}
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent navigation when clicking share
+                  console.log("Share clicked");
+                }}
+              >
+                🔗 {post.sharesCount || 0} Shares
+              </span>
             </div>
           </div>
         ))}

@@ -207,8 +207,8 @@ useEffect(() => {
         <Route path="/profile/:userId" element={<UserProfilePage />} /> {/* Add route for UserProfilePage */}
         <Route path="/store/:userId" element={<ProducersStore />} /> {/* Add route for UserProfilePage */}
         <Route path="/post/:postId" element={<PostPage />} /> {/* Add route for PostPage */}
-        <Route path="/view-post/:postId" element={<ViewPostPage />} /> {/* Add route for ViewPostPage */}
-        <Route path="/post-timeline" element={<PostTimelinePage />} /> {/* Add route for PostTimelinePage */}
+        <Route path="/view-post/:postId" element={<ViewPostPage />} /> {/* Ensure ViewPostPage route */}
+        <Route path="/post-timeline" element={<PostTimelinePage />} /> {/* Ensure PostTimelinePage route */}
       </Routes>
 
       <CookieConsent

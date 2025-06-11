@@ -1,16 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
-import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove, collection, addDoc, getDocs, deleteDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+} from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase"; // Import Firebase Auth
 import "../css/userProfilePage.css";
 import { formatDistanceToNow } from "date-fns"; // Import date-fns for formatting timestamps
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"; // Import Firebase Storage
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage"; // Import Firebase Storage
 import { SlOptionsVertical } from "react-icons/sl"; // Import three-dot icon
 import { ToastContainer, toast } from "react-toastify";
 import { IoShareSocialOutline } from "react-icons/io5"; // Import a different share icon
-
 
 const UserProfilePage = () => {
   const { userId } = useParams();
@@ -73,15 +88,22 @@ const UserProfilePage = () => {
         await deleteDoc(userLikeRef);
         setPosts((prevPosts) =>
           prevPosts.map((post) =>
-            post.id === postId ? { ...post, likesCount: (post.likesCount || 0) - 1 } : post
+            post.id === postId
+              ? { ...post, likesCount: (post.likesCount || 0) - 1 }
+              : post
           )
         );
       } else {
         // Like the post
-        await setDoc(userLikeRef, { userId: currentUser.uid, timestamp: new Date().toISOString() });
+        await setDoc(userLikeRef, {
+          userId: currentUser.uid,
+          timestamp: new Date().toISOString(),
+        });
         setPosts((prevPosts) =>
           prevPosts.map((post) =>
-            post.id === postId ? { ...post, likesCount: (post.likesCount || 0) + 1 } : post
+            post.id === postId
+              ? { ...post, likesCount: (post.likesCount || 0) + 1 }
+              : post
           )
         );
       }
@@ -107,10 +129,15 @@ const UserProfilePage = () => {
 
       if (!userShareSnap.exists()) {
         // Save the share
-        await setDoc(userShareRef, { userId: currentUser.uid, timestamp: new Date().toISOString() });
+        await setDoc(userShareRef, {
+          userId: currentUser.uid,
+          timestamp: new Date().toISOString(),
+        });
         setPosts((prevPosts) =>
           prevPosts.map((post) =>
-            post.id === postId ? { ...post, sharesCount: (post.sharesCount || 0) + 1 } : post
+            post.id === postId
+              ? { ...post, sharesCount: (post.sharesCount || 0) + 1 }
+              : post
           )
         );
       }
@@ -118,15 +145,20 @@ const UserProfilePage = () => {
       // Share the post link
       const shareUrl = `${window.location.origin}/post/${postId}`;
       if (navigator.share) {
-        navigator.share({
-          title: "Post from BeatHub",
-          text: `Check out this post: ${shareUrl}`,
-          url: shareUrl,
-        }).catch((error) => console.error("Error sharing post:", error));
+        navigator
+          .share({
+            title: "Post from BeatHub",
+            text: `Check out this post: ${shareUrl}`,
+            url: shareUrl,
+          })
+          .catch((error) => console.error("Error sharing post:", error));
       } else {
-        navigator.clipboard.writeText(shareUrl).then(() => {
-          alert("Post link copied to clipboard!");
-        }).catch((error) => console.error("Error copying link:", error));
+        navigator.clipboard
+          .writeText(shareUrl)
+          .then(() => {
+            alert("Post link copied to clipboard!");
+          })
+          .catch((error) => console.error("Error copying link:", error));
       }
     } catch (error) {
       console.error("Error sharing post:", error);
@@ -137,15 +169,22 @@ const UserProfilePage = () => {
   const handleShareProfile = () => {
     const shareUrl = `${window.location.origin}/profile/${userId}`;
     if (navigator.share) {
-      navigator.share({
-        title: `${user?.username || "User"}'s Profile on BeatHub`,
-        text: `Check out this profile on BeatHub: ${user?.username || "User"}`,
-        url: shareUrl,
-      }).catch((error) => console.error("Error sharing profile:", error));
+      navigator
+        .share({
+          title: `${user?.username || "User"}'s Profile on BeatHub`,
+          text: `Check out this profile on BeatHub: ${
+            user?.username || "User"
+          }`,
+          url: shareUrl,
+        })
+        .catch((error) => console.error("Error sharing profile:", error));
     } else {
-      navigator.clipboard.writeText(shareUrl).then(() => {
-        alert("Profile link copied to clipboard!");
-      }).catch((error) => console.error("Error copying link:", error));
+      navigator.clipboard
+        .writeText(shareUrl)
+        .then(() => {
+          alert("Profile link copied to clipboard!");
+        })
+        .catch((error) => console.error("Error copying link:", error));
     }
   };
 
@@ -177,7 +216,9 @@ const UserProfilePage = () => {
         if (socialSnap.exists()) {
           const followers = socialSnap.data().followers || [];
           const following = socialSnap.data().following || [];
-          userData.isFollowing = currentUser ? followers.includes(currentUser.uid) : false;
+          userData.isFollowing = currentUser
+            ? followers.includes(currentUser.uid)
+            : false;
           setFollowersCount(followers.length);
           setFollowingCount(following.length);
         } else {
@@ -332,14 +373,18 @@ const UserProfilePage = () => {
       let fileType = null;
 
       if (postFile) {
-        const storageRef = ref(storage, `posts/${currentUser.uid}/${postFile.name}`); // Create a reference in Firebase Storage
+        const storageRef = ref(
+          storage,
+          `posts/${currentUser.uid}/${postFile.name}`
+        ); // Create a reference in Firebase Storage
         const uploadTask = uploadBytesResumable(storageRef, postFile); // Create a resumable upload task
 
         // Monitor upload progress
         uploadTask.on(
           "state_changed",
           (snapshot) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             setUploadProgress(progress); // Update progress state
           },
           (error) => {
@@ -458,14 +503,18 @@ const UserProfilePage = () => {
       let fileType = null;
 
       if (editPostFile) {
-        const storageRef = ref(storage, `posts/${currentUser.uid}/${editPostFile.name}`); // Create a reference in Firebase Storage
+        const storageRef = ref(
+          storage,
+          `posts/${currentUser.uid}/${editPostFile.name}`
+        ); // Create a reference in Firebase Storage
         const uploadTask = uploadBytesResumable(storageRef, editPostFile); // Create a resumable upload task
 
         // Monitor upload progress
         uploadTask.on(
           "state_changed",
           (snapshot) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             setUploadProgress(progress); // Update progress state
           },
           (error) => {
@@ -477,7 +526,9 @@ const UserProfilePage = () => {
           },
           async () => {
             fileUrl = await getDownloadURL(uploadTask.snapshot.ref); // Get the public download URL
-            fileType = editPostFile.type.startsWith("video") ? "video" : "image"; // Determine file type
+            fileType = editPostFile.type.startsWith("video")
+              ? "video"
+              : "image"; // Determine file type
 
             // Save the edited post after file upload
             await saveEditedPost(fileUrl, fileType);
@@ -508,7 +559,10 @@ const UserProfilePage = () => {
       await deleteDoc(doc(db, "Post", postId));
 
       // Delete post reference from user's subcollection
-      const userPostRef = doc(db, `beatHubUsers/${currentUser.uid}/post/${postId}`);
+      const userPostRef = doc(
+        db,
+        `beatHubUsers/${currentUser.uid}/post/${postId}`
+      );
       await deleteDoc(userPostRef);
 
       // Update local state to remove the post
@@ -527,6 +581,27 @@ const UserProfilePage = () => {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const postModal = document.querySelector(".post-modal");
+      const editModal = document.querySelector(".post-modal-content");
+
+      if (postModal && !postModal.contains(event.target)) {
+        setIsPostModalOpen(false);
+      }
+
+      if (editModal && !editModal.contains(event.target)) {
+        setIsEditModalOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="user-profile-page">
       {user ? (
@@ -539,22 +614,33 @@ const UserProfilePage = () => {
             />
             <h1>{user.username || "Unnamed Artist"}</h1>
             <div className="profile-stats">
-            <span>
-              <div>{postCount}</div>
-              <div>posts</div>
-            </span>
-            <span>
-              <div>{followersCount}</div>
-              <div>followers</div>
-            </span>
-            <span>
-              <div>{followingCount}</div>
-              <div>following</div>
-            </span>
+              <span>
+                <div>{postCount}</div>
+                <div>posts</div>
+              </span>
+              <span>
+                <div>{followersCount}</div>
+                <div>followers</div>
+              </span>
+              <span>
+                <div>{followingCount}</div>
+                <div>following</div>
+              </span>
             </div>
           </div>
-          <p className="biography">{user.biography || "No bio yet. Stay tuned!"}</p>
-          <div className="profile-actions" style={{ display: "flex", alignItems: "center", justifyContent: "center",  gap: "10px", marginTop: "10px" }}>
+          <p className="biography">
+            {user.biography || "No bio yet. Stay tuned!"}
+          </p>
+          <div
+            className="profile-actions"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "10px",
+              marginTop: "10px",
+            }}
+          >
             <button
               className="follow-button"
               onClick={user.isFollowing ? handleUnfollow : handleFollow}
@@ -601,14 +687,32 @@ const UserProfilePage = () => {
 
           {/* Display Create a Post Modal */}
           {isPostModalOpen && (
-            <div className="post-modal" style={{ marginBottom: "20px", position: "fixed", top: "70%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 2000 }}>
+            <div
+              className="post-modal"
+              style={{
+                marginBottom: "20px",
+                position: "fixed",
+                top: "70%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                zIndex: 2000,
+              }}
+            >
               <div className="post-modal-content">
                 <h2>Create a Post</h2>
                 <textarea
                   placeholder="Write something..."
                   value={postContent}
                   onChange={(e) => setPostContent(e.target.value)}
-                  style={{ width: "100%", height: "100px", marginBottom: "10px", outline: "none", border: "1px solid #ddd", borderRadius: "5px", padding: "10px" }} 
+                  style={{
+                    width: "100%",
+                    height: "100px",
+                    marginBottom: "10px",
+                    outline: "none",
+                    border: "1px solid #ddd",
+                    borderRadius: "5px",
+                    padding: "10px",
+                  }}
                 />
                 <input
                   type="file"
@@ -619,15 +723,40 @@ const UserProfilePage = () => {
                 {uploadProgress > 0 && (
                   <div style={{ marginBottom: "10px" }}>
                     <p>Uploading: {Math.round(uploadProgress)}%</p>
-                    <progress value={uploadProgress} max="100" style={{ width: "100%" }} />
+                    <progress
+                      value={uploadProgress}
+                      max="100"
+                      style={{ width: "100%" }}
+                    />
                   </div>
                 )}
-                <button onClick={handlePostSubmit} style={{ marginRight: "10px", backgroundColor: "#db3056", color: "white", padding: "10px 20px",
-                   borderRadius: "5px", border: "none", cursor: "pointer" }}>
+                <button
+                  onClick={handlePostSubmit}
+                  style={{
+                    marginRight: "10px",
+                    backgroundColor: "#db3056",
+                    color: "white",
+                    padding: "10px 20px",
+                    borderRadius: "5px",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
                   Submit
                 </button>
-                <button onClick={togglePostModal} style={{backgroundColor: "black", color: "#ffffff", borderRadius: "5px", 
-                  border: "none", cursor: "pointer", padding: "10px 20px"}}>Cancel</button>
+                <button
+                  onClick={togglePostModal}
+                  style={{
+                    backgroundColor: "black",
+                    color: "#ffffff",
+                    borderRadius: "5px",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: "10px 20px",
+                  }}
+                >
+                  Cancel
+                </button>
               </div>
             </div>
           )}
@@ -644,9 +773,12 @@ const UserProfilePage = () => {
                 />
                 {posts.find((post) => post.id === editPostId)?.fileUrl && (
                   <div style={{ marginBottom: "10px" }}>
-                    {posts.find((post) => post.id === editPostId)?.fileType === "video" ? (
+                    {posts.find((post) => post.id === editPostId)?.fileType ===
+                    "video" ? (
                       <video
-                        src={posts.find((post) => post.id === editPostId)?.fileUrl}
+                        src={
+                          posts.find((post) => post.id === editPostId)?.fileUrl
+                        }
                         controls
                         style={{
                           width: "100%",
@@ -657,7 +789,9 @@ const UserProfilePage = () => {
                       />
                     ) : (
                       <img
-                        src={posts.find((post) => post.id === editPostId)?.fileUrl}
+                        src={
+                          posts.find((post) => post.id === editPostId)?.fileUrl
+                        }
                         alt="Existing content"
                         style={{
                           width: "100%",
@@ -680,10 +814,16 @@ const UserProfilePage = () => {
                     <progress value={uploadProgress} max="100" />
                   </div>
                 )}
-                <button onClick={handleEditPostSubmit} className="submit-button">
+                <button
+                  onClick={handleEditPostSubmit}
+                  className="submit-button"
+                >
                   Save Changes
                 </button>
-                <button onClick={() => setIsEditModalOpen(false)} className="cancel-button">
+                <button
+                  onClick={() => setIsEditModalOpen(false)}
+                  className="cancel-button"
+                >
                   Cancel
                 </button>
               </div>
@@ -707,11 +847,6 @@ const UserProfilePage = () => {
                     boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
                     backgroundColor: "#fff",
                     position: "relative",
-                  }}
-                  onClick={(e) => {
-                    if (!e.target.closest(".post-options, .post-like, .post-share")) {
-                      navigate(`/view-post/${post.id}`); // Navigate to ViewPostPage
-                    }
                   }}
                 >
                   {/* Three-dot menu (visible only to the post owner) */}
@@ -756,7 +891,9 @@ const UserProfilePage = () => {
                             }}
                             onClick={(e) => {
                               e.stopPropagation(); // Prevent navigation when clicking delete
-                              const confirmDelete = window.confirm("Are you sure you want to delete this post?");
+                              const confirmDelete = window.confirm(
+                                "Are you sure you want to delete this post?"
+                              );
                               if (confirmDelete) {
                                 handleDeletePost(post.id);
                               }
@@ -860,22 +997,52 @@ const UserProfilePage = () => {
                   </div>
 
                   {/* Post Header */}
-                  <div className="post-header" style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
+                  <div
+                    className="post-header"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginBottom: "10px",
+                    }}
+                  >
                     <img
                       src={user.profilePicture || "/default-avatar.png"}
                       alt={`${user.username}'s profile`}
-                      style={{ width: "40px", height: "40px", borderRadius: "50%", marginRight: "10px" }}
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        borderRadius: "50%",
+                        marginRight: "10px",
+                        cursor: "pointer",
+                      }}
                     />
                     <div>
-                      <p style={{ margin: 0, fontWeight: "bold" }}>{user.username || "Unnamed Artist"}</p>
-                      <p style={{ margin: 0, fontSize: "0.8em", color: "gray" }}>
-                        {formatDistanceToNow(new Date(post.timestamp), { addSuffix: true })}
+                      <p
+                        style={{ margin: 0, fontWeight: "bold", cursor: "pointer" }}
+                      >
+                        {user.username || "Unnamed Artist"}
+                      </p>
+                      <p
+                        style={{ margin: 0, fontSize: "0.8em", color: "gray" }}
+                      >
+                        {formatDistanceToNow(new Date(post.timestamp), {
+                          addSuffix: true,
+                        })}
                       </p>
                     </div>
                   </div>
 
                   {/* Post Content */}
-                  <p style={{ fontSize: "0.9em", marginBottom: "10px" }}>{post.content}</p>
+                  <p
+                    style={{
+                      fontSize: "0.9em",
+                      marginBottom: "10px",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => navigate(`/view-post/${post.id}`)} // Navigate only when clicking on post content
+                  >
+                    {post.content}
+                  </p>
                   {post.fileUrl && post.fileType && (
                     <div
                       style={{
@@ -885,7 +1052,9 @@ const UserProfilePage = () => {
                         overflow: "hidden",
                         backgroundColor: "#f0f0f0",
                         margin: "0 auto 10px",
+                        cursor: "pointer",
                       }}
+                      onClick={() => navigate(`/view-post/${post.id}`)} // Navigate only when clicking on post content
                     >
                       {post.fileType === "video" ? (
                         <video
@@ -945,7 +1114,6 @@ const UserProfilePage = () => {
             border: "none",
             boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
             cursor: "pointer",
-            
           }}
         >
           +

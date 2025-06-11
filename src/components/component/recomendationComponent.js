@@ -4,7 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 import djImage from '../../images/dj.jpg';
-
+import "../css/recomendationComponent.css"; // Import CSS for skeleton styles
 
 const shuffleArray = (array) => {
   let shuffledArray = [...array];
@@ -17,6 +17,7 @@ const shuffleArray = (array) => {
 
 export default function RecomendationComponent() {
   const [songs, setSongs] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -38,7 +39,8 @@ export default function RecomendationComponent() {
       const shuffledSongs = shuffleArray(sortedSongs);
 
       // Limit to 7 songs
-      setSongs(shuffledSongs.slice(0, 7));
+      setSongs(shuffledSongs.slice(0, 12));
+      setLoading(false); // Set loading to false after fetching
     };
 
     fetchSongs();
@@ -53,26 +55,36 @@ export default function RecomendationComponent() {
 
   return (
     <div className="recomendation-list-container">
-      {songs.map((song, index) => (
-        <span key={index} className="recomendation-list">
+      {loading ? (
+        // Skeleton UI while loading
+        Array.from({ length: 12 }).map((_, index) => (
+          <span key={index} className="recomendation-list skeleton">
+            <div className="skeleton-image"></div>
+            <div className="skeleton-title"></div>
+            <div className="skeleton-tag"></div>
+          </span>
+        ))
+            ) : (
+        songs.slice(0, 12).map((song, index) => (
+          <span key={index} className="recomendation-list">
             <Link to="/addToCart" state={{ song }} className="recomendation-" onClick={() => {
-    // Scroll to the top of the page
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }}>
-          <img
-            src={song.coverUrl || djImage}
-            className="recomendation-image"
-            alt={song.title || "Untitled"}
-          />
-          <div className="recomendation-title">{song.title}</div>
-          <div className="recomendation-tag">
-              <button    className="recomendation-AddToCart-button">
-                <FaCartShopping size="1em" /> ${song.monetization?.basic?.price}
-              </button>
-          </div>
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}>
+              <img
+                src={song.coverUrl || djImage}
+                className="recomendation-image"
+                alt={song.title || "Untitled"}
+              />
+              <div className="recomendation-title">{song.title}</div>
+              <div className="recomendation-tag">
+                <button className="recomendation-AddToCart-button">
+                  <FaCartShopping size="1em" /> ${song.monetization?.basic?.price}
+                </button>
+              </div>
             </Link>
-        </span>
-      ))}
+          </span>
+        ))
+      )}
     </div>
   );
 }
