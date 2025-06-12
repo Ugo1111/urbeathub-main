@@ -41,6 +41,8 @@ import axios from "axios";
 import UserProfilePage from "./components/pages/UserProfilePage"; // Import UserProfilePage
 import ProducersStore from "./components/pages/store.js"; // Import UserProfilePage
 import PostPage from "./components/pages/PostPage"; // Import PostPage component
+import ViewPostPage from "./components/pages/ViewPostPage"; // Import ViewPostPage
+import PostTimelinePage from "./components/pages/PostTimelinePage"; // Import PostTimelinePage
 
 
 // Initialize Google Analytics
@@ -206,6 +208,8 @@ useEffect(() => {
         <Route path="/profile/:userId" element={<UserProfilePage />} /> {/* Add route for UserProfilePage */}
         <Route path="/store/:userId" element={<ProducersStore />} /> {/* Add route for UserProfilePage */}
         <Route path="/post/:postId" element={<PostPage />} /> {/* Add route for PostPage */}
+        <Route path="/view-post/:postId" element={<ViewPostPage />} /> {/* Ensure ViewPostPage route */}
+        <Route path="/post-timeline" element={<PostTimelinePage />} /> {/* Ensure PostTimelinePage route */}
       </Routes>
 
       <CookieConsent
