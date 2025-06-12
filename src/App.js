@@ -42,6 +42,7 @@ import UserProfilePage from "./components/pages/UserProfilePage"; // Import User
 import ProducersStore from "./components/pages/store.js"; // Import UserProfilePage
 import PostPage from "./components/pages/PostPage"; // Import PostPage component
 
+
 // Initialize Google Analytics
 ReactGA.initialize('G-8Q9JH9G3KH');
 

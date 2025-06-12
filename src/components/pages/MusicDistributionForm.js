@@ -74,28 +74,122 @@ const uniqueStoreTags = [...new Set(allStoreTags)];
 const MusicDistributionForm = () => {
   const [activeSection, setActiveSection] = useState("album");
   const [territoryInput, setTerritoryInput] = useState("");
-const [territoryTags, setTerritoryTags] = useState([]);
+  const [territoryTags, setTerritoryTags] = useState([]);
 
-const handleTerritoryKeyDown = (e) => {
-  if (e.key === "Enter" && territoryInput.trim()) {
-    e.preventDefault();
-    if (!territoryTags.includes(territoryInput.trim())) {
-      setTerritoryTags([...territoryTags, territoryInput.trim()]);
+  // State for toggling cover version and compilation album checkboxes
+  const [coverVersion, setCoverVersion] = useState(null); // null, true, or false
+  const [compilationAlbum, setCompilationAlbum] = useState(null); // null, true, or false
+  const [lyrics, setLyrics] = useState(null); // null, true, or false
+
+  // State for dynamic artist and composer fields
+  const [artists, setArtists] = useState([""]);
+  const [composers, setComposers] = useState([""]);
+
+  // New states for showing/hiding input fields for artist, composer, and time
+  const [showArtistInput, setShowArtistInput] = useState(false);
+  const [showComposerInput, setShowComposerInput] = useState(false);
+  const [showTimeInput, setShowTimeInput] = useState(false);
+  const [times, setTimes] = useState([]);
+  const [timeInput, setTimeInput] = useState("");
+
+  // New state for tracks
+  const [tracks, setTracks] = useState([{ title: "", file: null }]);
+
+  // New state for selected stores
+  const [selectedStores, setSelectedStores] = useState(() =>
+  stores.filter(s => s.name !== "Select All").map(s => s.name)
+);
+
+  const handleTerritoryKeyDown = (e) => {
+    if (e.key === "Enter" && territoryInput.trim()) {
+      e.preventDefault();
+      if (!territoryTags.includes(territoryInput.trim())) {
+        setTerritoryTags([...territoryTags, territoryInput.trim()]);
+      }
+      setTerritoryInput("");
     }
-    setTerritoryInput("");
-  }
-};
+  };
 
-const removeTerritoryTag = (tagToRemove) => {
-  setTerritoryTags(territoryTags.filter(tag => tag !== tagToRemove));
-};
+  const removeTerritoryTag = (tagToRemove) => {
+    setTerritoryTags(territoryTags.filter(tag => tag !== tagToRemove));
+  };
 
+  // Artist input handlers
+  const handleArtistInputChange = (idx, value) => {
+    setArtists(artists.map((a, i) => (i === idx ? value : a)));
+  };
+  const handleAddArtistInput = () => {
+    setArtists([...artists, ""]);
+  };
+  const handleRemoveArtistInput = (idx) => {
+    setArtists(artists.filter((_, i) => i !== idx));
+  };
+
+  // Composer input handlers
+  const handleComposerInputChange = (idx, value) => {
+    setComposers(composers.map((c, i) => (i === idx ? value : c)));
+  };
+  const handleAddComposerInput = () => {
+    setComposers([...composers, ""]);
+  };
+  const handleRemoveComposerInput = (idx) => {
+    setComposers(composers.filter((_, i) => i !== idx));
+  };
+
+  // Add time
+  const handleAddTime = () => {
+    setShowTimeInput(true);
+  };
+  const handleTimeInputAdd = () => {
+    if (timeInput.trim() && !times.includes(timeInput.trim())) {
+      setTimes([...times, timeInput.trim()]);
+      setTimeInput("");
+      setShowTimeInput(false);
+    }
+  };
+  const handleRemoveTime = (t) => {
+    setTimes(times.filter(time => time !== t));
+  };
+
+  // Handlers for dynamic tracks
+  const handleTrackTitleChange = (idx, value) => {
+    setTracks(tracks.map((track, i) => i === idx ? { ...track, title: value } : track));
+  };
+  const handleTrackFileChange = (idx, file) => {
+    setTracks(tracks.map((track, i) => i === idx ? { ...track, file } : track));
+  };
+  const handleAddTrack = () => {
+    setTracks([...tracks, { title: "", file: null }]);
+  };
+  const handleRemoveTrack = (idx) => {
+    setTracks(tracks.filter((_, i) => i !== idx));
+  };
+
+  const handleStoreCheckboxChange = (storeName) => {
+    if (storeName === "Select All") {
+      // If Select All is checked, select all stores except "Select All"
+      if (selectedStores.length !== stores.length - 1) {
+        setSelectedStores(stores.filter(s => s.name !== "Select All").map(s => s.name));
+      } else {
+        setSelectedStores([]);
+      }
+    } else {
+      if (selectedStores.includes(storeName)) {
+        setSelectedStores(selectedStores.filter(name => name !== storeName));
+      } else {
+        setSelectedStores([...selectedStores, storeName]);
+      }
+    }
+  };
+
+  const isAllSelected = selectedStores.length === stores.filter(s => s.name !== "Select All").length;
 
   const renderSection = () => {
     switch (activeSection) {
       case "album":
         return (
           <div className="Album-container">
+            <h2>Start Your Music Distribution Process Below</h2>
             {/* Album form... (same as your original, no changes) */}
             <h2>Release Data</h2>
             <form>
@@ -111,6 +205,11 @@ If you don't have a UPC / EAN please leave blank and we can generate one for you
               <label>Language</label>
               <select>
                 <option>English</option>
+                <option>Spanish</option>
+                <option>French</option>
+                <option>German</option>
+                <option>Italian</option>
+                <option>Arabic</option>
               </select>
               <label>Album/Single/EP Title *</label>
               <input type="text" required />
@@ -119,45 +218,116 @@ If you don't have a UPC / EAN please leave blank and we can generate one for you
               <label>Does this release contain cover versions?</label>
               <div className="checkbox-group">
                 <label>
-                  <input type="checkbox" /> Yes
+                  <input
+                    type="checkbox"
+                    checked={coverVersion === true}
+                    onChange={() => setCoverVersion(true)}
+                  /> Yes
                 </label>
                 <label>
-                  <input type="checkbox" /> No
+                  <input
+                    type="checkbox"
+                    checked={coverVersion === false}
+                    onChange={() => setCoverVersion(false)}
+                  /> No
                 </label>
               </div>
+              {/* Compilation Album */}
               <label>Compilation Album</label>
               <div className="checkbox-group">
                 <label>
-                  <input type="checkbox" /> Yes
+                  <input
+                    type="checkbox"
+                    checked={compilationAlbum === true}
+                    onChange={() => setCompilationAlbum(true)}
+                  /> Yes
                 </label>
                 <label>
-                  <input type="checkbox" /> No
+                  <input
+                    type="checkbox"
+                    checked={compilationAlbum === false}
+                    onChange={() => setCompilationAlbum(false)}
+                  /> No
                 </label>
               </div>
+              {/* Artist Name */}
               <label>Artist Name *</label>
-              <input type="text" />
-              <button type="button">Add Artist</button>
+              <div className="dynamic-list">
+                {artists.map((artist, idx) => (
+                  <div key={idx} style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: 4 }}>
+                    <input
+                      type="text"
+                      value={artist}
+                      onChange={e => handleArtistInputChange(idx, e.target.value)}
+                      placeholder="Enter artist name"
+                    />
+                    {artists.length > 1 && (
+                      <button type="button" onClick={() => handleRemoveArtistInput(idx)}>Remove</button>
+                    )}
+                    {idx === artists.length - 1 && (
+                      <button type="button" onClick={handleAddArtistInput}>Add Artist</button>
+                    )}
+                  </div>
+                ))}
+              </div>
+              {/* Writers/Composers */}
               <div className="section">
                 <label>Writers *</label>
-                <input type="text" placeholder="Composer" required />
-                <button type="button">Add Composer</button>
+                <div className="dynamic-list">
+                  {composers.map((composer, idx) => (
+                    <div key={idx} style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: 4 }}>
+                      <input
+                        type="text"
+                        placeholder="Composer"
+                        value={composer}
+                        onChange={e => handleComposerInputChange(idx, e.target.value)}
+                        required
+                      />
+                      {composers.length > 1 && (
+                        <button type="button" onClick={() => handleRemoveComposerInput(idx)}>Remove</button>
+                      )}
+                      {idx === composers.length - 1 && (
+                        <button type="button" onClick={handleAddComposerInput}>Add Composer</button>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
+              {/* Lyrics */}
               <label>Does this release contain lyrics?</label>
               <div className="checkbox-group">
                 <label>
-                  <input type="checkbox" /> Yes
+                  <input
+                    type="checkbox"
+                    checked={lyrics === true}
+                    onChange={() => setLyrics(true)}
+                  /> Yes
                 </label>
                 <label>
-                  <input type="checkbox" /> No
+                  <input
+                    type="checkbox"
+                    checked={lyrics === false}
+                    onChange={() => setLyrics(false)}
+                  /> No
                 </label>
               </div>
               <label>Primary Genre</label>
               <select>
                 <option>Blues</option>
+                <option>Alternative</option>
+                <option>Anime</option>
+                <option>Brazillian</option>
+                <option>Children's Music</option>
+                <option>Christian & Gospel</option>
               </select>
               <label>Secondary Genre</label>
               <select>
                 <option>Alternative</option>
+                <option>Blues</option>
+                <option>Anime</option>
+                <option>Brazillian</option>
+                <option>Children's Music</option>
+                <option>Christian & Gospel</option>
               </select>
               <label>Composition Copyright *</label>
               <input type="text" />
@@ -171,10 +341,36 @@ If you don't have a UPC / EAN please leave blank and we can generate one for you
               <input type="date" />
               <label>Sales Start Date</label>
               <input type="date" />
-              <button type="button">Add Time</button>
+              <button type="button" onClick={handleAddTime}>Add Time</button>
+              {showTimeInput && (
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "8px" }}>
+                  <input
+                    type="text"
+                    placeholder="Enter time"
+                    value={timeInput}
+                    onChange={e => setTimeInput(e.target.value)}
+                  />
+                  <button type="button" onClick={handleTimeInputAdd}>Add</button>
+                  <button type="button" onClick={() => { setShowTimeInput(false); setTimeInput(""); }}>Cancel</button>
+                </div>
+              )}
+              <div className="dynamic-list">
+                {times.map((t, idx) => (
+                  <span key={idx} className="dynamic-item">
+                    {t}
+                    <span
+                      className="remove"
+                      style={{ cursor: "pointer", marginLeft: "5px" }}
+                      onClick={() => handleRemoveTime(t)}
+                    >×</span>
+                  </span>
+                ))}
+              </div>
               <label>Explicit Content *</label>
               <select>
-                <option>Not Explicit</option>
+                <option>Non Explicit</option>
+                <option>Explicit</option>
+                <option>Cleaned Version</option>
               </select>
               <div className="btn-group">
                 <button type="button" className="back-btn">
@@ -196,14 +392,30 @@ If you don't have a UPC / EAN please leave blank and we can generate one for you
             <ul className="file-types">
               <li><i>High quality MP3 320kbps - 44.1 KH</i></li>
               <li><i>High quality FLAC - 44.1 KHz</i></li>
-              </ul>
-              <label>Track Title</label>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-  <input type="text" placeholder="Track Title" className="input" />
-  <button>+ Add Track</button>
-</div>
-
-            <input type="file" accept="audio/*" className="input" />
+            </ul>
+            {tracks.map((track, idx) => (
+              <div key={idx} style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: 8 }}>
+                <input
+                  type="text"
+                  placeholder="Track Title"
+                  className="input"
+                  value={track.title}
+                  onChange={e => handleTrackTitleChange(idx, e.target.value)}
+                />
+                <input
+                  type="file"
+                  accept="audio/*"
+                  className="input"
+                  onChange={e => handleTrackFileChange(idx, e.target.files[0])}
+                />
+                {tracks.length > 1 && (
+                  <button type="button" onClick={() => handleRemoveTrack(idx)}>Remove</button>
+                )}
+                {idx === tracks.length - 1 && (
+                  <button type="button" onClick={handleAddTrack}>+ Add Track</button>
+                )}
+              </div>
+            ))}
           </div>
         );
 
@@ -225,14 +437,18 @@ If you don't have a UPC / EAN please leave blank and we can generate one for you
       case "store":
         return (
           <>
-
           <h2>Choose your stores</h2>
             <div className="store-grid-section">
               {stores.map((store, index) => (
                 <label key={index} className="store-label">
                   <input
                     type="checkbox"
-                    defaultChecked={store.name !== "Select All"}
+                    checked={
+                      store.name === "Select All"
+                        ? isAllSelected
+                        : selectedStores.includes(store.name)
+                    }
+                    onChange={() => handleStoreCheckboxChange(store.name)}
                   />
                   <div
                     className="store-icon"
@@ -419,28 +635,28 @@ If you don't have a UPC / EAN please leave blank and we can generate one for you
       <div className="sidebar">
         <button
           onClick={() => setActiveSection("album")}
-          className="btn"
+          className={`btn${activeSection === "album" ? " active-tab" : ""}`}
           type="button"
         >
           Album Details
         </button>
         <button
           onClick={() => setActiveSection("music")}
-          className="btn"
+          className={`btn${activeSection === "music" ? " active-tab" : ""}`}
           type="button"
         >
           Upload Music
         </button>
         <button
           onClick={() => setActiveSection("cover")}
-          className="btn"
+          className={`btn${activeSection === "cover" ? " active-tab" : ""}`}
           type="button"
         >
           Upload Cover Art
         </button>
         <button
           onClick={() => setActiveSection("store")}
-          className="btn"
+          className={`btn${activeSection === "store" ? " active-tab" : ""}`}
           type="button"
         >
           Select Store

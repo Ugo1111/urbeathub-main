@@ -6,6 +6,8 @@ import { GroupF, GroupG } from "../component/footer";
 import RecomendationComponent from "../component/recomendationComponent";
 import FeedbackForm from "../component/FeedbackForm"; // Import FeedbackForm
 import { Helmet } from 'react-helmet';
+import HomePageFeed from "../component/HomePageFeed"; // Import HomePageFeed
+import DistributionLogo from "../component/DistributionLogo"; // Import DistributionLogo
 
 
 const sound = "/images/prdoucer studio.jpg";
@@ -77,6 +79,13 @@ function Front() {
      </div>
     </div>
   <RecomendationComponent />
+  {/*
+  <HomePageFeed /> */}
+  {/*
+  <DistributionLogo />
+  */}
+
+  
   
 </div>
     <div className="distribute">
