@@ -157,7 +157,7 @@ hr{
 /* Center the form container on the screen */
 .login-form-container {
     margin-top: 50px;
-    height: 90vh;  
+    height: 100vh;  
     width: 500px;
     display: flex;
     flex-direction: column; /* Stack children vertically */
@@ -400,7 +400,7 @@ body{
 }
 
 details{
-  background-color: #dddddd;
+  background-color: #000000;
   color: #ffffff;
   border: 1px solid #343434;
   border-radius: 8px;
@@ -1376,21 +1376,30 @@ color:#ffffff;}
   overflow-x: auto;
 }
 
-/* Card styles - fixed width for scroll, responsive for desktop */
+.post-card-container {
+  background-color: transparent; /* Remove solid gray to blend better */
+  padding: 1rem;
+}
+
+/* Post card styling with better blending */
 .post-card {
   min-width: 250px;
   max-width: 250px;
   flex: 0 0 auto;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Softer border for dark backgrounds */
+  border-radius: 12px;
   padding: 15px;
-  background-color: rgba(255, 255, 255, 0.8); /* 0.8 = 80% opacity */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: rgba(255, 255, 255, 0.06); /* Very subtle white overlay */
+  backdrop-filter: blur(10px); /* Optional: adds frosted glass effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Better shadow for black background */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 320px;
+  color: #f1f1f1; /* Light text for readability on dark */
 }
+
 
 /* Scrollbar styling (optional) */
 .feed-scroll-container::-webkit-scrollbar {

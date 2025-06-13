@@ -79,11 +79,11 @@ function Front() {
      </div>
     </div>
   <RecomendationComponent />
-  {/*
-  <HomePageFeed /> */}
-  {/*
+  
+  <HomePageFeed /> 
+
   <DistributionLogo />
-  */}
+
 
   
   

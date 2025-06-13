@@ -51,9 +51,21 @@ export function GroupF() {
             <fieldset>
               <legend>FAQ</legend>
             </fieldset>
-            <details><summary> What Happens When My License Expires?</summary>why show me now</details>
-            <details><summary>How Do I Renew My License?</summary>why show me now</details>
-            <details><summary> How Do I Buy Exclusive Rights?</summary>why show me now</details>
+           <details>
+  <summary>What Happens When My License Expires?</summary>
+  Once your license expires, you are no longer legally allowed to use the beat in new projects. Existing projects made while the license was active may still be used, but you won't be able to monetize further or create new content with the beat unless you renew or upgrade the license.
+</details>
+
+<details>
+  <summary>How Do I Renew My License?</summary>
+  To renew your license, simply return to the beat store, locate the beat you originally licensed, and purchase the same license again. This will extend your usage rights based on the new license terms and duration.
+</details>
+
+<details>
+  <summary>How Do I Buy Exclusive Rights?</summary>
+  To buy exclusive rights, contact the producer directly through the contact form or any listed email/social links. Exclusive licenses are sold only once and remove the beat from further sale. Pricing and terms may vary depending on the producer.
+</details>
+
 
         </div>
         </div>

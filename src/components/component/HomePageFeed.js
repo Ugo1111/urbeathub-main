@@ -61,6 +61,7 @@ const HomePageFeed = () => {
   }, []);
 
   return (
+       <div className="post-card-container">
     <div style={{ padding: "20px" }}>
       <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Post From Our Community</h2>
 
@@ -71,6 +72,7 @@ const HomePageFeed = () => {
   {posts.slice(0, 4).map((post) => (
     <div
       key={post.id}
+
       className="post-card"
     >
 
@@ -91,7 +93,7 @@ const HomePageFeed = () => {
             </div>
 
             {/* Post Content */}
-            <p style={{ marginBottom: "10px", fontSize: "14px", color: "#333" }}>{post.content}</p>
+            <p style={{ marginBottom: "10px", fontSize: "14px", color: "#fff" }}>{post.content}</p>
 
             {/* Display Image or Video */}
             {post.fileUrl && post.fileType === "image" && (
@@ -137,6 +139,7 @@ const HomePageFeed = () => {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };
