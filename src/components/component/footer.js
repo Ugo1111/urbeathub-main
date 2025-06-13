@@ -82,3 +82,42 @@ export function GroupG() {
       </footer>
     );
   }
+
+export function SellBeatsInfo({ navigate }) {
+  return (
+    <section className="sellbeat1">
+      <div className="sellbeat-container">
+        <h2>Why sell beats using urbeathub?</h2>
+        <ul>
+          <li>No Setup or Monthly Fee</li>
+          <li>Accept Bank card and Mobile Money Payment</li>
+          <li>Upload unlimited beats</li>
+          <li>Offer Unlimited free downloads</li>
+          <li>Keep 90% of your earnings per transaction</li>
+          <li>Right audience for your beats</li>
+          <li>Get premium support</li>
+          <li>Dashboard Access</li>
+          <li>All this 100% FREE. No upfront payment needed</li>
+        </ul>
+        <button
+          className="start-selling-button"
+          onClick={() => navigate("/startsellingpage")}
+        >
+          Start Selling →
+        </button>
+      </div>
+
+      <div className="sellbeat-container1a">
+        <h2>How Selling Beats works</h2>
+        <ul>
+          <li>Upload your files of the Beat you want to sell</li>
+          <li>Input the licenses that you want to offer on your Beat</li>
+          <li>Set prices for each license</li>
+          <li>Publish the Beat</li>
+          <li>Artists will be able to buy the Beat from all over the World</li>
+          <li>GET PAID as people buy your Beat</li>
+        </ul>
+      </div>
+    </section>
+  );
+}
