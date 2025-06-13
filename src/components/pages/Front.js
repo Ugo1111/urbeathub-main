@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth"; // Import Firebase auth
+import { auth } from "../../firebase/firebase"; // Import Firebase instance
 import "../css/component.css";
 import { useNavigate } from "react-router-dom";
 import GroupA from "../component/header.js";
 import { GroupF, GroupG, SellBeatsInfo } from "../component/footer"; // Import SellBeatsInfo
 import RecomendationComponent from "../component/recomendationComponent";
 import FeedbackForm from "../component/FeedbackForm"; // Import FeedbackForm
+import DistributionLogo from "../component/DistributionLogo.js";
+import HomePageFeed from "../component/HomePageFeed.js";
 import { Helmet } from 'react-helmet';
 
 
@@ -160,7 +164,11 @@ function Front() {
  <a href="/Homepage">see more</a>
      </div>
     </div>
-  <RecomendationComponent />
+
+ <RecomendationComponent />
+
+  {/*<DistributionLogo /> */}
+ {/* <HomePageFeed />  */}
   
 </div>
     <div className="distribute">
