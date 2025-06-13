@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { formatDistanceToNow } from "date-fns"; // Import date-fns for formatting
 import "../css/viewPostPage.css";
 
 const ViewPostPage = () => {
@@ -9,6 +10,10 @@ const ViewPostPage = () => {
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const formatTimestamp = (timestamp) => {
+    return formatDistanceToNow(new Date(timestamp), { addSuffix: true });
+  };
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -57,6 +62,9 @@ const ViewPostPage = () => {
       </button>
       <div className="post-container">
         <h1>{post.content}</h1>
+        <p style={{ fontSize: "0.8em", color: "gray" }}>
+          Posted {formatTimestamp(post.timestamp)}
+        </p>
         {post.fileUrl && post.fileType === "image" && (
           <img
             src={post.fileUrl}
@@ -68,6 +76,9 @@ const ViewPostPage = () => {
           <video
             src={post.fileUrl}
             controls
+            muted
+            controlsList="nodownload nofullscreen noplaybackrate" // Disable fullscreen and other controls
+            disablePictureInPicture // Disable Picture-in-Picture mode
             style={{ display: "block", margin: "20px auto", maxWidth: "100%" }}
           />
         )}
