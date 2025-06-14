@@ -11,7 +11,7 @@ export function GroupF() {
               next hit. For custom beats<br /> and exclusive rights,
               get in touch with us.
             </p>
-            <a>Contact Us</a>
+            <p>Contact Us</p>
             <p>info@urbeathub.com</p>
           </div>
 
@@ -32,16 +32,16 @@ export function GroupF() {
               <a href="/MusicDistributionForm" target="_blank">Distribution</a>
             </p>
             <div className="social-links">
-              <a href="https://www.facebook.com/share/15xxw68L9H/" target="_blank">
+              <a href="https://www.facebook.com/share/15xxw68L9H/" target="_blank" rel="noopener noreferrer"> 
                 <i className="fab fa-facebook"></i>
               </a>
-              <a href="https://www.instagram.com/beathubhq?igsh=bzdlenlmYmM0MXlx" target="_blank">
+              <a href="https://www.instagram.com/beathubhq?igsh=bzdlenlmYmM0MXlx" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-instagram"></i>
               </a>
-              <a href="https://www.tiktok.com/@beathubhq?_t=ZG-8tPb3wugnPU&_r=1" target="_blank">
+              <a href="https://www.tiktok.com/@beathubhq?_t=ZG-8tPb3wugnPU&_r=1" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-tiktok"></i>
               </a>
-              <a href="https://www.youtube.com/@urbeathub?si=c-RKHuS-4-0C6Ve6" target="_blank">
+              <a href="https://www.youtube.com/@urbeathub?si=c-RKHuS-4-0C6Ve6" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-youtube"></i>
               </a>
             </div>
@@ -51,25 +51,23 @@ export function GroupF() {
             <fieldset>
               <legend>FAQ</legend>
             </fieldset>
-            <button className="accordion">
-              What Happens When My License Expires?
-            </button>
-            <div className="content">
-              <p>We are here</p>
-            </div>
+           <details>
+  <summary>What Happens When My License Expires?</summary>
+  <p>Once your license expires, you are no longer legally allowed to use the beat in new projects. Existing projects made while the license was active may still be used, but you won't be able to monetize further or create new content with the beat unless you renew or upgrade the license.</p>
+</details>
 
-            <button className="accordion">How Do I Renew My License?</button>
-            <div className="content">
-              <p>We are here</p>
-            </div>
+<details>
+  <summary>How Do I Renew My License?</summary>
+  To renew your license, simply return to the beat store, locate the beat you originally licensed, and purchase the same license again. This will extend your usage rights based on the new license terms and duration.
+</details>
 
-            <button className="accordion">
-              How Do I Buy Exclusive Rights?
-            </button>
-            <div className="content">
-              <p>We are here</p>
-            </div>
-          </div>
+<details>
+  <summary>How Do I Buy Exclusive Rights?</summary>
+  To buy exclusive rights, contact the producer directly through the contact form or any listed email/social links. Exclusive licenses are sold only once and remove the beat from further sale. Pricing and terms may vary depending on the producer.
+</details>
+
+
+        </div>
         </div>
       </div>
     );

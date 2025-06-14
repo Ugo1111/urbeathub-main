@@ -643,42 +643,17 @@ const UserProfilePage = () => {
           >
             <button
               className="follow-button"
-              onClick={user.isFollowing ? handleUnfollow : handleFollow}
-              style={{
-                backgroundColor: "#db3056",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-                padding: "10px 15px",
-                cursor: "pointer",
-              }}
-            >
+              onClick={user.isFollowing ? handleUnfollow : handleFollow}>
               {user.isFollowing ? "Unfollow" : "Follow"}
             </button>
             <button
               className="view-store-button"
-              onClick={() => navigate(`/store/${user.id}`)}
-              style={{
-                backgroundColor: "#007bff",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-                padding: "10px 15px",
-                cursor: "pointer",
-              }}
-            >
-              View Store
+              onClick={() => navigate(`/store/${user.id}`)}>
+               View Store
             </button>
             <button
               className="share-profile-button"
               onClick={handleShareProfile}
-              style={{
-                backgroundColor: "transparent",
-                border: "none",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-              }}
               title="Share Profile" // Tooltip for accessibility
             >
               <IoShareSocialOutline size="1.5em" color="#007bff" />
@@ -687,148 +662,97 @@ const UserProfilePage = () => {
 
           {/* Display Create a Post Modal */}
           {isPostModalOpen && (
-            <div
-              className="post-modal"
-              style={{
-                marginBottom: "20px",
-                position: "fixed",
-                top: "70%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                zIndex: 2000,
-              }}
-            >
-              <div className="post-modal-content">
-                <h2>Create a Post</h2>
-                <textarea
-                  placeholder="Write something..."
-                  value={postContent}
-                  onChange={(e) => setPostContent(e.target.value)}
-                  style={{
-                    width: "100%",
-                    height: "100px",
-                    marginBottom: "10px",
-                    outline: "none",
-                    border: "1px solid #ddd",
-                    borderRadius: "5px",
-                    padding: "10px",
-                  }}
-                />
-                <input
-                  type="file"
-                  accept="image/*,video/*"
-                  onChange={(e) => setPostFile(e.target.files[0])}
-                  style={{ marginBottom: "10px" }}
-                />
-                {uploadProgress > 0 && (
-                  <div style={{ marginBottom: "10px" }}>
-                    <p>Uploading: {Math.round(uploadProgress)}%</p>
-                    <progress
-                      value={uploadProgress}
-                      max="100"
-                      style={{ width: "100%" }}
-                    />
-                  </div>
-                )}
-                <button
-                  onClick={handlePostSubmit}
-                  style={{
-                    marginRight: "10px",
-                    backgroundColor: "#db3056",
-                    color: "white",
-                    padding: "10px 20px",
-                    borderRadius: "5px",
-                    border: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  Submit
-                </button>
-                <button
-                  onClick={togglePostModal}
-                  style={{
-                    backgroundColor: "black",
-                    color: "#ffffff",
-                    borderRadius: "5px",
-                    border: "none",
-                    cursor: "pointer",
-                    padding: "10px 20px",
-                  }}
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          )}
+  <div className="post-modal" onClick={togglePostModal}>
+    <div className="post-modal-content" onClick={(e) => e.stopPropagation()}>
+      <h2>Create a Post</h2>
+      <textarea
+        className="post-textarea"
+        placeholder="Write something..."
+        value={postContent}
+        onChange={(e) => setPostContent(e.target.value)}
+      />
+      <input
+        type="file"
+        accept="image/*,video/*"
+        onChange={(e) => setPostFile(e.target.files[0])}
+        className="post-file-input"
+      />
+      {uploadProgress > 0 && (
+        <div className="upload-progress">
+          <p>Uploading: {Math.round(uploadProgress)}%</p>
+          <progress value={uploadProgress} max="100" />
+        </div>
+      )}
+      <div className="post-button-group">
+  <button onClick={handlePostSubmit} className="post-submit">
+    Submit
+  </button>
+  <button onClick={togglePostModal} className="post-cancel">
+    Cancel
+  </button>
+</div>
+
+    </div>
+  </div>
+)}
+
 
           {/* Display Edit Post Modal */}
-          {isEditModalOpen && (
-            <div className="post-modal">
-              <div className="post-modal-content">
-                <h2>Edit Post</h2>
-                <textarea
-                  placeholder="Edit your post content..."
-                  value={editPostContent}
-                  onChange={(e) => setEditPostContent(e.target.value)}
-                />
-                {posts.find((post) => post.id === editPostId)?.fileUrl && (
-                  <div style={{ marginBottom: "10px" }}>
-                    {posts.find((post) => post.id === editPostId)?.fileType ===
-                    "video" ? (
-                      <video
-                        src={
-                          posts.find((post) => post.id === editPostId)?.fileUrl
-                        }
-                        controls
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          borderRadius: "10px",
-                          marginBottom: "10px",
-                        }}
-                      />
-                    ) : (
-                      <img
-                        src={
-                          posts.find((post) => post.id === editPostId)?.fileUrl
-                        }
-                        alt="Existing content"
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          borderRadius: "10px",
-                          marginBottom: "10px",
-                        }}
-                      />
-                    )}
-                  </div>
-                )}
-                <input
-                  type="file"
-                  accept="image/*,video/*"
-                  onChange={(e) => setEditPostFile(e.target.files[0])}
-                />
-                {uploadProgress > 0 && (
-                  <div>
-                    <p>Uploading: {Math.round(uploadProgress)}%</p>
-                    <progress value={uploadProgress} max="100" />
-                  </div>
-                )}
-                <button
-                  onClick={handleEditPostSubmit}
-                  className="submit-button"
-                >
-                  Save Changes
-                </button>
-                <button
-                  onClick={() => setIsEditModalOpen(false)}
-                  className="cancel-button"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
+         {isEditModalOpen && (
+  <div className="edit-post-modal" onClick={() => setIsEditModalOpen(false)}>
+    <div
+      className="edit-post-modal-content"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <h2>Edit Post</h2>
+      <textarea
+        placeholder="Edit your post content..."
+        value={editPostContent}
+        onChange={(e) => setEditPostContent(e.target.value)}
+      />
+      {posts.find((post) => post.id === editPostId)?.fileUrl && (
+        <div style={{ marginBottom: "10px" }}>
+          {posts.find((post) => post.id === editPostId)?.fileType ===
+          "video" ? (
+            <video
+              className="edit-video"
+              src={posts.find((post) => post.id === editPostId)?.fileUrl}
+              controls
+            />
+          ) : (
+            <img
+              className="edit-image"
+              src={posts.find((post) => post.id === editPostId)?.fileUrl}
+              alt="Existing content"
+            />
           )}
+        </div>
+      )}
+      <input
+        type="file"
+        accept="image/*,video/*"
+        onChange={(e) => setEditPostFile(e.target.files[0])}
+      />
+      {uploadProgress > 0 && (
+        <div>
+          <p>Uploading: {Math.round(uploadProgress)}%</p>
+          <progress value={uploadProgress} max="100" />
+        </div>
+      )}
+      <button onClick={handleEditPostSubmit} className="submit-button">
+        Save Changes
+      </button>
+      <button
+        onClick={() => setIsEditModalOpen(false)}
+        className="cancel-button"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+)}
+
+          
 
           {/* Display Posts */}
           <div className="user-posts">
@@ -837,201 +761,97 @@ const UserProfilePage = () => {
                 <div
                   key={post.id}
                   className="post-item"
-                  style={{
-                    maxWidth: "600px",
-                    margin: "0 auto 20px auto",
-                    border: "1px solid #ddd",
-                    borderRadius: "8px",
-                    padding: "15px",
-                    fontSize: "1.1rem",
-                    boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-                    backgroundColor: "#fff",
-                    position: "relative",
-                  }}
-                >
+                 >
                   {/* Three-dot menu (visible only to the post owner) */}
                   {currentUser && currentUser.uid === post.userId && (
-                    <div
-                      className="post-options"
-                      style={{
-                        position: "absolute",
-                        top: "10px",
-                        right: "10px",
-                        cursor: "pointer",
-                      }}
-                    >
-                      <SlOptionsVertical
-                        onClick={() => togglePostOptions(post.id)}
-                        size="1.5em"
-                      />
-                      {activePostOptions === post.id && (
-                        <div
-                          className="post-options-menu"
-                          style={{
-                            position: "absolute",
-                            top: "30px",
-                            right: "0",
-                            backgroundColor: "#fff",
-                            border: "1px solid #ddd",
-                            borderRadius: "8px",
-                            boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-                            padding: "10px",
-                            zIndex: 1000,
-                          }}
-                        >
-                          <button
-                            style={{
-                              backgroundColor: "transparent",
-                              border: "none",
-                              color: "#db3056",
-                              cursor: "pointer",
-                              padding: "5px 10px",
-                              textAlign: "left",
-                              width: "100%",
-                            }}
-                            onClick={(e) => {
-                              e.stopPropagation(); // Prevent navigation when clicking delete
-                              const confirmDelete = window.confirm(
-                                "Are you sure you want to delete this post?"
-                              );
-                              if (confirmDelete) {
-                                handleDeletePost(post.id);
-                              }
-                            }}
-                          >
-                            Delete
-                          </button>
-                          <button
-                            style={{
-                              backgroundColor: "transparent",
-                              border: "none",
-                              color: "#007bff",
-                              cursor: "pointer",
-                              padding: "5px 10px",
-                              textAlign: "left",
-                              width: "100%",
-                            }}
-                            onClick={(e) => {
-                              e.stopPropagation(); // Prevent navigation when clicking edit
-                              toggleEditModal(post);
-                            }}
-                          >
-                            Edit
-                          </button>
-                          <button
-                            style={{
-                              backgroundColor: "transparent",
-                              border: "none",
-                              color: "#007bff",
-                              cursor: "pointer",
-                              padding: "5px 10px",
-                              textAlign: "left",
-                              width: "100%",
-                            }}
-                            onClick={(e) => {
-                              e.stopPropagation(); // Prevent navigation when clicking share
-                              handleSharePost(post.id);
-                            }}
-                          >
-                            Share
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  )}
+  <div className="post-options">
+    <SlOptionsVertical
+      onClick={() => togglePostOptions(post.id)}
+      size="1.5em"
+      className="post-options-icon"
+    />
+    {activePostOptions === post.id && (
+      <div className="post-options-menu">
+        <button
+          className="delete"
+          onClick={(e) => {
+            e.stopPropagation();
+            const confirmDelete = window.confirm("Are you sure you want to delete this post?");
+            if (confirmDelete) {
+              handleDeletePost(post.id);
+              setActivePostOptions(null); // Close dropdown
+            }
+          }}
+        >
+          Delete
+        </button>
+        <button
+          className="edit"
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleEditModal(post);
+            setActivePostOptions(null); // Close dropdown
+          }}
+        >
+          Edit
+        </button>
+        <button
+          className="share"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleSharePost(post.id);
+            setActivePostOptions(null); // Close dropdown
+          }}
+        >
+          Share
+        </button>
+      </div>
+    )}
+  </div>
+)}
 
                   {/* Like Button */}
-                  <div
-                    className="post-like"
-                    style={{
-                      position: "absolute",
-                      bottom: "0",
-                      left: "0",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <button
-                      style={{
-                        backgroundColor: "transparent",
-                        border: "none",
-                        color: post.isLiked ? "#db3056" : "#aaa", // Change color based on like status
-                        cursor: "pointer",
-                        padding: "5px 10px",
-                        textAlign: "center",
-                      }}
-                      onClick={(e) => {
-                        e.stopPropagation(); // Prevent navigation when clicking like
-                        toggleLikePost(post.id);
-                      }}
-                    >
-                      ❤️ {post.likesCount || 0} Likes
-                    </button>
-                  </div>
+<div className="post-like">
+  <button
+    className={`like-button ${post.isLiked ? "liked" : ""}`}
+    onClick={(e) => {
+      e.stopPropagation();
+      toggleLikePost(post.id);
+    }}
+  >
+    ❤️ {post.likesCount || 0} Likes
+  </button>
+</div>
 
-                  {/* Share Button */}
-                  <div
-                    className="post-share"
-                    style={{
-                      position: "absolute",
-                      bottom: "0",
-                      right: "0",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <button
-                      style={{
-                        backgroundColor: "transparent",
-                        border: "none",
-                        color: "#007bff",
-                        cursor: "pointer",
-                        padding: "5px 10px",
-                        textAlign: "center",
-                      }}
-                      onClick={(e) => {
-                        e.stopPropagation(); // Prevent navigation when clicking share
-                        handleSharePost(post.id);
-                      }}
-                    >
-                      🔗 {post.sharesCount || 0} Shares
-                    </button>
-                  </div>
+{/* Share Button */}
+<div className="post-share">
+  <button
+    className="share-button"
+    onClick={(e) => {
+      e.stopPropagation();
+      handleSharePost(post.id);
+    }}
+  >
+    🔗 {post.sharesCount || 0} Shares
+  </button>
+</div>
 
                   {/* Post Header */}
-                  <div
-                    className="post-header"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    <img
-                      src={user.profilePicture || "/default-avatar.png"}
-                      alt={`${user.username}'s profile`}
-                      style={{
-                        width: "40px",
-                        height: "40px",
-                        borderRadius: "50%",
-                        marginRight: "10px",
-                        cursor: "pointer",
-                      }}
-                    />
-                    <div>
-                      <p
-                        style={{ margin: 0, fontWeight: "bold", cursor: "pointer" }}
-                      >
-                        {user.username || "Unnamed Artist"}
-                      </p>
-                      <p
-                        style={{ margin: 0, fontSize: "0.8em", color: "gray" }}
-                      >
-                        {formatDistanceToNow(new Date(post.timestamp), {
-                          addSuffix: true,
-                        })}
-                      </p>
-                    </div>
-                  </div>
-
+<div className="post-header">
+  <img
+    src={user.profilePicture || "/default-avatar.png"}
+    alt={`${user.username}'s profile`}
+    className="profile-picture"
+  />
+  <div>
+    <p className="username">{user.username || "Unnamed Artist"}</p>
+    <p className="timestamp">
+      {formatDistanceToNow(new Date(post.timestamp), {
+        addSuffix: true,
+      })}
+    </p>
+  </div>
+</div>
                   {/* Post Content */}
                   <p
                     style={{
@@ -1099,22 +919,7 @@ const UserProfilePage = () => {
         <button
           className="floating-plus-icon"
           onClick={togglePostModal}
-          style={{
-            position: "fixed",
-            bottom: "20px",
-            right: "20px",
-            backgroundColor: "#db3056",
-            color: "white",
-            borderRadius: "50%",
-            width: "60px",
-            height: "60px",
-            fontSize: "30px",
-            textAlign: "center",
-            lineHeight: "60px",
-            border: "none",
-            boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
-            cursor: "pointer",
-          }}
+          
         >
           +
         </button>

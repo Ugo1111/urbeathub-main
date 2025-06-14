@@ -82,6 +82,17 @@ const EditStoreFront = () => {
     window.open(storeUrl, "_blank"); // Open store page in a new tab
   };
 
+  const handleViewProfile = () => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert("you must be logged in to view proile.");
+      return;
+    }
+      const profileUrl = `/profile/${user.uid}`;
+      window.open(profileUrl, "_blank");
+    
+  };
+
   return (
     <div className="edit-store-front-container">
     <div className="edit-store-front">
@@ -138,6 +149,9 @@ const EditStoreFront = () => {
       </button>
       <button  className="store-btn1" onClick={handleViewStore} >
         View Store
+      </button>
+      <button  className="store-btn1" onClick={handleViewProfile} >
+        View Profile
       </button>
     </div>
     </div>

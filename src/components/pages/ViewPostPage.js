@@ -69,7 +69,7 @@ const ViewPostPage = () => {
           <img
             src={post.fileUrl}
             alt="Post content"
-            style={{ display: "block", margin: "20px auto", maxWidth: "100%" }}
+            style={{ display: "block", margin: "20px auto", maxWidth: "100%", height: "50vh" }}
           />
         )}
         {post.fileUrl && post.fileType === "video" && (
@@ -84,6 +84,7 @@ const ViewPostPage = () => {
         )}
       </div>
     </div>
+  
   );
 };
 

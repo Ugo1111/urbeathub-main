@@ -65,7 +65,7 @@ export default function RecomendationComponent() {
           </span>
         ))
             ) : (
-        songs.slice(0, 12).map((song, index) => (
+        songs.slice(0, 7).map((song, index) => (
           <span key={index} className="recomendation-list">
             <Link to="/addToCart" state={{ song }} className="recomendation-" onClick={() => {
               window.scrollTo({ top: 0, behavior: "smooth" });
