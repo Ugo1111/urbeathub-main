@@ -17,7 +17,7 @@ const Art = "/images/Urbeathub art.jpg";
 const Mixer = "/images/Mixer.jpg";
 const myVideo = "/images/new video.mp4"; // Correct path for public assets
 
-function DistributeSection({ sound, navigate }) {
+function DistributeSection({ sound, navigate, isSignedIn }) {
   return (
     <div className="distribute">
       <div className="distribute-wrapper">
@@ -29,17 +29,20 @@ function DistributeSection({ sound, navigate }) {
           </p>
           <button
             className="start-selling-button"
-            onClick={() => navigate("/startsellingpage")}
+            onClick={() =>
+              isSignedIn ? navigate("/startsellingpage") : navigate("/signUpPage")
+            }
           >
+             {isSignedIn ? "Start Selling →" : "Sign up →"}
             START SELLING →
           </button>
         </div>
-
         <div className="distribute-container">
           <img src={sound} alt="Sound Packs" className="packs" />
         </div>
       </div>
     </div>
+       
   );
 }
 
@@ -167,8 +170,8 @@ function Front() {
 
  <RecomendationComponent />
 
-  {/*<DistributionLogo /> */}
- {/* <HomePageFeed />  */}
+  <DistributionLogo />
+ <HomePageFeed /> 
   
 </div>
     <div className="distribute">
@@ -222,6 +225,8 @@ function Front() {
       </section>
 
       <GraphicsSection Art={Art} navigate={navigate} isSignedIn={isSignedIn} />
+      
+      
 
       <SellBeatsInfo navigate={navigate} />
 

@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/MusicDistributionForm.css"; // Import the CSS animation styles
+import "../css/MusicDistributionForm.css";
 import {
   FaSpotify,
   FaApple,
@@ -8,30 +8,24 @@ import {
   FaDeezer,
   FaSoundcloud,
   FaCompactDisc,
-  FaMusic,
-  FaGooglePlay,
-  FaInstagram ,
   FaGlobe,
-  
+  FaInstagram,
 } from "react-icons/fa";
 
 const DistributionLogo = () => {
   const logos = [
-    { name: "Spotify", icon: <FaSpotify color="gray" size={24} /> },
-    { name: "Apple Music", icon: <FaApple color="gray" size={24} /> },
-    { name: "Amazon Music", icon: <FaAmazon color="gray" size={24} /> },
-    { name: "YouTube", icon: <FaYoutube color="gray" size={24} /> },
-    { name: "Deezer", icon: <FaDeezer color="gray" size={24} /> },
-    { name: "SoundCloud", icon: <FaSoundcloud color="gray" size={24} /> },
-     {name: "instagram", icon: <FaInstagram color="gray" size={24} />},
-     {name: "Tidal", icon: <FaCompactDisc  color="gray" size={24} /> }, 
-     {name: "TikTok", icon: <FaGlobe  color="gray" size={24} /> }, 
-
-    
-   
+    { name: "Spotify", icon: <FaSpotify color="whitesmoke" size={48} /> },
+    { name: "Apple Music", icon: <FaApple color="whitesmoke" size={48} /> },
+    { name: "Amazon Music", icon: <FaAmazon color="whitesmoke" size={48} /> },
+    { name: "YouTube", icon: <FaYoutube color="whitesmoke" size={48} /> },
+    { name: "Deezer", icon: <FaDeezer color="whitesmoke" size={48} /> },
+    { name: "SoundCloud", icon: <FaSoundcloud color="whitesmoke" size={48} /> },
+    { name: "Instagram", icon: <FaInstagram color="whitesmoke" size={48} /> },
+    { name: "Tidal", icon: <FaCompactDisc color="whitesmoke" size={48} /> },
+    { name: "TikTok", icon: <FaGlobe color="whitesmoke" size={48} /> },
   ];
 
-  const allLogos = [...logos, ...logos]; // for looping animation
+  const allLogos = [...logos, ...logos]; // for animation loop
 
   return (
     <div className="slider-container">
@@ -42,12 +36,11 @@ const DistributionLogo = () => {
         {allLogos.map((logo, index) => (
           <div className="logo-box" key={index} style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
             {logo.icon}
-            <span style={{ color: "whitesmoke" }}>{logo.name}</span>
+            <span style={{ color: "whitesmoke", fontSize: "1.1rem" }}>{logo.name}</span>
           </div>
         ))}
       </div>
     </div>
-    
   );
 };
 

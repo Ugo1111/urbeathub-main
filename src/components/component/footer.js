@@ -53,7 +53,7 @@ export function GroupF() {
             </fieldset>
            <details>
   <summary>What Happens When My License Expires?</summary>
-  Once your license expires, you are no longer legally allowed to use the beat in new projects. Existing projects made while the license was active may still be used, but you won't be able to monetize further or create new content with the beat unless you renew or upgrade the license.
+  <p>Once your license expires, you are no longer legally allowed to use the beat in new projects. Existing projects made while the license was active may still be used, but you won't be able to monetize further or create new content with the beat unless you renew or upgrade the license.</p>
 </details>
 
 <details>

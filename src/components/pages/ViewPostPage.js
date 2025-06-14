@@ -84,6 +84,7 @@ const ViewPostPage = () => {
         )}
       </div>
     </div>
+  
   );
 };
 

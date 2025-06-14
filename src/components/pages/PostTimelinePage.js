@@ -263,7 +263,7 @@ const PostTimelinePage = () => {
 
   return (
     <div className="post-timeline-page">
-      <h1>Post Timeline</h1>
+      <h1>Post Feed</h1>
       <div className="post-list">
         {posts.map((post) => (
           <div

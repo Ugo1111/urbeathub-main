@@ -399,20 +399,42 @@ body{
   width: 20%;
 }
 
-details{
+details {
   background-color: #000000;
   color: #ffffff;
   border: 1px solid #343434;
   border-radius: 8px;
   margin-bottom: 10px;
+  overflow: hidden;
 }
 
 summary {
-    padding: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    background-color: #db3056;
+  padding: 10px 40px 10px 10px; /* Add space for the symbol */
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #db3056;
+  position: relative; /* Needed for the absolute ::before */
+  list-style: none; /* Remove default arrow in some browsers */
 }
+
+summary::marker {
+  display: none; /* Hide default disclosure triangle */
+}
+
+summary::before {
+  content: "+";
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  transition: transform 0.3s;
+}
+
+details[open] summary::before {
+  content: "-";
+}
+
   
   
   .dropdown {
@@ -1375,29 +1397,81 @@ color:#ffffff;}
 .feed-scroll-container:hover {
   overflow-x: auto;
 }
-
+* Container styling */
 .post-card-container {
-  background-color: transparent; /* Remove solid gray to blend better */
-  padding: 1rem;
+  background: transparent;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
-/* Post card styling with better blending */
+/* Main glass card style */
 .post-card {
   min-width: 250px;
   max-width: 250px;
   flex: 0 0 auto;
-  border: 1px solid rgba(255, 255, 255, 0.1); /* Softer border for dark backgrounds */
-  border-radius: 12px;
-  padding: 15px;
-  background-color: rgba(255, 255, 255, 0.06); /* Very subtle white overlay */
-  backdrop-filter: blur(10px); /* Optional: adds frosted glass effect */
-  -webkit-backdrop-filter: blur(10px); /* Safari support */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Better shadow for black background */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(0, 255, 204, 0.1);
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 320px;
-  color: #f1f1f1; /* Light text for readability on dark */
+  color: #ffffffcc;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+/* Updated hover effect to match the new scheme */
+.post-card:hover {
+  transform: scale(1.03);
+  background: linear-gradient(
+    135deg,
+    rgba(46, 208, 161, 0.1),
+    rgba(30, 190, 165, 0.08)
+  );
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.6),
+    0 0 80px rgba(0, 255, 255, 0.3);
+}
+
+/* Glowing background effect */
+.post-card::before,
+.post-card::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.2;
+  z-index: 0;
+}
+
+.post-card::before {
+  width: 200px;
+  height: 200px;
+  background: rgba(46, 208, 161, 0.4);
+  top: -50px;
+  left: -50px;
+}
+
+.post-card::after {
+  width: 150px;
+  height: 150px;
+  background: rgba(30, 190, 165, 0.3);
+  bottom: -40px;
+  right: -40px;
+}
+
+.view-post{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #db3056;
+  color: #ffffff;
 }
 
 
