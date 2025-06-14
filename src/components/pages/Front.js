@@ -170,8 +170,9 @@ function Front() {
 
  <RecomendationComponent />
 
-  <DistributionLogo />
- <HomePageFeed /> 
+  {/*<DistributionLogo /> */}
+
+ {/*<HomePageFeed /> */}
   
 </div>
     <div className="distribute">
