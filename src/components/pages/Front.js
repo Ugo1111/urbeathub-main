@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth"; // Import Firebase auth
+import { auth } from "../../firebase/firebase"; // Import Firebase instance
 import "../css/component.css";
 import { useNavigate } from "react-router-dom";
 import GroupA from "../component/header.js";
 import { GroupF, GroupG, SellBeatsInfo } from "../component/footer"; // Import SellBeatsInfo
 import RecomendationComponent from "../component/recomendationComponent";
 import FeedbackForm from "../component/FeedbackForm"; // Import FeedbackForm
-import { Helmet } from "react-helmet";
-import { onAuthStateChanged } from "firebase/auth"; // Import Firebase auth
-import { auth } from "../../firebase/firebase"; // Import Firebase instance
+import DistributionLogo from "../component/DistributionLogo.js";
+import HomePageFeed from "../component/HomePageFeed.js";
+import { Helmet } from 'react-helmet';
+
 
 const sound = "/images/prdoucer studio.jpg";
 const Art = "/images/Urbeathub art.jpg";
 const Mixer = "/images/Mixer.jpg";
 const myVideo = "/images/new video.mp4"; // Correct path for public assets
 
-function DistributeSection({ sound, navigate }) {
+function DistributeSection({ sound, navigate, isSignedIn }) {
   return (
     <div className="distribute">
       <div className="distribute-wrapper">
@@ -26,17 +29,20 @@ function DistributeSection({ sound, navigate }) {
           </p>
           <button
             className="start-selling-button"
-            onClick={() => navigate("/startsellingpage")}
+            onClick={() =>
+              isSignedIn ? navigate("/startsellingpage") : navigate("/signUpPage")
+            }
           >
+             {isSignedIn ? "Start Selling →" : "Sign up →"}
             START SELLING →
           </button>
         </div>
-
         <div className="distribute-container">
           <img src={sound} alt="Sound Packs" className="packs" />
         </div>
       </div>
     </div>
+       
   );
 }
 
@@ -152,18 +158,37 @@ function Front() {
         </div>
       </div>
 
-      <div className="trending">
-        <div className="trending-wrapper">
-          <div className="trending-container">
-            <h2>Trending Beats</h2>
-          </div>
-          <div className="trending-container">
-            <a href="/Homepage">see more</a>
-          </div>
+<div className="trending">
+  <div className="trending-wrapper">
+    <div className="trending-container">
+ <h2>Trending Beats</h2>
+    </div>
+   <div className="trending-container">
+ <a href="/Homepage">see more</a>
+     </div>
+    </div>
+
+ <RecomendationComponent />
+
+  {/*<DistributionLogo /> */}
+
+ {/*<HomePageFeed /> */}
+  
+</div>
+    <div className="distribute">
+      <div className="distribute-wrapper">
+        
+        <div className="distribute-container">
+          <h2>Sell high quality instrumental beats with ease.</h2>
+<p>Monetize your talent—start earning real cash from the beats you create.</p>
+          <button className="start-selling-button" onClick={() => navigate('/signUpPage')}>GET STARTED →</ button>
         </div>
-        <RecomendationComponent />
-      </div>
-      <DistributeSection sound={sound} navigate={navigate} />
+
+        <div className="distribute-container">
+          <img src={sound} alt="Sound Packs" className="packs" />
+        </div>
+</div>
+    </div>
 
       <section className="hero2-1">
         <div className="hero2-overlay"></div>
@@ -201,6 +226,8 @@ function Front() {
       </section>
 
       <GraphicsSection Art={Art} navigate={navigate} isSignedIn={isSignedIn} />
+      
+      
 
       <SellBeatsInfo navigate={navigate} />
 

@@ -17,6 +17,29 @@
   gap: 1rem;
 }
 
+.active-tab {
+  background: #db3056 !important;
+  color: #fff !important;
+  font-weight: bold;
+}
+.dynamic-list {
+  margin: 10px 0;
+}
+.dynamic-item {
+  display: inline-block;
+  background: #eee;
+  color: #222;
+  border-radius: 12px;
+  padding: 2px 10px;
+  margin: 2px 5px 2px 0;
+  font-size: 0.95em;
+}
+.dynamic-item .remove {
+  color: #db3056;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .btn {
   background-color: #374151;
   color: white;
@@ -61,10 +84,10 @@ label {
 input[type="text"],
 input[type="date"],
 select {
-  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  outline: none;
 }
 
 .checkbox-group {
@@ -466,6 +489,50 @@ width: 50vw;
   background-color: #db3056;
   color: #fff;
 }
+
+.slider-container {
+  width: 100%;
+  overflow: hidden;
+  background-color: #000;
+  padding: 1rem 0;
+  border-top: 1px dashed #ddd;
+}
+.slider-description h3{
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+.slider-track {
+  display: flex;
+  gap: 2rem;
+  animation: scroll 30s linear infinite;
+}
+
+.logo-box {
+  flex: 0 0 auto;
+  width: 140px;
+  height: 80px;
+  font-size: 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-box img {
+  height: 50px;
+  object-fit: contain;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 
 /* Responsive adjustments */
 @media (min-width: 600px) {
