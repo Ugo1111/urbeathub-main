@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth"; // Import Firebase auth
 import { auth } from "../../firebase/firebase"; // Import Firebase instance
