@@ -5,11 +5,6 @@ module.exports = {
   transformIgnorePatterns: [
     "node_modules/(?!(axios)/)", // explicitly allow transforming axios
   ],
-  transformIgnorePatterns: [
-  "node_modules/(?!(axios)/)"
-],
-"jest": {
-  "setupFilesAfterEnv": ["<rootDir>/src/setupTests.js"]
-}
-
+  setupFilesAfterEnv: ["<rootDir>/src/setupTests.js"],
+  testEnvironment: "jsdom", // 👈 important for React tests
 };
