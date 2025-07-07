@@ -2,77 +2,56 @@ pipeline {
     agent any
 
     environment {
-        GIT_TRACE_PACKET = '1'
-        GIT_TRACE = '1'
-        GIT_CURL_VERBOSE = '1'
-        GIT_HTTP_LOW_SPEED_LIMIT = '0'
-        GIT_HTTP_LOW_SPEED_TIME = '999999'
-        GIT_HTTP_MAX_REQUEST_BUFFER = '1000000000'
-        TARGET_BRANCH = 'my-responsive-branch'
-    }
-
-    options {
-        timeout(time: 20, unit: 'MINUTES')
+        TARGET_BRANCH = 'main'
     }
 
     stages {
-        stage('Clone') {
+        stage('Setup Git Config') {
             steps {
-                echo "🔄 Cloning branch: ${env.TARGET_BRANCH}"
                 bat 'git config --global http.postBuffer 524288000'
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: "*/${env.TARGET_BRANCH}"]],
-                    userRemoteConfigs: [[url: 'https://github.com/Ugo1111/urbeathub-main.git']],
-                    extensions: [[$class: 'CloneOption', shallow: false]]
-                ])
+                bat 'git config --global http.maxRequestBuffer 1000000000'
             }
         }
 
-        stage('Debug') {
+        stage('Clone Repository') {
             steps {
-                echo "📁 Verifying test files in src/test..."
-                bat 'dir src\\test /s'
+                retry(3) {
+                    checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: "*/${env.TARGET_BRANCH}"]],
+                        userRemoteConfigs: [[
+                            url: 'git@github.com:Ugo1111/urbeathub-main.git',
+                            credentialsId: 'github-ssh'
+                        ]],
+                        extensions: [[$class: 'CloneOption', shallow: false]]
+                    ])
+                }
             }
         }
 
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
-                echo "⚙️ Installing dependencies..."
-                bat 'node -v'
                 bat 'npm install'
             }
         }
 
-        stage('Test All Files') {
+        stage('Run Tests') {
             steps {
-                echo "🧪 Running all test files..."
-                bat 'npm test -- --ci --passWithNoTests'
-            }
-        }
-
-        stage('Deploy') {
-            when {
-                expression { return false } // Skip deploy stage
-            }
-            steps {
-                echo "🚀 Deploy stage skipped."
+                bat 'npm test -- --watchAll=false'
             }
         }
     }
 
     post {
         always {
-            echo "✅ Pipeline concluded."
+            echo '✅ Pipeline concluded.'
             cleanWs()
         }
-
         success {
-            echo "🎉 Build and tests successful."
+            echo '✅ Build and tests succeeded!'
         }
-
         failure {
-            echo "❌ Build or tests failed. Check logs for details."
+            echo '❌ Build or tests failed. Check logs for details.'
         }
     }
 }
