@@ -32,8 +32,8 @@ pipeline {
 
         stage('Debug') {
             steps {
-                echo "📁 Verifying test files in src/tests..."
-                bat 'dir src\\tests /s'
+                echo "📁 Verifying test files in src/test..."
+                bat 'dir src\\test /s'
             }
         }
 
