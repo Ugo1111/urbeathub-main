@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        // Git download tuning
+        // Git tuning for large repos or slow networks
         GIT_TRACE_PACKET = '1'
         GIT_TRACE = '1'
         GIT_CURL_VERBOSE = '1'
@@ -18,20 +18,20 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                echo "🔄 Cloning repository from branch: ${env.my-responsive-branch}"
+                echo "🔄 Cloning branch: ${env.BRANCH_NAME}"
                 bat 'git config --global http.postBuffer 524288000'
                 checkout([
                     $class: 'GitSCM',
-                    branches: [[name: "*/${env.my-responsive-branch}"]],
+                    branches: [[name: "*/${env.BRANCH_NAME}"]],
                     userRemoteConfigs: [[url: 'https://github.com/Ugo1111/urbeathub-main.git']],
-                    extensions: [[$class: 'CloneOption', shallow: false]] // Full clone to ensure all files are present
+                    extensions: [[$class: 'CloneOption', shallow: false]]
                 ])
             }
         }
 
         stage('Debug') {
             steps {
-                echo "📁 Listing test files in src/tests..."
+                echo "📁 Verifying test files in src/tests..."
                 bat 'dir src\\tests /s'
             }
         }
@@ -64,12 +64,11 @@ pipeline {
     post {
         always {
             echo "✅ Pipeline concluded."
-            cleanWs() // Clean workspace after every run
+            cleanWs()
         }
 
         success {
             echo "🎉 Build and tests successful."
-            // Optional: Add preview deployment or notification here
         }
 
         failure {
