@@ -26,7 +26,7 @@ pipeline {
                         branches: [[name: "*/${env.TARGET_BRANCH}"]],
                         userRemoteConfigs: [[
                             url: 'https://github.com/Ugo1111/urbeathub-main.git'
-                            // credentialsId: 'github-token-id'
+                            // credentialsId: 'github-token-id' // optional
                         ]],
                         extensions: [[$class: 'CloneOption', shallow: true, depth: 1]]
                     ])
@@ -58,7 +58,7 @@ pipeline {
 
         stage('Deploy') {
             when {
-                expression { return false }
+                expression { return false } // Deployment is currently disabled
             }
             steps {
                 echo "🚀 Skipping deploy stage (not implemented)."
@@ -69,9 +69,7 @@ pipeline {
     post {
         always {
             echo "✅ Pipeline concluded."
-            node {
-                cleanWs()
-            }
+            cleanWs() // ✅ No 'node' block needed here
         }
 
         success {
