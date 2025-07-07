@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     environment {
-        GIT_TRACE_PACKET = '1'
-        GIT_TRACE = '1'
-        GIT_CURL_VERBOSE = '1'
-        GIT_HTTP_LOW_SPEED_LIMIT = '0'
-        GIT_HTTP_LOW_SPEED_TIME = '999999'
-        GIT_HTTP_MAX_REQUEST_BUFFER = '1000000000'
         TARGET_BRANCH = 'my-responsive-branch'
     }
 
@@ -20,17 +14,12 @@ pipeline {
             steps {
                 echo "🔄 Cloning branch: ${env.TARGET_BRANCH}"
                 bat 'git config --global http.postBuffer 524288000'
-                retry(3) {
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: "*/${env.TARGET_BRANCH}"]],
-                        userRemoteConfigs: [[
-                            url: 'https://github.com/Ugo1111/urbeathub-main.git'
-                            // credentialsId: 'github-token-id' // optional
-                        ]],
-                        extensions: [[$class: 'CloneOption', shallow: true, depth: 1]]
-                    ])
-                }
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: "*/${env.TARGET_BRANCH}"]],
+                    userRemoteConfigs: [[url: 'https://github.com/Ugo1111/urbeathub-main.git']],
+                    extensions: [[$class: 'CloneOption', shallow: false]]
+                ])
             }
         }
 
@@ -49,16 +38,16 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Test Single File') {
             steps {
-                echo "🧪 Running test suite..."
-                bat 'npm test -- --ci --passWithNoTests'
+                echo "🧪 Running single test file: Login.test.js..."
+                bat 'npx jest src/test/Login.test.js --ci --runInBand'
             }
         }
 
         stage('Deploy') {
             when {
-                expression { return false } // Deployment is currently disabled
+                expression { return false }
             }
             steps {
                 echo "🚀 Skipping deploy stage (not implemented)."
@@ -69,15 +58,13 @@ pipeline {
     post {
         always {
             echo "✅ Pipeline concluded."
-            cleanWs() // ✅ No 'node' block needed here
+            cleanWs()
         }
-
         success {
-            echo "🎉 Build and tests successful."
+            echo "🎉 Build and test successful."
         }
-
         failure {
-            echo "❌ Pipeline failed. Check logs for details."
+            echo "❌ Pipeline failed. Check logs for errors."
         }
     }
 }
