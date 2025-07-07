@@ -9,6 +9,7 @@ pipeline {
         GIT_HTTP_LOW_SPEED_LIMIT = '0'
         GIT_HTTP_LOW_SPEED_TIME = '999999'
         GIT_HTTP_MAX_REQUEST_BUFFER = '1000000000'
+        TARGET_BRANCH = 'my-responsive-branch'
     }
 
     options {
@@ -18,11 +19,11 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                echo "🔄 Cloning branch: ${env.BRANCH_NAME}"
+                echo "🔄 Cloning branch: ${env.TARGET_BRANCH}"
                 bat 'git config --global http.postBuffer 524288000'
                 checkout([
                     $class: 'GitSCM',
-                    branches: [[name: "*/${env.BRANCH_NAME}"]],
+                    branches: [[name: "*/${env.TARGET_BRANCH}"]],
                     userRemoteConfigs: [[url: 'https://github.com/Ugo1111/urbeathub-main.git']],
                     extensions: [[$class: 'CloneOption', shallow: false]]
                 ])
