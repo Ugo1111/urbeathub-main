@@ -2,42 +2,53 @@ pipeline {
     agent any
 
     environment {
-        TARGET_BRANCH = 'main'
+        NODE_ENV = 'test'
+    }
+
+    options {
+        timeout(time: 20, unit: 'MINUTES')
     }
 
     stages {
-        stage('Setup Git Config') {
+        stage('Checkout') {
             steps {
-                bat 'git config --global http.postBuffer 524288000'
-                bat 'git config --global http.maxRequestBuffer 1000000000'
+                echo '🔄 Cloning branch: my-responsive-branch'
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/my-responsive-branch']],
+                    userRemoteConfigs: [[url: 'https://github.com/Ugo1111/urbeathub-main.git']]
+                ])
             }
         }
 
-        stage('Clone Repository') {
+        stage('Debug') {
             steps {
-                retry(3) {
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: "*/${env.TARGET_BRANCH}"]],
-                        userRemoteConfigs: [[
-                            url: 'git@github.com:Ugo1111/urbeathub-main.git',
-                            credentialsId: 'github-ssh'
-                        ]],
-                        extensions: [[$class: 'CloneOption', shallow: false]]
-                    ])
-                }
+                echo '📁 Verifying test files in src/test...'
+                bat 'dir src\\test /s'
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Build') {
             steps {
+                echo '⚙️ Installing dependencies...'
+                bat 'node -v'
                 bat 'npm install'
             }
         }
 
-        stage('Run Tests') {
+        stage('Test All Files') {
             steps {
-                bat 'npm test -- --watchAll=false'
+                echo '🧪 Running all test files in src/test/...'
+                bat 'npx jest src/test/Login.test.js src/test/AuthState.test.js src/test/Front.test.js src/test/SellBeatSection.test.js src/test/UsersUploadMusicPage.test.js --ci --runInBand'
+            }
+        }
+
+        stage('Deploy') {
+            when {
+                expression { return false } // Skipping deploy for now
+            }
+            steps {
+                echo '🚀 Deployment step (currently skipped)'
             }
         }
     }
@@ -47,11 +58,13 @@ pipeline {
             echo '✅ Pipeline concluded.'
             cleanWs()
         }
+
         success {
-            echo '✅ Build and tests succeeded!'
+            echo '🎉 Build and test successful.'
         }
+
         failure {
-            echo '❌ Build or tests failed. Check logs for details.'
+            echo '❌ Build or test failed.'
         }
     }
 }
