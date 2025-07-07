@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        // Git tuning for large repos or slow networks
         GIT_TRACE_PACKET = '1'
         GIT_TRACE = '1'
         GIT_CURL_VERBOSE = '1'
@@ -13,7 +12,7 @@ pipeline {
     }
 
     options {
-        timeout(time: 20, unit: 'MINUTES') // Prevent hanging builds
+        timeout(time: 20, unit: 'MINUTES')
     }
 
     stages {
@@ -21,12 +20,17 @@ pipeline {
             steps {
                 echo "🔄 Cloning branch: ${env.TARGET_BRANCH}"
                 bat 'git config --global http.postBuffer 524288000'
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: "*/${env.TARGET_BRANCH}"]],
-                    userRemoteConfigs: [[url: 'https://github.com/Ugo1111/urbeathub-main.git']],
-                    extensions: [[$class: 'CloneOption', shallow: false]]
-                ])
+                retry(3) {
+                    checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: "*/${env.TARGET_BRANCH}"]],
+                        userRemoteConfigs: [[
+                            url: 'https://github.com/Ugo1111/urbeathub-main.git'
+                            // credentialsId: 'github-token-id'
+                        ]],
+                        extensions: [[$class: 'CloneOption', shallow: true, depth: 1]]
+                    ])
+                }
             }
         }
 
@@ -54,7 +58,7 @@ pipeline {
 
         stage('Deploy') {
             when {
-                expression { return false } // Skip deploy for now
+                expression { return false }
             }
             steps {
                 echo "🚀 Skipping deploy stage (not implemented)."
@@ -65,7 +69,9 @@ pipeline {
     post {
         always {
             echo "✅ Pipeline concluded."
-            cleanWs()
+            node {
+                cleanWs()
+            }
         }
 
         success {
