@@ -2,6 +2,12 @@ pipeline {
     agent any
 
     environment {
+        GIT_TRACE_PACKET = '1'
+        GIT_TRACE = '1'
+        GIT_CURL_VERBOSE = '1'
+        GIT_HTTP_LOW_SPEED_LIMIT = '0'
+        GIT_HTTP_LOW_SPEED_TIME = '999999'
+        GIT_HTTP_MAX_REQUEST_BUFFER = '1000000000'
         TARGET_BRANCH = 'my-responsive-branch'
     }
 
@@ -38,19 +44,19 @@ pipeline {
             }
         }
 
-        stage('Test Single File') {
+        stage('Test All Files') {
             steps {
-                echo "🧪 Running single test file: Login.test.js..."
-                bat 'npx jest src/test/Login.test.js --ci --runInBand'
+                echo "🧪 Running all test files..."
+                bat 'npm test -- --ci --passWithNoTests'
             }
         }
 
         stage('Deploy') {
             when {
-                expression { return false }
+                expression { return false } // Skip deploy stage
             }
             steps {
-                echo "🚀 Skipping deploy stage (not implemented)."
+                echo "🚀 Deploy stage skipped."
             }
         }
     }
@@ -60,11 +66,13 @@ pipeline {
             echo "✅ Pipeline concluded."
             cleanWs()
         }
+
         success {
-            echo "🎉 Build and test successful."
+            echo "🎉 Build and tests successful."
         }
+
         failure {
-            echo "❌ Pipeline failed. Check logs for errors."
+            echo "❌ Build or tests failed. Check logs for details."
         }
     }
 }
