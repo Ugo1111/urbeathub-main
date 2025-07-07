@@ -53,12 +53,15 @@ const AdminMonetization = () => {
           <div>{key.charAt(0).toUpperCase() + key.slice(1)} License</div>
           {key !== "free" && (
             <div>
-              <label>Price:</label>
-              <input
-                type="number"
-                value={price}
-                onChange={(e) => handlePriceChange(key, e.target.value)}
-              />
+              <label>
+  Price:
+  <input
+    type="number"
+    value={price}
+    onChange={(e) => handlePriceChange(key, e.target.value)}
+  />
+</label>
+
             </div>
           )}
           <button onClick={() => toggleLicense(key)}>

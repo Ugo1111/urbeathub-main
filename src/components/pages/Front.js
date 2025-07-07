@@ -9,6 +9,7 @@ import RecomendationComponent from "../component/recomendationComponent";
 import FeedbackForm from "../component/FeedbackForm"; // Import FeedbackForm
 import DistributionLogo from "../component/DistributionLogo.js";
 import HomePageFeed from "../component/HomePageFeed.js";
+import CoverArtShowcase from "../component/CoverArtShowcase.js";
 import { Helmet } from 'react-helmet';
 
 
@@ -33,8 +34,7 @@ function DistributeSection({ sound, navigate, isSignedIn }) {
               isSignedIn ? navigate("/startsellingpage") : navigate("/signUpPage")
             }
           >
-             {isSignedIn ? "Start Selling →" : "Sign up →"}
-            START SELLING →
+            {isSignedIn ? "Start Selling →" : "Sign up →"}
           </button>
         </div>
         <div className="distribute-container">
@@ -81,12 +81,16 @@ function Front() {
   const [isSignedIn, setIsSignedIn] = useState(false); // Track auth state
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setIsSignedIn(!!user); // Update state based on auth status
-    });
+  const unsubscribe = onAuthStateChanged(auth, (user) => {
+    setIsSignedIn(!!user);
+  });
 
-    return () => unsubscribe(); // Cleanup on unmount
-  }, []);
+  return () => {
+    if (typeof unsubscribe === "function") {
+      unsubscribe();
+    }
+  };
+}, []);
 
   const [isChatOpen, setIsChatOpen] = useState(false);
 
@@ -170,25 +174,13 @@ function Front() {
 
  <RecomendationComponent />
 
-  {/*<DistributionLogo /> */}
-
- {/*<HomePageFeed /> */}
   
-</div>
-    <div className="distribute">
-      <div className="distribute-wrapper">
-        
-        <div className="distribute-container">
-          <h2>Sell high quality instrumental beats with ease.</h2>
-<p>Monetize your talent—start earning real cash from the beats you create.</p>
-          <button className="start-selling-button" onClick={() => navigate('/signUpPage')}>GET STARTED →</ button>
-        </div>
 
-        <div className="distribute-container">
-          <img src={sound} alt="Sound Packs" className="packs" />
-        </div>
-</div>
-    </div>
+ {/* <DistributionLogo />
+  <HomePageFeed /> */}
+  </div>
+    
+    <DistributeSection sound={sound} navigate={navigate} isSignedIn={isSignedIn} />
 
       <section className="hero2-1">
         <div className="hero2-overlay"></div>
@@ -226,8 +218,10 @@ function Front() {
       </section>
 
       <GraphicsSection Art={Art} navigate={navigate} isSignedIn={isSignedIn} />
-      
-      
+
+    {/* <CoverArtShowcase isSignedIn={isSignedIn} /> */}
+
+
 
       <SellBeatsInfo navigate={navigate} />
 

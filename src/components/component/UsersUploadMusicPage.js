@@ -65,8 +65,12 @@ const UsersUploadMusicPage = () => {
       }
     });
 
-    return () => unsubscribe();
-  }, []);
+    return () => {
+    if (typeof unsubscribe === "function") {
+      unsubscribe();
+    }
+  };
+}, []);
 
   // Set edit mode if a music track is selected
   useEffect(() => {
@@ -250,7 +254,12 @@ const UsersUploadMusicPage = () => {
 
         <div className="MusicTitle-label">
           <label>Title</label>
-          <input type="text" placeholder="Enter the Beat Title" maxLength="400" value={musicTitle} onChange={(e) => setMusicTitle(e.target.value)} required />
+         <input
+  type="text"
+  placeholder="Enter the Beat Title"
+  value={musicTitle || ""} // ✅ fallback to empty string
+  onChange={(e) => setMusicTitle(e.target.value)}
+/>
         </div>
       </div>
 

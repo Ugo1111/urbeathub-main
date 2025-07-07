@@ -58,6 +58,7 @@ function StartSellingPage() {
   </div>
 </div>
 
+
 <section className="lease-section">
   <h2 className="lease-title">Available License Options</h2>
   <div className="lease-grid">

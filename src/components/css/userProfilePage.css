@@ -491,6 +491,24 @@
   cursor: pointer;
 }
 
+.floating-plus-icon::before {
+  content: "create a post";
+  position: absolute;
+  bottom: 70px;
+  right: 50%;
+  transform: translateX(50%);
+  background-color: #db3056;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.floating-plus-icon:hover::before {
+  opacity: 1;
+}
 
 
 

@@ -31,6 +31,7 @@ export function GroupF() {
             <p>
               <a href="/MusicDistributionForm" target="_blank">Distribution</a>
             </p>
+            
             <div className="social-links">
               <a href="https://www.facebook.com/share/15xxw68L9H/" target="_blank" rel="noopener noreferrer"> 
                 <i className="fab fa-facebook"></i>

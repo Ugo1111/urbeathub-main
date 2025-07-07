@@ -179,7 +179,8 @@ function HomePage() {
           decreaseVolume={() => setVolume(Math.max(0, volume - 0.1))}
         />
 
-        <SongList songs={songs} playSong={playSong} selectedSong={selectedSong} setSelectedSong={setSelectedSong} />
+        
+      <SongList songs={songs} playSong={playSong} selectedSong={selectedSong} setSelectedSong={setSelectedSong} />
         <SellBeatSection />
         <GroupF />
         <GroupG /> 

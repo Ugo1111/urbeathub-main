@@ -35,6 +35,7 @@ import Refundpolicy from "./components/pages/Refundpolicy";
 import MusicDistributionForm from "./components/pages/MusicDistributionForm.js";
 import CookieConsent from "react-cookie-consent";
 import ForgotPassword from "./components/ForgotPassword"; 
+import CoverArtShowcase from './components/component/CoverArtShowcase.js';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
@@ -189,6 +190,7 @@ useEffect(() => {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/Licensedetails" element={<Licensedetails />} />
         <Route path="/coverart" element={<CoverArt />} />
+        <Route path="/coverartshowcase" element={<CoverArtShowcase />} />
       <Route path="/musicDistributionForm" element={<MusicDistributionForm />} />
         <Route path="/termsandcondition" element={<Termsandcondition />} />
         <Route path="/startsellingpage" element={<Startsellingpage />} />
