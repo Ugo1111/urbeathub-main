@@ -39,7 +39,17 @@ pipeline {
         stage('Test All Files') {
             steps {
                 echo '🧪 Running all test files in src/test/...'
-                bat 'npx jest src/test/Login.test.js src/test/AuthState.test.js src/test/Front.test.js src/test/SellBeatSection.test.js src/test/UsersUploadMusicPage.test.js --ci --runInBand'
+                bat '''
+                    npx jest src/test/Login.test.js ^
+                             src/test/AuthState.test.js ^
+                             src/test/Front.test.js ^
+                             src/test/SellBeatSection.test.js ^
+                             src/test/UsersUploadMusicPage.test.js ^
+                             src/test/PaystackPayment.test.js ^
+                             src/test/SongList.test.js ^
+                             src/test/MusicPlayer.test.js ^
+                             --ci --runInBand
+                '''
             }
         }
 

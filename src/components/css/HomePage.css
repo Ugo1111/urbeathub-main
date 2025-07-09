@@ -595,11 +595,9 @@ font-size: medium;
   .controllerB3 button{ 
     background-color: #222222;
     border: #eaeaea1f 0.5px solid;
-    height: 40%;
+    height: 50%;
     color: #9a9a9a;
-    
-    
-      }
+  }
   
 
     .controllerB3 button:hover{
@@ -613,17 +611,19 @@ font-size: medium;
   }
 
   .volnav{
-    background-color: #222222;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   
   }
 
   .volnav button{
-    background-color: #222222;
+    
     border: #eaeaea1f 0.5px solid;
-    height: 40%;
+    height: 50%;
     color: #9a9a9a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
 
@@ -1042,8 +1042,24 @@ font-size: medium;
   }
 
   .songlist-addtochart {
-    width: 50px;
-    height: 40px;;
+    width: 70px;
+    height: 40px;
+     max-width: 80px; 
+    max-height: 45px; 
+  }
+  .controllerB3 {
+    flex-direction: row; /* Stack buttons vertically */
+    align-items: center; /* Center buttons horizontally */
+
+  }
+  .volnav {
+    flex-direction: row; /* Stack buttons vertically */
+    align-items: center; /* Center buttons horizontally */
+  }
+  .volume-slider {
+    width: 50%; /* Make the slider full width */
+    margin: 0 auto; /* Center the slider */
   }
   
+
 }

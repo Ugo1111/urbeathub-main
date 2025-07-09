@@ -64,6 +64,7 @@ function MusicPlayer({
             step="0.01" 
             value={volume} 
             onChange={handleVolumeChange} 
+             className="volume-slider" 
           />
 
           <div className="volnav">
