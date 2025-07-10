@@ -1,8 +1,8 @@
-// At the top of SongList.test.js
-jest.setTimeout(10000); // optional
+jest.setTimeout(10000);
 
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { act } from "react-dom/test-utils"; // ✅ Added to handle act()
 import SongList from "../components/component/SongList";
 import { MemoryRouter } from "react-router-dom";
 
@@ -72,16 +72,18 @@ describe("SongList Component", () => {
   });
 
   it("renders initial songs and LikeButton", async () => {
-    render(
-      <MemoryRouter>
-        <SongList
-          songs={mockSongs}
-          playSong={playSong}
-          selectedSong={null}
-          setSelectedSong={setSelectedSong}
-        />
-      </MemoryRouter>
-    );
+    await act(async () => {
+      render(
+        <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <SongList
+            songs={mockSongs}
+            playSong={playSong}
+            selectedSong={null}
+            setSelectedSong={setSelectedSong}
+          />
+        </MemoryRouter>
+      );
+    });
 
     await waitFor(() => {
       expect(screen.getByText("Song 1")).toBeInTheDocument();
@@ -91,48 +93,54 @@ describe("SongList Component", () => {
   });
 
   it("renders all songs passed in props", async () => {
-    render(
-      <MemoryRouter>
-        <SongList
-          songs={mockSongs}
-          playSong={playSong}
-          selectedSong={null}
-          setSelectedSong={setSelectedSong}
-        />
-      </MemoryRouter>
-    );
+    await act(async () => {
+      render(
+        <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <SongList
+            songs={mockSongs}
+            playSong={playSong}
+            selectedSong={null}
+            setSelectedSong={setSelectedSong}
+          />
+        </MemoryRouter>
+      );
+    });
 
     await waitFor(() => {
       expect(screen.getByText("Song 25")).toBeInTheDocument();
     });
   });
 
-  it("renders nothing or fallback when no songs are provided", () => {
-    render(
-      <MemoryRouter>
-        <SongList
-          songs={[]}
-          playSong={playSong}
-          selectedSong={null}
-          setSelectedSong={setSelectedSong}
-        />
-      </MemoryRouter>
-    );
+  it("renders nothing or fallback when no songs are provided", async () => {
+    await act(async () => {
+      render(
+        <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <SongList
+            songs={[]}
+            playSong={playSong}
+            selectedSong={null}
+            setSelectedSong={setSelectedSong}
+          />
+        </MemoryRouter>
+      );
+    });
 
     expect(screen.queryByText(/Song/i)).not.toBeInTheDocument();
   });
 
   it("calls playSong and trackEvent on song click", async () => {
-    render(
-      <MemoryRouter>
-        <SongList
-          songs={mockSongs}
-          playSong={playSong}
-          selectedSong={null}
-          setSelectedSong={setSelectedSong}
-        />
-      </MemoryRouter>
-    );
+    await act(async () => {
+      render(
+        <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <SongList
+            songs={mockSongs}
+            playSong={playSong}
+            selectedSong={null}
+            setSelectedSong={setSelectedSong}
+          />
+        </MemoryRouter>
+      );
+    });
 
     const songs = await screen.findAllByText(/Song \d+/);
     fireEvent.click(songs[0]);
@@ -144,16 +152,18 @@ describe("SongList Component", () => {
   });
 
   it("opens and closes the ShareModal when MoreOptions is clicked", async () => {
-    render(
-      <MemoryRouter>
-        <SongList
-          songs={mockSongs}
-          playSong={playSong}
-          selectedSong={{ id: "1", title: "Song 1" }}
-          setSelectedSong={setSelectedSong}
-        />
-      </MemoryRouter>
-    );
+    await act(async () => {
+      render(
+        <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <SongList
+            songs={mockSongs}
+            playSong={playSong}
+            selectedSong={{ id: "1", title: "Song 1" }}
+            setSelectedSong={setSelectedSong}
+          />
+        </MemoryRouter>
+      );
+    });
 
     expect(screen.getByTestId("share-modal")).toBeInTheDocument();
 
