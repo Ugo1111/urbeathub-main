@@ -759,6 +759,26 @@ font-size: medium;
   font-size: 16px;
   cursor: pointer;
 }
+.chat-button::before {
+  content: "Chat with us";
+  position: absolute;
+  font-size: 0.8rem;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #000000;
+  background-color: #ffffff;
+  opacity: 0;
+  white-space: nowrap;
+  padding: 5px 10px;
+  border-radius: 5px;
+  line-height: 1;
+}
+
+
+.chat-button:hover::before {
+  opacity: 1;
+}
 
 /*Tablet respontsiveness */
 
@@ -865,7 +885,7 @@ font-size: medium;
 .playIcon {
   
   width: 50%;
-  height: 50%;
+  height: 60%;
 }
 
 .progress{
@@ -1025,8 +1045,8 @@ font-size: medium;
 }
 
   .playIcon {
-    width: 40%;
-    height: auto;
+    width: 80%;
+    height: 60%;
     display: block;
     margin: 0 auto;
   }

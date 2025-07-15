@@ -272,11 +272,12 @@ gap: 20px;
 }
 
 .image-placeholder img {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   object-fit: cover; /* or 'contain' if you prefer */
   display: block;
   border-radius: 8px; /* Optional for style */
+  margin:auto;
 }
 
   
@@ -589,7 +590,10 @@ margin-bottom: auto;
   display: flex;
   justify-content: space-evenly;
 width: 85%;
+max-width: 85%;
 margin: auto;
+gap: 10px;
+
 
 
 }
@@ -597,7 +601,7 @@ margin: auto;
 
 .checkoutItem{
   /* background-color: rgb(91, 91, 91); */
-  width: 90%;
+  width: 100%;
   min-height: 90px;
 height: fit-content;
   
@@ -606,26 +610,36 @@ height: fit-content;
 }
 
 
-.CartSummary{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
- gap:  30px;
-}
-
-.CartSection2{
+.CartSection2 {
   border: #2827275c solid;
   border-radius: 10px;
   padding: 20px;
   background-color: rgba(20, 20, 20, 0.631);
-  
+  display: flex;
+  justify-content: center; /* center .CartSummary horizontally */
+}
+
+.CartSummary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* center content */
+  gap: 30px;
+  width: 100%;
 }
 
 .selectedCartSummary {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* center the items */
+  gap: 40px; /* space between title and price */
   color: rgb(229, 229, 229);
+  width: 100%;
+}
+
+.certSummarySong,
+.certSummaryPRICE {
+  min-width: 100px;
+  text-align: center;
 }
 
 .Subtotal{
@@ -1347,6 +1361,18 @@ width: 95%;
 .terms-conditions-container h1{
   font-size: 1.5rem;
 }
+
+.selectedCartSummary {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .certSummarySong,
+  .certSummaryPRICE {
+    min-width: auto;
+    width: 100%;
+  }
     }
     
     

@@ -129,6 +129,7 @@
   margin: 0 auto;
   margin-bottom: 20px;
   padding: 10px;
+  gap: 20px;
   width: 90%;
   max-width: 500px;
   text-align: center;
@@ -193,7 +194,7 @@
   text-align: center;
   margin: 10px auto;
   width: 90%;
-  max-width: 200px;
+  max-width: 250px;
 }
 
 
@@ -201,8 +202,7 @@
   
     .uploadMusicContainer {
       width: 100vw; 
-      height: 300vh;
-      height: fit-content; 
+      min-height: 100vh;
       background-color: #ffffff; 
       display: flex; 
       flex-direction: column;
@@ -1143,7 +1143,6 @@ padding: 10px;
 }
 .uploadMusicContainer{
   width: 80vw;
-  height: 250vh;
   margin-left: 13%;
 }
 .uploadMusicContainer h1{
@@ -1264,7 +1263,6 @@ padding: 10px;
   }
   .uploadMusicContainer{
     width: 80vw;
-    height: 275vh;
     margin-left: 13%;
   }
   .uploadMusicContainer h1{

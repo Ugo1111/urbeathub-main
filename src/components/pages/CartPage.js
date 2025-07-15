@@ -96,7 +96,7 @@ function CartPage() {
                                 ))}
                                 <hr />
                                 <div className="Subtotal">
-                                    <div>Subtotal</div>
+                                    <div>Subtotal </div>
                                     <div>${totalPrice.toFixed(2)}</div> {/* Reflect correct subtotal */}
                                 </div>
                                 <div className="Total_CartSummary">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db, auth } from "../../firebase/firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-
+import { Helmet } from "react-helmet";
 
 function Payout() {
   const [formData, setFormData] = useState({
@@ -81,7 +81,12 @@ function Payout() {
     }
   };
 
-  return ( <div className="payout-body">
+  return ( 
+    <>
+  <Helmet>
+    <title>Payout Page</title>
+  </Helmet>
+  <div className="payout-body">
     <div className="payout-container">
       <h2 className="payout-title">Enter Payment Info</h2>
 
@@ -164,6 +169,7 @@ function Payout() {
         </form>
       )}
     </div></div>
+    </>
   );
 }
 
