@@ -13,6 +13,7 @@ import HomePageFeed from "../component/HomePageFeed.js";
 import CoverArtShowcase from "../component/CoverArtShowcase.js";
 import { Helmet } from 'react-helmet';
 import WhatsAppChat from "../component/WhatsAppChat.js";
+import NewsletterForm from "../component/NewsletterForm.js";
 
 
 const sound = "/images/prdoucer studio.jpg";
@@ -216,12 +217,13 @@ function Front() {
 
       <GraphicsSection Art={Art} navigate={navigate} isSignedIn={isSignedIn} />
 
-    {/* <CoverArtShowcase isSignedIn={isSignedIn} /> */}
+     <CoverArtShowcase isSignedIn={isSignedIn} /> 
 
 
 
       <SellBeatsInfo navigate={navigate} />
-    
+
+      <NewsletterForm />
 
       <GroupF />
       <GroupG />

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 const NewsletterForm = () => {
   const [formData, setFormData] = useState({ name: '', email: '' });
 
@@ -11,27 +10,20 @@ const NewsletterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You can add your submission logic here
     console.log('Form submitted:', formData);
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-     className="flex flex-col justify-center items-center"
-
-    >
-      <h2 className="text-2xl font-bold text-left text-white-800">
-        Subscribe to our Newsletter
-      </h2>
-
+    <form onSubmit={handleSubmit} className="newsletter-form">
+      <h2 className="newsletter-title">Don’t miss a beat</h2>
+      <p>Want to grow your fanbase and music business with Ur BeatHub? Enter your name and email below.</p>
       <input
         type="text"
         name="name"
         value={formData.name}
         onChange={handleChange}
         placeholder="Your Name"
-        className="w-1/2 h-10 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="newsletter-input"
         required
       />
 
@@ -41,14 +33,11 @@ const NewsletterForm = () => {
         value={formData.email}
         onChange={handleChange}
         placeholder="Your Email"
-        className="w-1/2 h-10 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="newsletter-input"
         required
       />
 
-      <button
-        type="submit"
-        className="w-1/3 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
-      >
+      <button type="submit" className="newsletter-button">
         Subscribe
       </button>
     </form>

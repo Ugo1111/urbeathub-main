@@ -89,7 +89,7 @@ describe("Front component", () => {
       </BrowserRouter>
     );
 
-    const startBtn = screen.getAllByText(/GET STARTED/i)[0];
+    const startBtn = screen.getAllByText(/BROWSE LIST/i)[0];
     fireEvent.click(startBtn);
     expect(mockNavigate).toHaveBeenCalledWith("/Homepage");
   });

@@ -44,7 +44,7 @@ import ProducersStore from "./components/pages/store.js"; // Import UserProfileP
 import PostPage from "./components/pages/PostPage"; // Import PostPage component
 import ViewPostPage from "./components/pages/ViewPostPage"; // Import ViewPostPage
 import PostTimelinePage from "./components/pages/PostTimelinePage"; // Import PostTimelinePage
-
+import useActivityLogger from "./hooks/useActivityLogger";
 
 // Initialize Google Analytics
 ReactGA.initialize('G-8Q9JH9G3KH');
@@ -59,103 +59,7 @@ export function trackEvent({ eventName, songTitle, artist }) {
 
 // Define the App component
 function App() {
-useEffect(() => {
-    const hasNotified = sessionStorage.getItem("visitorNotified");
-    const hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
-
-    if (!hasNotified) {
-      const sendVisitorInfo = async () => {
-        // Helper to check if referrer matches domains
-        function matchesDomainList(ref, domains) {
-          return domains.some(domain => ref.includes(domain));
-        }
-
-        // Simplified browser + device detection
-        function getBrowserInfo() {
-          const ua = navigator.userAgent;
-          let browser = "Unknown";
-
-          if (ua.includes("Chrome") && !ua.includes("Edg") && !ua.includes("OPR")) {
-            browser = "Chrome";
-          } else if (ua.includes("Firefox")) {
-            browser = "Firefox";
-          } else if (ua.includes("Safari") && !ua.includes("Chrome")) {
-            browser = "Safari";
-          } else if (ua.includes("Edg")) {
-            browser = "Edge";
-          } else if (ua.includes("OPR") || ua.includes("Opera")) {
-            browser = "Opera";
-          }
-
-          // Detect mobile or desktop based on user agent keywords
-          const device = /Mobi|Android|iPhone|iPad/i.test(ua) ? "Mobile" : "Desktop";
-          return `${browser} (${device})`;
-        }
-
-        try {
-          // Fetch location info
-          const locationRes = await axios.get("https://ipapi.co/json/");
-          const { city, country_name: country, ip } = locationRes.data;
-
-          // Referrer URL
-          const referrer = document.referrer || "";
-
-          // UTM params from URL
-          const params = new URLSearchParams(window.location.search);
-          const utm = {
-            source: params.get("utm_source"),
-            medium: params.get("utm_medium"),
-            campaign: params.get("utm_campaign"),
-          };
-
-          // Known domains for social media & search engines
-          const socialMediaSites = [
-            "facebook.com", "twitter.com", "instagram.com", "linkedin.com",
-            "t.co", "reddit.com", "pinterest.com", "tiktok.com"
-          ];
-
-          const searchEngines = [
-            "google.", "bing.com", "yahoo.com", "duckduckgo.com", "baidu.com", "yandex.com"
-          ];
-
-          // Determine traffic source
-          let trafficSource = "Direct";
-
-          if (utm.source) {
-            trafficSource = `UTM: ${utm.source}`;
-          } else if (referrer) {
-            if (matchesDomainList(referrer, socialMediaSites)) {
-              trafficSource = "Social Media";
-            } else if (matchesDomainList(referrer, searchEngines)) {
-              trafficSource = "Search Engine";
-            } else {
-              trafficSource = `Referral: ${new URL(referrer).hostname}`;
-            }
-          }
-
-          // Send visitor info to backend
-          await axios.post("https://urbeathub-server.onrender.com/notify-telegram", {
-            browser: getBrowserInfo(),
-            ip,
-            city,
-            country,
-            isReturning: !!hasVisitedBefore,
-            trafficSource,
-            utm,
-          });
-
-          localStorage.setItem("hasVisitedBefore", "true");
-          sessionStorage.setItem("visitorNotified", "true");
-
-          console.log(hasVisitedBefore ? "🔁 Returning visitor" : "🆕 New visitor");
-        } catch (error) {
-          console.error("❌ Error sending visitor info:", error.message);
-        }
-      };
-
-      sendVisitorInfo();
-    }
-  }, []);
+  useActivityLogger(); // Start tracking
 
 
 
