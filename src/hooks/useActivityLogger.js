@@ -1,18 +1,30 @@
 import { useEffect } from "react";
+import axios from "axios";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/firebase";
 
 export default function useActivityLogger() {
   useEffect(() => {
-    const BACKEND_URL = "http://localhost:3001/notify-telegram";
-    const activityLog = [];
+  const BACKEND_URL = "https://urbeathub-server.onrender.com/notify-telegram";
+   const activityLog = [];
     const startTime = Date.now();
     let logSent = false;
+    let currentUser = null;
+
+    const parseBrowserInfo = (userAgent) => {
+      const isMobile = /Mobile|Android|iPhone/i.test(userAgent);
+      let browser = "Unknown";
+
+      if (/Edg/i.test(userAgent)) browser = "Edge";
+      else if (/Chrome/i.test(userAgent)) browser = "Chrome";
+      else if (/Safari/i.test(userAgent) && !/Chrome/i.test(userAgent)) browser = "Safari";
+      else if (/Firefox/i.test(userAgent)) browser = "Firefox";
+
+      return `${browser} (${isMobile ? "Mobile" : "Desktop"})`;
+    };
 
     const addEvent = (event, details = {}) => {
-      activityLog.push({
-        event,
-        details,
-        timestamp: new Date().toISOString(),
-      });
+      activityLog.push({ event, details, timestamp: new Date().toISOString() });
       console.log("📌 Event recorded:", event, details);
     };
 
@@ -20,57 +32,24 @@ export default function useActivityLogger() {
       if (logSent) return;
       logSent = true;
 
-      const timeSpent = ((Date.now() - startTime) / 1000).toFixed(2);
-      addEvent("Page Exit", { timeSpent: `${timeSpent} seconds` });
+      const timeSpent = ((Date.now() - startTime) / 1000 / 60).toFixed(2);
+      addEvent("Page Exit", { timeSpent: `${timeSpent} minutes` });
 
-      const payload = {
+      axios.post(BACKEND_URL, {
         event: "User Session Summary",
         details: { activities: activityLog },
-      };
-
-      // Prefer sendBeacon for unload safety
-      const beaconSent = navigator.sendBeacon?.(
-        BACKEND_URL,
-        new Blob([JSON.stringify(payload)], { type: "application/json" })
-      );
-
-      if (!beaconSent) {
-        // Fallback to Axios
-        import("axios").then(({ default: axios }) => {
-          axios
-            .post(BACKEND_URL, payload)
-            .then(() => console.log("✅ Activity log sent"))
-            .catch((err) => console.error("❌ Activity log failed:", err.message));
-        });
-      }
+      })
+      .then(() => console.log("✅ Activity log sent"))
+      .catch((err) => console.error("❌ Activity log failed:", err.message));
     };
 
     const trackVisitor = async () => {
       const hasNotified = sessionStorage.getItem("visitorNotified");
       const hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
+
       if (hasNotified) return;
 
-      const getBrowserInfo = () => {
-        const ua = navigator.userAgent;
-        let browser = "Unknown";
-        if (ua.includes("Chrome") && !ua.includes("Edg") && !ua.includes("OPR")) browser = "Chrome";
-        else if (ua.includes("Firefox")) browser = "Firefox";
-        else if (ua.includes("Safari") && !ua.includes("Chrome")) browser = "Safari";
-        else if (ua.includes("Edg")) browser = "Edge";
-        else if (ua.includes("OPR") || ua.includes("Opera")) browser = "Opera";
-        const device = /Mobi|Android|iPhone|iPad/i.test(ua) ? "Mobile" : "Desktop";
-        return `${browser} (${device})`;
-      };
-
-      const matchesDomainList = (ref, domains) =>
-        domains.some((domain) => ref.includes(domain));
-
       try {
-        const res = await fetch("https://ipapi.co/json/");
-        const data = await res.json();
-        const { city, country_name: country, ip } = data;
-
-        const referrer = document.referrer || "";
         const params = new URLSearchParams(window.location.search);
         const utm = {
           source: params.get("utm_source"),
@@ -78,47 +57,31 @@ export default function useActivityLogger() {
           campaign: params.get("utm_campaign"),
         };
 
-        const socialMedia = ["facebook.com", "twitter.com", "instagram.com", "linkedin.com", "t.co", "reddit.com", "pinterest.com", "tiktok.com"];
-        const searchEngines = ["google.", "bing.com", "yahoo.com", "duckduckgo.com", "baidu.com", "yandex.com"];
+        const { data } = await axios.get("https://ipapi.co/json/");
+        const { city, country_name: country, ip } = data;
 
-        let trafficSource = "Direct";
-        if (utm.source) {
-          trafficSource = `UTM: ${utm.source}`;
-        } else if (referrer) {
-          if (matchesDomainList(referrer, socialMedia)) trafficSource = "Social Media";
-          else if (matchesDomainList(referrer, searchEngines)) trafficSource = "Search Engine";
-          else trafficSource = `Referral: ${new URL(referrer).hostname}`;
-        }
-
-        const visitorInfo = {
-          browser: getBrowserInfo(),
+        await axios.post(BACKEND_URL, {
+          browser: parseBrowserInfo(navigator.userAgent),
           ip,
           city,
           country,
           isReturning: !!hasVisitedBefore,
-          trafficSource,
+          isSignedIn: !!currentUser?.uid,
+          trafficSource: document.referrer || "Direct",
           utm,
-        };
-
-        import("axios").then(({ default: axios }) => {
-          axios.post(BACKEND_URL, visitorInfo)
-            .then(() => console.log("📍 Visitor info sent"))
-            .catch((err) => console.error("❌ Visitor tracking error:", err.message));
         });
 
-        setTimeout(() => {
-          sessionStorage.setItem("visitorNotified", "true");
-        }, 100);
+        sessionStorage.setItem("visitorNotified", "true");
         localStorage.setItem("hasVisitedBefore", "true");
 
+        console.log("📍 Visitor info sent");
       } catch (err) {
-        console.error("❌ IP fetch error:", err.message);
+        console.error("❌ Visitor tracking error:", err.message);
       }
     };
 
     const trackAudioEvents = () => {
-      const audios = document.querySelectorAll("audio");
-      audios.forEach((audio) => {
+      document.querySelectorAll("audio").forEach((audio) => {
         let playStart = null;
         const trackName = audio.closest("[data-title]")?.dataset.title || audio.src || "Unknown Track";
 
@@ -129,8 +92,8 @@ export default function useActivityLogger() {
 
         const logAudioEnd = () => {
           if (playStart) {
-            const playedFor = ((Date.now() - playStart) / 1000).toFixed(2);
-            addEvent("Audio Pause/End", { trackName, playedFor: `${playedFor} seconds` });
+            const playedFor = ((Date.now() - playStart) / 1000 / 60).toFixed(2);
+            addEvent("Audio Pause/End", { trackName, playedFor: `${playedFor} minutes` });
             playStart = null;
           }
         };
@@ -146,28 +109,70 @@ export default function useActivityLogger() {
       addEvent("Click", { element, text, url: window.location.href });
     };
 
-    // Exposed logging helpers
-    window.logPayment = (beatTitle, amount, reference) =>
-      addEvent("Payment", { beatTitle, amount: `₦${amount}`, reference });
+    // 🔐 Handle auth state with cleanup
+    let unsubscribed = false;
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (unsubscribed) return;
 
-    window.logSignIn = (email) => addEvent("Sign In", { email });
-    window.logSignOut = (email) => addEvent("Sign Out", { email });
-    window.logUpload = (filename, size, type) =>
-      addEvent("File Upload", { filename, fileSize: size, contentType: type });
+      const wasSignedOut = sessionStorage.getItem("signedOut") === "true";
+      const previousUid = sessionStorage.getItem("previousUserUid");
+      const wasSignedIn = !!currentUser?.uid;
 
-    trackVisitor();
-    trackAudioEvents();
-    document.addEventListener("click", handleClick);
-    window.addEventListener("beforeunload", sendLog);
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "hidden") sendLog();
+      if (!user && wasSignedIn && currentUser?.uid) {
+        sessionStorage.setItem("previousUserUid", currentUser.uid);
+        sessionStorage.setItem("signedOut", "true");
+
+        addEvent("Sign Out", {
+          email: currentUser?.email || "Unknown",
+          status: "User Logged Out",
+        });
+
+        try {
+          await axios.post(BACKEND_URL, {
+            event: "Sign Out",
+            details: {
+              email: currentUser?.email || "Unknown",
+              status: "User Logged Out",
+            },
+          });
+          console.log("📩 Sign-out event sent");
+        } catch (err) {
+          console.error("❌ Sign-out log failed:", err.message);
+        }
+      }
+
+      currentUser = user;
+
+      if (user && !wasSignedIn) {
+        addEvent("Sign In", { email: user.email, status: "Signed In" });
+        sessionStorage.setItem("previousUserUid", user.uid);
+        sessionStorage.removeItem("signedOut");
+
+        try {
+          await axios.post(BACKEND_URL, {
+            event: "Sign In",
+            details: { email: user.email, status: "Signed In" },
+          });
+          console.log("📩 Sign-in event sent");
+        } catch (err) {
+          console.error("❌ Sign-in log failed:", err.message);
+        }
+      }
+
+      trackVisitor();
     });
+
+    document.addEventListener("click", handleClick);
+    trackAudioEvents();
+
+    window.addEventListener("beforeunload", sendLog);
     window.addEventListener("pagehide", sendLog);
 
     return () => {
+      unsubscribed = true;
+      unsubscribe();
       document.removeEventListener("click", handleClick);
       window.removeEventListener("beforeunload", sendLog);
-      document.removeEventListener("visibilitychange", sendLog);
       window.removeEventListener("pagehide", sendLog);
     };
   }, []);

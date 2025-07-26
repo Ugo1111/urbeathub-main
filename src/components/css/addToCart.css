@@ -111,16 +111,17 @@ margin-bottom: 25px;
   
   /* Beat Preview */
   .Mp3player {
-   
-    display: flex;
-    /* gap: 20px; */
-    max-width: 100%;
-    height: auto;
-    padding: 25px 0 25px 25px;
-    background-color: #1e1c1c;
-    border-radius: 10px;
-  }
-  
+  display: flex;
+  flex-direction: column; /* Makes layout stack nicely on small screens */
+  width: 60vw; /* Full viewport width */
+  height: auto;
+  padding: 25px;
+  margin: 0;
+  background-color: #1e1c1c;
+  border-radius: 10px; /* Optional: remove rounding for edge-to-edge */
+  box-sizing: border-box; /* Ensures padding doesn’t cause overflow */
+}
+
 
 
 .songBioSection{
@@ -897,7 +898,8 @@ padding: 3px 5px 3px 2px;
 
 /* Individual track card */
 .recomendation-list {
-  flex: 0 0 150px; /* Fixed width for all cards */
+  position: relative; /* Needed for the pseudo-element */
+  flex: 0 0 150px;
   height: 270px;
   background-color: transparent;
   border-radius: 10px;
@@ -906,13 +908,26 @@ padding: 3px 5px 3px 2px;
   align-items: center;
   transition: background-color 0.3s ease;
   box-sizing: border-box;
+  z-index: 1; /* Make sure the pseudo-element appears behind content */
+}
+
+.recomendation-list::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  background: #2d2d2dc7;  /* Hover background */
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1; /* Behind the card */
 }
 
 /* Hover effect */
-.recomendation-list:hover {
-  background-color: #2d2d2dc7;
-  border: #4d4d4d76 solid 1px;
-  padding: 20px;
+.recomendation-list:hover::before {
+  opacity: 1;
 }
 
 /* Image */
@@ -1322,7 +1337,9 @@ overflow-y: auto;
       padding: 20px;
       align-items: center;
       text-align: center;
+      width: 75vw;
     }
+   
 
   .licensing-container h2 {
     font-size: large;}
@@ -1390,13 +1407,16 @@ width: 95%;
   }
     
       .songBioSection {
-        width: 100vw;
+        width: 97vw;
       }
       .song{
         display: flex;
         flex-direction: row;
       
       }
+       .licensing-container{
+    width: 97vw;
+    }
     
       .licensing-container h2,
       .beat-details h2 {
@@ -1415,7 +1435,7 @@ width: 95%;
 
        
          .Mp3player {
-    width: 80vw;
+    width: 97vw;
          }
         
       
@@ -1443,7 +1463,7 @@ width: 95%;
         .comment{
           gap: 10px;
           min-height: 350px;
-          min-width: 300px;
+          min-width: 320px;
           background-color: #1e1c1c;
         border-radius: 5px;
         }      
@@ -1483,8 +1503,6 @@ width: 95%;
   }
 
   }
-
-
 
 
 

@@ -28,9 +28,9 @@ export function GroupF() {
             <p>
               <a href="/Refundpolicy" target="_blank">Refund Policy</a>
             </p>
-            <p>
+           {/* <p>
               <a href="/MusicDistributionForm" target="_blank">Distribution</a>
-            </p>
+            </p> */}
 
                        
             

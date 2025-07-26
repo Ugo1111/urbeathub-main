@@ -58,8 +58,8 @@
     text-decoration: underline; /* Add hover effect */
   }
   .preview-image {
-    width: 100%; /* Make the image fit the width of the container */
-    height: 100%; /* Make the image fit the height of the container */
+    width: 80%; /* Make the image fit the width of the container */
+    height: 80%; /* Make the image fit the height of the container */
     object-fit: cover; /* Ensure the image maintains its aspect ratio and fills the container */
     border-radius: 10px; /* Optional: Add rounded corners */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */

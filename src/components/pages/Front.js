@@ -172,12 +172,11 @@ function Front() {
 
  <RecomendationComponent />
 
-  
-
-  <DistributionLogo />
-  <HomePageFeed /> 
   </div>
-    
+
+  {/*<DistributionLogo />
+  <HomePageFeed /> */}
+
     <DistributeSection sound={sound} navigate={navigate} isSignedIn={isSignedIn} />
 
       <section className="hero2-1">
@@ -217,13 +216,13 @@ function Front() {
 
       <GraphicsSection Art={Art} navigate={navigate} isSignedIn={isSignedIn} />
 
-     <CoverArtShowcase isSignedIn={isSignedIn} /> 
+    {/* <CoverArtShowcase isSignedIn={isSignedIn} /> */}
 
 
 
       <SellBeatsInfo navigate={navigate} />
 
-      <NewsletterForm />
+     {/* <NewsletterForm /> */}
 
       <GroupF />
       <GroupG />

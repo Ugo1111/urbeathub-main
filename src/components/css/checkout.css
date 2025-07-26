@@ -408,7 +408,7 @@ width: auto;
 margin: 0px;
 padding: 0px;
 top: 0px;
-background-color: #ffffff;
+background-color: #000;
 }
 
 
@@ -505,4 +505,5 @@ background-color: #ffffff;
     text-align: center;
     padding: 10px 5px;
   }
+  
 }
