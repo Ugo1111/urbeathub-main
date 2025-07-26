@@ -5,8 +5,8 @@ import { auth } from "../firebase/firebase";
 
 export default function useActivityLogger() {
   useEffect(() => {
-  const BACKEND_URL = "https://urbeathub-server.onrender.com/notify-telegram";
-   const activityLog = [];
+    const BACKEND_URL = "https://urbeathub-server.onrender.com/notify-telegram";
+    const activityLog = [];
     const startTime = Date.now();
     let logSent = false;
     let currentUser = null;
@@ -14,13 +14,24 @@ export default function useActivityLogger() {
     const parseBrowserInfo = (userAgent) => {
       const isMobile = /Mobile|Android|iPhone/i.test(userAgent);
       let browser = "Unknown";
-
       if (/Edg/i.test(userAgent)) browser = "Edge";
       else if (/Chrome/i.test(userAgent)) browser = "Chrome";
       else if (/Safari/i.test(userAgent) && !/Chrome/i.test(userAgent)) browser = "Safari";
       else if (/Firefox/i.test(userAgent)) browser = "Firefox";
-
       return `${browser} (${isMobile ? "Mobile" : "Desktop"})`;
+    };
+
+    const classifyTrafficSource = (referrer) => {
+      if (!referrer) return "Direct";
+
+      const ref = referrer.toLowerCase();
+      if (ref.includes("facebook.com") || ref.includes("instagram.com") || ref.includes("twitter.com") || ref.includes("tiktok.com")) {
+        return "Social Media";
+      }
+      if (ref.includes("google.com") || ref.includes("bing.com") || ref.includes("yahoo.com") || ref.includes("duckduckgo.com")) {
+        return "Search Engine";
+      }
+      return `Referral: ${referrer}`;
     };
 
     const addEvent = (event, details = {}) => {
@@ -35,18 +46,27 @@ export default function useActivityLogger() {
       const timeSpent = ((Date.now() - startTime) / 1000 / 60).toFixed(2);
       addEvent("Page Exit", { timeSpent: `${timeSpent} minutes` });
 
-      axios.post(BACKEND_URL, {
+      const payload = {
         event: "User Session Summary",
         details: { activities: activityLog },
-      })
-      .then(() => console.log("✅ Activity log sent"))
-      .catch((err) => console.error("❌ Activity log failed:", err.message));
+      };
+
+      try {
+        fetch(BACKEND_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          keepalive: true,
+        });
+        console.log("📡 Log sent via fetch keepalive");
+      } catch (err) {
+        console.error("❌ Final log failed:", err.message);
+      }
     };
 
     const trackVisitor = async () => {
       const hasNotified = sessionStorage.getItem("visitorNotified");
       const hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
-
       if (hasNotified) return;
 
       try {
@@ -60,6 +80,9 @@ export default function useActivityLogger() {
         const { data } = await axios.get("https://ipapi.co/json/");
         const { city, country_name: country, ip } = data;
 
+        const rawReferrer = document.referrer || "";
+        const classifiedSource = classifyTrafficSource(rawReferrer);
+
         await axios.post(BACKEND_URL, {
           browser: parseBrowserInfo(navigator.userAgent),
           ip,
@@ -67,14 +90,14 @@ export default function useActivityLogger() {
           country,
           isReturning: !!hasVisitedBefore,
           isSignedIn: !!currentUser?.uid,
-          trafficSource: document.referrer || "Direct",
+          trafficSource: classifiedSource,
           utm,
         });
 
         sessionStorage.setItem("visitorNotified", "true");
         localStorage.setItem("hasVisitedBefore", "true");
 
-        console.log("📍 Visitor info sent");
+        console.log("📍 Visitor info sent:", classifiedSource);
       } catch (err) {
         console.error("❌ Visitor tracking error:", err.message);
       }
@@ -109,13 +132,11 @@ export default function useActivityLogger() {
       addEvent("Click", { element, text, url: window.location.href });
     };
 
-    // 🔐 Handle auth state with cleanup
     let unsubscribed = false;
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (unsubscribed) return;
 
       const wasSignedOut = sessionStorage.getItem("signedOut") === "true";
-      const previousUid = sessionStorage.getItem("previousUserUid");
       const wasSignedIn = !!currentUser?.uid;
 
       if (!user && wasSignedIn && currentUser?.uid) {
@@ -163,6 +184,10 @@ export default function useActivityLogger() {
     });
 
     document.addEventListener("click", handleClick);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") sendLog();
+    });
+
     trackAudioEvents();
 
     window.addEventListener("beforeunload", sendLog);
@@ -174,6 +199,7 @@ export default function useActivityLogger() {
       document.removeEventListener("click", handleClick);
       window.removeEventListener("beforeunload", sendLog);
       window.removeEventListener("pagehide", sendLog);
+      document.removeEventListener("visibilitychange", sendLog);
     };
   }, []);
 }
