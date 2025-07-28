@@ -256,8 +256,7 @@ margin-bottom: 250px;
    border: #8ffb61 solid 3px;
   
   
-  }
-   */
+  } */
   
   .footer {
      background-color: #535050;
@@ -274,16 +273,14 @@ margin-bottom: 250px;
 
    
   
-/*   
-  .GroupC {
+/* .GroupC {
     background-color: #9bae31;
     width: 100%;
    
     height: 25vmin;
   
   
-  }
-   */
+  } */
   
   .GroupF{
      height: inherit;
@@ -381,8 +378,7 @@ margin-bottom: 250px;
     width: 40px;
     background-color: #191111;
   margin: 0 2px;
-  }
-   */
+  } */
 
   .playSign{height: 45px;  width: 45px;
     border-radius: 45%;
@@ -401,7 +397,7 @@ margin-bottom: 250px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* background-color: #1c1919;  */
+    /* background-color: #1c1919; */
     color: #fff; /* White text */
     
     margin: 2px;
@@ -545,8 +541,7 @@ margin-bottom: 250px;
       /* .songlist-addtochart{
       
 
-      }
-     */
+      } */
       .market button:hover {
 
         cursor: pointer;

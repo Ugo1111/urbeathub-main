@@ -110,7 +110,7 @@ contain: content;
 .cart-component-list{
 margin: 0%;
 padding: 0px;
-  /* border: solid blue;  */
+  /* border: solid blue; */
 }
 
 .cart-list-item{
@@ -160,7 +160,7 @@ width: 100%;
 font-size:x-large;
 
   justify-content: start;
-  /* border: solid rgb(255, 255, 255);  */
+  /* border: solid rgb(255, 255, 255); */
 }
 
 .cart-list-info{
@@ -172,7 +172,7 @@ font-size:x-large;
 }
 
 .cart-list-price{
-  /* border: solid rgb(102, 255, 1);  */
+  /* border: solid rgb(102, 255, 1); */
   font-size:larger;
   margin: 10px;
   
@@ -215,7 +215,7 @@ color: rgb(74, 74, 74);
 align-items: flex-end;
 row-gap: 30px;
   /* align-content: space-between; */
-  /* border: solid rgb(234, 234, 234);  */
+  /* border: solid rgb(234, 234, 234); */
 }
 
 

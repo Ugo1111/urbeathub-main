@@ -23,11 +23,11 @@ body {
   
 }
 
-/* this is where the align problem is  */
+/* this is where the align problem is */
 .container {
   /* width: 80vw; */
   /*margin: auto;*/
-  /* padding: 50px;  */
+  /* padding: 50px; */
   /* border: 1px rgb(56, 57, 57) solid; */
   display: flex; /* Use Flexbox to arrange items horizontally */
   justify-content: space-between; /* Push items to the sides */
@@ -81,8 +81,7 @@ margin-bottom: 25px;
     height: 18px; 
     background: rgb(60, 60, 60);
   border-radius: 15px;
-  }
-   */
+  } */
 
 
 
