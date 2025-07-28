@@ -58,8 +58,8 @@
     text-decoration: underline; /* Add hover effect */
   }
   .preview-image {
-    width: 100%; /* Make the image fit the width of the container */
-    height: 100%; /* Make the image fit the height of the container */
+    width: 80%; /* Make the image fit the width of the container */
+    height: 80%; /* Make the image fit the height of the container */
     object-fit: cover; /* Ensure the image maintains its aspect ratio and fills the container */
     border-radius: 10px; /* Optional: Add rounded corners */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
@@ -783,7 +783,7 @@ color:#ffffff;}
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(../../../public/images/Mixer.jpg);
+  background-image: url("../../../public/images/Mixer.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -873,7 +873,7 @@ color:#ffffff;}
   top: 0;
   width: 60px;
   height: 60px;
-  background-image: url(../../../public/images/icon.png);
+  background-image: url("../../../public/images/icon.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -1396,8 +1396,7 @@ color:#ffffff;}
 /* Show scroll on hover (for mobile/tablet) */
 .feed-scroll-container:hover {
   overflow-x: auto;
-}
-* Container styling */
+} /* Container styling */
 .post-card-container {
   background: transparent;
   backdrop-filter: blur(18px);

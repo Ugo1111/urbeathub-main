@@ -23,11 +23,11 @@ body {
   
 }
 
-/* this is where the align problem is  */
+/* this is where the align problem is */
 .container {
   /* width: 80vw; */
   /*margin: auto;*/
-  /* padding: 50px;  */
+  /* padding: 50px; */
   /* border: 1px rgb(56, 57, 57) solid; */
   display: flex; /* Use Flexbox to arrange items horizontally */
   justify-content: space-between; /* Push items to the sides */
@@ -81,8 +81,7 @@ margin-bottom: 25px;
     height: 18px; 
     background: rgb(60, 60, 60);
   border-radius: 15px;
-  }
-   */
+  } */
 
 
 
@@ -111,16 +110,17 @@ margin-bottom: 25px;
   
   /* Beat Preview */
   .Mp3player {
-   
-    display: flex;
-    /* gap: 20px; */
-    max-width: 100%;
-    height: auto;
-    padding: 25px 0 25px 25px;
-    background-color: #1e1c1c;
-    border-radius: 10px;
-  }
-  
+  display: flex;
+  flex-direction: column; /* Makes layout stack nicely on small screens */
+  width: 60vw; /* Full viewport width */
+  height: auto;
+  padding: 25px;
+  margin: 0;
+  background-color: #1e1c1c;
+  border-radius: 10px; /* Optional: remove rounding for edge-to-edge */
+  box-sizing: border-box; /* Ensures padding doesn’t cause overflow */
+}
+
 
 
 .songBioSection{
@@ -272,11 +272,12 @@ gap: 20px;
 }
 
 .image-placeholder img {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   object-fit: cover; /* or 'contain' if you prefer */
   display: block;
   border-radius: 8px; /* Optional for style */
+  margin:auto;
 }
 
   
@@ -589,7 +590,10 @@ margin-bottom: auto;
   display: flex;
   justify-content: space-evenly;
 width: 85%;
+max-width: 85%;
 margin: auto;
+gap: 10px;
+
 
 
 }
@@ -597,7 +601,7 @@ margin: auto;
 
 .checkoutItem{
   /* background-color: rgb(91, 91, 91); */
-  width: 90%;
+  width: 100%;
   min-height: 90px;
 height: fit-content;
   
@@ -606,26 +610,36 @@ height: fit-content;
 }
 
 
-.CartSummary{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
- gap:  30px;
-}
-
-.CartSection2{
+.CartSection2 {
   border: #2827275c solid;
   border-radius: 10px;
   padding: 20px;
   background-color: rgba(20, 20, 20, 0.631);
-  
+  display: flex;
+  justify-content: center; /* center .CartSummary horizontally */
+}
+
+.CartSummary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* center content */
+  gap: 30px;
+  width: 100%;
 }
 
 .selectedCartSummary {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* center the items */
+  gap: 40px; /* space between title and price */
   color: rgb(229, 229, 229);
+  width: 100%;
+}
+
+.certSummarySong,
+.certSummaryPRICE {
+  min-width: 100px;
+  text-align: center;
 }
 
 .Subtotal{
@@ -883,7 +897,8 @@ padding: 3px 5px 3px 2px;
 
 /* Individual track card */
 .recomendation-list {
-  flex: 0 0 150px; /* Fixed width for all cards */
+  position: relative; /* Needed for the pseudo-element */
+  flex: 0 0 150px;
   height: 270px;
   background-color: transparent;
   border-radius: 10px;
@@ -892,13 +907,26 @@ padding: 3px 5px 3px 2px;
   align-items: center;
   transition: background-color 0.3s ease;
   box-sizing: border-box;
+  z-index: 1; /* Make sure the pseudo-element appears behind content */
+}
+
+.recomendation-list::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  background: #2d2d2dc7;  /* Hover background */
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1; /* Behind the card */
 }
 
 /* Hover effect */
-.recomendation-list:hover {
-  background-color: #2d2d2dc7;
-  border: #4d4d4d76 solid 1px;
-  padding: 20px;
+.recomendation-list:hover::before {
+  opacity: 1;
 }
 
 /* Image */
@@ -1308,7 +1336,9 @@ overflow-y: auto;
       padding: 20px;
       align-items: center;
       text-align: center;
+      width: 75vw;
     }
+   
 
   .licensing-container h2 {
     font-size: large;}
@@ -1347,6 +1377,18 @@ width: 95%;
 .terms-conditions-container h1{
   font-size: 1.5rem;
 }
+
+.selectedCartSummary {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .certSummarySong,
+  .certSummaryPRICE {
+    min-width: auto;
+    width: 100%;
+  }
     }
     
     
@@ -1364,13 +1406,16 @@ width: 95%;
   }
     
       .songBioSection {
-        width: 100vw;
+        width: 97vw;
       }
       .song{
         display: flex;
         flex-direction: row;
       
       }
+       .licensing-container{
+    width: 97vw;
+    }
     
       .licensing-container h2,
       .beat-details h2 {
@@ -1389,7 +1434,7 @@ width: 95%;
 
        
          .Mp3player {
-    width: 80vw;
+    width: 97vw;
          }
         
       
@@ -1417,7 +1462,7 @@ width: 95%;
         .comment{
           gap: 10px;
           min-height: 350px;
-          min-width: 300px;
+          min-width: 320px;
           background-color: #1e1c1c;
         border-radius: 5px;
         }      
@@ -1457,8 +1502,6 @@ width: 95%;
   }
 
   }
-
-
 
 
 

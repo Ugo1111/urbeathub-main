@@ -28,9 +28,12 @@ export function GroupF() {
             <p>
               <a href="/Refundpolicy" target="_blank">Refund Policy</a>
             </p>
-            <p>
+           {/* <p>
               <a href="/MusicDistributionForm" target="_blank">Distribution</a>
-            </p>
+            </p> */}
+
+                       
+            
             <div className="social-links">
               <a href="https://www.facebook.com/share/15xxw68L9H/" target="_blank" rel="noopener noreferrer"> 
                 <i className="fab fa-facebook"></i>
@@ -77,7 +80,6 @@ export function GroupG() {
     return (
       <footer className="footer">
         {/*Group Cb */}
-        <p>Ur BeatHub is a Brand That Support African Musicians</p>
         <p>Copyright © urbeathub.com 2025</p>
       </footer>
     );

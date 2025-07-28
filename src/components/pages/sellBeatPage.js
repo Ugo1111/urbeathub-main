@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { db, auth } from "../../firebase/firebase"; // Import Firestore & Auth
 import { doc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
@@ -18,6 +18,7 @@ const SellBeatPage = () => {
   const [activeComponent, setActiveComponent] = useState(null);
   const [user, setUser] = useState({ username: "", profilePicture: "" });
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+  const navigate = useNavigate();
 
   // List of possible background colors
   const colors = [
@@ -53,21 +54,25 @@ const SellBeatPage = () => {
     window.addEventListener('resize', handleResize);
 
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        const userDocRef = doc(db, "beatHubUsers", currentUser.uid);
-        const userDoc = await getDoc(userDocRef);
-
-        if (userDoc.exists()) {
-          setUser(userDoc.data()); // Set user data
-        }
+      if (!currentUser) {
+        navigate("/loginPage"); // Redirect if not signed in
+        return;
       }
+      const userDocRef = doc(db, "beatHubUsers", currentUser.uid);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        navigate("/loginPage"); // Redirect if user doc does not exist (no account)
+        return;
+      }
+      setUser(userDoc.data());
     });
 
     return () => {
       window.removeEventListener('resize', handleResize);
       unsubscribe();
     };
-  }, []);
+  }, [navigate]);
 
   return (
     <div className='sellbeat-body'>

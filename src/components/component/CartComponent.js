@@ -51,7 +51,7 @@ function CartComponent({ cart, setCart }) {  // Receive cart & setCart as props
                             </div>
 
                             <div className="cart-list-actions">
-                                <div className="cart-list-price">${song.price || "0.00"}</div>
+                                <div className="cart-list-price">{song.price || "0.00"}</div>
                                 <button className="cart-list-remove-btn" onClick={() => handleDeleteCartItem(song.songId)}>
                                     x
                                 </button>

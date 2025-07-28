@@ -39,7 +39,8 @@ const Profilepicture = ({ className }) => {
         <Profile user={user} className={className} /> // Pass uid to Profile component
       ) : (
         <p>
-          <MdAccountCircle className={className} fontSize="3em" />
+          <MdAccountCircle data-testid="default-icon" className={className} fontSize="3em" />
+
         </p>
       )}
     </div>

@@ -256,8 +256,7 @@ margin-bottom: 250px;
    border: #8ffb61 solid 3px;
   
   
-  }
-   */
+  } */
   
   .footer {
      background-color: #535050;
@@ -274,16 +273,14 @@ margin-bottom: 250px;
 
    
   
-/*   
-  .GroupC {
+/* .GroupC {
     background-color: #9bae31;
     width: 100%;
    
     height: 25vmin;
   
   
-  }
-   */
+  } */
   
   .GroupF{
      height: inherit;
@@ -381,8 +378,7 @@ margin-bottom: 250px;
     width: 40px;
     background-color: #191111;
   margin: 0 2px;
-  }
-   */
+  } */
 
   .playSign{height: 45px;  width: 45px;
     border-radius: 45%;
@@ -401,7 +397,7 @@ margin-bottom: 250px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* background-color: #1c1919;  */
+    /* background-color: #1c1919; */
     color: #fff; /* White text */
     
     margin: 2px;
@@ -511,7 +507,7 @@ margin-bottom: 250px;
       padding: 20px;
       background-color: #181818;
       width: 70%;
-      height: 20vmin;
+      height: 25vmin;
     display: flex;
 
   }
@@ -545,8 +541,7 @@ margin-bottom: 250px;
       /* .songlist-addtochart{
       
 
-      }
-     */
+      } */
       .market button:hover {
 
         cursor: pointer;
@@ -595,10 +590,9 @@ font-size: medium;
   .controllerB3 button{ 
     background-color: #222222;
     border: #eaeaea1f 0.5px solid;
-    height: 100%;
+    height: 50%;
     color: #9a9a9a;
-    
-      }
+  }
   
 
     .controllerB3 button:hover{
@@ -608,15 +602,23 @@ font-size: medium;
 
   .controllerB3{
   display: flex;
- 
-flex-direction: row;
+ flex-direction: row;
   }
 
   .volnav{
-    background-color: #222222;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   
+  }
+
+  .volnav button{
+    
+    border: #eaeaea1f 0.5px solid;
+    height: 50%;
+    color: #9a9a9a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
 
@@ -752,6 +754,26 @@ flex-direction: row;
   font-size: 16px;
   cursor: pointer;
 }
+.chat-button::before {
+  content: "Chat with us";
+  position: absolute;
+  font-size: 0.8rem;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #000000;
+  background-color: #ffffff;
+  opacity: 0;
+  white-space: nowrap;
+  padding: 5px 10px;
+  border-radius: 5px;
+  line-height: 1;
+}
+
+
+.chat-button:hover::before {
+  opacity: 1;
+}
 
 /*Tablet respontsiveness */
 
@@ -858,7 +880,7 @@ flex-direction: row;
 .playIcon {
   
   width: 50%;
-  height: 50%;
+  height: 60%;
 }
 
 .progress{
@@ -1018,8 +1040,8 @@ flex-direction: row;
 }
 
   .playIcon {
-    width: 40%;
-    height: auto;
+    width: 80%;
+    height: 60%;
     display: block;
     margin: 0 auto;
   }
@@ -1035,8 +1057,24 @@ flex-direction: row;
   }
 
   .songlist-addtochart {
-    width: 50px;
-    height: 40px;;
+    width: 70px;
+    height: 40px;
+     max-width: 80px; 
+    max-height: 45px; 
+  }
+  .controllerB3 {
+    flex-direction: row; /* Stack buttons vertically */
+    align-items: center; /* Center buttons horizontally */
+
+  }
+  .volnav {
+    flex-direction: row; /* Stack buttons vertically */
+    align-items: center; /* Center buttons horizontally */
+  }
+  .volume-slider {
+    width: 50%; /* Make the slider full width */
+    margin: 0 auto; /* Center the slider */
   }
   
+
 }
