@@ -6,7 +6,7 @@ import Modal from 'react-modal'; // Import Modal
 import { ToastContainer, toast } from "react-toastify";
 
 const GuestPaystackPayment = ({ email, amount, last, song, license, uid, beatId }) => {
-  const publicKey = 'pk_live_5792ddb6cca1c8c89244595e5607e81e9a63e35c'; // Keep this as it was
+  const publicKey = 'pk_test_51RXqNECrqHNtK1Tw63rf447k3dZ5gZhU8jXebIsvSCA7jfKTH1SmkgmRVn9XpHsK6xReM5MzYFm4pyzf5OWpGSgZ00o3wluMTS'; // Keep this as it was
   const exchangeRate = 1500; // 1 USD = 1500 NGN
   const amountInKobo = Math.round(amount * exchangeRate * 100); // Convert USD to Kobo properly
 

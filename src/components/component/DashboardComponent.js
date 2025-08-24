@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { db, auth } from "../../firebase/firebase"; // Import Firebase
 import { collection, query, where, getDocs, doc } from "firebase/firestore"; // Firestore functions
 import { onAuthStateChanged } from "firebase/auth"; // Firebase Auth
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet-async";
 import FeedbackForm from "../component/FeedbackForm"; // Import FeedbackForm
 
 const DashboardComponent = () => {

@@ -10,7 +10,7 @@ import FeedbackForm from "../component/FeedbackForm"; // Import FeedbackForm
 import { collection, getDocs } from "firebase/firestore"; // Import Firestore methods
 import { db } from "../../firebase/firebase"; // Import Firestore
 import { HeroPage } from "../component/HeroPage"; // Use named import for HeroPage
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function HomePage() {
   const [songs, setSongs] = useState([]);

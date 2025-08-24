@@ -43,10 +43,13 @@ import ProducersStore from "./components/pages/store.js"; // Import UserProfileP
 import PostPage from "./components/pages/PostPage"; // Import PostPage component
 import ViewPostPage from "./components/pages/ViewPostPage"; // Import ViewPostPage
 import PostTimelinePage from "./components/pages/PostTimelinePage"; // Import PostTimelinePage
-
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 // Initialize Google Analytics
 ReactGA.initialize('G-8Q9JH9G3KH');
+
+const stripePromise = loadStripe("pk_test_51RXqNECrqHNtK1Tw63rf447k3dZ5gZhU8jXebIsvSCA7jfKTH1SmkgmRVn9XpHsK6xReM5MzYFm4pyzf5OWpGSgZ00o3wluMTS");
 
 // Helper function to track custom events
 export function trackEvent({ eventName, songTitle, artist }) {
@@ -161,56 +164,58 @@ useEffect(() => {
   return (
     <Router>
       <RouteTracker />
-      <Routes>
-        <Route path="/" element={<Front />} />
-        <Route path="/homePage" element={<HomePage />} />
-        <Route path="/addToCart" element={<AddToCart />} />
-        <Route path="/loginPage" element={<Passage />} />
-        <Route path="/signUpPage" element={<Enroll />} />
-        <Route path="/checkoutPage" element={<CheckoutPage />} />
-        <Route path="/profileSettingPage" element={<ProfileSettingPage />} /> {/* Updated route */}
-        <Route path="/admin/*" element={<AdminDashboard />} />
-        <Route path="/FavouritePage" element={<FavouritePage />} />
-        <Route path="/purchasedPage" element={<PurchasedTracksPage />} />
-        <Route path="/CartPage" element={<CartPage />} />
-        <Route path="/UploadedbeatsPage" element={<UploadedbeatsPage />} />
-        <Route path="/searchComponent" element={<SerachedBeatsList />} />
-        <Route path="/NegotiatePage" element={<NegotiatePage />} />
-        <Route path="/SellBeatPage/*" element={
-          <MusicUploadProvider>
-            <SellBeatPage />
-          </MusicUploadProvider>
-        } />
-        <Route path="/ViewEditSellBeatPage" element={<ViewEditSellBeatPage />} />
-        <Route path="/paymentPage" element={<PaymentPage />} />
-        <Route path="/checkoutpaymentPage" element={<CheckoutpaymentPage />} />
-        <Route path="/PageOne" element={<PageOne />} />
-        <Route path="/PageTwo" element={<PageTwo />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/Licensedetails" element={<Licensedetails />} />
-        <Route path="/coverart" element={<CoverArt />} />
-      <Route path="/musicDistributionForm" element={<MusicDistributionForm />} />
-        <Route path="/termsandcondition" element={<Termsandcondition />} />
-        <Route path="/startsellingpage" element={<Startsellingpage />} />
-        <Route path="/Refundpolicy" element={<Refundpolicy />} />
-        <Route path="/EditTrackPage" element={<EditTrackPage />} />
-        <Route path="/usersUploadMusicPage" element={
-          <MusicUploadProvider>
-            <UsersUploadMusicPage />
-          </MusicUploadProvider>
-        } />
-        <Route path="/tabs" element={
-          <MusicUploadProvider>
-            <TabPage />
-          </MusicUploadProvider>
-        } />
-        <Route path="/forgotPassword" element={<ForgotPassword />} />
-        <Route path="/profile/:userId" element={<UserProfilePage />} /> {/* Add route for UserProfilePage */}
-        <Route path="/store/:userId" element={<ProducersStore />} /> {/* Add route for UserProfilePage */}
-        <Route path="/post/:postId" element={<PostPage />} /> {/* Add route for PostPage */}
-        <Route path="/view-post/:postId" element={<ViewPostPage />} /> {/* Ensure ViewPostPage route */}
-        <Route path="/post-timeline" element={<PostTimelinePage />} /> {/* Ensure PostTimelinePage route */}
-      </Routes>
+      <Elements stripe={stripePromise}>
+        <Routes>
+          <Route path="/" element={<Front />} />
+          <Route path="/homePage" element={<HomePage />} />
+          <Route path="/addToCart" element={<AddToCart />} />
+          <Route path="/loginPage" element={<Passage />} />
+          <Route path="/signUpPage" element={<Enroll />} />
+          <Route path="/checkoutPage" element={<CheckoutPage />} />
+          <Route path="/profileSettingPage" element={<ProfileSettingPage />} /> {/* Updated route */}
+          <Route path="/admin/*" element={<AdminDashboard />} />
+          <Route path="/FavouritePage" element={<FavouritePage />} />
+          <Route path="/purchasedPage" element={<PurchasedTracksPage />} />
+          <Route path="/CartPage" element={<CartPage />} />
+          <Route path="/UploadedbeatsPage" element={<UploadedbeatsPage />} />
+          <Route path="/searchComponent" element={<SerachedBeatsList />} />
+          <Route path="/NegotiatePage" element={<NegotiatePage />} />
+          <Route path="/SellBeatPage/*" element={
+            <MusicUploadProvider>
+              <SellBeatPage />
+            </MusicUploadProvider>
+          } />
+          <Route path="/ViewEditSellBeatPage" element={<ViewEditSellBeatPage />} />
+          <Route path="/paymentPage" element={<PaymentPage />} />
+          <Route path="/checkoutpaymentPage" element={<CheckoutpaymentPage />} />
+          <Route path="/PageOne" element={<PageOne />} />
+          <Route path="/PageTwo" element={<PageTwo />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/Licensedetails" element={<Licensedetails />} />
+          <Route path="/coverart" element={<CoverArt />} />
+          <Route path="/musicDistributionForm" element={<MusicDistributionForm />} />
+          <Route path="/termsandcondition" element={<Termsandcondition />} />
+          <Route path="/startsellingpage" element={<Startsellingpage />} />
+          <Route path="/Refundpolicy" element={<Refundpolicy />} />
+          <Route path="/EditTrackPage" element={<EditTrackPage />} />
+          <Route path="/usersUploadMusicPage" element={
+            <MusicUploadProvider>
+              <UsersUploadMusicPage />
+            </MusicUploadProvider>
+          } />
+          <Route path="/tabs" element={
+            <MusicUploadProvider>
+              <TabPage />
+            </MusicUploadProvider>
+          } />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="/profile/:userId" element={<UserProfilePage />} /> {/* Add route for UserProfilePage */}
+          <Route path="/store/:userId" element={<ProducersStore />} /> {/* Add route for UserProfilePage */}
+          <Route path="/post/:postId" element={<PostPage />} /> {/* Add route for PostPage */}
+          <Route path="/view-post/:postId" element={<ViewPostPage />} /> {/* Ensure ViewPostPage route */}
+          <Route path="/post-timeline" element={<PostTimelinePage />} /> {/* Ensure PostTimelinePage route */}
+        </Routes>
+      </Elements>
 
       <CookieConsent
         location="bottom"

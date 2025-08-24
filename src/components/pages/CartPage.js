@@ -8,7 +8,7 @@ import GroupA from "../component/header.js";
 import PaystackPayment from "../component/PaystackPayment";
 import { GroupE, GroupF, GroupG } from "../component/footer.js";
 import Modal from "../Modal"; // Import the Modal component
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet-async";
 
 function CartPage() {
     const [cart, setCart] = useState([]); 

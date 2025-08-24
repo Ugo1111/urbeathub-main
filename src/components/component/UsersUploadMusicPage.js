@@ -10,8 +10,7 @@ import Monetization from "./Monetization"; // Import Monetization component
 import Modal from "react-modal"; // Import Modal
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { ToastContainer, toast } from "react-toastify";
-import { Helmet } from "react-helmet";
-
+import { Helmet } from "react-helmet-async";
 
 const UsersUploadMusicPage = () => {
   const {

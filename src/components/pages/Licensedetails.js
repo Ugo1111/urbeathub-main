@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from "react";
 import "../css/addToCart.css";
 import { GroupF, GroupG } from "../component/footer"; 
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet-async";
 import GroupA from "../component/header.js";
 
 const licenses = [

@@ -3,7 +3,7 @@ import "../css/component.css";
 import { Link } from "react-router-dom";
 import GroupA from "../component/header.js";
 import { GroupF, GroupG } from "../component/footer";
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet-async";
 
 const coverart = "/images/art.jpg";
 const coverart2 = "/images/art1.jpg";

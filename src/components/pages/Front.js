@@ -9,7 +9,7 @@ import RecomendationComponent from "../component/recomendationComponent";
 import FeedbackForm from "../component/FeedbackForm"; // Import FeedbackForm
 import DistributionLogo from "../component/DistributionLogo.js";
 import HomePageFeed from "../component/HomePageFeed.js";
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet-async";
 
 
 const sound = "/images/prdoucer studio.jpg";
@@ -170,9 +170,9 @@ function Front() {
 
  <RecomendationComponent />
 
-  {/*<DistributionLogo /> */}
 
- {/*<HomePageFeed /> */}
+  <DistributionLogo /> 
+ 
   
 </div>
     <div className="distribute">
@@ -225,8 +225,8 @@ function Front() {
         </div>
       </section>
 
+      <HomePageFeed />
       <GraphicsSection Art={Art} navigate={navigate} isSignedIn={isSignedIn} />
-      
       
 
       <SellBeatsInfo navigate={navigate} />
