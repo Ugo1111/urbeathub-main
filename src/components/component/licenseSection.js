@@ -6,13 +6,32 @@ import { Link } from "react-router-dom";
 import { getFirestore, collection, getDocs, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useUpgradePrice } from "../component/UpgradePrice.js";
+import { useUserLocation } from "../utils/useUserLocation";
+import { getExchangeRate } from "../utils/exchangeRate";
 
 export default function LicensingSection({ song }) {
   const [toggleAccordion, setToggleAccordion] = useState("basic");
   const [accordionOpen, setAccordionOpen] = useState(true);
   const [purchasedLicenses, setPurchasedLicenses] = useState([]);
+  const [exchangeRate, setExchangeRate] = useState(null);
+  const userCountry = useUserLocation();
   const auth = getAuth();
   const db = getFirestore();
+
+  // Fetch exchange rate if user is in Nigeria
+  useEffect(() => {
+    if (userCountry === "GB") {
+      async function fetchRate() {
+        try {
+          const rate = await getExchangeRate();
+          setExchangeRate(rate);
+        } catch {
+          setExchangeRate(null); // fallback
+        }
+      }
+      fetchRate();
+    }
+  }, [userCountry]);
 
   const licenseTier = {
     "Basic License": 1,
@@ -21,17 +40,14 @@ export default function LicensingSection({ song }) {
     "Exclusive License": 4,
   };
 
-  const getPriceValue = (priceStr) =>
-    parseFloat(priceStr.replace("$", "")) || 0;
+  const getPriceValue = (priceStr) => parseFloat(priceStr.replace("$", "")) || 0;
 
   const licenses = useMemo(
     () => ({
       basic: {
         enabled: song?.monetization?.basic?.enabled || false,
         name: "Basic License",
-        price: song?.monetization?.basic?.price
-          ? `$${song.monetization.basic.price}`
-          : "$25.00",
+        price: song?.monetization?.basic?.price ? `$${song.monetization.basic.price}` : "$25.00",
         details: "MP3",
         usageTerms: [
           "Receive a High Quality MP3",
@@ -45,9 +61,7 @@ export default function LicensingSection({ song }) {
       premium: {
         enabled: song?.monetization?.premium?.enabled || false,
         name: "Premium License",
-        price: song?.monetization?.premium?.price
-          ? `$${song.monetization.premium.price}`
-          : "$35.00",
+        price: song?.monetization?.premium?.price ? `$${song.monetization.premium.price}` : "$35.00",
         details: "MP3, WAV",
         usageTerms: [
           "Receive HQ MP3 & WAV",
@@ -58,28 +72,10 @@ export default function LicensingSection({ song }) {
           "Must Credit Ur BeatHub",
         ],
       },
-      wavStems: {
-        enabled: song?.monetization?.wavStems?.enabled || false,
-        name: "Wav stems",
-        price: song?.monetization?.wavStems?.price
-          ? `$${song.monetization.wavStems.price}`
-          : "$50.00",
-        details: "STEMS, MP3, WAV",
-        usageTerms: [
-          "Receive HQ MP3, WAV & Trackouts",
-          "Use It Commercially",
-          "Sell Up To 20,000 Copies",
-          "Limited to 100,000 Streams",
-          "YT Monetization + 1 Music Video",
-          "Must Credit Ur BeatHub",
-        ],
-      },
       unlimited: {
         enabled: song?.monetization?.unlimited?.enabled || false,
         name: "Unlimited License",
-        price: song?.monetization?.unlimited?.price
-          ? `$${song.monetization.unlimited.price}`
-          : "$85.00",
+        price: song?.monetization?.unlimited?.price ? `$${song.monetization.unlimited.price}` : "$85.00",
         details: "STEMS, MP3, WAV",
         usageTerms: [
           "Receive HQ MP3, WAV & Trackouts",
@@ -109,23 +105,19 @@ export default function LicensingSection({ song }) {
 
   const isExclusiveLicense = toggleAccordion === "exclusive";
 
+  // Fetch purchased licenses
   useEffect(() => {
     const fetchPurchasedLicenses = async () => {
       const user = auth.currentUser;
       if (!user) return;
-
       try {
-        const purchasesRef = collection(
-          db,
-          `beatHubUsers/${user.uid}/purchases`
-        );
+        const purchasesRef = collection(db, `beatHubUsers/${user.uid}/purchases`);
         const purchasesSnapshot = await getDocs(purchasesRef);
-
         const ownedLicenses = [];
+
         for (const purchaseDoc of purchasesSnapshot.docs) {
           const purchaseData = purchaseDoc.data();
           const purchaseRef = purchaseData.ref;
-
           if (purchaseRef) {
             const purchaseSnap = await getDoc(purchaseRef);
             if (purchaseSnap.exists()) {
@@ -136,55 +128,33 @@ export default function LicensingSection({ song }) {
             }
           }
         }
-
         setPurchasedLicenses(ownedLicenses);
       } catch (error) {
         console.error("Error fetching purchased licenses:", error);
       }
     };
-
     fetchPurchasedLicenses();
   }, [auth.currentUser, song.id]);
 
-  // Ownership & upgrade checks
   const user = auth.currentUser;
   const selectedLicenseName = licenses[toggleAccordion]?.name;
   const selectedLicenseTier = licenseTier[selectedLicenseName] || 0;
-  const ownedTier = Math.max(
-    ...purchasedLicenses.map((l) => licenseTier[l] || 0),
-    0
-  );
-  const ownedLicenseName = Object.keys(licenseTier).find(
-    (key) => licenseTier[key] === ownedTier
-  );
+  const ownedTier = Math.max(...purchasedLicenses.map((l) => licenseTier[l] || 0), 0);
+  const ownedLicenseName = Object.keys(licenseTier).find((key) => licenseTier[key] === ownedTier);
   const ownedLicensePrice = getPriceValue(
-    Object.values(licenses).find((l) => l.name === ownedLicenseName)?.price ||
-      "$0.00"
+    Object.values(licenses).find((l) => l.name === ownedLicenseName)?.price || "$0.00"
   );
 
   const isExactOrLowerOwned = selectedLicenseTier <= ownedTier;
-  const isUpgrade =
-    ownedTier > 0 &&
-    selectedLicenseTier > ownedTier &&
-    selectedLicenseName !== "Exclusive License"; // ❌ Never upgrade Exclusive
+  const isUpgrade = ownedTier > 0 && selectedLicenseTier > ownedTier && selectedLicenseName !== "Exclusive License";
 
   const stableCart = useMemo(
-    () => [
-      {
-        id: song.id,
-        songId: song.id,
-        license: licenses[toggleAccordion]?.name || "Basic License",
-      },
-    ],
+    () => [{ id: song.id, songId: song.id, license: licenses[toggleAccordion]?.name || "Basic License" }],
     [song.id, licenses[toggleAccordion]?.name]
   );
 
-  const stableSelectedLicense = useMemo(
-    () => licenses[toggleAccordion],
-    [toggleAccordion, licenses]
-  );
+  const stableSelectedLicense = useMemo(() => licenses[toggleAccordion], [toggleAccordion, licenses]);
 
-  // ✅ Only call API when it's a valid upgrade (not Exclusive)
   const { upgradePrice, loading, error } = useUpgradePrice({
     email: user?.email || null,
     uid: user?.uid || null,
@@ -192,56 +162,45 @@ export default function LicensingSection({ song }) {
     selectedLicense: isUpgrade ? stableSelectedLicense : null,
   });
 
+  // Format price helper
+  const formatPrice = (usdAmount) => {
+    if (!usdAmount) usdAmount = 0;
+    if (userCountry === "GB" && exchangeRate) {
+      return `₦${Math.round(usdAmount * exchangeRate).toLocaleString()}`;
+    }
+    return `$${usdAmount.toFixed(2)}`;
+  };
+
   return (
     <div className="licensing-container">
       <span className="licensing-header">
         <h2>Licensing</h2>
         <div className="checkout">
           <span>
-            {selectedLicenseName === "Exclusive License" ? (
-              "" // Hide price text for Exclusive
-            ) : isExactOrLowerOwned ? (
-              "Already Purchased"
-            ) : isUpgrade ? (
-              <>
-                {loading ? (
-                  "Calculating upgrade..."
-                ) : error ? (
-                  <span style={{ color: "red" }}>{error}</span>
+            {selectedLicenseName === "Exclusive License" ? "" :
+              isExactOrLowerOwned ? "Already Purchased" :
+                isUpgrade ? (
+                  loading ? "Calculating upgrade..." :
+                    error ? <span style={{ color: "red" }}>{error}</span> :
+                      <>
+                        Upgrade: {formatPrice(upgradePrice)}
+                        <span style={{ textDecoration: "line-through", color: "gray", marginLeft: "8px" }}>
+                          {formatPrice(getPriceValue(licenses[toggleAccordion]?.price))}
+                        </span>
+                      </>
                 ) : (
-                  <>
-                    Upgrade: ${Number(upgradePrice).toFixed(2)}
-                    <span
-                      style={{
-                        textDecoration: "line-through",
-                        color: "gray",
-                        marginLeft: "8px",
-                      }}
-                    >
-                      {licenses[toggleAccordion]?.price}
-                    </span>
-                  </>
-                )}
-              </>
-            ) : (
-              `Total: ${licenses[toggleAccordion]?.price}`
-            )}
+                  `Total: ${formatPrice(getPriceValue(licenses[toggleAccordion]?.price))}`
+                )
+            }
           </span>
 
           {isExclusiveLicense ? (
-            <Link
-              to={{
-                pathname: "/NegotiatePage",
-                state: { song, licenses, toggleAccordion },
-              }}
-            >
+            <Link to={{ pathname: "/NegotiatePage", state: { song, licenses, toggleAccordion } }}>
               <button className="negotiate-price-btn">Negotiate price</button>
             </Link>
           ) : isExactOrLowerOwned ? (
             <a href={song.musicUrls?.mp3 || "#"} download>
-              <button className="buy-now-btn">
-                <FaDownload /> Download
-              </button>
+              <button className="buy-now-btn"><FaDownload /> Download</button>
             </a>
           ) : (
             <>
@@ -267,9 +226,7 @@ export default function LicensingSection({ song }) {
                   ownedLicensePrice,
                 }}
               >
-                <button className="buy-now-btn">
-                  {isUpgrade ? "Upgrade" : "Buy now"}
-                </button>
+                <button className="buy-now-btn">{isUpgrade ? "Upgrade" : "Buy now"}</button>
               </Link>
             </>
           )}
@@ -282,15 +239,9 @@ export default function LicensingSection({ song }) {
         {Object.entries(licenses)
           .filter(([_, license]) => license.enabled)
           .map(([key, license]) => (
-            <div
-              key={key}
-              className={`license-card ${
-                key === toggleAccordion ? "active" : ""
-              }`}
-              onClick={() => setToggleAccordion(key)}
-            >
+            <div key={key} className={`license-card ${key === toggleAccordion ? "active" : ""}`} onClick={() => setToggleAccordion(key)}>
               <h3>{license.name}</h3>
-              <p>{license.price}</p>
+              <p>{formatPrice(getPriceValue(license.price))}</p>
               <small>{license.details}</small>
             </div>
           ))}
@@ -300,25 +251,18 @@ export default function LicensingSection({ song }) {
       <div className="usageTermHeader">
         <h3 className="usageTermHeaderh3">The terms</h3>
         <button onClick={() => setAccordionOpen(!accordionOpen)}>
-          {accordionOpen ? (
-            <FaChevronUp size="1.5em" />
-          ) : (
-            <FaChevronDown size="1.5em" />
-          )}
+          {accordionOpen ? <FaChevronUp size="1.5em" /> : <FaChevronDown size="1.5em" />}
         </button>
       </div>
 
       <div className={accordionOpen ? "accordionOpen" : "panel"}>
         <br />
         <span>{licenses[toggleAccordion]?.name}</span>
-        <span> ({licenses[toggleAccordion]?.price})</span>
-        <br />
-        <br />
+        <span> ({formatPrice(getPriceValue(licenses[toggleAccordion]?.price))})</span>
+        <br /><br />
         <div className="usageTermSection">
           {licenses[toggleAccordion]?.usageTerms?.map((term, index) => (
-            <div key={index} className="usageTermList">
-              {term}
-            </div>
+            <div key={index} className="usageTermList">{term}</div>
           ))}
         </div>
       </div>

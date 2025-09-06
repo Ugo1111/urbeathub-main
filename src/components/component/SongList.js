@@ -9,6 +9,8 @@ import MoreOptions from "./moreOptions.js";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import djImage from '../../images/dj.jpg';
 import { trackEvent } from "../../App"; // adjust path if needed
+import { useUserLocation } from "../utils/useUserLocation";
+import { getExchangeRate } from "../utils/exchangeRate";
 
 
 
@@ -17,6 +19,38 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef();
   const db = getFirestore();
+
+  // Location & exchange rate logic
+  const userCountry = useUserLocation();
+  const [exchangeRate, setExchangeRate] = useState(null);
+
+  useEffect(() => {
+    if (userCountry === "GB") {
+      async function fetchRate() {
+        try {
+          const rate = await getExchangeRate();
+          setExchangeRate(rate);
+        } catch {
+          setExchangeRate(null);
+        }
+      }
+      fetchRate();
+    }
+  }, [userCountry]);
+
+  const parsePrice = (price) => {
+    if (!price) return 0;
+    const num = parseFloat(price.toString().replace(/[^0-9.]/g, ""));
+    return isNaN(num) ? 0 : num;
+  };
+
+  const formatPrice = (usdAmount) => {
+    if (!usdAmount) usdAmount = 0;
+    if (userCountry === "GB" && exchangeRate) {
+      return `₦${Math.round(usdAmount * exchangeRate).toLocaleString()}`;
+    }
+    return `$${usdAmount.toFixed(2)}`;
+  };
 
   useEffect(() => {
     const fetchLikes = async () => {
@@ -109,7 +143,8 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
 
               <Link to="/addToCart" state={{ song }}>
               <button className="songlist-addtochart">
-                <FaCartShopping style={{ marginRight: "6px" }} />${song.monetization?.basic?.price}
+                <FaCartShopping style={{ marginRight: "6px" }} />
+                {formatPrice(parsePrice(song.monetization?.basic?.price))}
               </button>
               </Link>
 

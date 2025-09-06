@@ -28,7 +28,7 @@ yarn-error.log*
 
 # Ignore the 'functions' folder
 functions/
-
+.functions
 # Ignore the 'firebase.js' file inside the 'src/firebase' folder
 /src/firebase/firebase.js
 
