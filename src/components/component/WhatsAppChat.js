@@ -10,7 +10,7 @@ const WhatsAppChat = () => {
   return (
     <div
       id="whatsapp-chat"
-      style={{ position: "fixed", bottom: 20, right: 20, zIndex: 1000 }}
+      style={{ position: "fixed", bottom: 50, right: 20, zIndex: 1000 }}
     >
       <button
         className="chat-button"
@@ -28,9 +28,10 @@ const WhatsAppChat = () => {
           boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
           cursor: "pointer",
         }}
-      >
-        💬
-      </button>
+      > 
+      <span className="visually-hidden">Whatsapp chat</span>
+      <span aria-hidden="true">💬</span>
+      </button> 
 
       {isChatOpen && (
         <div

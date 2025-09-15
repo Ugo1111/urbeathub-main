@@ -53,6 +53,16 @@ body {
   background-color: #a61eef;
   color: #eecf1f; */
 }
+.song button{
+  background-color: #db3056;
+  padding: 15px;
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+}
+.song button:hover{
+  background-color: #f31243;
+}
 
 .secondContainer {
   
@@ -103,6 +113,7 @@ margin-bottom: 25px;
   .beat-details h2{
     margin: 10px 0 0 10px;
     font-size: large;
+    color: #dddddd;
   }
 
 
@@ -240,6 +251,9 @@ font-size: 2.5em; /* Matches the size */
   background-color: #db3056; /* Optional */
   padding: 5px; /* Optional */
   color: #4f4e4e;
+}
+.send-icon:hover {
+  background: #db3056;
 }
 
 .comments-list {
@@ -422,6 +436,7 @@ gap: 20px;
   .licensing-header h2 {
     margin-top: auto;
     margin-bottom: auto;
+    color: #aaa;
     /* border: #56eb25 2px solid; */
     
   }
@@ -563,14 +578,16 @@ margin-top: auto;
 margin-bottom: auto;
 }
 
-.usageTermHeader button {
-  
+.usageTermHeader button { 
   background: none;
   border: none;
-  
-  padding: 0;
+ padding: 0;
   width: 50px;
   color: #d9d9d9;
+}
+.usageTermHeader button:hover{
+  color: #f9f9f9;
+  background: none;
 }
 
 
@@ -970,6 +987,9 @@ padding: 3px 5px 3px 2px;
   margin-top: 8px;
   cursor: pointer;
 }
+.recomendation-AddToCart-button:hover{
+  background-color: #f8063b;
+}
 
 .comment-date{
 color: #5b5b5b;
@@ -985,6 +1005,18 @@ font-style: italic;
 .report-section{
   margin-top: 20px;
   
+}
+
+.report-section button{
+  background-color: #db3056;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+}
+
+.report-section button:hover{
+  background-color: #f30539;
 }
 
 .report-form{
@@ -1010,18 +1042,24 @@ font-style: italic;
   background: #000000;
   color: #ffffff;
 }
-.report-submit,
-.report-cancel {
-  
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
+
 .report-submit {
-  background-color:#db3056;;
+  background-color:#db3056;
   color: white;
+   padding: 10px 20px;
+  border: none;
+  gap: 10px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .report-submit:hover {
@@ -1029,12 +1067,16 @@ font-style: italic;
 }
 
 .report-cancel {
-  background-color:#333;
+  background:#333;
   color: #000000;
+   padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .report-cancel:hover {
-  background-color: #e1e1e1;
+  background: #e1e1e1;
   color: #000000;
 }
 /* cookie consent privacy policy style */
@@ -1083,7 +1125,8 @@ font-style: italic;
 
 
 .beatlicenses3:hover {
-  background-color: #b3000f;
+  background-color: #db3056;
+  color: white;
 }
 
 .beatlicenses4 {
@@ -1093,6 +1136,14 @@ font-style: italic;
   margin-top: 5px;
   line-height: 1.6;
   white-space: pre-line;
+  color: #333;
+}
+.license-btn{
+  color: #db3056;
+  text-decoration: none;
+}
+.license-btn:hover{
+  text-decoration: underline;
 }
 
 .refund-policy-container {
@@ -1134,7 +1185,7 @@ font-style: italic;
   position: fixed;
   border: none;
   height: 100vh;
-  width: 80vw;
+  width: 100vw;
   right: 0;
   top: 0;
   padding: 20px;
@@ -1142,7 +1193,11 @@ font-style: italic;
   color:#2b2828;
   background-color: #ddd;
   overflow-x: hidden;;
-overflow-y: auto;
+  overflow-y: auto;
+}
+
+.terms-conditions-container h2{
+  text-align: left;
 }
 
 .video-wrap {
@@ -1191,7 +1246,7 @@ overflow-y: auto;
   color: #ffffff;
   padding: 10px 20px;
   border-radius: 10px;
-  font-size: 1rem;
+  font-size: 0.8rem;
   border: none;
   cursor: pointer;
 }
@@ -1236,6 +1291,8 @@ overflow-y: auto;
 .why-sell-beat-box h2 {
   margin-bottom: 1rem;
   font-size: 1.5rem;
+  text-align: left;
+  color: #ccc;
 }
 
 .why-sell-beat-box p {
@@ -1252,6 +1309,7 @@ overflow-y: auto;
   font-size: 32px;
   margin-bottom: 40px;
   font-weight: bold;
+  color: #ccc;
 }
 
 .lease-grid {
@@ -1352,6 +1410,7 @@ overflow-y: auto;
     .item-actions{
       display: none;
     }
+    
     .video-wrap {
       height: 55vh;
     }
@@ -1377,6 +1436,7 @@ width: 95%;
 .terms-conditions-container h1{
   font-size: 1.5rem;
 }
+
 
 .selectedCartSummary {
     flex-direction: column;
@@ -1437,9 +1497,13 @@ width: 95%;
     width: 97vw;
          }
         
-      
-        
-      
+   .add-to-cart-btn {
+    background-color: #333;
+    color: white;
+    padding: 5px 10px;
+    margin-right: 10px;
+  }
+
         .licensing-container h2 {
           font-size: 1rem;
           margin-bottom: 20px;

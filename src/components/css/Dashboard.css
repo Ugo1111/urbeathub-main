@@ -1,0 +1,289 @@
+.form-container {
+  display: flex;
+  position: relative;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: whitesmoke;
+  padding: 15px;
+  color: #333;
+  transition: width 0.3s ease, padding 0.3s ease, transform 0.3s ease;
+  position: fixed;
+  height: 100vh;
+  overflow-x: hidden;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Collapsed Sidebar */
+.sidebar.collapsed {
+  width: 60px;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 60px;
+}
+
+.sidebar.collapsed .sidebtn .text {
+  display: none;
+}
+
+.sidebar.collapsed .sellbeat-user-profile,
+.sidebar.collapsed .sellbeat-username {
+  display: none;
+}
+.sidebar-top-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+
+.dash-btn {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+}
+
+
+.dash-btn:hover {
+  color: #db3056;
+}
+
+.sidebar-top-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+}
+
+.sidebar.open .sidebar-top-controls {
+  display: flex;
+}
+
+.sidebar.collapsed .sidebar-top-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* Sidebar Buttons */
+.sidebtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  background: none;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.sidebtn:hover {
+  color: #db3056;
+  background: none;
+}
+
+.icon {
+  font-size: 18px;
+  min-width: 24px;
+  text-align: center;
+  display: inline-block;
+}
+
+/* Active Button */
+.active-btns {
+  background-color: #db3056;
+  color: white;
+  border-radius: 5px;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px;
+  background-color: #dddddd;
+  color: #333;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.expanded {
+  margin-left: 60px;
+}
+
+/* Toggle Button */
+.toggle-btn {
+  background: #db3056;
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+  display: block;
+  z-index: 1200;
+}
+
+.toggle-btn:hover {
+  background: #b22a4d;
+}
+
+.float-toggle {
+  position: fixed;
+  top: 0;
+  left: 15px;
+  z-index: 1100;
+}
+
+/* Background Blur for Mobile */
+.blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 900;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.blur.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* Only affects Termsandcondition **inside** Dashboard */
+.dashboard-terms-wrapper .terms-conditions-container {
+  /* Let it flow with the main-content flex area */
+  position: static;          /* instead of fixed          */
+  width: 100%;               /* occupy all available room */
+  height: auto;              /* natural height            */
+  max-height: 100%;          /* keep scroll behaviour     */
+  overflow-y: auto;          /* keep internal scroll      */
+}
+
+/* Only affects DashboardComponent **inside** Dashboard layout */
+.dashboard-component-wrapper .dashboard-body {
+  position: static !important;   /* Let it flow in layout */
+  width: 100% !important;        /* Full width of available space */
+  height: auto !important;       /* Adjust height naturally */
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.dashboard-component-wrapper .dashboard-container {
+  margin-top: 0 !important;
+}
+/* Only affects EditStoreFront inside the Dashboard layout */
+.dashboard-storefront-wrapper .edit-store-front-container {
+  background-color: none;  /* Match Dashboard background */
+  display: block !important;             /* Stop centering like a modal */
+  justify-content: unset !important;
+  align-items: unset !important;
+  width: 100% !important;
+  min-height: auto !important;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Let the form stretch naturally inside dashboard space */
+.dashboard-storefront-wrapper .edit-store-front {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto;
+  background-color: white;
+}
+
+/* Scoped only when Profile page is rendered inside Dashboard */
+.dashboard-profile-wrapper {
+  background-color: #f4f7fa; /* light gray or any color you want */
+  min-height: 100vh;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+/* Adjust width based on sidebar state */
+.sidebar.collapsed ~ .main-content .dashboard-profile-wrapper {
+  margin-left: 70px;
+  width: calc(100% - 70px);
+}
+
+.sidebar.open ~ .main-content .dashboard-profile-wrapper {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+}
+
+
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .main-content {
+    margin-left: 250px;
+  }
+  .sidebar.collapsed + .main-content {
+    margin-left: 60px;
+  }
+}
+
+/* Mobile */
+/* Mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+    width: 250px;
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.open {
+    transform: translateX(0); /* Slide in */
+  }
+
+  .sidebar.collapsed {
+    width: 60px; /* Collapsed width for mobile */
+    transform: translateX(0); /* Still visible */
+  }
+
+  .sidebar.collapsed .sidebtn .text {
+    display: none; /* Hide text but show icons */
+  }
+
+  .main-content {
+    margin-left: 0; /* No default margin for mobile */
+  }
+
+  .toggle-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+  }
+
+  .sidebar-top-controls {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .toggle-btn,
+  .back-btn {
+    font-size: 18px;
+  }
+}

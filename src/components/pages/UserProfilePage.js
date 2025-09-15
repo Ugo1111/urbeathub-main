@@ -656,7 +656,7 @@ const UserProfilePage = () => {
               onClick={handleShareProfile}
               title="Share Profile" // Tooltip for accessibility
             >
-              <IoShareSocialOutline size="1.5em" color="#007bff" />
+              <IoShareSocialOutline size="1.5em" color="#db3056" />
             </button>
           </div>
 

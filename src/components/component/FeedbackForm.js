@@ -143,7 +143,7 @@ function FeedbackForm({ onClose }) {
           </div>
         </div>
 
-        <button type="submit">Send</button>
+        <button className="sendbutton" type="submit">Send</button>
       </form>
     </div>
     </div>

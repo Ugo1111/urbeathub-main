@@ -202,4 +202,5 @@ export default function useActivityLogger() {
       document.removeEventListener("visibilitychange", sendLog);
     };
   }, []);
+  
 }

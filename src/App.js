@@ -28,7 +28,6 @@ import "./App.css";
 import Privacy from "./components/pages/privacy";
 import Termsandcondition from "./components/pages/Termsandcondition";
 import Licensedetails from "./components/pages/Licensedetails";
-import CoverArt from "./components/pages/CoverArt"; // Import CoverArt component
 import Front from "./components/pages/Front"; // Import Front component
 import Startsellingpage from "./components/pages/startsellingpage";
 import Refundpolicy from "./components/pages/Refundpolicy";
@@ -45,6 +44,25 @@ import PostPage from "./components/pages/PostPage"; // Import PostPage component
 import ViewPostPage from "./components/pages/ViewPostPage"; // Import ViewPostPage
 import PostTimelinePage from "./components/pages/PostTimelinePage"; // Import PostTimelinePage
 import useActivityLogger from "./hooks/useActivityLogger";
+import Dashboard from './components/pages/Dashboard.js';
+import Tracks from './components/pages/Tracks.js';
+import ImageEditor from './components/pages/ImageEditor.js';
+import Blog from './components/pages/Blog.js';
+import BlogPost from './components/pages/BlogPost.js';
+import ErrorBoundary from "./components/ErrorBoundary";
+import { logErrorToTelegram } from "./components/utils/errorLogger";
+
+// Capture global JS errors
+window.onerror = (msg, url, lineNo, columnNo, error) => {
+  logErrorToTelegram(error || msg, "Window Error");
+  return false;
+};
+
+// Capture unhandled promise rejections
+window.onunhandledrejection = (event) => {
+  logErrorToTelegram(event.reason, "Unhandled Promise Rejection");
+};
+
 
 // Initialize Google Analytics
 ReactGA.initialize('G-8Q9JH9G3KH');
@@ -66,6 +84,7 @@ function App() {
   return (
     <Router>
       <RouteTracker />
+      <ErrorBoundary>
       <Routes>
         <Route path="/" element={<Front />} />
         <Route path="/homePage" element={<HomePage />} />
@@ -81,11 +100,18 @@ function App() {
         <Route path="/UploadedbeatsPage" element={<UploadedbeatsPage />} />
         <Route path="/searchComponent" element={<SerachedBeatsList />} />
         <Route path="/NegotiatePage" element={<NegotiatePage />} />
-        <Route path="/SellBeatPage/*" element={
+       {/* <Route path="/SellBeatPage/*" element={
           <MusicUploadProvider>
             <SellBeatPage />
           </MusicUploadProvider>
+        } />*/}
+
+        <Route path="/Dashboard" element={
+          <MusicUploadProvider>
+            <Dashboard />
+          </MusicUploadProvider>
         } />
+
         <Route path="/ViewEditSellBeatPage" element={<ViewEditSellBeatPage />} />
         <Route path="/paymentPage" element={<PaymentPage />} />
         <Route path="/checkoutpaymentPage" element={<CheckoutpaymentPage />} />
@@ -93,13 +119,16 @@ function App() {
         <Route path="/PageTwo" element={<PageTwo />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/Licensedetails" element={<Licensedetails />} />
-        <Route path="/coverart" element={<CoverArt />} />
+        <Route path="/ImageEditor" element={<ImageEditor />} />
         <Route path="/coverartshowcase" element={<CoverArtShowcase />} />
       <Route path="/musicDistributionForm" element={<MusicDistributionForm />} />
         <Route path="/termsandcondition" element={<Termsandcondition />} />
         <Route path="/startsellingpage" element={<Startsellingpage />} />
         <Route path="/Refundpolicy" element={<Refundpolicy />} />
+        <Route path="/Tracks" element={<Tracks />} />
         <Route path="/EditTrackPage" element={<EditTrackPage />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="/usersUploadMusicPage" element={
           <MusicUploadProvider>
             <UsersUploadMusicPage />
@@ -117,7 +146,7 @@ function App() {
         <Route path="/view-post/:postId" element={<ViewPostPage />} /> {/* Ensure ViewPostPage route */}
         <Route path="/post-timeline" element={<PostTimelinePage />} /> {/* Ensure PostTimelinePage route */}
       </Routes>
-
+      </ErrorBoundary>
       <CookieConsent
         location="bottom"
         buttonText="Accept"

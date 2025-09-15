@@ -26,6 +26,9 @@ function MusicPlayer({
         <div className="imageWrapper">
           <img src={currentSong?.coverUrl || djImage} alt={`Cover for ${currentSong?.title || "Untitled"}`} />
           <button className="playIcon" onClick={() => togglePlayPause()}>
+            <span className="visually-hidden">
+      {isPlaying ? "Pause track" : "Play track"}
+    </span>
             {isPlaying ? <FaPause className="icon" /> : <FaPlay className="icon" />}
           </button>
         </div>
@@ -51,10 +54,12 @@ function MusicPlayer({
 
         <div className="controllerB3">
           <button onClick={playPrevious}>
+             <span className="visually-hidden">Backward track</span>
             <GiPreviousButton size="1em" />
           </button>
           <button onClick={playNext}>
-            <GiNextButton size="1em" />
+             <span className="visually-hidden">Forward track</span>
+            <GiNextButton size="1em"  />
           </button>
 
           <input 
@@ -75,7 +80,7 @@ function MusicPlayer({
               }} 
               style={{ fontSize: "1rem" }}
             >
-              +
+             <span className="visually-hidden">User Increase Volume</span>+
             </button>
             <button 
               onClick={() => {
@@ -84,7 +89,7 @@ function MusicPlayer({
               }} 
               style={{ fontSize: "1em" }}
             >
-              -
+             <span className="visually-hidden">User Decrease Volume</span>-
             </button>
           </div>
         </div>

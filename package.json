@@ -18,6 +18,7 @@
     "firebase": "^11.4.0",
     "firebase-admin": "^13.0.2",
     "framer-motion": "^12.17.0",
+    "html2canvas": "^1.4.1",
     "https-browserify": "^1.0.0",
     "lamejs": "^1.2.1",
     "mp3tag.js": "^3.11.2",

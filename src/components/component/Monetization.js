@@ -101,7 +101,7 @@ const Monetization = () => {
                             />
                         </div>
                     )}
-                    <button onClick={(e) => toggleLicense(key, e)}>
+                    <button className="toggle-price" onClick={(e) => toggleLicense(key, e)}>
                         {enabled ? "On ✅" : "Off ❌"}
                     </button>
                 </div>

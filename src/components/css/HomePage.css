@@ -106,6 +106,9 @@ overflow: hidden;
   height: 50%;
   size: 80%;
 }
+.playIcon:hover{
+  background-color: #f1073a;;
+}
 
 .icon {
   font-size: 1.5rem
@@ -590,8 +593,11 @@ font-size: medium;
   .controllerB3 button{ 
     background-color: #222222;
     border: #eaeaea1f 0.5px solid;
-    height: 50%;
+    height: 100%;
     color: #9a9a9a;
+     align-items: center;
+    justify-content: center;
+    padding: 10px;
   }
   
 
@@ -601,8 +607,9 @@ font-size: medium;
 
 
   .controllerB3{
-  display: flex;
+  display: flex; 
  flex-direction: row;
+ 
   }
 
   .volnav{
@@ -614,9 +621,10 @@ font-size: medium;
   .volnav button{
     
     border: #eaeaea1f 0.5px solid;
-    height: 50%;
+    height: 100%;
     color: #9a9a9a;
     display: flex;
+    padding: 10px;
     align-items: center;
     justify-content: center;
   }
@@ -844,7 +852,12 @@ font-size: medium;
       overflow: hidden;
       text-overflow: ellipsis; 
      }
-  
+  .songlist-addtochart {
+    width: 80px;
+    height: 40px;
+     max-width: 100px; 
+    max-height: 45px; 
+  }
 
   .GroupC1{
     width: 90%;
@@ -1062,6 +1075,7 @@ font-size: medium;
      max-width: 80px; 
     max-height: 45px; 
   }
+  
   .controllerB3 {
     flex-direction: row; /* Stack buttons vertically */
     align-items: center; /* Center buttons horizontally */

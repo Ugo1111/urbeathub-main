@@ -87,93 +87,199 @@
   background: #000000;
 }
 
- .tooltip {
-          position: relative;
-          display: inline-block;
-        }
+ .monetization-container {
+  padding: 1rem;
+  display: grid;
+  gap: 1.5rem;
+}
 
-        .tooltip-text {
-          visibility: hidden;
-          width: 240px;
-          background-color: #333;
-          color: #fff;
-          text-align: left;
-          white-space: pre-line;
-          padding: 6px 10px;
-          border-radius: 6px;
-          position: absolute;
-          z-index: 1;
-          bottom: 125%;
-          left: 50%;
-          transform: translateX(-50%);
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          font-size: 0.85rem;
-          line-height: 1.3;
-        }
-
-        .tooltip:hover .tooltip-text {
-          visibility: visible;
-          opacity: 1;
-        }
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+}
 
 .Basic-License {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border: solid 1px #000000;
-  background-color: #ffffff;
-  color: black;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 1.2rem;
   border-radius: 10px;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  padding: 10px;
-  gap: 20px;
-  width: 90%;
-  max-width: 500px;
-  text-align: center;
-}
-
-.Basic-License input {
-  width: 60px;
-  padding: 5px;
-  border-radius: 5px;
-  border: solid 1px gray;
-}
-
-/* Make BPM section more adaptable */
-.BPM-Key {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin: 20px 0;
+  gap: 0.75rem;
 }
+
+.Basic-License div:first-child {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #111;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 240px;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 10px;
+  position: absolute;
+  z-index: 10;
+  top: 100%;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  font-size: 0.85rem;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+label {
+  font-weight: 500;
+  color: #444;
+}
+
+.toggle-price {
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  background-color: #db3056;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: fit-content;
+}
+
+.toggle-price:hover {
+  background-color: #fc063b;
+}
+
+@media screen and (max-width: 600px) {
+  .Basic-License {
+    padding: 1rem;
+  }
+
+  input[type="number"] {
+    font-size: 0.95rem;
+  }
+
+  .tooltip-text {
+    width: 200px;
+    font-size: 0.75rem;
+  }
+}
+
 
 
 .Metadata-Fields {
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 90%;
-  max-width: 500px;
-  margin: 10px auto;
 }
 
 .Metadata-Fields label {
-  font-weight: bold;
-  color: black;
-  margin: 10px 0;
-  text-align: left;
+  font-weight: 600;
+  margin-bottom: 5px;
 }
 
 .Metadata-Fields input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
   width: 100%;
-  height: 35px;
-  border-radius: 5px;
-  color: black;
-  border: rgba(116, 116, 116, 0.387) solid 1px;
+}
+
+.BPM-Key {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.BPM-Key2 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.BPM-Key2 label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.BPM-Key2 input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.tag {
+  background-color: #e0e0e0;
+  padding: 6px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.remove-tag {
+  background: none;
+  border: none;
+  color: #333;
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.tag-container input {
+  border: none;
+  outline: none;
+  padding: 6px 10px;
+  font-size: 14px;
+  flex-shrink: 0;
+  min-width: 100px;
+}
+
+/* Responsive layout for BPM & Key */
+@media (min-width: 600px) {
+  .BPM-Key {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .BPM-Key2 {
+    width: 50%;
+  }
 }
 
 /* Drop Zone */
@@ -263,7 +369,12 @@ overflow-y: auto;
   border-color: #db3056;
   box-shadow: 0 0 0 2px rgba(219, 48, 86, 0.2);
 }
-
+/* Add this to your main CSS file or inline styles */
+.center-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .upload-button {
   display: block;
@@ -657,87 +768,93 @@ left: 0;
 }
 
 
-
-
-
-
-
-
-/* General container styles */
 .payout-body{
-  background: #f8f8f8;
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 
 
 .payout-container {
-  width: 90vw;
-  height: 80vh;
-  max-width: 500px; /* Increased width */
-  margin: 40px auto;
-  padding: 40px; /* Increased padding */
-  background:#ddd; 
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.038);
-  border: solid rgba(233, 233, 233, 0.179);
+  width: 100%;
+  max-width: 600px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
 }
 
-/* Title */
+
 .payout-title {
   font-size: 24px;
-  font-weight: bold;
-  text-align: center;
+  font-weight: 600;
   margin-bottom: 20px;
+  color: #1e1e2f;
 }
 
-/* Error message */
 .payout-error-message {
-  color: red;
-  text-align: center;
-  font-weight: bold;
+  background-color: #e74c3c;
+  color: #ffffff;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.payout-accounts h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #1e1e2f;
+}
+
+.payout-accounts ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.payout-accounts li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background-color: #f9f9f9;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.payout-button-delete {
+  background-color: #e74c3c;
+  color: #ffffff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.payout-button-delete:hover {
+  background-color: #c0392b;
+}
+
+.payout-no-account {
+  font-size: 15px;
+  color: #777777;
   margin-bottom: 15px;
 }
 
-/* Form styles */
-.payout-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px; /* Increased spacing */
-}
-
-.payout-form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.payout-form-group label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.payout-form-group input {
-  width: 100%;
-  padding: 12px; /* Increased padding */
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-/* Button styles */
 .payout-button {
-  width: 100%;
-  padding: 15px; /* Bigger button */
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
+  display: inline-block;
+  padding: 10px 16px;
+  margin-top: 10px;
+  border-radius: 6px;
+  font-size: 14px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
   border: none;
-  border-radius: 8px;
-  transition: 0.3s;
 }
 
 .payout-button-primary {
@@ -746,246 +863,193 @@ left: 0;
 }
 
 .payout-button-primary:hover {
-  background-color: #dc3545;
+  background-color: #7c041e;
 }
 
-.payout-button-delete {
-  background-color: #ff4444;
-  color: white;
-  font-size: 14px;
-  padding: 8px;
-  margin-left: 10px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.payout-button-delete:hover {
-  background-color: #cc0000;
-}
-
-/* Saved accounts container */
-.payout-accounts {
-  background: white;
-  padding: 20px; /* Increased padding */
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-
-.payout-accounts h3 {
-  text-align: center;
-  font-size: 20px;
-  margin-bottom: 15px;
-}
-
-.payout-accounts ul {
-  list-style: none;
-  padding: 0;
-}
-
-.payout-accounts li {
+.payout-form {
+  margin-top: 20px;
   display: flex;
-  justify-content: space-between;
-  background: #f0f0f0;
-  padding: 15px;
-  border-radius: 8px;
-  font-size: 16px;
-  margin-bottom: 10px;
+  flex-direction: column;
+  gap: 15px;
 }
 
-/* No account message */
-.payout-no-account {
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  color: #555;
+.payout-form-group {
+  display: flex;
+  flex-direction: column;
 }
 
+.payout-form-group label {
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+}
 
-
-
-
-
+.payout-form-group input {
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
 
 
 .producermessage-body {
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-  width: 100vw;
-  height: fit-content;
+  background-color: #f5f5f5;
   min-height: 100vh;
-  background-color: #f9f9f9;
-  padding: 20px; 
+  padding: 20px;
+  box-sizing: border-box;
 }
-
 
 .producermessage-container {
-  width: 90vw; 
-  height: auto; 
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #ffffff;
   padding: 20px;
-  max-width: 500px;
-  background-color: #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center; 
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-
-.producermessage-container h2 {
+.producermessage-heading {
   font-size: 24px;
-  color: #333;
-  margin-bottom: 20px;
+  color: #1e1e2f;
+  margin-bottom: 16px;
+}
+
+.producermessage-subheading {
+  font-size: 18px;
+  color: #333333;
+  margin-bottom: 10px;
 }
 
 .producermessage-error-message {
-  color: red;
+  background-color: #e74c3c;
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
   font-size: 14px;
-  margin-bottom: 15px;
-}
-
-
-.producermessage-topic-selection {
-  margin-bottom: 30px;
-}
-
-.producermessage-topic-selection h3 {
-  font-size: 20px;
-  color: #333;
 }
 
 .producermessage-topic-selection ul {
   list-style: none;
   padding: 0;
+  margin: 0 0 20px 0;
 }
 
 .producermessage-topic-selection li {
-  padding: 8px 12px;
-  margin-bottom: 8px;
-  background-color: #e0e0e0;
-  border-radius: 4px;
+  background-color: #f0f0f0;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
   cursor: pointer;
-  font-size: 16px;
+  transition: background-color 0.3s ease;
+  border: 1px solid #ddd;
 }
 
-.producermessage-topic-selection li.selected {
-  background-color: #ddd;
-  color: white;
+.producermessage-topic-selection li:hover,
+.producermessage-selected {
+  background-color: #db3056;
+  color: #ffffff;
 }
 
 .producermessage-topic-selection button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #db3056;
-  color: white;
+  background-color: #1e1e2f;
+  color: #ffffff;
+  padding: 10px 16px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .producermessage-topic-selection button:hover {
-  background-color: #dc3545;
+  background-color: #db3056;
 }
 
 .producermessage-new-topic-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-.producermessage-new-topic-form input {
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.producermessage-new-topic-form button {
-  padding: 10px 20px;
-  background-color: #db3056;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.producermessage-new-topic-form button:hover {
-  background-color: #000000;;
-}
-
-
-.producermessage-message-list {
   margin-bottom: 20px;
 }
 
-.producermessage-message-list h3 {
-  font-size: 20px;
-  color: #333;
+.producermessage-new-topic-form input {
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
 }
 
+.producermessage-new-topic-form button {
+  background-color: #db3056;
+  color: #ffffff;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.producermessage-message-list {
+  margin-top: 20px;
+}
 
 .producermessage-message-item {
+  background-color: #f9f9f9;
   padding: 10px;
-  background-color: #ffffff;
-  border-radius: 4px;
   margin-bottom: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  border-left: 4px solid #db3056;
 }
 
-.producermessage-message-item p {
-  font-size: 16px;
-  margin: 0;
-}
-
-.producermessage-message-item .timestamp {
+.producermessage-timestamp {
   font-size: 12px;
-  color: #888;
+  color: #888888;
+  margin-top: 6px;
 }
-
 
 .producermessage-message-form {
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
   gap: 10px;
 }
 
 .producermessage-message-form textarea {
   padding: 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  height: 120px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  resize: vertical;
+  min-height: 100px;
+  font-size: 14px;
 }
 
 .producermessage-message-form button {
-  padding: 12px 20px;
   background-color: #db3056;
-  color: white;
+  color: #ffffff;
+  padding: 10px 16px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .producermessage-message-form button:hover {
-  background-color: #ddd;
-  color: #000000;
+  background-color: #f0093b;
 }
 
-
 .producermessage-back-to-topics {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #db3056;;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  margin-bottom: 15px;
+  padding: 8px 14px;
+  background-color: transparent;
+  border: 1px solid #1e1e2f;
+  color: #1e1e2f;
+  border-radius: 6px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .producermessage-back-to-topics:hover {
-  background-color: #e74d3c9b;
+  background-color: #1e1e2f;
+  color: #ffffff;
 }
 
 
@@ -1066,9 +1130,7 @@ padding: 10px;
     max-width: 400px;
   }
 
-  .Metadata-Fields {
-    width: 90%;
-  }
+  
   .track-container {
     width: 95%;
     height: auto;
@@ -1118,69 +1180,34 @@ padding: 10px;
   opacity: 0.85;
   transform: scale(1.05);
 }
-.payout-container {
-  width: 95vw;
-  padding: 20px;
-  margin-left: 30%;
-}
 
-.payout-title {
-  font-size: 18px;
-}
+  .producermessage-container {
+    padding: 15px;
+  }
 
-.payout-form-group input {
-  font-size: 14px;
-  padding: 10px;
-}
+  .producermessage-new-topic-form button,
+  .producermessage-message-form button {
+    width: 100%;
+  }
 
-.payout-button {
-  font-size: 14px;
-  padding: 12px;
-}
+  .producermessage-message-form textarea {
+    font-size: 13px;
+  }
 
-.payout-accounts li {
-  font-size: 13px;
-  padding: 10px;
-}
+  .payout-container {
+    padding: 16px;
+  }
 
+  .payout-title {
+    font-size: 20px;
+  }
 
-.producermessage-body {
-  padding: 10px; /* Reduce padding for small screens */
+  .payout-button,
+  .payout-button-primary,
+  .payout-form-group input {
+    font-size: 13px;
+  }
 }
-
-.producermessage-container {
-  width: 95vw; /* Slightly increase width on small screens */
-  padding: 15px;
-   margin-left: 20%;
-}
-
-.producermessage-container h2 {
-  font-size: 20px;
-}
-
-.producermessage-topic-selection h3,
-.producermessage-message-list h3 {
-  font-size: 18px;
-}
-
-.producermessage-message-item p {
-  font-size: 14px;
-}
-
-.producermessage-message-form textarea {
-  height: 100px;
-}
-.uploadMusicContainer{
-  width: 80vw;
-  margin-left: 13%;
-}
-.uploadMusicContainer h1{
-  font-size: 1.5rem;
-}
-}
-
-
-
 
 
 @media (max-width: 600px) {
@@ -1189,15 +1216,7 @@ padding: 10px;
     min-height: 250px;
   }
 
-  .Basic-License {
-    flex-direction: column;
-    align-items: center;
-    width: 95%;
-  }
-
-  .Metadata-Fields {
-    width: 95%;
-  }
+  
 
   .tab-buttons {
     flex-direction: column;
@@ -1258,45 +1277,6 @@ padding: 10px;
     text-overflow: ellipsis;
   }
 
-  .producermessage-container {
-      width: 70%; 
-      height: auto;
-      padding: 10px;
-      margin-left: 20%;
-  }
-
-  .producermessage-container h2 {
-      font-size: 18px;
-  }
-
-  .producermessage-topic-selection h3,
-  .producermessage-message-list h3 {
-      font-size: 16px;
-  }
-
-  .producermessage-message-item p {
-      font-size: 14px;
-  }
-
-  .producermessage-message-form textarea {
-      height: 80px;
-  }
-
-  .producermessage-message-form button {
-      padding: 10px;
-  }
-  .payout-container {
-    width: 70%;
-    padding: 20px;
-    margin-left: 25%;
-  }
-  .uploadMusicContainer{
-    width: 80vw;
-    margin-left: 13%;
-  }
-  .uploadMusicContainer h1{
-    font-size: 1.5rem;
-  }
 }
 
 @media (max-width: 480px) {
@@ -1312,5 +1292,45 @@ padding: 10px;
   color: #5c18119b;
 }
 
+  .producermessage-heading {
+    font-size: 20px;
+  }
+
+  .producermessage-subheading {
+    font-size: 16px;
+  }
+
+  .producermessage-topic-selection li {
+    font-size: 14px;
+  }
+
+  .producermessage-message-item {
+    font-size: 14px;
+  }
+
+  .producermessage-message-form textarea {
+    font-size: 13px;
+  } 
+
+  .payout-container {
+    padding: 14px;
+  }
+
+  .payout-form {
+    gap: 12px;
+  }
+
+  .payout-accounts li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .payout-button-delete {
+    align-self: flex-end;
+  }
 }
+
+
+
   
