@@ -23,19 +23,15 @@ function CheckoutPage() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
+  const [guestEmail, setGuestEmail] = useState("");
 
-  const { upgradePrice } = useUpgradePrice({
-    email: userEmail,
-    uid: user?.uid,
-    cart,
-    selectedLicense,
-  });
-
+  const [emailConfirmed, setEmailConfirmed] = useState(false);
   const auth = getAuth();
   const db = getFirestore();
 
+  // Fetch exchange rate if in NG
   useEffect(() => {
-    if (userCountry === "GB") {
+    if (userCountry === "NG") {
       async function fetchRate() {
         try {
           const rate = await getExchangeRate();
@@ -48,10 +44,12 @@ function CheckoutPage() {
     }
   }, [userCountry]);
 
+  // Load user or guest cart
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       if (currentUser) setUserEmail(currentUser.email);
+
       if (!currentUser || item) {
         setCart(item ? [item] : []);
         setLoading(false);
@@ -79,7 +77,7 @@ function CheckoutPage() {
 
   const formatPrice = (usdAmount) => {
     if (!usdAmount) usdAmount = 0;
-    if (userCountry === "GB" && exchangeRate) {
+    if (userCountry === "NG" && exchangeRate) {
       return `₦${Math.round(usdAmount * exchangeRate).toLocaleString()}`;
     }
     return `$${usdAmount.toFixed(2)}`;
@@ -87,37 +85,56 @@ function CheckoutPage() {
 
   const totalPrice = parsePrice(selectedLicense?.price);
 
-  console.log("Current cart state:", cart);
-  // ✅ Build lean cart and log it
+  // Build lean cart
   const leanCart = cart.map(item => {
-    // Map selectedLicense to the key in monetization
-    const licenseKey = (selectedLicense?.name ).toLowerCase().replace(" license", "");
-    
-    // Get price for that license
-    const price = item.monetization[licenseKey]?.price ;
-  
+    const licenseKey = (selectedLicense?.name || "Basic License").toLowerCase().replace(" license", "");
+    const price = item.monetization?.[licenseKey]?.price || 0;
     return {
       beatId: item.id,
-      license: selectedLicense?.name ,
+      license: selectedLicense?.name || "Basic License",
       price,
     };
   });
 
-  console.log("Lean cart ready for Paystack:", leanCart);
+  // Itemized display for strike-through logic
+  const { upgradePrice, itemizedCart = [] } = useUpgradePrice({
+    email: userEmail,
+    uid: user?.uid || "guest",
+    cart,
+    selectedLicense,
+  });
+
+  const displayCart = cart.map(song => {
+    const licenseKey = (selectedLicense?.name || "Basic License").toLowerCase().replace(" license", "");
+    const originalPrice = song.monetization?.[licenseKey]?.price || parsePrice(selectedLicense?.price);
+    const displayPrice = upgradePrice !== null ? upgradePrice : originalPrice;
+
+    return {
+      ...song,
+      beatId: song.id,
+      license: selectedLicense?.name || "Basic License",
+      originalPrice,
+      displayPrice,
+    };
+  });
 
   return (
     <div>
       <Helmet>
         <title>Payment | Cart Checkout</title>
       </Helmet>
+
       <div className="CheckoutContainer">
         <GroupA />
         <h1 className="CheckoutTitle">Checkout</h1>
         <div className="CheckoutBody">
           <div className="checkoutItem">
-            {loading ? <p>Loading cart...</p> :
-              cart.length === 0 ? <p>Your cart is empty.</p> :
-              cart.map((song, i) => (
+            {loading ? (
+              <p>Loading cart...</p>
+            ) : cart.length === 0 ? (
+              <p>Your cart is empty.</p>
+            ) : (
+              displayCart.map((song, i) => (
                 <div key={i} className="cart-list-item">
                   <div className="cart-list-info">
                     <img src={selectedSong.coverUrl || djImage} className="cart-list-image" alt="Song Cover" />
@@ -127,19 +144,30 @@ function CheckoutPage() {
                     </div>
                   </div>
                   <div className="cart-list-actions">
-                    <div className="cart-list-price">{formatPrice(parsePrice(selectedLicense?.price))}</div>
+                    <div className="cart-list-price">
+                      {song.displayPrice !== song.originalPrice ? (
+                        <>
+                          {formatPrice(song.displayPrice)}
+                          <span style={{ textDecoration: "line-through", color: "gray", marginLeft: "8px" }}>
+                            {formatPrice(song.originalPrice)}
+                          </span>
+                        </>
+                      ) : (
+                        formatPrice(song.originalPrice)
+                      )}
+                    </div>
                   </div>
                 </div>
               ))
-            }
+            )}
           </div>
 
           <div className="CartSection2">
             <div className="CartSummary">
-              <h2>Cart Summary</h2>
-              {cart.map((song, i) => (
+              <h3>Checkout Summary</h3>
+              {displayCart.map((song, i) => (
                 <div key={i} className="selectedCartSummary">
-                  <div className="certSummarySong">{selectedSong?.title || "Untitled Song"}</div>
+                  <div className="certSummarySong">Items Total</div>
                   <div className="certSummaryPRICE">{formatPrice(parsePrice(selectedLicense?.price))}</div>
                 </div>
               ))}
@@ -157,40 +185,63 @@ function CheckoutPage() {
                 <h3>{upgradePrice !== null ? formatPrice(upgradePrice) : formatPrice(totalPrice)}</h3>
               </div>
 
-              {userEmail ? (
-                <>
-                  {userCountry === "GB" ? (
-                    <PaystackPayment
-                      email={userEmail}
-                      amount={upgradePrice !== null ? upgradePrice : totalPrice}
-                      song={selectedSong?.title}
-                      beatId={selectedSong?.id}
-                      license={selectedLicense?.name}
-                      uid={user?.uid}
-                      cart={leanCart} // ✅ Pass lean cart to Paystack
-                    />
-                  ) : (
-                    <StripeWrapper
-                      amount={upgradePrice !== null ? upgradePrice : totalPrice}
-                      email={userEmail}
-                      onSuccess={() => alert("Payment Successful!")}
-                      license={selectedLicense?.name}
-                      song={selectedSong?.title}
-                      uid={user?.uid}
-                      beatId={selectedSong?.id}
-                    />
-                  )}
-                </>
-              ) : (
-                <Link
-                  to="/CheckoutpaymentPage"
-                  state={{ totalPrice, userEmail, song: selectedSong?.title, license: selectedLicense?.name, beatId: selectedSong?.id }}
-                />
-              )}
+              {/* Step 1: Guest Email Input and Continue */}
+{!userEmail && !emailConfirmed && (
+  <div className="guest-email-section">
+    <label>Please enter your email to continue as a guest:</label>
+    <input
+      type="email"
+      placeholder="Enter your email"
+      value={guestEmail}
+      onChange={(e) => setGuestEmail(e.target.value)}
+    />
+    <br />
+    <button
+      onClick={() => {
+        const emailRegex = /^[^\s@]+@[^\s@]{2,}\.[^\s@]{2,}$/;
+        if (!guestEmail || !emailRegex.test(guestEmail)) {
+          alert("Please enter a valid email to continue as a guest.");
+          return;
+        }
+        alert(`You are checking out with email: ${guestEmail} your beat will be sent to this email`);
+        setEmailConfirmed(true); // ✅ now show payment buttons
+        setUserEmail(guestEmail); // set userEmail for payment
+      }}
+    >
+      Continue
+    </button>
+  </div>
+)}
 
-              <div>
-                You are checking out {userEmail ? `with email: ${userEmail}` : "as a Guest"}
-              </div>
+{/* Step 2: Payment Buttons (show if logged in OR guest confirmed email) */}
+{(userEmail || emailConfirmed) && cart.length > 0 && (
+  <>
+    {userCountry === "NG" ? (
+      <PaystackPayment
+        email={userEmail}
+        amount={upgradePrice !== null ? upgradePrice : totalPrice}
+        song={selectedSong?.title}
+        beatId={selectedSong?.id}
+        license={selectedLicense?.name}
+        uid={user?.uid || "guest"}
+        cart={leanCart}
+      />
+    ) : (
+      <StripeWrapper
+        amount={upgradePrice !== null ? upgradePrice : totalPrice}
+        email={userEmail}
+        onSuccess={() => alert("Payment Successful!")}
+        onError={(err) => alert("Payment failed: " + err)}
+        uid={user?.uid || "guest"}
+        cart={leanCart}
+      />
+    )}
+  </>
+)}
+
+<div>
+  You are checking out {userEmail || guestEmail ? `with email: ${userEmail || guestEmail}` : "as a Guest"}
+</div>
             </div>
           </div>
         </div>

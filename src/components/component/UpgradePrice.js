@@ -2,22 +2,25 @@ import { useState, useEffect } from "react";
 
 export function useUpgradePrice({ email, uid, cart, selectedLicense }) {
   const [upgradePrice, setUpgradePrice] = useState(null);
+  const [itemizedCart, setItemizedCart] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // If no email, UID, no cart, or no selected license → skip
-    if (!email || !uid || !cart?.length || !selectedLicense?.name) {
+    if (!email || !uid || !cart?.length) {
       setUpgradePrice(null);
+      setItemizedCart([]);
       return;
     }
 
-    // Only run when every cart item has a songId or id
-    const allHaveIds = cart.every(song => song.songId || song.id);
-    if (!allHaveIds) {
-      // Wait until monetization data has added IDs
-      return;
-    }
+    const requestBody = {
+      email,
+      uid,
+      cart: cart.map(song => ({
+        beatId: song.songId || song.id,
+        license: selectedLicense?.name || song.license || "Basic License",
+      })),
+    };
 
     const fetchUpgradePrice = async () => {
       setLoading(true);
@@ -25,18 +28,11 @@ export function useUpgradePrice({ email, uid, cart, selectedLicense }) {
 
       try {
         const response = await fetch(
-          "https://us-central1-beathub-4e595.cloudfunctions.net/calculateUpgradePrice", // ✅ use correct working URL
+          "https://us-central1-beathub-4e595.cloudfunctions.net/calculateUpgradePrice",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              email,
-              uid,
-              cart: cart.map(song => ({
-                beatId: song.songId || song.id,
-                license: selectedLicense?.name || song.license || "Basic License",
-              })),
-            }),
+            body: JSON.stringify(requestBody),
           }
         );
 
@@ -44,13 +40,16 @@ export function useUpgradePrice({ email, uid, cart, selectedLicense }) {
 
         if (response.ok && typeof data.finalAmount === "number") {
           setUpgradePrice(data.finalAmount);
+          setItemizedCart(data.itemizedCart || []);
         } else {
           setError(data.error || "Failed to fetch upgrade price");
           setUpgradePrice(null);
+          setItemizedCart([]);
         }
       } catch (err) {
         setError(err.message);
         setUpgradePrice(null);
+        setItemizedCart([]);
       } finally {
         setLoading(false);
       }
@@ -64,5 +63,5 @@ export function useUpgradePrice({ email, uid, cart, selectedLicense }) {
     selectedLicense?.name
   ]);
 
-  return { upgradePrice, loading, error };
+  return { upgradePrice, itemizedCart, loading, error };
 }

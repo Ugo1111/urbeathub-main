@@ -3,6 +3,7 @@ import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js"
 import { useNavigate } from "react-router-dom"; // Step 1: Import navigate
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { toast } from 'react-toastify';
 
 function StripeCheckout({ amount, clientSecret, email, last, song, license, uid, beatId ,onError }) {
   const stripe = useStripe();
@@ -76,10 +77,10 @@ function StripeCheckout({ amount, clientSecret, email, last, song, license, uid,
       // }
   
       // Step 3: confirm the payment
-      const { error: stripeError } = await stripe.confirmPayment({
+      const { error: stripeError , paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: window.location.origin + "/purchasedPage",
+          return_url: window.location.origin ,
           payment_method_data: {
             billing_details: { email },
           },
@@ -91,6 +92,21 @@ function StripeCheckout({ amount, clientSecret, email, last, song, license, uid,
         setError(stripeError.message);
       }
   
+
+
+      
+ // PaymentIntent is confirmed
+
+// StripeCheckout.js
+if (paymentIntent && paymentIntent.status === "succeeded") {
+  if (uid && uid !== "guest") {
+    navigate("/purchasedPage", { state: { showToast: true } });
+  } else {
+    navigate("/", { state: { showToast: true } });
+  }
+}
+
+
     } catch (err) {
       console.error("Error during payment:", err);
       setError(err.message);

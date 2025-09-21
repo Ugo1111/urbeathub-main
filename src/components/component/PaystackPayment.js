@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { PaystackButton } from 'react-paystack';
 import { useNavigate } from 'react-router-dom';
 import { getExchangeRate } from '../utils/exchangeRate';
+import { toast } from 'react-toastify';
 
 const PaystackPayment = ({ email, amount, song, license, uid, beatId, cart }) => {
   const publicKey = 'pk_test_36a4dd978ecfdfd6434270cdbfee04e41bfff64d';
@@ -45,11 +46,20 @@ const PaystackPayment = ({ email, amount, song, license, uid, beatId, cart }) =>
     },
     onSuccess: () => {
       // Payment verification is handled by webhook
-      alert('Payment successful! Check your email for confirmation.');
-      navigate('/purchasedPage');
+      toast.success('Payment successful! Check your email for link to your instrumental');
+      //alert('Payment successful! Check your email for confirmation.');
+       // 2️⃣ Clear guest cart from localStorage
+  localStorage.removeItem("cart");
+
+      // Redirect based on whether user is signed in
+  if (uid && uid !== "guest") {
+    navigate('/purchasedPage'); // signed-in user
+  } else {
+    navigate('/'); // guest goes home
+  }
     },
     onClose: () => {
-      alert('Transaction was not completed, window closed.');
+      toast.success('Transaction was not completed, window closed.');
     },
     className: 'PaymentPage-button',
   };

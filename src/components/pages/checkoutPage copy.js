@@ -130,7 +130,7 @@ function CheckoutPage() {
 
                 <div className="CartSection2">
                     <div className="CartSummary">
-                        <h2>Cart Summary</h2>
+                        <h2>Checkout Summary</h2>
                         {loading ? (
                             <p>Loading cart...</p>
                         ) : cart.length === 0 ? (

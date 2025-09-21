@@ -59,6 +59,28 @@ export function trackEvent({ eventName, songTitle, artist }) {
   });
 }
 
+// Add this component inside App.js
+
+function PaymentRedirectHandler() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const redirectStatus = params.get("redirect_status");
+
+    if (redirectStatus === "succeeded") {
+      // ✅ Clear guest cart from localStorage
+      localStorage.removeItem("cart");
+
+      toast.success("✅ Payment successful! Check your email for your beats 🎶");
+    } else if (redirectStatus === "failed") {
+      toast.error("❌ Payment failed. Please try again.");
+    }
+  }, [location]);
+
+  return null; // nothing to render, just effect
+}
+
 // Define the App component
 function App() {
 useEffect(() => {
@@ -164,6 +186,7 @@ useEffect(() => {
   return (
     <Router>
       <RouteTracker />
+      <PaymentRedirectHandler /> 
       <Elements stripe={stripePromise}>
         <Routes>
           <Route path="/" element={<Front />} />

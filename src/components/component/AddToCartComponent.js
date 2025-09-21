@@ -23,61 +23,116 @@ export default function HandleAddToCart({ song, selectedLicense }) {
   
 
   // Check if the item is in the cart on initial render
-  useEffect(() => {
-    const checkIfInCart = async () => {
-      const user = auth.currentUser;
-      if (user && song && selectedLicense) {
-        try {
-          const cartRef = doc(db, `beatHubUsers/${user.uid}`);
-          const cartSnapshot = await getDoc(cartRef);
+useEffect(() => {
+  const checkIfInCart = async () => {
+    const user = auth.currentUser;
 
-          if (cartSnapshot.exists()) {
-            const cart = cartSnapshot.data().cart || [];
-            const itemIndex = cart.findIndex(
-              (item) =>
-                item.songId === song.id && item.license === selectedLicense.name
-            );
-            setIsInCart(itemIndex !== -1); // If the item exists with the same license, it's in the cart
-          }
-        } catch (error) {
-          console.error("Error checking cart:", error);
-        }
+    // Check Firestore cart if user is logged in
+    if (user && song && selectedLicense) {
+      try {
+        const cartRef = doc(db, `beatHubUsers/${user.uid}`);
+        const cartSnapshot = await getDoc(cartRef);
+
+        const firestoreCart = cartSnapshot.exists() ? cartSnapshot.data().cart || [] : [];
+        const inFirestoreCart = firestoreCart.some(
+          (item) => item.songId === song.id && item.license === selectedLicense.name
+        );
+
+        // Check localStorage as well
+        const localCartRaw = localStorage.getItem("cart");
+        const localCart = localCartRaw ? JSON.parse(localCartRaw) : [];
+        const inLocalCart = localCart.some(
+          (item) => item.songId === song.id && item.license === selectedLicense.name
+        );
+
+        setIsInCart(inFirestoreCart || inLocalCart); // True if found in either
+      } catch (error) {
+        console.error("Error checking cart:", error);
       }
-    };
+    } 
+    // For guests (not logged in), check only localStorage
+    else if (!user && song && selectedLicense) {
+      const localCartRaw = localStorage.getItem("cart");
+      const localCart = localCartRaw ? JSON.parse(localCartRaw) : [];
+      const inLocalCart = localCart.some(
+        (item) => item.songId === song.id && item.license === selectedLicense.name
+      );
+      setIsInCart(inLocalCart);
+    }
+  };
 
-    checkIfInCart();
-  }, [auth, db, song, selectedLicense]);
+  checkIfInCart();
+}, [auth, db, song, selectedLicense]);
 
   const handleAddToCart = async () => {
     const user = auth.currentUser;
 
+    // If user isn't signed in, save cart to localStorage
     if (!user) {
-      setModalIsOpen(true); // Open modal if user is not signed in
-      return;
+      if (!song || !selectedLicense) {
+        alert("Please select a license type.");
+        return;
+      }
+      try {
+        // Get existing local cart if any
+        const existingCart = localStorage.getItem("cart");
+        const localCart = existingCart ? JSON.parse(existingCart) : [];
+
+        // Check if the song is already in the local cart with a different license
+        const itemIndex = localCart.findIndex(
+          (item) => item.songId === song.id && item.license !== selectedLicense.name
+        );
+
+        if (itemIndex !== -1) {
+          // Update the license and price
+          localCart[itemIndex] = {
+            ...localCart[itemIndex],
+            license: selectedLicense.name,
+            price: selectedLicense.price,
+          };
+          toast.success("Updated license in local cart!", {
+            position: "top-center",
+          });
+        } else {
+          // Add new item to local cart
+          localCart.push({
+            songId: song.id,
+            title: song.title,
+            license: selectedLicense.name,
+            price: selectedLicense.price,
+            coverUrl: song.coverUrl,
+          });
+          toast.success("Added to local cart!", {
+            position: "top-center",
+          });
+        }
+        // Save updated cart to localStorage
+        localStorage.setItem("cart", JSON.stringify(localCart));
+        setIsInCart(true);
+        return;
+      } catch (error) {
+        console.error("Error saving to local cart:", error);
+        toast.error("Failed to update local cart.", {
+          position: "top-center",
+        });
+        return;
+      }
     }
 
-    if (!song || !selectedLicense) {
-      alert("Please select a license type.");
-      return;
-    }
-
+    // User is signed in — continue with saving to Firestore
     setIsAdding(true);
-
     try {
       const cartRef = doc(db, `beatHubUsers/${user.uid}`);
-
       // Get the current cart
       const cartSnapshot = await getDoc(cartRef);
       const cart = cartSnapshot.exists() ? cartSnapshot.data().cart || [] : [];
 
-      // Check if the song is already in the cart with a different license
+      // Check if the song is in the cart with a different license
       const itemIndex = cart.findIndex(
-        (item) =>
-          item.songId === song.id && item.license !== selectedLicense.name
+        (item) => item.songId === song.id && item.license !== selectedLicense.name
       );
 
       if (itemIndex !== -1) {
-        // If the song is found with a different license, update the license in the cart
         const updatedCart = [...cart];
         updatedCart[itemIndex] = {
           ...updatedCart[itemIndex],
@@ -85,11 +140,9 @@ export default function HandleAddToCart({ song, selectedLicense }) {
           price: selectedLicense.price,
         };
 
-        // Update the cart in Firestore
         await updateDoc(cartRef, {
           cart: updatedCart,
         });
-
         toast.success("Updated license in cart!", {
           position: "top-center",
         });
@@ -113,7 +166,7 @@ export default function HandleAddToCart({ song, selectedLicense }) {
         toast.success("Added to cart!", {
           position: "top-center",
         });
-        setIsInCart(true); // Update the state to reflect the item is now in the cart
+        setIsInCart(true);
       }
     } catch (error) {
       console.error("Error adding/updating cart:", error);
