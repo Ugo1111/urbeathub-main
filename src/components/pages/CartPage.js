@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../css/addToCart.css";
-import { getFirestore, doc, getDoc, updateDoc, collection, getDocs } from "firebase/firestore";
+import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import CartComponent from "../component/CartComponent.js";
@@ -25,66 +25,68 @@ function CartPage() {
     const [guestEmail, setGuestEmail] = useState("");
     const [emailConfirmed, setEmailConfirmed] = useState(false);
 
-    // Remove already purchased items and merge carts
-    useEffect(() => {
-        const fetchCart = async () => {
-            let currentUser = auth.currentUser;
-            setUser(currentUser);
 
-            let mergedCart = [];
-            let purchasedBeatIds = [];
+    // Listen for auth state changes
+useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+        setUser(currentUser);
 
-            if (currentUser) {
-                setUserEmail(currentUser.email);
-                const userRef = doc(db, "beatHubUsers", currentUser.uid);
+        if (currentUser) {
+            setUserEmail(currentUser.email);
+            const userRef = doc(db, "beatHubUsers", currentUser.uid);
 
-                // Get Firestore cart
+            try {
+                // 1️⃣ Get localStorage cart
+                const localCartRaw = localStorage.getItem("cart");
+                const localCart = localCartRaw ? JSON.parse(localCartRaw) : [];
+
+                // 2️⃣ Fetch Firestore cart
                 const userSnap = await getDoc(userRef);
                 const firestoreCart = userSnap.exists() ? userSnap.data().cart || [] : [];
 
-                // Get purchased beats
-                const purchasesRef = collection(db, `beatHubUsers/${currentUser.uid}/purchases`);
-                const purchasesSnapshot = await getDocs(purchasesRef);
-                purchasedBeatIds = purchasesSnapshot.docs.map(doc => doc.data().beatId);
-
-                // Get local cart
-                const localCartRaw = localStorage.getItem("cart");
-                const localCart = localCartRaw ? JSON.parse(localCartRaw) : [];
-
-                // Merge carts, remove duplicates, filter already purchased
-                mergedCart = [
+                // 3️⃣ Merge carts (avoid duplicates)
+                const mergedCart = [
                     ...firestoreCart,
                     ...localCart.filter(
-                        (item) =>
+                        (localItem) =>
                             !firestoreCart.some(
                                 (fItem) =>
-                                    fItem.songId === item.songId &&
-                                    fItem.license === item.license
+                                    fItem.songId === localItem.songId &&
+                                    fItem.license === localItem.license
                             )
                     ),
-                ].filter(item => !purchasedBeatIds.includes(item.songId || item.beatId));
+                ];
 
-                // Save merged cart
-                await updateDoc(userRef, { cart: mergedCart });
-                localStorage.removeItem("cart"); // clear local cart
-            } else {
-                // Guest: filter out purchased beats if stored somewhere (optional)
-                const localCartRaw = localStorage.getItem("cart");
-                const localCart = localCartRaw ? JSON.parse(localCartRaw) : [];
-                mergedCart = localCart.filter(item => !purchasedBeatIds.includes(item.songId || item.beatId));
-                localStorage.setItem("cart", JSON.stringify(mergedCart));
+                // 4️⃣ Save merged cart to Firestore
+                if (mergedCart.length > 0) {
+                    await updateDoc(userRef, { cart: mergedCart });
+                }
+
+                // 5️⃣ Clear localStorage cart
+                localStorage.removeItem("cart");
+
+                // 6️⃣ Set merged cart to state
+                setCart(mergedCart);
+            } catch (error) {
+                console.error("Error merging local cart:", error);
+                setCart([]);
             }
+        } else {
+            // Load guest's localStorage cart
+            const localCartRaw = localStorage.getItem("cart");
+            const localCart = localCartRaw ? JSON.parse(localCartRaw) : [];
+            setCart(localCart);  // Display local cart for guest
+        }
 
-            setCart(mergedCart);
-            setLoading(false);
-        };
+        setLoading(false);
+    });
 
-        fetchCart();
-    }, [auth, db]);
+    return () => unsubscribe();
+}, [auth, db]);
 
     // Fetch exchange rate for NGN conversion
     useEffect(() => {
-        if (userCountry === "NG") {
+        if (userCountry === "GB") {
             async function fetchRate() {
                 try {
                     const rate = await getExchangeRate();
@@ -105,7 +107,7 @@ function CartPage() {
 
     const formatPrice = (usdAmount) => {
         if (!usdAmount) usdAmount = 0;
-        if (userCountry === "NG" && exchangeRate) {
+        if (userCountry === "GB" && exchangeRate) {
             return `₦${Math.round(usdAmount * exchangeRate).toLocaleString()}`;
         }
         return `$${usdAmount.toFixed(2)}`;
@@ -215,7 +217,7 @@ function CartPage() {
 {/* Step 2: Payment buttons (only show if user logged in OR guest confirmed email) */}
 {cart.length > 0 && (userEmail || emailConfirmed) && (
   <>
-    {userCountry === "NG" ? (
+    {userCountry === "GB" ? (
       <PaystackPayment
         email={userEmail || guestEmail}
         amount={finalTotal}
