@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { getExchangeRate } from '../utils/exchangeRate';
 
 const PaystackPayment = ({ email, amount, song, license, uid, beatId, cart }) => {
-  const publicKey = process.env.REACT_APP_PAYSTACK_PUBLIC;
+  const publicKey = process.env.REACT_APP_PAYSTACK_PUBLIC_KEY;
   //const stripe = require("stripe")(process.env.PAYSTACK_SECRET);
   const [amountInKobo, setAmountInKobo] = useState(null);
   const navigate = useNavigate();

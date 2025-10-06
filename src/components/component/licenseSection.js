@@ -20,7 +20,7 @@ export default function LicensingSection({ song }) {
 
   // Fetch exchange rate if user is in Nigeria
   useEffect(() => {
-    if (userCountry === "GB") {
+    if (userCountry === "NG") {
       async function fetchRate() {
         try {
           const rate = await getExchangeRate();
@@ -165,7 +165,7 @@ export default function LicensingSection({ song }) {
   // Format price helper
   const formatPrice = (usdAmount) => {
     if (!usdAmount) usdAmount = 0;
-    if (userCountry === "GB" && exchangeRate) {
+    if (userCountry === "NG" && exchangeRate) {
       return `₦${Math.round(usdAmount * exchangeRate).toLocaleString()}`;
     }
     return `$${usdAmount.toFixed(2)}`;

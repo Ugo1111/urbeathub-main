@@ -3,7 +3,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import StripeCheckout from "./StripeCheckoutForm";
 
-const stripePromise = loadStripe("pk_test_51RXqNECrqHNtK1Tw63rf447k3dZ5gZhU8jXebIsvSCA7jfKTH1SmkgmRVn9XpHsK6xReM5MzYFm4pyzf5OWpGSgZ00o3wluMTS");
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC);
 
 const StripeElementsWrapper = ({ children }) => {
   return <Elements stripe={stripePromise}>{children}</Elements>;

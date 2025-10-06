@@ -49,7 +49,7 @@ import { loadStripe } from "@stripe/stripe-js";
 // Initialize Google Analytics
 ReactGA.initialize('G-8Q9JH9G3KH');
 
-const stripePromise = loadStripe("pk_test_51RXqNECrqHNtK1Tw63rf447k3dZ5gZhU8jXebIsvSCA7jfKTH1SmkgmRVn9XpHsK6xReM5MzYFm4pyzf5OWpGSgZ00o3wluMTS");
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC);
 
 // Helper function to track custom events
 export function trackEvent({ eventName, songTitle, artist }) {

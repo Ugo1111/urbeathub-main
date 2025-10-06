@@ -25,10 +25,14 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+.env.*.local
 
 # Ignore the 'functions' folder
 functions/
 .functions
+
+functions/index.js
+
 
 firebase-debug.log
 firebase-debug
@@ -43,6 +47,14 @@ functions/
 
 node_modules/
 
+env.local
+env.development.local
+env.test.local
+env.production.local
+env
+.env
+
+firebase-debug.log
 firebase.js/
 /firebase.js/firebase.js
 /firebase.js/firebase.js

@@ -80,7 +80,7 @@ function StripeCheckout({ amount, clientSecret, email, last, song, license, uid,
       const { error: stripeError , paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: window.location.origin ,
+          return_url: `${window.location.origin}/purchasedPage`,
           payment_method_data: {
             billing_details: { email },
           },
@@ -91,20 +91,9 @@ function StripeCheckout({ amount, clientSecret, email, last, song, license, uid,
       if (stripeError) {
         setError(stripeError.message);
       }
-  
-
 
       
- // PaymentIntent is confirmed
-
-// StripeCheckout.js
-if (paymentIntent && paymentIntent.status === "succeeded") {
-  if (uid && uid !== "guest") {
-    navigate("/purchasedPage", { state: { showToast: true } });
-  } else {
-    navigate("/", { state: { showToast: true } });
-  }
-}
+  
 
 
     } catch (err) {

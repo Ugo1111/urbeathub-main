@@ -2,8 +2,8 @@
 const setAdminClaim = require('./setAdminClaim');
 //const verifyPayment = require('./verifyPayment');
 const functions = require("firebase-functions");
-const stripe = require("stripe")("sk_test_51RXqNECrqHNtK1Twhph01eEpUToF0KKE75spaAN7isZFZC0uRxv44uPTxyuOtqBkwZq1A9JDNFt3fgMa9FFPGaLC00VMqL8W3t"); // Replace with your Stripe secret key
-require("dotenv").config(); // ✅ Load .env variables at startup
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY || functions.config().stripe.secret);
+  require("dotenv").config(); // ✅ Load .env variables at startup
 
 
 const { calculateUpgradePrice } = require('./calculateUpgradePrice');
