@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa";
 import GroupA from "../component/header.js";
 import { GroupF, GroupG } from "../component/footer";
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet-async';
 
 
 const stores = [

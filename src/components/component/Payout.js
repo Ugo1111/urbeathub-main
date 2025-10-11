@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db, auth } from "../../firebase/firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet-async';
 
 function Payout() {
   const [formData, setFormData] = useState({
