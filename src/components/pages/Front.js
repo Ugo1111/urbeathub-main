@@ -220,7 +220,7 @@ function Front() {
 
       <SellBeatsInfo navigate={navigate} />
 
-      <NewsletterForm /> 
+      {/*<NewsletterForm /> */}
 
       <GroupF />
       <GroupG />

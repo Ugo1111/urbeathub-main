@@ -160,7 +160,7 @@ const AuthState = ({ fontSize = "1em" }) => {
           onConfirm={handleSuccessModalClose} // Use the same handler for the single "OK" button
         />
       )}
-      {user && isProducer && <BeatUploadPopup user={user} />}
+     {/* {user && isProducer && <BeatUploadPopup user={user} />}*/}
     </div>
     
   );
