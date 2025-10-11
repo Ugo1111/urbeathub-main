@@ -1,9 +1,11 @@
+// IMPORTANT: Do not use inline styles. Use external CSS classes only.
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
 import { collection, getDocs, doc, getDoc, collection as subCollection, setDoc } from "firebase/firestore";
 import { formatDistanceToNow } from "date-fns"; // Import date-fns for formatting
 import "../css/postTimelinePage.css";
+import { HomeHeader } from "../component/header";
 
 const PostTimelinePage = () => {
   const [posts, setPosts] = useState([]);
@@ -18,6 +20,10 @@ const PostTimelinePage = () => {
         video.muted = isMuted;
       }
     });
+  };
+
+  const handleProfileClick = (userId) => {
+    navigate(`/profile/${userId}`);
   };
 
   const handleVideoEnd = (videoId) => {
@@ -258,41 +264,55 @@ const PostTimelinePage = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="skeleton-container">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <div key={index} className="skeleton-post">
+            <div className="skeleton-header">
+              <div className="skeleton-avatar"></div>
+              <div className="skeleton-header-text">
+                <div className="skeleton-header-line long"></div>
+                <div className="skeleton-header-line short"></div>
+              </div>
+            </div>
+            <div className="skeleton-content long"></div>
+            <div className="skeleton-content short"></div>
+            <div className="skeleton-media"></div>
+            <div className="skeleton-footer">
+              <div className="skeleton-footer-button"></div>
+              <div className="skeleton-footer-button"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   }
 
   return (
     <div className="post-timeline-page">
+      <HomeHeader />
       <h1>Post Feed</h1>
       <div className="post-list">
         {posts.map((post) => (
           <div
             key={post.id}
-            className="post-item"
-            style={{
-              maxWidth: "600px",
-              margin: "0 auto 20px auto",
-              border: "1px solid #ddd",
-              borderRadius: "8px",
-              padding: "15px",
-              fontSize: "1.1rem",
-              boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-              backgroundColor: "#fff",
-              position: "relative",
-            }}
+            className="post-item-container" // Use the external CSS class
           >
             {/* Post Header */}
-            <div className="post-header" style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
+            <div 
+              className="post-header-container"
+              onClick={() => handleProfileClick(post.userId)}
+            >
               <img
                 src={post.userProfilePicture || "/default-avatar.png"}
                 alt={`${post.username || "User"}'s profile`}
-                style={{ width: "40px", height: "40px", borderRadius: "50%", marginRight: "10px", cursor: "pointer" }}
+                className="post-header-image"
               />
               <div>
-                <p style={{ margin: 0, fontWeight: "bold", cursor: "pointer" }}>
+                <p className="post-header-text">
                   {post.username || "Unnamed Artist"}
                 </p>
-                <p style={{ margin: 0, fontSize: "0.8em", color: "gray" }}>
+                <p className="post-header-subtext">
                   {formatTimestamp(post.timestamp)}
                 </p>
               </div>
@@ -300,23 +320,14 @@ const PostTimelinePage = () => {
 
             {/* Post Content */}
             <p
-              style={{ fontSize: "0.9em", marginBottom: "10px", cursor: "pointer" }}
+              className="post-content-text" // Use the external CSS class
               onClick={() => navigate(`/view-post/${post.id}`)} // Navigate only when clicking on post content
             >
               {post.content}
             </p>
             {post.fileUrl && post.fileType && (
               <div
-                style={{
-                  width: "100%",
-                  maxWidth: "400px",
-                  aspectRatio: "1 / 1",
-                  overflow: "hidden",
-                  backgroundColor: "#f0f0f0",
-                  margin: "0 auto 10px",
-                  position: "relative", // Enable positioning for replay button
-                  cursor: "pointer",
-                }}
+                className="post-media-container" // Use the external CSS class
                 onClick={() => navigate(`/view-post/${post.id}`)} // Navigate only when clicking on post content
               >
                 {post.fileType === "video" ? (
@@ -326,20 +337,14 @@ const PostTimelinePage = () => {
                       src={post.fileUrl}
                       controls
                       muted
-                      controlsList="nodownload nofullscreen noplaybackrate" // Disable fullscreen and other controls
-                      disablePictureInPicture // Disable Picture-in-Picture mode
-                      onVolumeChange={(e) => syncMuteState(e.target.muted)} // Sync mute state across all videos
-                      onMouseEnter={() => handleMouseEnter(post.id)} // Play video on hover if not in replay state
-                      onMouseLeave={() => handleMouseLeave(post.id)} // Ensure viewport center video plays if paused
-                      onEnded={() => handleVideoEnd(post.id)} // Show replay button when video ends
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        borderRadius: "10px",
-                        display: "block",
-                      }}
-                      preload="auto" // Allow video to load
+                      controlsList="nodownload nofullscreen noplaybackrate"
+                      disablePictureInPicture
+                      onVolumeChange={(e) => syncMuteState(e.target.muted)}
+                      onMouseEnter={() => handleMouseEnter(post.id)}
+                      onMouseLeave={() => handleMouseLeave(post.id)}
+                      onEnded={() => handleVideoEnd(post.id)}
+                      className="post-media-content" // Use the external CSS class
+                      preload="auto"
                     />
                     {replayVisible[post.id] && (
                       <button
@@ -347,22 +352,7 @@ const PostTimelinePage = () => {
                           e.stopPropagation(); // Prevent navigation when clicking replay
                           handleReplay(post.id);
                         }}
-                        style={{
-                          position: "absolute",
-                          top: "50%",
-                          left: "50%",
-                          transform: "translate(-50%, -50%)",
-                          backgroundColor: "rgba(0, 0, 0, 0.7)",
-                          color: "white",
-                          border: "none",
-                          borderRadius: "5px",
-                          padding: "10px 20px",
-                          cursor: "pointer",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          gap: "5px",
-                        }}
+                        className="replay-button" // Use the external CSS class
                       >
                         <span>Replay</span>
                         <svg
@@ -381,22 +371,16 @@ const PostTimelinePage = () => {
                   <img
                     src={post.fileUrl}
                     alt="Post content"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      borderRadius: "10px",
-                      display: "block",
-                    }}
+                    className="post-media-content" // Use the external CSS class
                   />
                 )}
               </div>
             )}
 
             {/* Like and Share Info */}
-            <div style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>
+            <div className="post-footer">
               <span
-                style={{ marginRight: "20px", color: "#db3056", cursor: "pointer" }}
+                className="post-footer-like" // Use the external CSS class
                 onClick={(e) => {
                   e.stopPropagation(); // Prevent navigation when clicking like
                   handleLike(post.id);
@@ -405,7 +389,7 @@ const PostTimelinePage = () => {
                 ❤️ {post.likesCount || 0} Likes
               </span>
               <span
-                style={{ color: "#007bff", cursor: "pointer" }}
+                className="post-footer-share" // Use the external CSS class
                 onClick={(e) => {
                   e.stopPropagation(); // Prevent navigation when clicking share
                   handleShare(post.id);

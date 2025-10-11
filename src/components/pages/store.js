@@ -10,7 +10,7 @@ import FeedbackForm from "../component/FeedbackForm"; // Default import
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { ProducersHeroPage } from "../component/HeroPage"; // Use named import for ProducersHeroPage
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 
 function ProducersStore() {

@@ -14,15 +14,15 @@ import {
 
 const DistributionLogo = () => {
   const logos = [
-    { name: "Spotify", icon: <FaSpotify color="whitesmoke" size={48} /> },
-    { name: "Apple Music", icon: <FaApple color="whitesmoke" size={48} /> },
-    { name: "Amazon Music", icon: <FaAmazon color="whitesmoke" size={48} /> },
-    { name: "YouTube", icon: <FaYoutube color="whitesmoke" size={48} /> },
-    { name: "Deezer", icon: <FaDeezer color="whitesmoke" size={48} /> },
-    { name: "SoundCloud", icon: <FaSoundcloud color="whitesmoke" size={48} /> },
-    { name: "Instagram", icon: <FaInstagram color="whitesmoke" size={48} /> },
-    { name: "Tidal", icon: <FaCompactDisc color="whitesmoke" size={48} /> },
-    { name: "TikTok", icon: <FaGlobe color="whitesmoke" size={48} /> },
+    { name: "", icon: <FaSpotify color="whitesmoke" size={65} /> },
+    { name: "SoundCloud", icon: <FaSoundcloud color="whitesmoke" size={65} /> },
+    { name: "", icon: <FaApple color="whitesmoke" size={65} /> },
+    { name: "Amazon Music", icon: <FaAmazon color="whitesmoke" size={65} /> },
+    { name: "", icon: <FaYoutube color="whitesmoke" size={65} /> },
+    { name: "Deezer", icon: <FaDeezer color="whitesmoke" size={65} /> },
+    { name: "", icon: <FaInstagram color="whitesmoke" size={65} /> },
+    { name: "Tidal", icon: <FaCompactDisc color="whitesmoke" size={65} /> },
+    { name: "TikTok", icon: <FaGlobe color="whitesmoke" size={65} /> },
   ];
 
   const allLogos = [...logos, ...logos]; // for animation loop

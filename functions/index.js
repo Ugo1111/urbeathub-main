@@ -1,23 +1,37 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
 
 const setAdminClaim = require('./setAdminClaim');
-const verifyPayment = require('./verifyPayment');
+//const verifyPayment = require('./verifyPayment');
+const functions = require("firebase-functions");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY || functions.config().stripe.secret);
+  require("dotenv").config(); // ✅ Load .env variables at startup
+
+
+const { calculateUpgradePrice } = require('./calculateUpgradePrice');
+
+exports.calculateUpgradePrice = calculateUpgradePrice;
+
+const { createPaymentIntent } = require("./createPaymentIntent");
+exports.createPaymentIntent = createPaymentIntent;
+
 
 exports.setAdminClaim = setAdminClaim.setAdminClaim;
+
+const verifyPayment = require('./verifypayment');
 exports.verifyPayment = verifyPayment.verifyPayment;
 
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+const { handleStripeWebhook } = require('./handleStripeWebhook');
+
+// Expose the functions to Firebase
+
+exports.handleStripeWebhook = handleStripeWebhook;
+
+
+const { initializePaystackPayment } = require("./initializePaystackPayment");
+
+exports.initializePaystackPayment = initializePaystackPayment;
+
+
+const { paystackWebhook } = require("./paystackWebhook");
+exports.paystackWebhook = paystackWebhook;

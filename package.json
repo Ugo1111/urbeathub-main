@@ -2,10 +2,13 @@
   "name": "ugo-app",
   "version": "0.1.0",
   "private": true,
+  
   "dependencies": {
     "22": "^0.0.0",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@paystack/inline-js": "^2.22.2",
+    "@stripe/react-stripe-js": "^3.7.0",
+    "@stripe/stripe-js": "^7.4.0",
     "@testing-library/jest-dom": "^5.17.0",
     "axios": "^1.9.0",
     "body-parser": "^1.20.3",
@@ -25,7 +28,7 @@
     "react-cookie-consent": "^9.0.0",
     "react-dom": "^18.3.1",
     "react-ga4": "^2.1.0",
-    "react-helmet": "^6.1.0",
+    "react-helmet-async": "^2.0.5",
     "react-icons": "^5.5.0",
     "react-modal": "^3.16.3",
     "react-paystack": "^6.0.0",
@@ -36,6 +39,7 @@
     "react-toastify": "^11.0.5",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
+    "stripe": "^18.2.1",
     "typed.js": "^2.1.0",
     "util": "^0.12.5",
     "web-vitals": "^2.1.4"

@@ -10,8 +10,9 @@ import RecomendationComponent from "../component/recomendationComponent";
 import FeedbackForm from "../component/FeedbackForm"; // Import FeedbackForm
 import DistributionLogo from "../component/DistributionLogo.js";
 import HomePageFeed from "../component/HomePageFeed.js";
+import { Helmet } from "react-helmet-async";
 import CoverArtShowcase from "../component/CoverArtShowcase.js";
-import { Helmet } from 'react-helmet';
+
 import WhatsAppChat from "../component/WhatsAppChat.js";
 import NewsletterForm from "../component/NewsletterForm.js";
 
@@ -172,10 +173,19 @@ function Front() {
 
  <RecomendationComponent />
 
-  </div>
 
-  {/*<DistributionLogo />
-  <HomePageFeed /> */}
+  <DistributionLogo /> 
+ 
+  
+</div>
+    <div className="distribute">
+      <div className="distribute-wrapper">
+        
+        <div className="distribute-container">
+          <h2>Sell high quality instrumental beats with ease.</h2>
+<p>Monetize your talent—start earning real cash from the beats you create.</p>
+          <button className="start-selling-button" onClick={() => navigate('/signUpPage')}>GET STARTED →</ button>
+        </div>
 
     <DistributeSection sound={sound} navigate={navigate} isSignedIn={isSignedIn} />
 
@@ -214,11 +224,8 @@ function Front() {
         </div>
       </section>
 
-      <GraphicsSection Art={Art} navigate={navigate} isSignedIn={isSignedIn} />
-
-    {/* <CoverArtShowcase isSignedIn={isSignedIn} /> */}
-
-
+      <HomePageFeed />
+      <GraphicsSection Art={Art} navigate={navigate} isSignedIn={isSignedIn} />      
 
       <SellBeatsInfo navigate={navigate} />
 

@@ -94,6 +94,16 @@ export default function GroupA() {
   );
 }
 
+// HomeHeader mirrors the GroupA layout but omits the search bar for clarity.
+export function HomeHeader() {
+  return (
+    <div className="GroupA">
+      <Headerlogo />
+      <AuthState />
+    </div>
+  );
+}
+
 export function ProducerGroupA() {
   return (
     <div className="GroupA1">

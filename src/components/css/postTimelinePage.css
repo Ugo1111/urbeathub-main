@@ -1,8 +1,38 @@
+body {
+  /*background-color: #ffffff; /* Set the body background to white */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.user-profile-section {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.user-profile-section:hover {
+    opacity: 0.8;
+}
+
+.profile-image {
+    cursor: pointer;
+}
+
+.username {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.username:hover {
+    text-decoration: underline;
+}
+
 .post-timeline-page {
   padding: 20px;
   font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  width: 100vw;
+ /*  background-color: #ffffff; /* Ensure the page background is white */
+  width: 100%;
+  min-height: 100vh; /* Ensure the page spans the full viewport height */
 }
 
 .post-list {
@@ -26,35 +56,57 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.post-header {
+.post-item-container {
+  width: 600px; /* Set a fixed width for all post items */
+  height: auto; /* Allow height to adjust based on content */
+  margin: 0 auto 20px auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  position: relative;
+  display: flex; /* Use flexbox for consistent alignment */
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.post-header-container {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.post-header img {
-  width: 40px;
-  height: 40px;
+.post-header-image {
+  width: 50px; /* Set a fixed size for profile pictures */
+  height: 50px;
   border-radius: 50%;
   margin-right: 10px;
+  cursor: pointer;
 }
 
-.post-header p {
+.post-header-text {
   margin: 0;
-}
-
-.post-header p:first-child {
   font-weight: bold;
+  font-size: 1rem; /* Ensure consistent text size */
+  cursor: pointer;
 }
 
-.post-header p:last-child {
-  font-size: 0.8em;
+.post-header-subtext {
+  margin: 0;
+  font-size: 0.8rem; /* Ensure consistent text size */
   color: gray;
 }
 
-.post-content {
-  font-size: 0.9em;
+.post-content-text {
+  font-size: 0.9rem; /* Ensure consistent text size */
   margin-bottom: 10px;
+  cursor: pointer;
+  flex-grow: 1; /* Allow text to fill available space */
+  max-height: 150px; /* Prevent text from stretching too much */
+  overflow: hidden; /* Hide overflow if text exceeds max height */
+  text-overflow: ellipsis; /* Add ellipsis for overflowed text */
 }
 
 .post-media {
@@ -67,6 +119,17 @@
   border-radius: 8px;
 }
 
+.post-media-container {
+  width: 100%; /* Match the width of the post item */
+  max-width: 600px; /* Increase max width for better visibility */
+  height: auto; /* Allow height to adjust based on content */
+  overflow: hidden;
+  background-color: #f0f0f0;
+  margin: 0 auto 10px;
+  position: relative; /* Enable positioning for replay button */
+  cursor: pointer;
+}
+
 .post-media img,
 .post-media video {
   width: 100%;
@@ -75,21 +138,134 @@
   border-radius: 8px;
 }
 
+.post-media-content {
+  width: 100%;
+  height: auto; /* Allow video to display its full length */
+  object-fit: contain; /* Ensure video fits within the container without cropping */
+  border-radius: 8px;
+  display: block;
+}
+
 .post-footer {
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Distribute footer elements evenly */
   margin-top: 10px;
 }
 
 .post-footer span {
-  margin-right: 20px;
-  font-size: 0.9em;
+  font-size: 0.9rem; /* Ensure consistent text size */
 }
 
-.post-footer span:first-child {
+.post-footer-like {
+  margin-right: 20px;
   color: #db3056;
+  cursor: pointer;
 }
 
 .post-footer span:last-child {
   color: #007bff;
+}
+
+.replay-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.skeleton-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%; /* Make the skeleton container span the full width */
+  max-width: 600px;
+  margin: 0 auto; /* Center the skeleton UI */
+}
+
+.skeleton-post {
+  max-width: 600px;
+  min-width: 500px; /* Ensure the skeleton post spans at least 60% of the viewport width */
+  margin: 0 auto;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.skeleton-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.skeleton-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+}
+
+.skeleton-header-text {
+  flex: 1;
+}
+
+.skeleton-header-line {
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+}
+
+.skeleton-header-line.short {
+  width: 30%;
+}
+
+.skeleton-header-line.long {
+  width: 60%;
+}
+
+.skeleton-content {
+  height: 15px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.skeleton-content.long {
+  width: 90%;
+}
+
+.skeleton-content.short {
+  width: 70%;
+}
+
+.skeleton-media {
+  height: 200px;
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.skeleton-footer {
+  display: flex;
+  gap: 10px;
+}
+
+.skeleton-footer-button {
+  height: 15px;
+  width: 30%;
+  background-color: #e0e0e0;
+  border-radius: 4px;
 }
