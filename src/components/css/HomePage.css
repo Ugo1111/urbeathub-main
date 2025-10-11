@@ -24,7 +24,7 @@ body {margin: 0;
   
   font-size: 1rem;/*i need to adjust this to this as it  affecting the whole size of my code*/
   color: rgba(255, 255, 255, 0.715);
-  /* background-image: url('/images/dj.jpg'); */
+  background-image: url('/src/images/dj.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed; /* Makes the background sticky */
