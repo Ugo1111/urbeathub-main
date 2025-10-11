@@ -46,7 +46,7 @@ function DistributeSection({ sound, navigate, isSignedIn }) {
         </div>
       </div>
     </div>
-       
+
   );
 }
 
@@ -85,18 +85,18 @@ function Front() {
   const [isSignedIn, setIsSignedIn] = useState(false); // Track auth state
 
   useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, (user) => {
-    setIsSignedIn(!!user);
-  });
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsSignedIn(!!user);
+    });
 
-  return () => {
-    if (typeof unsubscribe === "function") {
-      unsubscribe();
-    }
-  };
-}, []);
+    return () => {
+      if (typeof unsubscribe === "function") {
+        unsubscribe();
+      }
+    };
+  }, []);
 
-  
+
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   const toggleFeedbackForm = () => {
@@ -161,89 +161,91 @@ function Front() {
         </div>
       </div>
 
-<div className="trending">
-  <div className="trending-wrapper">
-    <div className="trending-container">
- <h2>Trending Beats</h2>
-    </div>
-   <div className="trending-container">
- <a href="/Homepage">see more</a>
-     </div>
-    </div>
+      <div className="trending">
+        <div className="trending-wrapper">
+          <div className="trending-container">
+            <h2>Trending Beats</h2>
+          </div>
+          <div className="trending-container">
+            <a href="/Homepage">see more</a>
+          </div>
+        </div>
 
- <RecomendationComponent />
+        <RecomendationComponent />
 
 
-  <DistributionLogo /> 
- 
-  
-</div>
-    <div className="distribute">
-      <div className="distribute-wrapper">
+        {/* <DistributionLogo /> */}
+
+
+      </div>
+      <div className="distribute">
+        <div className="distribute-wrapper">
+
+          {/* <div className="distribute-container">
+            <h2>Sell high quality instrumental beats with ease.</h2>
+            <p>Monetize your talent—start earning real cash from the beats you create.</p>
+            <button className="start-selling-button" onClick={() => navigate('/signUpPage')}>GET STARTED →</ button>
+          </div> */}
+
+          <DistributeSection sound={sound} navigate={navigate} isSignedIn={isSignedIn} />
+
+          <section className="hero2-1">
+            <div className="hero2-overlay"></div>
+            <div className="hero2-wrapper">
+              <div className="hero2-container">
+                <img src={Mixer} alt="Mixer" className="mixer" />
+              </div>
+              <div className="hero2-container1">
+                <h2>
+                  Explore Our Collection of High-Quality <br></br>Instrumentals, for
+                  Every Genre and Mood
+                </h2>
+                <ul>
+                  <li>
+                    Dive into a world of exceptional instrumentals carefully crafted
+                    to elevate your music
+                  </li>
+                  <li>
+                    Whether you're seeking the perfect beat for a new track or a
+                    signature sound for your next project, our collection has you
+                    covered
+                  </li>
+                  <li>
+                    Simple licensing options. Our contracts are not confusing. Spend
+                    less time scratching your head and more time recording your next
+                    hit.
+                  </li>
+                  <li>
+                    Find the perfect beat that resonates with your unique style and
+                    take your music to the next level
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>  </div>
         
-        <div className="distribute-container">
-          <h2>Sell high quality instrumental beats with ease.</h2>
-<p>Monetize your talent—start earning real cash from the beats you create.</p>
-          <button className="start-selling-button" onClick={() => navigate('/signUpPage')}>GET STARTED →</ button>
-        </div>
+      </div>
 
-    <DistributeSection sound={sound} navigate={navigate} isSignedIn={isSignedIn} />
+          {/* <HomePageFeed /> */}
+          <GraphicsSection Art={Art} navigate={navigate} isSignedIn={isSignedIn} />
 
-      <section className="hero2-1">
-        <div className="hero2-overlay"></div>
-        <div className="hero2-wrapper">
-          <div className="hero2-container">
-            <img src={Mixer} alt="Mixer" className="mixer" />
-          </div>
-          <div className="hero2-container1">
-            <h2>
-              Explore Our Collection of High-Quality <br></br>Instrumentals, for
-              Every Genre and Mood
-            </h2>
-            <ul>
-              <li>
-                Dive into a world of exceptional instrumentals carefully crafted
-                to elevate your music
-              </li>
-              <li>
-                Whether you're seeking the perfect beat for a new track or a
-                signature sound for your next project, our collection has you
-                covered
-              </li>
-              <li>
-                Simple licensing options. Our contracts are not confusing. Spend
-                less time scratching your head and more time recording your next
-                hit.
-              </li>
-              <li>
-                Find the perfect beat that resonates with your unique style and
-                take your music to the next level
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
+          <SellBeatsInfo navigate={navigate} />
 
-      <HomePageFeed />
-      <GraphicsSection Art={Art} navigate={navigate} isSignedIn={isSignedIn} />      
+          {/* <NewsletterForm /> */}
 
-      <SellBeatsInfo navigate={navigate} />
+          <GroupF />
+          <GroupG />
+          <WhatsAppChat />
 
-     {/* <NewsletterForm /> */}
+          {/* Feedback Form Button */}
+          <button className="vertical-feedback-btn" onClick={toggleFeedbackForm}>
+            FEEDBACK
+          </button>
 
-      <GroupF />
-      <GroupG />
-      <WhatsAppChat />
-
-      {/* Feedback Form Button */}
-      <button className="vertical-feedback-btn" onClick={toggleFeedbackForm}>
-        FEEDBACK
-      </button>
-
-      {/* Feedback Form */}
-      {isFormOpen && <FeedbackForm onClose={toggleFeedbackForm} />}
-    </>
-  );
+          {/* Feedback Form */}
+          {isFormOpen && <FeedbackForm onClose={toggleFeedbackForm} />}
+        </>
+        );
 }
 
-export default Front;
+        export default Front;
