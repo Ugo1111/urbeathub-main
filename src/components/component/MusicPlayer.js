@@ -64,6 +64,7 @@ function MusicPlayer({
             step="0.01" 
             value={volume} 
             onChange={handleVolumeChange} 
+             className="volume-slider" 
           />
 
           <div className="volnav">
@@ -72,7 +73,7 @@ function MusicPlayer({
                 const newVolume = Math.min(1, volume + 0.1);
                 handleVolumeChange({ target: { value: newVolume } }); // Adjust volume and slider
               }} 
-              style={{ fontSize: "1em" }}
+              style={{ fontSize: "1rem" }}
             >
               +
             </button>

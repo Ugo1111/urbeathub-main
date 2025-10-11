@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db, auth } from "../../firebase/firebase"; // Firestore and Auth import
+import { Helmet } from 'react-helmet'; // Import Helmet for SEO
 import {
   collection,
   query,
@@ -9,6 +10,7 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
+
 
 function ProducerMessages() {
   const [topics, setTopics] = useState([]); // List of topics for the current user
@@ -144,6 +146,10 @@ function ProducerMessages() {
   };
 
   return (
+    <>
+    <Helmet>
+      <title>Producer Messages | Ur Beathub</title>
+    </Helmet>
     <div className="producermessage-body">
       <div className="producermessage-container">
         <h2>Message Admin</h2>
@@ -234,6 +240,7 @@ function ProducerMessages() {
         )}
       </div>
     </div>
+    </>
   );
 }
 

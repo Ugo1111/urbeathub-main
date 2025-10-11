@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth"; // Import Firebase auth
 import { auth } from "../../firebase/firebase"; // Import Firebase instance
@@ -10,6 +11,10 @@ import FeedbackForm from "../component/FeedbackForm"; // Import FeedbackForm
 import DistributionLogo from "../component/DistributionLogo.js";
 import HomePageFeed from "../component/HomePageFeed.js";
 import { Helmet } from "react-helmet-async";
+import CoverArtShowcase from "../component/CoverArtShowcase.js";
+
+import WhatsAppChat from "../component/WhatsAppChat.js";
+import NewsletterForm from "../component/NewsletterForm.js";
 
 
 const sound = "/images/prdoucer studio.jpg";
@@ -33,8 +38,7 @@ function DistributeSection({ sound, navigate, isSignedIn }) {
               isSignedIn ? navigate("/startsellingpage") : navigate("/signUpPage")
             }
           >
-             {isSignedIn ? "Start Selling →" : "Sign up →"}
-            START SELLING →
+            {isSignedIn ? "Start Selling →" : "Sign up →"}
           </button>
         </div>
         <div className="distribute-container">
@@ -81,19 +85,18 @@ function Front() {
   const [isSignedIn, setIsSignedIn] = useState(false); // Track auth state
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setIsSignedIn(!!user); // Update state based on auth status
-    });
+  const unsubscribe = onAuthStateChanged(auth, (user) => {
+    setIsSignedIn(!!user);
+  });
 
-    return () => unsubscribe(); // Cleanup on unmount
-  }, []);
-
-  const [isChatOpen, setIsChatOpen] = useState(false);
-
-  const toggleChatOptions = () => {
-    setIsChatOpen(!isChatOpen);
+  return () => {
+    if (typeof unsubscribe === "function") {
+      unsubscribe();
+    }
   };
+}, []);
 
+  
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   const toggleFeedbackForm = () => {
@@ -153,7 +156,7 @@ function Front() {
             className="start-selling-button"
             onClick={() => navigate("/Homepage")}
           >
-            GET STARTED →
+            BROWSE LIST →
           </button>
         </div>
       </div>
@@ -184,11 +187,7 @@ function Front() {
           <button className="start-selling-button" onClick={() => navigate('/signUpPage')}>GET STARTED →</ button>
         </div>
 
-        <div className="distribute-container">
-          <img src={sound} alt="Sound Packs" className="packs" />
-        </div>
-</div>
-    </div>
+    <DistributeSection sound={sound} navigate={navigate} isSignedIn={isSignedIn} />
 
       <section className="hero2-1">
         <div className="hero2-overlay"></div>
@@ -226,92 +225,16 @@ function Front() {
       </section>
 
       <HomePageFeed />
-      <GraphicsSection Art={Art} navigate={navigate} isSignedIn={isSignedIn} />
-      
+      <GraphicsSection Art={Art} navigate={navigate} isSignedIn={isSignedIn} />      
 
       <SellBeatsInfo navigate={navigate} />
 
+     {/* <NewsletterForm /> */}
+
       <GroupF />
       <GroupG />
+      <WhatsAppChat />
 
-      {/* WhatsApp Chat Button */}
-      <div
-        id="whatsapp-chat"
-        style={{ position: "fixed", bottom: 20, right: 20, zIndex: 1000 }}
-      >
-        <button
-          onClick={toggleChatOptions}
-          style={{
-            backgroundColor: "#db3056",
-            color: "white",
-            borderRadius: "50%",
-            width: "60px",
-            height: "60px",
-            fontSize: "30px",
-            textAlign: "center",
-            lineHeight: "60px",
-            border: "none",
-            boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
-            cursor: "pointer",
-          }}
-        >
-          💬
-        </button>
-
-        {/* Chat options (hidden/show dynamically) */}
-        {isChatOpen && (
-          <div
-            style={{
-              backgroundColor: "#ddd",
-              borderRadius: "8px",
-              boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
-              padding: "10px",
-              textAlign: "center",
-              position: "absolute",
-              bottom: 70,
-              right: 0,
-              width: "200px",
-            }}
-          >
-            <p style={{ margin: 0, color: "black" }}>Chat with:</p>
-            <a
-              href="https://wa.me/447776727121?text=Hi%20I%20need%20help%20with%20your%20services"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button
-                style={{
-                  backgroundColor: "#db3056",
-                  color: "white",
-                  padding: "10px",
-                  borderRadius: "5px",
-                  margin: "5px",
-                }}
-              >
-                Lee
-              </button>
-            </a>
-            or
-            <a
-              href="https://wa.me/2347011886514?text=Hi%20I%20need%20help%20with%20your%20services"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button
-                style={{
-                  backgroundColor: "#db3056",
-                  color: "white",
-                  padding: "10px",
-                  borderRadius: "5px",
-                  margin: "5px",
-                }}
-              >
-                Tayexy
-              </button>
-            </a>
-          </div>
-        )}
-      </div>
       {/* Feedback Form Button */}
       <button className="vertical-feedback-btn" onClick={toggleFeedbackForm}>
         FEEDBACK

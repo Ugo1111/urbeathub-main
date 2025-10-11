@@ -864,12 +864,12 @@ color:#ffffff;}
   font-size: 1.2rem;
   color: #ffffff;
   line-height: 1.4;
-}
+}           
 
 .hero2-container1 li::before {
   content: '';
   position: absolute;
-  left: 0;
+left: 0;      
   top: 0;
   width: 60px;
   height: 60px;

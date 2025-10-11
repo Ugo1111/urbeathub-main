@@ -3,6 +3,7 @@ import { db, auth } from "../../firebase/firebase"; // Import Firestore and Auth
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import "../css/MusicDistributionForm.css";
+import { Helmet } from "react-helmet";
 
 const EditStoreFront = () => {
   const [brandName, setBrandName] = useState("");
@@ -94,6 +95,10 @@ const EditStoreFront = () => {
   };
 
   return (
+    <>
+    <Helmet>
+          <title>Edit Store</title>
+        </Helmet>
     <div className="edit-store-front-container">
     <div className="edit-store-front">
       <h2>Edit Store Front</h2>
@@ -155,6 +160,7 @@ const EditStoreFront = () => {
       </button>
     </div>
     </div>
+    </>
   );
 };
 

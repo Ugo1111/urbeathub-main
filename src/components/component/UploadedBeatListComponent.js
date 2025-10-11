@@ -5,6 +5,7 @@ import { collection, getDocs, deleteDoc, doc, updateDoc } from "firebase/firesto
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Modal from 'react-modal'; // Import Modal for pop-up
 import './UploadedBeatListComponent.css'; // Import CSS for styling
+import { Helmet } from 'react-helmet'; // Import Helmet for SEO
 
 const UploadedBeatListComponent = ({ setSelectedMusic }) => {
   const [uploadedMusic, setUploadedMusic] = useState([]);
@@ -91,8 +92,12 @@ const UploadedBeatListComponent = ({ setSelectedMusic }) => {
   };
 
   return (
-    <div className="UploadedBeatList-body">
-      <h1 className="UploadedBeatList-title">Uploaded Tracks</h1>
+    <>
+      <Helmet>
+        <title>Uploaded Beats | Ur Beathub</title>
+      </Helmet>
+      <div className="UploadedBeatList-body">
+        <h1 className="UploadedBeatList-title">Uploaded Tracks</h1>
       <ul>
         {uploadedMusic.map((item) => (
           <li key={item.id} className="UploadedBeatList-li">
@@ -164,6 +169,7 @@ const UploadedBeatListComponent = ({ setSelectedMusic }) => {
         </div>
       </Modal>
     </div>
+    </>
   );
 };
 

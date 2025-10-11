@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 import GroupA from "../component/header.js";
 import { GroupF, GroupG } from "../component/footer";
+import { Helmet } from "react-helmet";
 
 
 const stores = [
@@ -188,6 +189,10 @@ const MusicDistributionForm = () => {
     switch (activeSection) {
       case "album":
         return (
+          <>
+          <Helmet>
+            <title>Music Distribution</title>
+          </Helmet>
           <div className="Album-container">
             <h2>Start Your Music Distribution Process Below</h2>
             {/* Album form... (same as your original, no changes) */}
@@ -382,6 +387,7 @@ If you don't have a UPC / EAN please leave blank and we can generate one for you
               </div>
             </form>
           </div>
+          </>
         );
 
       case "music":

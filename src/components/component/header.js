@@ -1,3 +1,4 @@
+import React from 'react';
 import { FaCartShopping } from "react-icons/fa6";
 import { AuthState } from "../AuthState";
 import BeatsList from "../component/searchComponent.js";

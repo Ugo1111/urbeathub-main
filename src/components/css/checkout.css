@@ -111,7 +111,7 @@ contain: content;
 .cart-component-list{
 margin: 0%;
 padding: 0px;
-  /* border: solid blue;  */
+  /* border: solid blue; */
 }
 
 .cart-list-item{
@@ -157,11 +157,11 @@ border-radius: 10px;
 
 .cart-list-item-title{
   display: flex;
-width: 80%;
+width: 100%;
 font-size:x-large;
 
   justify-content: start;
-  /* border: solid rgb(255, 255, 255);  */
+  /* border: solid rgb(255, 255, 255); */
 }
 
 .cart-list-info{
@@ -173,7 +173,7 @@ font-size:x-large;
 }
 
 .cart-list-price{
-  /* border: solid rgb(102, 255, 1);  */
+  /* border: solid rgb(102, 255, 1); */
   font-size:larger;
   margin: 10px;
   
@@ -216,7 +216,7 @@ color: rgb(74, 74, 74);
 align-items: flex-end;
 row-gap: 30px;
   /* align-content: space-between; */
-  /* border: solid rgb(234, 234, 234);  */
+  /* border: solid rgb(234, 234, 234); */
 }
 
 
@@ -409,6 +409,7 @@ width: auto;
 margin: 0px;
 padding: 0px;
 top: 0px;
+background-color: #000;
 }
 
 
@@ -464,12 +465,46 @@ top: 0px;
  
 }
 
-@media (max-width: 320px){
- .favioriteSection1{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 120px;  
+@media screen and (max-width: 480px) {
+  .favourite-page h1 {
+    margin: 20px;
+    margin-left: 10px;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .favouriteList {
+    flex-direction: column;
+    width: 95%;
+    padding: 10px;
+  }
+
+  .favioriteSection1 {
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .favioriteSection2 {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .FaCartShopping {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    height: auto;
+  }
+
+  .Ol4favouriteList li {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px 5px;
   }
   
 }
