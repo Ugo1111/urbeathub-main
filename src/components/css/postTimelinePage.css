@@ -30,7 +30,7 @@ body {
 .post-timeline-page {
   padding: 20px;
   font-family: Arial, sans-serif;
- /*  background-color: #ffffff; /* Ensure the page background is white */
+ /* background-color: #ffffff; /* Ensure the page background is white */
   width: 100%;
   min-height: 100vh; /* Ensure the page spans the full viewport height */
 }
