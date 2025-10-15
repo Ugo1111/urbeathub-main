@@ -15,106 +15,150 @@ body {
   color: #989898;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center;  
 }
 
-/* Container Styles */
+/* this is where the align problem is */
 .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 20px;
+  /* width: 80vw; */
+  /*margin: auto;*/
+  /* padding: 50px; */
+  /* border: 1px rgb(56, 57, 57) solid; */
+  display: flex; /* Use Flexbox to arrange items horizontally */
+  justify-content: space-between; /* Push items to the sides */
+  align-items: flex-start; /* Align items at the top */
+  gap: 20px; /* Add space between the items */
   margin: 20px;
 }
 
-.theMainContainer {
-  width: 85vw;
-  margin: 0 auto;
-}
+.theMainContainer{
 
-.song {
+  width: 85vw;
+  margin-left: auto;
+  margin-right: auto;
+  }
+
+
+.song{
   display: flex;
+  /* justify-content: start; */
   margin: 10px;
+  /* border: 1px rgb(0, 255, 26) solid; */
+  /* border: #1dd833 2px solid;
+  background-color: #a61eef;
+  color: #eecf1f; */
+}
+.song button{
+  background-color: #db3056;
+  padding: 15px;
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+}
+.song button:hover{
+  background-color: #f31243;
 }
 
 .secondContainer {
+  
   width: 350px;
-  flex: 1;
-  max-width: 75%;
+  /* border: 1px springgreen solid; */
+  flex: 1; /* Allow it to take remaining space */
+  max-width: 75%; /* Restrict the width */
   display: flex;
-  flex-direction: column;
-  gap: 30px;
-  margin-bottom: 25px;
+  flex-direction: column; /* Stack MP3 Player, Comments, and Genre vertically */
+  /* background-color: #dc912f; */
+gap: 30px;
+margin-bottom: 25px;
 }
 
-.thesong {
-  width: 60%;
-}
+.thesong{
+    width: 60%;
+    /* border: #1dd833 2px solid;
+    background-color: #2dc23f;
+    color: #1fee37; */
+  }
 
-.h1, h2, h3, h4, p {
-  margin: 0;
-  padding: 0;
-}
+  /* input.thesong {
+    appearance: none;
+    height: 18px; 
+    background: rgb(60, 60, 60);
+  border-radius: 15px;
+  } */
+  
+  h1, h2, h3, h4, p {
+    margin: 0;
+    padding: 0;
+  }
+  
+ 
+  .beat-details{
+    display: block;
+    width: 100%;
+    
+  }
+  .beat-details h2{
+    margin: 10px 0 0 10px;
+    font-size: large;
+    color: #dddddd;
+  }
 
-.beat-details {
-  display: block;
-  width: 100%;
-}
-
-.beat-details h2 {
-  margin: 10px 0 0 10px;
-  font-size: large;
-}
-
-/* Beat Preview */
-.Mp3player {
+  /* Beat Preview */
+  .Mp3player {
   display: flex;
-  flex-direction: column;
-  width: 60vw;
+  flex-direction: column; /* Makes layout stack nicely on small screens */
+  width: 60vw; /* Full viewport width */
   height: auto;
   padding: 25px;
   margin: 0;
   background-color: #1e1c1c;
-  border-radius: 10px;
-  box-sizing: border-box;
+  border-radius: 10px; /* Optional: remove rounding for edge-to-edge */
+  box-sizing: border-box; /* Ensures padding doesn’t cause overflow */
 }
 
-.songBioSection {
+.songBioSection{
   width: 350px;
   min-height: 700px;
+  /* border: 1px rgb(126, 126, 126) solid; */
   background-color: #1e1c1c;
-  flex: 1;
-  max-width: 25%;
+  flex: 1; /* Take up remaining space if needed */
+  max-width: 25%; /* Restrict the width of the bio section */
   border-radius: 10px;
 }
 
-hr {
+hr{
+  /* border: 1px rgb(126, 126, 126) solid; */
   background-color: #1e1c1c;
-  border: 1px rgb(48, 47, 47) solid;
+  
+ border: 1px rgb(48, 47, 47)  solid
 }
 
-.songBioSection hr {
+.songBioSection hr{
   width: 85%;
   display: flex;
+  /* border: 1px rgb(126, 126, 126) solid; */
   background-color: #1e1c1c;
-  border: 1px rgb(48, 47, 47) solid;
+  
+ border: 1px rgb(48, 47, 47)  solid
 }
+
 
 .IoMdDownload {
   text-decoration-line: none;
   color: #ffffff5a;
   margin: 25px;
-  width: 80%;
-  height: 40px;
-  background-color: #2b2828;
-  display: flex;
-  align-items: center;
+width: 80%;
+height: 40px;
+  background-color: #2b2828; 
+   display: flex;
+ align-items: center;
   justify-content: center;
   gap: 10px;
   border-radius: 7px;
 }
 
-.item-actions {
+
+.item-actions{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -122,34 +166,36 @@ hr {
   margin: 25px;
 }
 
-.BioInformationSection {
+.BioInformationSection{
   margin: 25px;
   max-width: 80%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 20px;
+
 }
 
-.BioInformationSection div {
+.BioInformationSection div{
   display: flex;
   justify-content: space-between;
 }
 
-.comment {
+.comment{
   gap: 30px;
   min-height: 350px;
   background-color: #1e1c1c;
-  border-radius: 5px;
+border-radius: 5px;
 }
 
-.comment h1 {
-  padding: 20px;
+.comment h1{
+ padding: 20px;
 }
 
-.add-comment {
-  width: 100%;
-  height: 50px;
+.add-comment{
+ /* border: #1d4ed8 solid 2px; */
+ width: 100%;
+ height: 50px;
   gap: 30px;
   display: flex;
   flex-direction: row;
@@ -157,221 +203,262 @@ hr {
 }
 
 .add-comment input {
-  border: none;
-  border-bottom: 2px solid #666666;
-  outline: none;
-  padding: 5px;
+  border: none; /* Remove all borders */
+  border-bottom: 2px solid #666666; /* Add a bottom border */
+  outline: none; /* Remove focus outline */
+  padding: 5px; /* Add some padding for a better look */
   background-color: transparent;
-  color: #ffffff;
-  width: 100%;
+color: #ffffff;
+  width: 100%; /* Set desired width, e.g., full width */
   max-width: 1500px;
 }
 
 .add-comment button {
-  background-color: transparent;
-  border: hidden;
-  font-size: 2.5em;
+  background-color: transparent; /* Optional */
+border: hidden;
+font-size: 2.5em; /* Matches the size */
 }
 
 .send-icon {
-  border-radius: 50%;
-  background-color: #db3056;
-  padding: 5px;
+  border-radius: 50%; /* Fully rounded */
+  background-color: #db3056; /* Optional */
+  padding: 5px; /* Optional */
   color: #4f4e4e;
+}
+.send-icon:hover {
+  background: #db3056;
 }
 
 .comments-list {
   padding-top: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin: 20px;
+  display: flex ;
+flex-direction: column;
+gap: 20px;
+margin: 20px;
 }
 
-.comments-list-container {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
+.comments-list-container{
+  display: flex ;
+flex-direction: row;
+gap: 20px;
 }
 
-.image-placeholder {
+ .image-placeholder {
   width: 100%;
-  max-width: 300px;
-  aspect-ratio: 1 / 1;
+  max-width: 300px; /* You can change this max size */
+  aspect-ratio: 1 / 1; /* Keeps it square */
   margin-top: 20px;
 }
 
 .image-placeholder img {
   width: 80%;
   height: 80%;
-  object-fit: cover;
+  object-fit: cover; /* or 'contain' if you prefer */
   display: block;
-  border-radius: 8px;
-  margin: auto;
+  border-radius: 8px; /* Optional for style */
+  margin:auto;
 }
+  
+  .license-options {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px; 
+  }
+  
+  .buy-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+  
+  }
+  
+  /* Beat Cards */
+  .beat-cards {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+  }
+  
+  .beat-card img {
+    width: 100%;
+    height: 150px;
+  }
+  
+  .select-btn {
+    background-color: red;
+    color: rgb(253, 249, 7);
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  /* Genre Section */
+  .genre-options {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+  }
+  
+  .genre-card img {
+    width: 100%;
+    height: 150px;
+  }
+  
+  .licensing-container {
+    background-color: #181818;
+    color: rgb(174, 174, 174);
+    padding: 20px;
+    
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    font-family: Arial, sans-serif;
+  }
+  
+  .licensing-container h2 {
+    font-size: large;
+    margin-bottom: 20px;
+  }
+  
+  .licenses {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+    gap: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    
+  }
+  
+  .license-card {
+    background-color: #262626;
+    border: 1px solid #333;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    
+  }
+  
+  .license-card.active {
+    background-color: #000000;
+ 
+    border-color: #db3056;
+  }
+  
+  .license-card h3 {
+    font-size: small;
+    margin-bottom: 10px;  
+  }
+  
+  .license-card p {
+    font-size: large;
+    font-weight: bold;
+  }
+  
+  .license-card small {
+    font-size: small;
+    color: #aaa;
+  }
+  
+  .checkout {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    /* border: #2563eb 2px solid; */
+  }
+ 
+  .licensing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: #56eb25 2px solid; */
+    height: 70px;
+  }
+  
+  .licensing-header h2 {
+    margin-top: auto;
+    margin-bottom: auto;
+    color: #aaa;
+    /* border: #56eb25 2px solid; */
+     }
+  
 
-.license-options {
-  display: flex;
-  gap: 20px;
-  margin-top: 10px;
-}
-
-.buy-btn {
-  margin-top: 10px;
+  .checkout span {
+    font-size: small;
+    font-weight: bold;
+    margin-right: 10px;
+    /* border: #ebc025 2px solid; */
+  }
+  
+  .add-to-cart-btn,
+  .buy-now-btn {
+    padding: 10px 20px;
+    font-size: small;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    height: 50px;
+    background-color: #db3056;
+    color: white;
+  }
+  
+.negotiate-price-btn{
   padding: 10px 20px;
-  background-color: red;
-  color: white;
-  border: none;
-  cursor: pointer;
+    font-size: small;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    height: 50px;
+    background-color: #db3056;
+    color: white;
 }
+  .add-to-cart-btn {
+    background-color: #333;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: #444;
+  }
+  
+ 
+  .buy-now-btn:hover {
+    background-color: #f31646;
+  }
 
-.beat-cards {
-  display: flex;
-  gap: 20px;
-  margin: 20px 0;
-}
+   .usageTermList{
+    font-size: small;
+   
+    text-align: center;
+    padding-left: 20px;
+   width: 80%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+  }
+  
+  .usageTermSection{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+    /* text-align: center;
+   min-height: 110px;
+   width: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+     
+  }
 
-.beat-card img {
-  width: 100%;
-  height: 150px;
-}
-
-.select-btn {
-  background-color: red;
-  color: rgb(253, 249, 7);
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.genre-options {
-  display: flex;
-  justify-content: space-around;
-  gap: 20px;
-}
-
-.genre-card img {
-  width: 100%;
-  height: 150px;
-}
-
-.licensing-container {
-  background-color: #181818;
-  color: rgb(174, 174, 174);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-}
-
-.licensing-container h2 {
-  font-size: large;
-  margin-bottom: 20px;
-}
-
-.licenses {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin: 20px 0;
-}
-
-.license-card {
-  background-color: #262626;
-  border: 1px solid #333;
-  padding: 15px;
-  border-radius: 8px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-.license-card.active {
-  background-color: #000;
-  border-color: #db3056;
-}
-
-.license-card h3 {
-  font-size: small;
-  margin-bottom: 10px;
-}
-
-.license-card p {
-  font-size: large;
-  font-weight: bold;
-}
-
-.license-card small {
-  font-size: small;
-  color: #aaa;
-}
-
-.checkout {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.checkout span {
-  font-size: small;
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-.add-to-cart-btn,
-.buy-now-btn {
-  padding: 10px 20px;
-  font-size: small;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  height: 50px;
-  background-color: #db3056;
-  color: white;
-}
-
-.buy-now-btn:hover {
-  background-color: #f31646;
-}
-
-.negotiate-price-btn {
-  padding: 10px 20px;
-  font-size: small;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  height: 50px;
-  background-color: #db3056;
-  color: white;
-}
-
-.add-to-cart-btn {
-  background-color: #333;
-  color: white;
-  margin-right: 10px;
-}
-
-.add-to-cart-btn:hover {
-  background-color: #444;
-}
-
-.usageTermList {
-  font-size: small;
-  text-align: center;
-  padding-left: 20px;
-  width: 80%;
-  display: flex;
-  align-content: center;
-  align-items: center;
-}
-
-.usageTermSection {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
-
+ /* Style the buttons that are used to open and close the accordion panel */
 .accordionin {
+  /* background-color: #eee; */
+  /* color: #444; */
+  
   padding: 18px;
   width: 100%;
   text-align: left;
@@ -380,59 +467,73 @@ hr {
   transition: 0.4s;
 }
 
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+
+
+/* Style the accordion panel. Note: hidden by default */
 .panel {
   padding: 0 18px;
+  /* background-color: white; */
   display: none;
   overflow: hidden;
-  max-width: 100%;
+  max-width: 100%; 
 }
 
-.usageTermHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 100%;
-  height: 50px;
-  color: #d9d9d9;
-  text-align: center;
+.usageTermHeader{
+display: flex;
+justify-content: space-between; /* Align items with space between */
+align-items: center;
+max-width: 100%;
+height: 50px;
+color: #d9d9d9;
+text-align: center;
 }
 
 .usageTermHeaderh3 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-height: 100%;
-  margin-top: auto;
-  margin-bottom: auto;
+ /* Remove margin from the h3 for clean alignment */
+ display: flex;
+ align-items: center;
+justify-content: space-between; 
+max-height: 100%;
+margin-top: auto;
+margin-bottom: auto;
 }
 
-.usageTermHeader button {
+.usageTermHeader button { 
   background: none;
   border: none;
-  padding: 0;
+ padding: 0;
   width: 50px;
   color: #d9d9d9;
 }
 
+.usageTermHeader button:hover{
+  color: #f9f9f9;
+  background: none;
+}
+
 /* cart page css */
-.CheckoutContainer {
+
+.CheckoutContainer{
   border: #282727 solid;
   height: 100vh;
 }
 
-.CheckoutBody {
+.CheckoutBody{  
   display: flex;
   justify-content: space-evenly;
-  width: 85%;
-  max-width: 85%;
-  margin: auto;
-  gap: 10px;
+width: 85%;
+max-width: 85%;
+margin: auto;
+gap: 10px;
 }
 
-.checkoutItem {
+.checkoutItem{
+  /* background-color: rgb(91, 91, 91); */
   width: 100%;
   min-height: 90px;
-  height: fit-content;
+height: fit-content;
+  /* border: #eb5025 solid; */
 }
 
 .CartSection2 {
@@ -441,22 +542,22 @@ hr {
   padding: 20px;
   background-color: rgba(20, 20, 20, 0.631);
   display: flex;
-  justify-content: center;
+  justify-content: center; /* center .CartSummary horizontally */
 }
 
 .CartSummary {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; /* center content */
   gap: 30px;
   width: 100%;
 }
 
 .selectedCartSummary {
   display: flex;
-  justify-content: center;
-  gap: 40px;
+  justify-content: center; /* center the items */
+  gap: 40px; /* space between title and price */
   color: rgb(229, 229, 229);
   width: 100%;
 }
@@ -467,23 +568,23 @@ hr {
   text-align: center;
 }
 
-.Subtotal {
+.Subtotal{
   display: flex;
   justify-content: space-between;
 }
 
-.Total_CartSummary {
+.Total_CartSummary{
   color: #ffffff;
   display: flex;
   justify-content: space-between;
 }
 
-.CheckoutTitle {
-  margin: 30px;
-  margin-left: 70px;
+.CheckoutTitle{
+margin: 30px;
+margin-left: 70px;
 }
 
-.proceedToCheckout {
+.proceedToCheckout{
   background-color: #db3056;
   color: #ffffff;
   padding: 15px;
@@ -494,11 +595,11 @@ hr {
 }
 
 .proceedToCheckout:active {
-  transform: scale(0.95);
-  background-color: #db244c;
-}
+  transform: scale(0.95); /* Shrinks slightly */
+  background-color: #db244c; /* Darker shade when clicked */
+  }
 
-.PaymentPage-button {
+.PaymentPage-button{
   background-color: #db3056;
   color: #ffffff;
   padding: 10px;
@@ -507,32 +608,37 @@ hr {
   border: none;
 }
 
-.PaymentPage-button:hover {
+.PaymentPage-button:hover{
   background: #dddddd;
-  color: #181818;
+  color:#181818;
 }
 
-.favourite-page {
+.favourite-page{
   height: 100vh;
 }
 
-.Search-beats-body {
-  background-color: #d81d1d;
-  border-radius: 25px;
-  justify-content: center;
+.Search-beats-body{
+background-color: #d81d1d;
+/* min-height: 80vw; 
+height: auto;
+min-width: 1200px; */
+/* margin: 990px 0 0 0; */
+border-radius: 25px;
+justify-content: center;
 }
 
-.Search-beats-input {
-  width: 240px;
-  height: 45px;
-  border-radius: 25px;
-  justify-content: center;
+.Search-beats-input{
+width: 240px;
+height: 45px;
+border-radius: 25px;
+justify-content: center;
+/* background-color: #ccc; */
 }
 
 .search-input-container {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: center;  
 }
 
 .clear-button {
@@ -549,98 +655,96 @@ hr {
   padding: 0;
 }
 
-.search-beats-body {
-  min-width: 40%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
+.search-beats-body {  
+min-width: 40%;
+position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Adjust as necessary */    
 }
 
-.search-beats-input {
-  border: #be27ff solid;
+.search-beats-input {  border: #be27ff solid;
   width: 240px;
   height: 45px;
   border-radius: 25px;
   justify-content: center;
   background-color: #ccc;
-  padding: 10px 40px 10px 10px;
-  max-width: 400px;
-  font-size: 16px;
-  box-sizing: border-box;
+  padding: 10px 40px 10px 10px; /* Add padding to accommodate the clear button */
+  width: 240px;
+    max-width: 400px; /* Adjust as necessary */
+   font-size: 16px;
+    box-sizing: border-box;
 }
 
-.search-beats-results-container {
-  border: #3d3d3d41 solid;
-  z-index: 1000;
-  position: absolute;
-  top: 100%;
-  min-width: 97vw;
-  backdrop-filter: blur(15px);
-  min-height: 90dvh;
-  display: flex;
-  justify-content: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.482);
-  background: rgba(0, 0, 0, 0.217);
-  max-height: 400px;
-  overflow-y: auto;
-  padding: 10px;
-  border-radius: 8px;
+.search-beats-results-container {  border: #3d3d3d41 solid;
+  z-index: 1000; /* A high z-index value */
+    position: absolute;
+    top: 100%; /* Position it below the header */
+    min-width: 97vw;
+    backdrop-filter: blur(15px); /* Apply a blur effect */
+    min-height: 90dvh;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.482); /* Optional: Add a subtle shadow */
+    background: rgba(0, 0, 0, 0.217); /* Optional: Change the background of the results list */
+    max-height: 400px; /* Adjust height as needed */
+    overflow-y: auto;
+    padding: 10px;
+    border-radius: 8px;
 }
 
 .search-beats-results-container::-webkit-scrollbar {
   width: 8px;
 }
 
-.search-beats-ul {
-  border: #d81d1d solid;
-  min-width: 1200px;
-  color: #ffffff;
-  border-radius: 10px;
-  margin-top: 10px;
-  padding: 0;
-  list-style: none;
-  height: 90%;
-  overflow-y: auto;
-  width: 1600px;
-  min-width: 90%;
-  background: rgba(0, 0, 0, 0.713);
-  border: 1px solid #ffffff46;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.482);
-  -webkit-backdrop-filter: blur(10px);
-}
+.search-beats-ul {  border: #d81d1d solid;min-width: 1200px;
+color: #ffffff;
+border-radius: 10px;
+    margin-top: 10px; /* Add some margin to separate the input from the results */
+    padding: 0;
+    list-style: none;
+   height: 90%; /* Optional: Limit the height of the results list */
+    overflow-y: auto; /* Optional: Add scroll if the list is too long */
+    width: 1600px;
+    min-width: 90%; /* Adjust as necessary */
+    background: rgba(0, 0, 0, 0.713); /* Optional: Change the background of the results list */
+    border: 1px solid #ffffff46; /* Optional: Add border to the results list */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Optional: Add shadow to the results list */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.482); /* Optional: Add a subtle shadow */
+    -webkit-backdrop-filter: blur(10px); 
 
-.search-beats-li {
+  }
+
+.search-beats-li {  
   display: flex;
   flex-direction: row;
   gap: 20px;
-  min-width: 1200px;
-  padding: 10px;
-  border-bottom: 1px solid #727171;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  color: #c0c0c0;
-  text-decoration: none;
+min-width: 1200px;
+    padding: 10px;
+    border-bottom: 1px solid #727171;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    color: #c0c0c0;
+    text-decoration: none;
 }
 
 .search-beats-li:last-child {
-  border-bottom: none;
-}
+    border-bottom: none;
+    }
 
-.search-beats-results-metadata {
+.search-beats-results-metadata{
+  
 }
-
-.search-beats-bpm {
-  padding: 1px 5px 1px 0;
+.search-beats-bpm{
+padding: 1px 5px 1px 0;
   margin: 5px;
   font-size: small;
-}
+  }
 
-.search-beats-taglist {
-  background: rgba(70, 70, 70, 0.428);
-  border-radius: 10px;
-  padding: 3px 5px 3px 2px;
+.search-beats-taglist{
+  background: rgba(70, 70, 70, 0.428); /* Optional: Change the background of the results list */
+border-radius: 10px;
+padding: 3px 5px 3px 2px;
   margin: 5px;
   font-size: medium;
   border: #f86c6c26 solid;
@@ -656,17 +760,18 @@ hr {
   height: 320px;
   padding: 10px;
   scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
   width: 100%;
   box-sizing: border-box;
   white-space: nowrap;
 }
 
 .recomendation-list-container::-webkit-scrollbar {
-  display: none;
+  display: none; /* Chrome/Safari */
 }
 
+/* Show scrollbar on hover */
 .recomendation-list-container:hover {
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
@@ -686,8 +791,9 @@ hr {
   background: transparent;
 }
 
+/* Individual track card */
 .recomendation-list {
-  position: relative;
+  position: relative; /* Needed for the pseudo-element */
   flex: 0 0 150px;
   height: 270px;
   background-color: transparent;
@@ -697,7 +803,7 @@ hr {
   align-items: center;
   transition: background-color 0.3s ease;
   box-sizing: border-box;
-  z-index: 1;
+  z-index: 1; /* Make sure the pseudo-element appears behind content */
 }
 
 .recomendation-list::before {
@@ -707,17 +813,19 @@ hr {
   left: -8px;
   right: -8px;
   bottom: -8px;
-  background: #2d2d2dc7;
+  background: #2d2d2dc7;  /* Hover background */
   border-radius: 12px;
   opacity: 0;
   transition: opacity 0.3s ease;
-  z-index: -1;
+  z-index: -1; /* Behind the card */
 }
 
+/* Hover effect */
 .recomendation-list:hover::before {
   opacity: 1;
 }
 
+/* Image */
 .recomendation-image {
   width: 160px;
   height: 160px;
@@ -726,23 +834,25 @@ hr {
   border: #61616159 solid 1px;
 }
 
+/* Title */
 .recomendation-title {
   color: #c8c8c8;
   font-size: 14px;
   font-style: italic;
   font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: nowrap;           /* Keep on one line */
+  overflow: hidden;              /* Hide overflow */
+  text-overflow: ellipsis;       /* Show "..." */
   margin-top: 8px;
   text-align: center;
   width: 100%;
-  max-width: 100px;
+  max-width: 100px;              /* LIMIT the visual width of the title */
   box-sizing: border-box;
   margin-left: auto;
-  margin-right: auto;
+  margin-right: auto;            /* Center the title within the card */
 }
 
+/* Add to Cart */
 .recomendation-AddToCart-button {
   border: #db3056 solid;
   color: #dedede;
@@ -757,23 +867,40 @@ hr {
   cursor: pointer;
 }
 
-.comment-date {
-  color: #5b5b5b;
-  padding-left: 10px;
-  font-size: small;
-  font-style: italic;
+.recomendation-AddToCart-button:hover{
+  background-color: #f8063b;
+}
+
+.comment-date{
+color: #5b5b5b;
+padding-left: 10px;
+font-size: small;
+font-style: italic;
 }
 
 /* Report Section Styles */
-.report-section {
+
+.report-section{
+  margin-top: 20px;
+  }
+
+.report-section button{
+  background-color: #db3056;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+}
+
+.report-section button:hover{
+  background-color: #f30539;
+}
+
+.report-form{
   margin-top: 20px;
 }
 
-.report-form {
-  margin-top: 20px;
-}
-
-.report-form-label {
+.report-form-label{
   margin-top: 40px;
 }
 
@@ -783,24 +910,30 @@ hr {
   justify-content: space-between;
 }
 
-.report-textarea {
+
+.report-textarea{
   width: 100%;
   height: 50px;
   background: #000000;
   color: #ffffff;
 }
-
-.report-submit,
-.report-cancel {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .report-submit {
-  background-color: #db3056;
+  background-color:#db3056;
   color: white;
+   padding: 10px 20px;
+  border: none;
+  gap: 10px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .report-submit:hover {
@@ -808,28 +941,31 @@ hr {
 }
 
 .report-cancel {
-  background-color: #333;
+  background:#333;
   color: #000000;
+   padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .report-cancel:hover {
-  background-color: #e1e1e1;
+  background: #e1e1e1;
   color: #000000;
 }
 
 /* cookie consent privacy policy style */
-.privacy-policy {
+.privacy-policy{
   background: #ffffff;
   color: #000000;
   padding: 10px;
 }
 
-.privacy-policy a {
+.privacy-policy a{
   color: #db3056;
   text-decoration: none;
   font-weight: bold;
 }
-
 /* license details style */
 .beatlicenses {
   background-color: white;
@@ -852,7 +988,7 @@ hr {
   gap: 15px;
 }
 
-.beatlicenses3 {
+ .beatlicenses3 {
   color: #000000;
   border: none;
   padding: 10px;
@@ -864,16 +1000,25 @@ hr {
 }
 
 .beatlicenses3:hover {
-  background-color: #b3000f;
+  background-color: #db3056;
+  color: white;
 }
 
 .beatlicenses4 {
-  height: fit-content;
+  height:fit-content;
   padding: 10px;
   border-radius: 5px;
   margin-top: 5px;
   line-height: 1.6;
   white-space: pre-line;
+  color: #333;
+}
+.license-btn{
+  color: #db3056;
+  text-decoration: none;
+}
+.license-btn:hover{
+  text-decoration: underline;
 }
 
 .refund-policy-container {
@@ -901,7 +1046,7 @@ hr {
 }
 
 .refund-policy-container a {
-  color: #db3056;
+  color: #db3056;;
   text-decoration: none;
 }
 
@@ -913,26 +1058,30 @@ hr {
   position: fixed;
   border: none;
   height: 100vh;
-  width: 80vw;
+  width: 100vw;
   right: 0;
   top: 0;
   padding: 20px;
-  line-height: 1.6;
-  color: #2b2828;
+  line-height:1.6;
+  color:#2b2828;
   background-color: #ddd;
-  overflow-x: hidden;
+  overflow-x: hidden;;
   overflow-y: auto;
+}
+
+.terms-conditions-container h2{
+  text-align: left;
 }
 
 .video-wrap {
   position: relative;
   width: 100vw;
-  height: 50vh;
+  height: 50vh; /* 50% of viewport height */
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-}
+} 
 
 .video-wrap video {
   position: absolute;
@@ -940,10 +1089,11 @@ hr {
   left: 0;
   z-index: 1;
   width: 100%;
-  height: 100%;
+  height: 100%; /* match container height */
   object-fit: cover;
 }
 
+/* New wrapper to group and center text/button */
 .video-content {
   position: relative;
   z-index: 2;
@@ -969,21 +1119,20 @@ hr {
   color: #ffffff;
   padding: 10px 20px;
   border-radius: 10px;
-  font-size: 1rem;
+  font-size: 0.8rem;
   border: none;
   cursor: pointer;
 }
-
 .start-selling-button:hover {
   background-color: #f31646;
-  transform: scale(1.05);
+  transform: scale(1.05); /* Slightly enlarge on hover */
   transition: transform 0.3s ease;
 }
 
 .why-sell-beat {
   width: 100%;
   padding: 4rem 2rem;
-  background-color: #111;
+  background-color: #111; /* Dark background */
   color: white;
   display: flex;
   justify-content: center;
@@ -992,7 +1141,7 @@ hr {
 .why-sell-beat-container {
   display: flex;
   gap: 2rem;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Allows stacking on small screens */
   max-width: 1000px;
   width: 100%;
   justify-content: space-between;
@@ -1002,9 +1151,9 @@ hr {
   background-color: #1c1c1c;
   padding: 2rem;
   border-radius: 1rem;
-  flex: 1 1 45%;
+  flex: 1 1 45%; /* Responsive: take 45% of the row */
   min-width: 250px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
   transition: transform 0.3s ease;
 }
 
@@ -1015,13 +1164,14 @@ hr {
 .why-sell-beat-box h2 {
   margin-bottom: 1rem;
   font-size: 1.5rem;
+  text-align: left;
+  color: #ccc;
 }
 
 .why-sell-beat-box p {
   font-size: 1rem;
   color: #ccc;
 }
-
 .lease-section {
   padding: 50px 20px;
   background-color: #000000;
@@ -1032,6 +1182,7 @@ hr {
   font-size: 32px;
   margin-bottom: 40px;
   font-weight: bold;
+  color: #ccc;
 }
 
 .lease-grid {
@@ -1078,239 +1229,6 @@ hr {
   color: #ffffff;
   text-align: center;
 }
-
-/* responsive mode */
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .secondContainer {
-    width: 100%;
-    max-width: 100%;
-    align-items: center;
-  }
-
-  .songBioSection {
-    width: 90%;
-    max-width: none;
-  }
-
-  .image-placeholder {
-    margin: 0 auto;
-    margin-top: 20px;
-  }
-
-  .Mp3player {
-    flex-direction: column;
-    padding: 20px;
-    align-items: center;
-    text-align: center;
-    width: 75vw;
-  }
-
-  .licensing-container h2 {
-    font-size: large;
-  }
-
-  .search-beats-body {
-    display: none;
-  }
-
-  .beat-details h2 {
-    font-size: large;
-  }
-
-  .item-actions {
-    display: none;
-  }
-
-  .video-wrap {
-    height: 55vh;
-  }
-
-  .video-content h1 {
-    font-size: 2.2rem;
-  }
-
-  .video-content p {
-    font-size: 1rem;
-  }
-
-  .start-selling-button {
-    font-size: 1rem;
-    padding: 10px 18px;
-  }
-
-  .CheckoutBody {
-    width: 95%;
-  }
-
-  .terms-conditions-container h1 {
-    font-size: 1.5rem;
-  }
-
-  .selectedCartSummary {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .certSummarySong,
-  .certSummaryPRICE {
-    min-width: auto;
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .secondContainer {
-    width: 100%;
-    padding: 0 10px;
-    gap: 20px;
-  }
-
-}
-
-  .image-placeholder {
-    margin: 0 auto;
-    margin-top: 20px;
-  }
-
-  .songBioSection {
-    width: 97vw;
-  }
-
-  .song {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .licensing-container {
-    width: 97vw;
-  }
-
-  .licensing-container h2,
-  .beat-details h2 {
-    font-size: medium;
-  }
-
-  .usageTermList {
-    font-size: small;
-    margin-bottom: 20px;
-  }
-
-  .licenses {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  .Mp3player {
-    width: 97vw;
-  }
-
-  .licensing-container h2 {
-    font-size: 1rem;
-    margin-bottom: 20px;
-  }
-
-  .CheckoutBody {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .CheckoutTitle {
-    text-align: center;
-    padding-left: 10px;
-    width: 90%;
-    margin-bottom: 20px;
-  }
-
-  .comment {
-    gap: 10px;
-    min-height: 350px;
-    min-width: 320px;
-    background-color: #1e1c1c;
-    border-radius: 5px;
-  }
-
-  .volume {
-    display: none;
-  }
-
-  .item-actions {
-    display: none;
-  }
-
-  .beatlicenses {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 100vw;
-    height: 300vh;
-    height: fit-content;
-    margin: auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .video-wrap {
-    height: 60vh;
-  }
-
-
-.lease-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-}
-
-.lease-card {
-  background: #1e1c1c;
-  border: 1px solid #ddd;
-  border-radius: 16px;
-  width: 300px;
-  padding: 25px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
-}
-
-.lease-card:hover {
-  transform: translateY(-5px);
-}
-
-.highlight {
-  border: 3px solid #db3056;
-}
-
-.lease-card-title {
-  font-size: 20px;
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-
-.lease-features {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 20px;
-  text-align: left;
-}
-
-.lease-features li {
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: #ffffff;
-  text-align: center;
-}
-
-
-
-
-
-
-
-
-
 
 /* responsive mode */
 
@@ -1356,6 +1274,7 @@ hr {
     .item-actions{
       display: none;
     }
+    
     .video-wrap {
       height: 55vh;
     }
@@ -1382,6 +1301,7 @@ width: 95%;
   font-size: 1.5rem;
 }
 
+
 .selectedCartSummary {
     flex-direction: column;
     align-items: center;
@@ -1394,8 +1314,7 @@ width: 95%;
     width: 100%;
   }
     }
-    
-    
+     
     @media (max-width: 480px) {
 
       .secondContainer {
@@ -1441,9 +1360,13 @@ width: 95%;
     width: 97vw;
          }
         
-      
-        
-      
+   .add-to-cart-btn {
+    background-color: #333;
+    color: white;
+    padding: 5px 10px;
+    margin-right: 10px;
+  }
+
         .licensing-container h2 {
           font-size: 1rem;
           margin-bottom: 20px;
@@ -1461,8 +1384,6 @@ width: 95%;
           margin-bottom: 20px;
         }
        
-        
- 
         .comment{
           gap: 10px;
           min-height: 350px;
@@ -1506,14 +1427,3 @@ width: 95%;
   }
 
   }
-
-
-
-
-
-
-
-
-
-
-
