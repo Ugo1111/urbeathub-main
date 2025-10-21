@@ -11,7 +11,7 @@ import {
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Modal from "react-modal";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const Tracks = ({ setSelectedMusic }) => {
   const [uploadedMusic, setUploadedMusic] = useState([]);
