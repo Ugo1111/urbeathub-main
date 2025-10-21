@@ -177,19 +177,12 @@ function Front() {
 
         {/* <DistributionLogo /> */}
 
-      <CoverArtShowcase isSignedIn={isSignedIn} />
+      
 
-      </div>
-      <div className="distribute">
-        <div className="distribute-wrapper">
+      
+      
 
-          {/* <div className="distribute-container">
-            <h2>Sell high quality instrumental beats with ease.</h2>
-            <p>Monetize your talent—start earning real cash from the beats you create.</p>
-            <button className="start-selling-button" onClick={() => navigate('/signUpPage')}>GET STARTED →</ button>
-          </div> */}
-
-         {/* <DistributeSection sound={sound} navigate={navigate} isSignedIn={isSignedIn} /> */}
+          <DistributeSection sound={sound} navigate={navigate} isSignedIn={isSignedIn} />
 
           <section className="hero2-1">
             <div className="hero2-overlay"></div>
@@ -226,11 +219,13 @@ function Front() {
             </div>
           </section>  </div>
         
-      </div>
+  
+            <CoverArtShowcase isSignedIn={isSignedIn} />
 
       {/*<NewsletterForm /> */}
           {/* <HomePageFeed /> */}
-          <GraphicsSection Art={Art} navigate={navigate} isSignedIn={isSignedIn} />
+          
+          {/*<GraphicsSection Art={Art} navigate={navigate} isSignedIn={isSignedIn} />*/}
 
           <SellBeatsInfo navigate={navigate} />
 

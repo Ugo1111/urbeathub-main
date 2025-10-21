@@ -1234,6 +1234,8 @@ left: 0;
 .distribute-container h2 {
   font-size: 2rem;
   margin-bottom: 16px;
+  color: #ffffff;
+  text-align: left;
 }
 
 .distribute-container p {
