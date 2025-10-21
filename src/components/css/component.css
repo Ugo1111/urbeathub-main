@@ -466,151 +466,128 @@ details[open] summary::before {
 
   /* Profile Page Container */
 .ProfilePage {
-  
-  max-width: 500px;
-  margin: 3rem auto;
-  padding: 3rem; 
-  border-radius: 12px;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
-  background-color: #000000;
-  color: #f3f4f6;
+  width: 100vw; /* Ensures full viewport width */
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background-color: #f9f9f9; /* Ensure it's on the component too */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-/* Page Header */
+/* Heading */
 .ProfilePage h1 {
   font-size: 2rem;
-  color: #fbbf24;
-  margin-bottom: 2rem;
+  color: #111;
+  margin-bottom: 1rem;
   text-align: left;
-  border-bottom: 2px solid #3b3b52;
-  padding-bottom: 0.5rem;
 }
 
-/* Form Styling */
-.ProfilePage input[type="text"],
-.ProfilePage input[type="date"] {
-  width: 100%;
-  background-color: #2c2c3d;
-  padding: 0.75rem;
-  margin: 1rem 0;
-  border: 1px solid #3b3b52;
-  border-radius: 8px;
+/* Username + Profile Pic Container */
+.ProfilePage-userName-container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-x: hidden;
+  }
+
+.ProfilePage-userName-Username {
+  width: 80%;
+  max-width: 600px;
+}
+
+.ProfilePage-userName-Username label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  display: block;
+  color: #333;
+}
+
+/* Input Styles */
+.ProfilePage input,
+.ProfilePage textarea {
+  width: 80%;
+  max-width: 500px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
   font-size: 1rem;
-  color: #f3f4f6;
-}
-
-.ProfilePage input:focus {
-  border-color: #fbbf24;
-  outline: none;
-  box-shadow: 0px 0px 6px rgba(251, 191, 36, 0.5);
-}
-
-/* Buttons */
-.ProfilePage button {
-  background-color: #db3056;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: 1.5rem;
-}
-
-.ProfilePage button:hover {
-  background-color: #f80b3f;
-  transform: translateY(-2px);
-}
-.ProfilePage-userName-container{
-  display: flex;
-  flex-direction: row;
-
-  
-    }
-
-/* Profile Picture Upload Section */
-.ProfilePictureContainer {
-  text-align: center;
-  margin-top: 2rem;
-}
-
-.ProfilePictureContainer img {
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.7);
   margin-bottom: 1rem;
 }
 
-.ProfilePictureContainer input[type="file"] {
-  display: block;
-  margin: 1.5rem auto 1rem auto;
-  font-size: 0.9rem;
-  color: #f3f4f6;
-}
-
-.ProfilePictureContainer button {
-  background-color: #3b82f6;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-}
-
-.ProfilePictureContainer button:hover {
-  background-color: #2563eb;
-}
-
-/* Form Labels and Info */
+/* Label Styling */
 .ProfilePage label {
-  font-weight: bold;
-  color: #fbbf24;
   display: block;
-  text-align: left;
-  margin-bottom: 0.25rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+  color: #333;
+  max-width: 600px;
 }
 
-/* Styling Divider Lines */
-.ProfilePage hr {
-  border: 0;
-  height: 1px;
-  background: #3b3b52;
-  margin: 2rem 0;
+/* Bio Section */
+.bio-container {
+  width: 90%;
+  max-width: 600px;
 }
 
-.ProfilePictureContainer p {
-  color: #cbd5e1;
+.bio-textarea {
+  resize: vertical;
+  min-height: 120px;
 }
 
-/* Profile Section Spacing */
-.ProfilePageSection {
-  display: flex;
-  justify-content: space-between;
-  margin: 2rem 0;
+/* Submit Button */
+.ProfilePage button[type="submit"] {
+  background-color: #db3056;
+  color: #fff;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+  width: 80%;
+  max-width: 500px;
+  transition: background-color 0.3s ease;
 }
 
-.ProfilePageSection div {
-  flex: 1;
-  margin-right: 1rem;
+.ProfilePage button[type="submit"]:hover {
+  background-color: #f50a3d;
 }
 
-.ProfilePageSection div:last-child {
-  margin-right: 0;
+/* Success Message */
+.success-message {
+  background-color: #d4edda;
+  color: #000000;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 6px;
+  max-width: 600px;
 }
 
-/* Dark Theme Accent */
-.ProfilePage a {
-  color: #fbbf24;
-  text-decoration: none;
+/* Responsive Layout */
+@media (min-width: 768px) {
+  .ProfilePage {
+    padding: 3rem;
+  }
+
+  .ProfilePage-userName-container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-x: hidden;
+  }
+
+  .ProfilePage-userName-Username {
+    flex: 1;
+  }
+
+
+  
 }
 
-.ProfilePage a:hover {
-  text-decoration: underline;
-}
+
 
 .commentWrapper{
   display: flex;
@@ -1391,18 +1368,6 @@ left: 0;
   text-decoration: underline;
 }
 
-.bio-textarea {
-  width: 100%;
-  height: 150px;
-  padding: 10px;
-  font-size: 14px;
-  color: #ffffff;
- border-radius: 8px;
-  resize: none; /* Prevent resizing */
-  transition: all 0.3s ease;
-  background-color: #3b3b52;
-}
-
 .feed-scroll-container {
   display: flex;
   overflow-x: hidden;
@@ -1594,31 +1559,6 @@ left: 0;
   .forgot-password-button {
     max-width: 100%; /* Allow inputs to stretch fully on smaller screens */
   }
-  .ProfilePage-userName-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: small;
-    
-      }
-
-  .ProfilePage-userName-Username{
-    display: flex;
-    flex-direction: column;
- justify-content: center;
- align-self: center;
-    width: 100%;
-      }
-    
-      .ProfilePage {
-  
-        width: 70%;
-        margin-left: 25%;
-      }
-
-      .ProfilePage h1{
-        font-size: 1.5rem;
-      }
       
       .sellbeat1 {
         flex-direction: column; /* Switch to column for smaller screens */
@@ -1777,49 +1717,13 @@ left: 0;
     font-size: small;
 }
 
-.bio-label {
-  font-size: 16px;
-  font-weight: bold;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.bio-textarea {
-  width: 100%;
-  height: 150px;
-  padding: 10px;
-  font-size: 14px;
-
-  border-radius: 8px;
-  resize: none; /* Prevent resizing */
-  transition: all 0.3s ease;
-  background-color: #3b3b52;
-}
 
   .success-message {
     color: #db3056;
     font-size: 16px;
     font-weight: bold;
     margin-top: 20px;
-  }
-
-  .ProfilePage-userName-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: small;
-    
-      }
-
-  .ProfilePage-userName-Username{
-    display: flex;
-    flex-direction: column;
- justify-content: center;
- align-self: center;
-    width: 100%;
-      }
-    
-    
+  }  
 
 .auth-buttons-container {
   display: flex; /* Use Flexbox for horizontal alignment */
