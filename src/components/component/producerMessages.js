@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db, auth } from "../../firebase/firebase"; // Firestore and Auth import
-import { Helmet } from 'react-helmet'; // Import Helmet for SEO
+import { Helmet } from 'react-helmet-async'; // Import Helmet for SEO
 import {
   collection,
   query,

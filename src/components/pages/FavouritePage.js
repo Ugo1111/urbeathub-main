@@ -8,7 +8,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import { FaPlay, FaPause } from "react-icons/fa"; // Import Icons
 import "../css/checkout.css";
 import djImage from '../../images/dj.jpg';
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet-async";
 
 
 function FavouritePage() {

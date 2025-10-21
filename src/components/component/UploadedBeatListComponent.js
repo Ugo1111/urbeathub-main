@@ -5,7 +5,7 @@ import { collection, getDocs, deleteDoc, doc, updateDoc } from "firebase/firesto
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Modal from 'react-modal'; // Import Modal for pop-up
 import './UploadedBeatListComponent.css'; // Import CSS for styling
-import { Helmet } from 'react-helmet'; // Import Helmet for SEO
+import { Helmet } from 'react-helmet-async'; // Import Helmet for SEO
 
 const UploadedBeatListComponent = ({ setSelectedMusic }) => {
   const [uploadedMusic, setUploadedMusic] = useState([]);

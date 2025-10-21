@@ -3,7 +3,7 @@ import { db, auth } from "../../firebase/firebase"; // Import Firestore and Auth
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import "../css/MusicDistributionForm.css";
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet-async';
 
 const EditStoreFront = () => {
   const [brandName, setBrandName] = useState("");

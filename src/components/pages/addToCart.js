@@ -6,7 +6,7 @@ import { Profilepicture } from "../AuthState";
 import GroupA from "../component/header.js";
 import { GroupE, GroupF, GroupG } from "../component/footer.js";
 import { TbSend } from "react-icons/tb";
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet-async";
 import { ToastContainer, toast } from 'react-toastify';
 import {
   FaPlay,

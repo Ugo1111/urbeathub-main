@@ -1,7 +1,7 @@
 import React from 'react';
 import "../css/addToCart.css";
 import { GroupF, GroupG } from "../component/footer"; // Import GroupF and GroupG for the footer
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet-async";
 import GroupA from "../component/header.js";
 
 function Privacy() {

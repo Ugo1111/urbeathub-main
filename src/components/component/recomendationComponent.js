@@ -4,7 +4,9 @@ import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 import djImage from '../../images/dj.jpg';
-import "../css/recomendationComponent.css"; // Import CSS for skeleton styles
+import "../css/recomendationComponent.css";
+import { useUserLocation } from "../utils/useUserLocation";
+import { getExchangeRate } from "../utils/exchangeRate";
 
 const shuffleArray = (array) => {
   let shuffledArray = [...array];
@@ -17,7 +19,9 @@ const shuffleArray = (array) => {
 
 export default function RecomendationComponent() {
   const [songs, setSongs] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
+  const userCountry = useUserLocation();
+  const [exchangeRate, setExchangeRate] = useState(null);
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -25,7 +29,6 @@ export default function RecomendationComponent() {
       const querySnapshot = await getDocs(docRef);
       const songsList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-      // Fetch likes for each song
       const songsWithLikes = await Promise.all(
         songsList.map(async (song) => {
           const likesRef = collection(db, `beats/${song.id}/likes`);
@@ -34,29 +37,53 @@ export default function RecomendationComponent() {
         })
       );
 
-      // Sort songs by likes in descending order and then shuffle
       const sortedSongs = songsWithLikes.sort((a, b) => b.likes - a.likes);
       const shuffledSongs = shuffleArray(sortedSongs);
 
-      // Limit to 7 songs
       setSongs(shuffledSongs.slice(0, 12));
-      setLoading(false); // Set loading to false after fetching
+      setLoading(false);
     };
 
     fetchSongs();
   }, []);
 
+  // Get exchange rate if user is in Nigeria
+  useEffect(() => {
+    if (userCountry === "GB") {
+      async function fetchRate() {
+        try {
+          const rate = await getExchangeRate();
+          setExchangeRate(rate);
+        } catch {
+          setExchangeRate(null);
+        }
+      }
+      fetchRate();
+    }
+  }, [userCountry]);
+
+  const parsePrice = (price) => {
+    if (!price) return 0;
+    const num = parseFloat(price.toString().replace(/[^0-9.]/g, ""));
+    return isNaN(num) ? 0 : num;
+  };
+
+  const formatPrice = (usdAmount) => {
+    if (!usdAmount) usdAmount = 0;
+    if (userCountry === "GB" && exchangeRate) {
+      return `₦${Math.round(usdAmount * exchangeRate).toLocaleString()}`;
+    }
+    return `$${usdAmount.toFixed(2)}`;
+  };
 
   const handleLinkClick = () => {
     // Scroll to the top of the page
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-
   return (
     <div className="recomendation-list-container">
       {loading ? (
-        // Skeleton UI while loading
         Array.from({ length: 12 }).map((_, index) => (
           <span key={index} className="recomendation-list skeleton">
             <div className="skeleton-image"></div>
@@ -64,12 +91,15 @@ export default function RecomendationComponent() {
             <div className="skeleton-tag"></div>
           </span>
         ))
-            ) : (
+      ) : (
         songs.slice(0, 7).map((song, index) => (
           <span key={index} className="recomendation-list">
-            <Link to="/addToCart" state={{ song }} className="recomendation-" onClick={() => {
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}>
+            <Link
+              to="/addToCart"
+              state={{ song }}
+              className="recomendation-"
+              onClick={handleLinkClick}
+            >
               <img
                 src={song.coverUrl || djImage}
                 className="recomendation-image"
@@ -78,7 +108,8 @@ export default function RecomendationComponent() {
               <div className="recomendation-title">{song.title}</div>
               <div className="recomendation-tag">
                 <button className="recomendation-AddToCart-button">
-                  <FaCartShopping size="1em" /> ${song.monetization?.basic?.price}
+                  <FaCartShopping size="1em" />{" "}
+                  {formatPrice(parsePrice(song.monetization?.basic?.price))}
                 </button>
               </div>
             </Link>
