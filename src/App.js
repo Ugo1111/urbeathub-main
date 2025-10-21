@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import ReactGA from 'react-ga4';
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";  
 import HomePage from "./components/pages/HomePage";
+import CoverArt from "./components/pages/CoverArt";
 import { ProfileSettingPage } from './components/pages/profileSettingPage'; // Updated import
 import AddToCart from "./components/pages/addToCart";
 import Passage from "./components/pages/loginPage";
