@@ -765,24 +765,21 @@ color:#ffffff;}
 
 .hero2-1 {
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
   align-items: flex-start;
-  justify-content: center; 
-  padding: 20px;
+  justify-content: center;
+  padding: 40px 20px;
   width: 100vw;
-  border-bottom: #ffffff 2px dashed;
+  margin-left: calc(50% - 50vw);
+  border-bottom: 2px dashed #ffffff;
   background-color: #301934;
   position: relative;
-  z-index: 2;
+  overflow: hidden;
 }
-
 
 .hero2-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-image: url('/src/images/Mixer.jpg');
   background-size: cover;
   background-repeat: no-repeat;
@@ -793,15 +790,14 @@ color:#ffffff;}
 
 .hero2-wrapper {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  position: relative;
-  z-index: 2;
   gap: 40px;
   max-width: 1200px;
   margin: 0 auto;
-  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
 }
 
 /* Slide-in Animation Keyframes */
@@ -1201,34 +1197,38 @@ left: 0;
 }
 
 
-
 .distribute {
-  display: flex;
-  justify-content: center;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   width: 100vw;
-  padding: 20px;
   background-color: #1B1212;
   border-bottom: 2px dashed #ffffff;
-  margin-top: 10px;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
+/* Wrapper for inner content */
 .distribute-wrapper {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  max-width: 1200px;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
   width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
 }
 
 .distribute-container {
-  color: #ffffff;
-  padding: 20px;
   flex: 1;
   min-width: 300px;
-  box-sizing: border-box;
+  color: #fff;
+  padding: 20px;
 }
 
 .distribute-container h2 {
@@ -1243,16 +1243,32 @@ left: 0;
   line-height: 1.5;
 }
 
+.start-selling-button {
+  background-color: #E21E1E;
+  color: #ffffff;
+  font-size: 1rem;
+  padding: 15px 25px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.start-selling-button:hover {
+  transform: scale(1.1);
+}
+
 .packs {
   width: 100%;
   max-width: 400px;
   border-radius: 12px;
   object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
 .packs:hover {
   transform: scale(1.05);
-  transition: transform 0.3s ease;
 }
 
 .sound {
