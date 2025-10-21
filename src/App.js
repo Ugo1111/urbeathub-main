@@ -12,7 +12,7 @@ import AdminDashboard from './components/pages/AdminDashboard';
 import FavouritePage from "./components/pages/FavouritePage";
 import PurchasedTracksPage from "./components/pages/purchasedPage";
 import CartPage from "./components/pages/CartPage";
-import SellBeatPage from "./components/pages/sellBeatPage";
+//import SellBeatPage from "./components/pages/sellBeatPage";
 import UploadedbeatsPage from "./components/pages/UploadedbeatsPage";
 import TabPage from "./components/component/tabs";
 import ViewEditSellBeatPage from "./components/pages/ViewEditSellBeatPage";
@@ -113,6 +113,7 @@ function App() {
       <RouteTracker />
       <PaymentRedirectHandler /> 
       <Elements stripe={stripePromise}>
+        <ErrorBoundary>
         <Routes>
           <Route path="/" element={<Front />} />
           <Route path="/homePage" element={<HomePage />} />
@@ -128,11 +129,19 @@ function App() {
           <Route path="/UploadedbeatsPage" element={<UploadedbeatsPage />} />
           <Route path="/searchComponent" element={<SerachedBeatsList />} />
           <Route path="/NegotiatePage" element={<NegotiatePage />} />
-          <Route path="/SellBeatPage/*" element={
+
+          {/*<Route path="/SellBeatPage/*" element={
             <MusicUploadProvider>
               <SellBeatPage />
             </MusicUploadProvider>
-          } />
+          } />*/}
+         
+<Route path="/Dashboard" element={
+          <MusicUploadProvider>
+            <Dashboard />
+          </MusicUploadProvider>
+        } />
+
           <Route path="/ViewEditSellBeatPage" element={<ViewEditSellBeatPage />} />
           <Route path="/paymentPage" element={<PaymentPage />} />
           <Route path="/checkoutpaymentPage" element={<CheckoutpaymentPage />} />
@@ -142,11 +151,16 @@ function App() {
           <Route path="/Licensedetails" element={<Licensedetails />} />
           <Route path="/coverart" element={<CoverArt />} />
              <Route path="/coverartshowcase" element={<CoverArtShowcase />} />
+             <Route path="/ImageEditor" element={<ImageEditor />} />
           <Route path="/musicDistributionForm" element={<MusicDistributionForm />} />
           <Route path="/termsandcondition" element={<Termsandcondition />} />
           <Route path="/startsellingpage" element={<Startsellingpage />} />
           <Route path="/Refundpolicy" element={<Refundpolicy />} />
+          <Route path="/Tracks" element={<Tracks />} />
           <Route path="/EditTrackPage" element={<EditTrackPage />} />
+          <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
+
           <Route path="/usersUploadMusicPage" element={
             <MusicUploadProvider>
               <UsersUploadMusicPage />
@@ -164,6 +178,7 @@ function App() {
           <Route path="/view-post/:postId" element={<ViewPostPage />} /> {/* Ensure ViewPostPage route */}
           <Route path="/post-timeline" element={<PostTimelinePage />} /> {/* Ensure PostTimelinePage route */}
         </Routes>
+        </ErrorBoundary>
       </Elements>
 
       <CookieConsent

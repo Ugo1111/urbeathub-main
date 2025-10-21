@@ -189,7 +189,7 @@ function Front() {
             <button className="start-selling-button" onClick={() => navigate('/signUpPage')}>GET STARTED →</ button>
           </div> */}
 
-          <DistributeSection sound={sound} navigate={navigate} isSignedIn={isSignedIn} />
+         {/* <DistributeSection sound={sound} navigate={navigate} isSignedIn={isSignedIn} /> */}
 
           <section className="hero2-1">
             <div className="hero2-overlay"></div>
