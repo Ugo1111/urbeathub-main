@@ -85,8 +85,13 @@
   background-color: #db3056;
 }
 
+.follow-button:hover,
+.view-store-button:hover {
+  background-color: #f10538;
+}
+
 .view-store-button {
-  background-color: #007bff;
+  background-color: #0c1c2c;
 }
 
 .email {
@@ -119,24 +124,7 @@
               margin-top: 10px;
             }
 
-  .follow-button{
-                background-color: #db3056;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                padding: 10px 15px;
-                cursor: pointer;
-              }
-
-  .view-store-button{
-                background-color: #007bff;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                padding: 10px 15px;
-                cursor: pointer;
-              }
-
+  
   .share-profile-button{
                 background-color: transparent;
                 border: none;
@@ -145,6 +133,10 @@
                 align-items: center;
               }
 
+              .share-profile-button:hover {
+                color: #f30639;
+                background-color: none;
+              }
   /* Fullscreen Overlay */
 .post-modal {
   position: fixed;
@@ -370,21 +362,22 @@
 }
 
 /* Color modifiers */
-.delete {
-  color: #000000;
-  background: transparent;
-}
 
+
+.delete,
 .edit,
 .share {
-  color: #007bff;
+  color: #000000;
    background: transparent;
+   border: none;
 }
 
 
-.share,
-.delete:hover{
-  background: none;
+.delete:hover,
+.edit:hover,
+.share:hover {
+  color: #db3056;
+  background: transparent;
 }
 
 .post-like {
@@ -402,9 +395,17 @@
   padding: 5px 10px;
   text-align: center;
 }
+.like-button:hover {
+  color: #db3056;
+  background-color: none;
+}
 
 .like-button.liked {
   color: #db3056;
+}
+.like-button.liked:hover {
+  color: #f10538;
+  background-color: none;
 }
 
 .post-share {
@@ -417,11 +418,16 @@
 .share-button {
   background-color: transparent;
   border: none;
-  color: #007bff;
+  color: #db3056;
   cursor: pointer;
   padding: 5px 10px;
   text-align: center;
 }
+.share-button:hover {
+  color: #f10538;
+  background-color: none;
+}
+
 
 .post-header {
   display: flex;
@@ -489,6 +495,9 @@
   border: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   cursor: pointer;
+}
+.floating-plus-icon:hover {
+  background-color: #f10538;
 }
 
 .floating-plus-icon::before {

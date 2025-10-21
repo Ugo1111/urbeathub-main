@@ -152,12 +152,12 @@ const EditStoreFront = () => {
       <button className="store-btn" onClick={handleSaveChanges} >
         Save Changes
       </button>
-      <button  className="store-btn1" onClick={handleViewStore} >
+     {/* <button  className="store-btn1" onClick={handleViewStore} >
         View Store
-      </button>
-      <button  className="store-btn1" onClick={handleViewProfile} >
+      </button>*/}
+     {/* <button  className="store-btn1" onClick={handleViewProfile} >
         View Profile
-      </button>
+      </button>*/}
     </div>
     </div>
     </>

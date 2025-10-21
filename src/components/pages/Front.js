@@ -69,7 +69,7 @@ function GraphicsSection({ Art, navigate, isSignedIn }) {
           <button
             className="start-selling-button"
             onClick={() =>
-              isSignedIn ? navigate("/coverart") : navigate("/signUpPage")
+              isSignedIn ? navigate("/ImageEditor") : navigate("/signUpPage")
             }
           >
             {isSignedIn ? "Go to Cover Art Editor →" : "Sign up →"}
@@ -152,7 +152,7 @@ function Front() {
             Discover the latest high-quality beats that are making waves in the
             music scene.
           </p>
-          <button
+          <button title="click to browse beats"
             className="start-selling-button"
             onClick={() => navigate("/Homepage")}
           >
@@ -171,11 +171,13 @@ function Front() {
           </div>
         </div>
 
+     {/*<GraphicsSection Art={Art} navigate={navigate} isSignedIn={isSignedIn} />*/}
         <RecomendationComponent />
 
 
         {/* <DistributionLogo /> */}
 
+      <CoverArtShowcase isSignedIn={isSignedIn} />
 
       </div>
       <div className="distribute">
@@ -226,6 +228,7 @@ function Front() {
         
       </div>
 
+      {/*<NewsletterForm /> */}
           {/* <HomePageFeed /> */}
           <GraphicsSection Art={Art} navigate={navigate} isSignedIn={isSignedIn} />
 

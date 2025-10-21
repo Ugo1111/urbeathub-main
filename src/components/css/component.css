@@ -1397,7 +1397,8 @@ left: 0;
 /* Show scroll on hover (for mobile/tablet) */
 .feed-scroll-container:hover {
   overflow-x: auto;
-} /* Container styling */
+}
+ /* Container styling */
 .post-card-container {
   border: solid 5px rgba(255, 255, 255, 0.2);
   background-color: #000000;

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import ReactGA from 'react-ga4';
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";  
 import HomePage from "./components/pages/HomePage";
+import CoverArt from "./components/pages/CoverArt";
 import { ProfileSettingPage } from './components/pages/profileSettingPage'; // Updated import
 import AddToCart from "./components/pages/addToCart";
 import Passage from "./components/pages/loginPage";
@@ -28,7 +29,6 @@ import "./App.css";
 import Privacy from "./components/pages/privacy";
 import Termsandcondition from "./components/pages/Termsandcondition";
 import Licensedetails from "./components/pages/Licensedetails";
-import CoverArt from "./components/pages/CoverArt"; // Import CoverArt component
 import Front from "./components/pages/Front"; // Import Front component
 import Startsellingpage from "./components/pages/startsellingpage";
 import Refundpolicy from "./components/pages/Refundpolicy";
@@ -47,6 +47,25 @@ import PostTimelinePage from "./components/pages/PostTimelinePage"; // Import Po
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import useActivityLogger from "./hooks/useActivityLogger";
+import Dashboard from './components/pages/Dashboard.js';
+import Tracks from './components/pages/Tracks.js';
+import ImageEditor from './components/pages/ImageEditor.js';
+import Blog from './components/pages/Blog.js';
+import BlogPost from './components/pages/BlogPost.js';
+import ErrorBoundary from "./components/ErrorBoundary";
+import { logErrorToTelegram } from "./components/utils/errorLogger";
+
+// Capture global JS errors
+window.onerror = (msg, url, lineNo, columnNo, error) => {
+  logErrorToTelegram(error || msg, "Window Error");
+  return false;
+};
+
+// Capture unhandled promise rejections
+window.onunhandledrejection = (event) => {
+  logErrorToTelegram(event.reason, "Unhandled Promise Rejection");
+};
+
 
 // Initialize Google Analytics
 ReactGA.initialize('G-8Q9JH9G3KH');

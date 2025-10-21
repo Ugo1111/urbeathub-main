@@ -1,0 +1,133 @@
+.beat-popup {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 9999;
+  max-width: 320px;
+  background: #1b1212;;
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  padding: 15px;
+  animation: slideUp 0.3s ease-in-out;
+  font-family: Arial, sans-serif;
+}
+
+.popup-box p {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color:#fff;
+}
+
+.popup-box input {
+  width: 100%;
+  margin: 5px 0;
+  padding: 6px;
+  font-size: 13px;
+}
+.popup-upload {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-upload button:hover{
+  background: #f30539;
+}
+
+.popup-box button {
+  margin: 4px;
+  padding: 6px 12px;
+  font-size: 13px;
+  border: none;
+  border-radius: 4px;
+  background: #db3056;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+.continue-btn {
+  background: #f44336;
+}
+.continue-btn:hover {
+  background: #f30539;
+}
+
+/* No button */
+.no-btn {
+  background: #ccc;
+  color: #000;
+}
+.no-btn:hover {
+  background: #999;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  } to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.step-tracker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 0 10px;
+  position: relative;
+}
+
+.tracker-step {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  text-align: center;
+}
+
+.step-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: lightgray;
+  color: white;
+  font-weight: bold;
+  line-height: 30px;
+  text-align: center;
+  z-index: 1;
+  margin-bottom: 4px;
+}
+
+.step-circle.active {
+  background-color: #db3056;
+}
+
+.step-label {
+  font-size: 12px;
+  font-weight: bold;
+  color: #ccc;
+}
+
+.step-line {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(0);
+  width: 100%; 
+  height: 2px;
+  background-color: #db3056;
+  z-index: 0;
+}
+
+@media (max-width: 480px) {
+  .beat-popup {
+    right: 5px;
+    left: 5px;
+    bottom: 5px;
+    max-width: unset;
+  }
+}

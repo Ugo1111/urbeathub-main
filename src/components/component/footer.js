@@ -28,6 +28,14 @@ export function GroupF() {
             <p>
               <a href="/Refundpolicy" target="_blank">Refund Policy</a>
             </p>
+
+           {/* <p>
+              <a href="/blog" target="_blank">Blog</a>
+            </p>*/}
+            <p>
+              <a href="/termsandcondition" target="_blank">Terms of Service</a>
+            </p>
+
            {/* <p>
               <a href="/MusicDistributionForm" target="_blank">Distribution</a>
             </p> */}

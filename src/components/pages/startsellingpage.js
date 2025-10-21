@@ -1,4 +1,7 @@
 import React from 'react';
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth"; // Import Firebase auth
+import { auth } from "../../firebase/firebase"; // Import Firebase instance
 import "../css/component.css";
 import GroupA from "../component/header.js";
 import { GroupF, GroupG, SellBeatsInfo } from "../component/footer"; // Import SellBeatsInfo
@@ -9,6 +12,22 @@ const myVideo = "/images/studio3.mp4"; // Correct path for public assets
 
 function StartSellingPage() {
   const navigate = useNavigate();
+   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleClick = () => {
+    if (user) {
+      navigate('/dashboard');
+    } else {
+      navigate('/signUpPage');
+    }
+  };
   return (
     <>
     
@@ -40,7 +59,9 @@ function StartSellingPage() {
   <div className="video-content">
     <h1>Sell Beats and Build Your Brand</h1>
     <p>Join the next generation of music entrepreneurs and reach millions of creators looking to buy beats.</p>
-    <button className="start-selling-button" onClick={() => navigate('/signUpPage')}>GET STARTED</button>
+    <button className="start-selling-button" onClick={handleClick}>
+            {user ? 'GO TO SELLER DASHBOARD' : 'GET STARTED'}
+          </button>
   </div>
 </div>
 

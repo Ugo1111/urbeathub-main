@@ -31,20 +31,6 @@
   cursor: pointer;
 }
 
-.progress-bar {
-  background: #f3f3f3;
-  border-radius: 5px;
-  overflow: hidden;
-  margin: 20px 0;
-}
-
-.progress-bar > div {
-  background: #4caf50;
-  height: 20px;
-  line-height: 20px;
-  color: white;
-  text-align: center;
-}
 
 .popup-actions {
   display: flex;
@@ -62,4 +48,18 @@
 
 .popup-actions button:hover {
   background: #45a049;
+}
+.profile-pic {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* On screens smaller than 600px (mobile) */
+@media (max-width: 600px) {
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+  }
 }

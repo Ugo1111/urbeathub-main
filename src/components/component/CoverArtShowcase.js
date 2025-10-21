@@ -72,7 +72,7 @@ const CoverArtShowcase = ({ isSignedIn }) => {
         <button
           className="showcase-button"
           onClick={() =>
-            isSignedIn ? navigate("/coverart") : navigate("/signUpPage")
+            isSignedIn ? navigate("/imageEditor") : navigate("/signUpPage")
           }
         >
           {isSignedIn ? "Go to Cover Art Editor →" : "Sign up →"}

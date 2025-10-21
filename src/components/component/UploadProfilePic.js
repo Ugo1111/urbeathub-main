@@ -103,12 +103,7 @@ function UploadProfilePic({ uid }) { // Use uid instead of email
             <img
               src={imageUrl}
               alt="Profile"
-              style={{
-                width: "200px",
-                height: "200px",
-                borderRadius: "50%",
-                objectFit: "cover",
-              }}
+              className="profile-pic"
             />
           ) : (
             <IoIosContact size={200} />

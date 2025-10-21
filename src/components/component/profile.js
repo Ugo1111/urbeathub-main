@@ -68,7 +68,7 @@ export default function Profile() {
           {userData?.profilePicture ? (
             <img
               src={userData.profilePicture}
-              alt="Profile"
+              alt="Profile dropdown"
               className="profile-pic" // Add a class for styling the image
               style={{ width: "30px", height: "30px", borderRadius: "50%", objectFit: "cover" }}
             />
@@ -112,13 +112,13 @@ export default function Profile() {
         Cart
           </Link>
 
-          <Link to="/coverArt" className="">
+          <Link to="/ImageEditor" className="">
         Cover Art
           </Link>
 
          
           {isProducer && (
-            <Link to="/sellBeatPage" className="">Dashboard</Link>
+            <Link to="/Dashboard" className="">Dashboard</Link>
           )}
 
            

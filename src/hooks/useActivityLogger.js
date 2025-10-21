@@ -36,7 +36,6 @@ export default function useActivityLogger() {
 
     const addEvent = (event, details = {}) => {
       activityLog.push({ event, details, timestamp: new Date().toISOString() });
-      console.log("📌 Event recorded:", event, details);
     };
 
     const sendLog = () => {
@@ -58,7 +57,6 @@ export default function useActivityLogger() {
           body: JSON.stringify(payload),
           keepalive: true,
         });
-        console.log("📡 Log sent via fetch keepalive");
       } catch (err) {
         console.error("❌ Final log failed:", err.message);
       }
@@ -97,7 +95,6 @@ export default function useActivityLogger() {
         sessionStorage.setItem("visitorNotified", "true");
         localStorage.setItem("hasVisitedBefore", "true");
 
-        console.log("📍 Visitor info sent:", classifiedSource);
       } catch (err) {
         console.error("❌ Visitor tracking error:", err.message);
       }
@@ -127,10 +124,16 @@ export default function useActivityLogger() {
     };
 
     const handleClick = (e) => {
-      const element = e.target.tagName;
-      const text = e.target.innerText || e.target.alt || "No Text";
-      addEvent("Click", { element, text, url: window.location.href });
-    };
+  const element = e.target.tagName;
+  let text = e.target.innerText || e.target.alt || e.target.placeholder || e.target.name || "No Text";
+  
+  // For inputs, show their type or placeholder to make Telegram logs meaningful
+  if (element === "INPUT" || element === "TEXTAREA") {
+    text = e.target.placeholder || e.target.name || e.target.type || "Input Field";
+  }
+
+  addEvent("Click", { element, text, url: window.location.href });
+};
 
     let unsubscribed = false;
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -156,7 +159,6 @@ export default function useActivityLogger() {
               status: "User Logged Out",
             },
           });
-          console.log("📩 Sign-out event sent");
         } catch (err) {
           console.error("❌ Sign-out log failed:", err.message);
         }
@@ -174,7 +176,6 @@ export default function useActivityLogger() {
             event: "Sign In",
             details: { email: user.email, status: "Signed In" },
           });
-          console.log("📩 Sign-in event sent");
         } catch (err) {
           console.error("❌ Sign-in log failed:", err.message);
         }
@@ -202,4 +203,5 @@ export default function useActivityLogger() {
       document.removeEventListener("visibilitychange", sendLog);
     };
   }, []);
+  
 }

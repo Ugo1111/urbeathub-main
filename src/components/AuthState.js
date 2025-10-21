@@ -9,6 +9,8 @@ import { doc, updateDoc, getDoc } from "firebase/firestore"; // Import updateDoc
 import { db } from "../firebase/firebase"; // Import Firestore instance
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 import Modal from "./Modal"; // Import the new Modal component
+import BeatUploadPopup from "./component/BeatUploadPopup";
+
 
 import {
   BrowserRouter as Router,
@@ -158,7 +160,9 @@ const AuthState = ({ fontSize = "1em" }) => {
           onConfirm={handleSuccessModalClose} // Use the same handler for the single "OK" button
         />
       )}
+     {/* {user && isProducer && <BeatUploadPopup user={user} />}*/}
     </div>
+    
   );
 };
 

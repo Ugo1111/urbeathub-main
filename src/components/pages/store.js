@@ -202,7 +202,7 @@ function ProducersStore() {
         <GroupG />
       </div>
       {/* WhatsApp Chat Button */}
-      <div id="whatsapp-chat" style={{ position: "fixed", bottom: 20, right: 20, zIndex: 1000 }}>
+      <div id="whatsapp-chat" style={{ position: "fixed", bottom: 50, right: 20, zIndex: 1000 }}>
         <button
           onClick={toggleChatOptions}
           style={{
