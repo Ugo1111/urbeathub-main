@@ -438,8 +438,7 @@ gap: 20px;
     margin-bottom: auto;
     color: #aaa;
     /* border: #56eb25 2px solid; */
-    
-  }
+    }
   
 
   .checkout span {
@@ -669,6 +668,19 @@ height: fit-content;
   color: #ffffff;
   display: flex;
   justify-content: space-between;
+}
+.DeliveryInfo {
+  color: #db3056;
+  display: flex;
+  justify-content: center;
+  font-size: small;
+}
+
+.Delivery h3 {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #db3056;
+  text-align: left;
 }
 
 .CheckoutTitle{
@@ -1467,6 +1479,7 @@ width: 95%;
     
       .songBioSection {
         width: 97vw;
+        margin-top: 140px;
       }
       .song{
         display: flex;
@@ -1495,6 +1508,9 @@ width: 95%;
        
          .Mp3player {
     width: 97vw;
+    position: absolute;
+    top: 0;
+    margin-top: 80px;
          }
         
    .add-to-cart-btn {

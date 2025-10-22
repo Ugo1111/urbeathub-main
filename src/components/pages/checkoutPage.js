@@ -152,6 +152,9 @@ function CheckoutPage() {
                                     <h3>Total ({cart.length} item{cart.length !== 1 ? "s" : ""})</h3>
                                     <h3>${totalPrice}</h3>
                                 </div>
+                                <div className="DeliveryInfo">
+                                    <h3>Delivery Within 24 Hours</h3>
+                                    </div>
                             </>
                         )}
                         {userEmail ? (

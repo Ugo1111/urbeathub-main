@@ -103,6 +103,9 @@ function CartPage() {
                                     <h3>Total ({cart.length} item{cart.length !== 1 ? "s" : ""})</h3>
                                     <h3>${totalPrice.toFixed(2)}</h3> {/* Reflect correct total */}
                                 </div>
+                                <div className="DeliveryInfo">
+                                    <h3>Delivery Within 24 Hours</h3>
+                                    </div>
                             </>
                         )}
 
