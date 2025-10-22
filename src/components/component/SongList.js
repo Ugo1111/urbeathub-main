@@ -25,7 +25,7 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
   const [exchangeRate, setExchangeRate] = useState(null);
 
   useEffect(() => {
-    if (userCountry === "GB") {
+    if (userCountry === "NG") {
       async function fetchRate() {
         try {
           const rate = await getExchangeRate();
@@ -46,7 +46,7 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
 
   const formatPrice = (usdAmount) => {
     if (!usdAmount) usdAmount = 0;
-    if (userCountry === "GB" && exchangeRate) {
+    if (userCountry === "NG" && exchangeRate) {
       return `₦${Math.round(usdAmount * exchangeRate).toLocaleString()}`;
     }
     return `$${usdAmount.toFixed(2)}`;
