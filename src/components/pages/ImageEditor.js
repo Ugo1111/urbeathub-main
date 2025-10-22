@@ -6,7 +6,7 @@ import "../css/ImageEditor.css";
 import GroupA from "../component/header.js";
 import { GroupF, GroupG } from "../component/footer";
 import { FaSlidersH, FaImages, FaLayerGroup, FaFont, FaItalic } from "react-icons/fa";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const templates = [
   "/images/art.jpg", "/images/art1.jpg", "/images/art2.jpg", "/images/art3.jpg",

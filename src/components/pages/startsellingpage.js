@@ -5,7 +5,7 @@ import { auth } from "../../firebase/firebase"; // Import Firebase instance
 import "../css/component.css";
 import GroupA from "../component/header.js";
 import { GroupF, GroupG, SellBeatsInfo } from "../component/footer"; // Import SellBeatsInfo
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from 'react-router-dom';
 const myVideo = "/images/studio3.mp4"; // Correct path for public assets
 

@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { getFirestore, collection, getDocs, query, where, doc, getDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  onSnapshot,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import GroupA from "../component/header.js";
-import LikeButton from "../component/LikeButton";
-import { Link } from "react-router-dom";
-import { FaPlay, FaPause, FaDownload } from "react-icons/fa"; // Import Icons
+import { FaPlay, FaPause, FaDownload } from "react-icons/fa";
 import "../css/checkout.css";
-import djImage from '../../images/dj.jpg';
+import djImage from "../../images/dj.jpg";
+
 
 function PurchasedTracksPage() {
   const [purchasedTracks, setPurchasedTracks] = useState([]);
@@ -18,54 +23,97 @@ function PurchasedTracksPage() {
   const auth = getAuth();
   const db = getFirestore();
 
+  const licenseFiles = {
+    "Basic License": ["MP3"],
+    "Premium License": ["MP3", "WAV"],
+    "Unlimited License": ["MP3", "WAV", "STEM"],
+    "Exclusive License": ["MP3", "WAV", "STEM"], // Optional, same as Unlimited
+  };
+
+
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
+    let unsubscribePurchases; // Firestore listener
+    const licenseTier = {
+      "Basic License": 1,
+      "Premium License": 2,
+      "Unlimited License": 3,
+      "Exclusive License": 4,
+    };
+  
+    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        setLoading(false);
+        return;
+      }
+  
+      const purchasesRef = collection(db, `beatHubUsers/${user.uid}/purchases`);
+  
+      unsubscribePurchases = onSnapshot(purchasesRef, async (snapshot) => {
         try {
           let userPurchasedTracks = [];
-          const purchasesRef = collection(db, `beatHubUsers/${user.uid}/purchases`);
-          const purchasesSnapshot = await getDocs(purchasesRef);
-
-          for (const purchaseDoc of purchasesSnapshot.docs) {
+  
+          for (const purchaseDoc of snapshot.docs) {
             const purchaseData = purchaseDoc.data();
-            const beatId = purchaseData.beatId;
-
-            // Fetch beat details
-            const beatRef = doc(db, "beats", beatId);
-            const beatSnap = await getDoc(beatRef);
-
-            if (beatSnap.exists()) {
-              const beatData = beatSnap.data();
-
-              // Try to get the license from the purchase data or fallback to the beat data
-              const license = purchaseData.license || beatData.license || "No License Information";
-
-              userPurchasedTracks.push({
-                id: purchaseDoc.id,
-                beatId: beatId,
-                coverUrl: beatData.coverUrl || djImage,
-                title: purchaseData.song || "Unknown Title",
-                license: license, // Ensure license info is fetched from either purchase or beat
-                audioUrl: beatData.musicUrls?.mp3 || null, // Fetch mp3 file URL safely
-                timestamp: purchaseData.timestamp?.toDate().toLocaleString() || "Unknown Date",
-              });
+            const purchaseRef = purchaseData.ref;
+  
+            if (purchaseRef) {
+              const purchaseSnap = await getDoc(purchaseRef);
+              if (purchaseSnap.exists()) {
+                const purchaseDetails = purchaseSnap.data();
+                const beatId = purchaseDetails.beatId;
+  
+                const beatRef = doc(db, "beats", beatId);
+                const beatSnap = await getDoc(beatRef);
+                if (beatSnap.exists()) {
+                  const beatData = beatSnap.data();
+                  userPurchasedTracks.push({
+                    id: purchaseDoc.id,
+                    beatId,
+                    coverUrl: beatData.coverUrl || djImage,
+                    title: purchaseDetails.song || "Unknown Title",
+                    license: purchaseDetails.license || "No License",
+                    audioUrl: beatData.musicUrls?.mp3 || null,
+                    waveUrl: beatData.musicUrls?.wav || null,
+                    zipUrl: beatData.musicUrls?.zipUrl || null,
+                    timestamp:
+                      purchaseDetails.timestamp?.toDate().toLocaleString() || "Unknown Date",
+                  });
+                }
+              }
             }
           }
-
-          // Save to localStorage
-          localStorage.setItem("purchasedTracks", JSON.stringify(userPurchasedTracks));
-          setPurchasedTracks(userPurchasedTracks);
+  
+          // Deduplicate by song title, keep highest tier
+          const filteredTracks = Object.values(
+            userPurchasedTracks.reduce((acc, track) => {
+              const existing = acc[track.title];
+              const currentTier = licenseTier[track.license] || 0;
+              const existingTier = existing ? licenseTier[existing.license] || 0 : 0;
+  
+              if (!existing || currentTier > existingTier) {
+                acc[track.title] = track;
+              }
+  
+              return acc;
+            }, {})
+          );
+  
+          setPurchasedTracks(filteredTracks);
+          localStorage.setItem("purchasedTracks", JSON.stringify(filteredTracks));
+          setLoading(false);
+  
         } catch (error) {
           console.error("Error fetching purchased tracks:", error);
-        } finally {
           setLoading(false);
         }
-      } else {
-        setLoading(false);
-      }
+      });
     });
-
-    return () => unsubscribe();
+  
+    return () => {
+      unsubscribeAuth(); // Cleanup auth listener
+      if (unsubscribePurchases) unsubscribePurchases(); // Cleanup purchases listener
+    };
   }, [auth, db]);
 
   const handlePlayPause = (songUrl, index) => {
@@ -85,6 +133,45 @@ function PurchasedTracksPage() {
         setPlayingIndex(null);
       };
     }
+  };
+
+  const getDownloadButtons = (song) => {
+    const license = song.license?.toLowerCase() || "";
+
+    const isPremium = license.includes("premium");
+    const isUnlimitedOrExclusive =
+      license.includes("unlimited") || license.includes("exclusive");
+
+    return (
+      <div className="download-options">
+        {/* MP3 download – for all */}
+        {song.audioUrl && (
+          <a href={song.audioUrl} download>
+            <button className="FaCartShopping">
+              <FaDownload /> MP3
+            </button>
+          </a>
+        )}
+
+        {/* WAV download – for Premium, Unlimited, Exclusive */}
+        {(isPremium || isUnlimitedOrExclusive) && song.waveUrl && (
+          <a href={song.waveUrl} download>
+            <button className="FaCartShopping">
+              <FaDownload /> WAV
+            </button>
+          </a>
+        )}
+
+        {/* ZIP download – for Unlimited, Exclusive */}
+        {isUnlimitedOrExclusive && song.zipUrl && (
+          <a href={song.zipUrl} download>
+            <button className="FaCartShopping">
+              <FaDownload /> ZIP
+            </button>
+          </a>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -108,46 +195,38 @@ function PurchasedTracksPage() {
               <div className="favioriteSection1">
                 {/* Play/Pause Button */}
                 {playingIndex === index ? (
-                  <button className="playButton" onClick={() => handlePlayPause(song.audioUrl, index)}>
+                  <button
+                    className="playButton"
+                    onClick={() => handlePlayPause(song.audioUrl, index)}
+                  >
                     <FaPause />
                   </button>
                 ) : hoveredIndex === index ? (
-                  <button className="playButton" onClick={() => handlePlayPause(song.audioUrl, index)}>
+                  <button
+                    className="playButton"
+                    onClick={() => handlePlayPause(song.audioUrl, index)}
+                  >
                     <FaPlay />
                   </button>
                 ) : (
                   <span className="customNumber">{index + 1}.</span>
                 )}
 
-                <img src={song.coverUrl} className="listimage" alt={song.title} />
+                <img
+                  src={song.coverUrl}
+                  className="listimage"
+                  alt={song.title}
+                />
                 <div className="track-info">
-                  <div className="track-title">{song.title || "Unknown Title"}</div>
-                  {/* License Info */}
-                  <div className="track-license">License: {song.license || "Unknown License"}</div>
+                  <div className="track-title">{song.title}</div>
+                  <div className="track-license">
+   {song.license} (
+  {licenseFiles[song.license]?.join(", ") || "MP3"})
+</div>
                 </div>
               </div>
 
-              <div className="favioriteSection2">
-                {/* <LikeButton size="1.5em" songId={song.id} /> */}
-
-                {/* View Track Button */}
-                {/* <Link to="/addToCart" state={{ song }}>
-                  <button className="FaCartShopping">View Track</button>
-                </Link> */}
-
-                {/* Download Button */}
-                {song.audioUrl ? (
-                  <a href={song.audioUrl} download>
-                    <button className="FaCartShopping">
-                      <FaDownload /> Download
-                    </button>
-                  </a>
-                ) : (
-                  <button className="downloadButton" disabled>
-                    No Download
-                  </button>
-                )}
-              </div>
+              <div className="favioriteSection2">{getDownloadButtons(song)}</div>
             </li>
           ))}
         </ol>
