@@ -186,6 +186,9 @@ useEffect(() => {
                                     }
                                 </h3>
                             </div>
+                            <div className="DeliveryInfo">
+    <h3>Delivery Within 24 Hours</h3>
+  </div>
 
 {/* Step 1: Input and Continue */}
 {!user && !emailConfirmed && cart.length > 0 && (

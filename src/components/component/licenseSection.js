@@ -173,7 +173,9 @@ export default function LicensingSection({ song }) {
 
   return (
     <div className="licensing-container">
-      <h3 class="Delivery">Delivery within 24 hrs</h3>
+      <div className="Delivery">
+        <h3>Delivery Within 24 Hours </h3>
+      </div>
       <span className="licensing-header">
         <h2>Licensing</h2>
         <div className="checkout">

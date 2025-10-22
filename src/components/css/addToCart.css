@@ -311,7 +311,6 @@ gap: 20px;
     background-color: #181818;
     color: rgb(174, 174, 174);
     padding: 20px;
-    
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     font-family: Arial, sans-serif;
@@ -592,8 +591,13 @@ height: fit-content;
 .Delivery h3 {
   background-color: #000000;
   color: #ffffff;
-  border-color: #db3056;
+  border: solid 1px #db3056;
   text-align: left;
+  padding: 10px;
+  width: 30%;
+  max-width: 40%;
+  font-size: 16px;
+  border-radius: 5px;
 }
 
 .CheckoutTitle{
@@ -1346,6 +1350,18 @@ width: 95%;
     min-width: auto;
     width: 100%;
   }
+.Delivery h3 {
+  background-color: #000000;
+  color: #ffffff;
+  border: solid 1px #db3056;
+  text-align: left;
+  padding: 10px;
+  width: 70%;
+  max-width: 80%;
+  font-size: 13px;
+  border-radius: 5px;
+}
+
     }
      
     @media (max-width: 480px) {
@@ -1461,6 +1477,19 @@ width: 95%;
   .start-selling-button {
     font-size: 0.9rem;
     padding: 8px 16px;
-  }
+  }  
+
+  .Delivery h3 {
+  background-color: #000000;
+  color: #ffffff;
+  border: solid 1px #db3056;
+  text-align: left;
+  padding: 10px;
+  width: 70%;
+  max-width: 80%;
+  font-size: 13px;
+  border-radius: 5px;
+}
+
 
   }

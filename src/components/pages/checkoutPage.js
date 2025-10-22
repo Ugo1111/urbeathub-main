@@ -162,95 +162,60 @@ function CheckoutPage() {
             )}
           </div>
 
-          <div className="CartSection2">
-            <div className="CartSummary">
-              <h3>Checkout Summary</h3>
-              {displayCart.map((song, i) => (
-                <div key={i} className="selectedCartSummary">
-                  <div className="certSummarySong">Items Total</div>
-                  <div className="certSummaryPRICE">{formatPrice(parsePrice(selectedLicense?.price))}</div>
-                </div>
-              ))}
-
-              {location.state?.isUpgrade && location.state?.ownedLicensePrice !== undefined && (
-                <div className="UpgradeDeduction">
-                  <div>Upgrade deduction</div>
-                  <div>- {formatPrice(parsePrice(location.state.ownedLicensePrice))}</div>
-                </div>
-              )}
-
-              <div className="Total_CartSummary">
-                <hr />
-                <h3>Total ({cart.length} item{cart.length !== 1 ? "s" : ""})</h3>
-                <h3>{upgradePrice !== null ? formatPrice(upgradePrice) : formatPrice(totalPrice)}</h3>
-              </div>
-
-              {/* Step 1: Guest Email Input and Continue */}
-{!userEmail && !emailConfirmed && (
-  <div className="guest-email-section">
-    <label>Please enter your email to continue as a guest:</label>
-    <input
-      type="email"
-      placeholder="Enter your email"
-      value={guestEmail}
-      onChange={(e) => setGuestEmail(e.target.value)}
-    />
-    <br />
-    <button
-      onClick={() => {
-        const emailRegex = /^[^\s@]+@[^\s@]{2,}\.[^\s@]{2,}$/;
-        if (!guestEmail || !emailRegex.test(guestEmail)) {
-          alert("Please enter a valid email to continue as a guest.");
-          return;
-        }
-        alert(`You are checking out with email: ${guestEmail} your beat will be sent to this email`);
-        setEmailConfirmed(true); // ✅ now show payment buttons
-        setUserEmail(guestEmail); // set userEmail for payment
-      }}
-    >
-      Continue
-    </button>
-  </div>
-                                <div className="DeliveryInfo">
-                                    <h3>Delivery Within 24 Hours</h3>
+                <div className="CartSection2">
+                    <div className="CartSummary">
+                        <h2>Cart Summary</h2>
+                        {loading ? (
+                            <p>Loading cart...</p>
+                        ) : cart.length === 0 ? (
+                            <p>Your cart is empty.</p>
+                        ) : (
+                            <>
+                                {cart.map((song, index) => (
+                                    <div key={index} className="selectedCartSummary">
+                                        <div className="certSummarySong">{selectedSong?.title || "Untitled Song"}</div>
+                                        <div className="certSummaryPRICE">{selectedLicense?.price || "0.00"}</div>
                                     </div>
-)}
-
-{/* Step 2: Payment Buttons (show if logged in OR guest confirmed email) */}
-{(userEmail || emailConfirmed) && cart.length > 0 && (
-  <>
-    {userCountry === "NG" ? (
-      <PaystackPayment
-        email={userEmail}
-        amount={upgradePrice !== null ? upgradePrice : totalPrice}
-        song={selectedSong?.title}
-        beatId={selectedSong?.id}
-        license={selectedLicense?.name}
-        uid={user?.uid || "guest"}
-        cart={leanCart}
-      />
-    ) : (
-      <StripeWrapper
-        amount={upgradePrice !== null ? upgradePrice : totalPrice}
-        email={userEmail}
-        onSuccess={() => alert("Payment Successful!")}
-        onError={(err) => alert("Payment failed: " + err)}
-        uid={user?.uid || "guest"}
-        cart={leanCart}
-      />
-    )}
-  </>
-)}
-
-<div>
-  You are checking out {userEmail || guestEmail ? `with email: ${userEmail || guestEmail}` : "as a Guest"}
-</div>
+                                ))}
+                                <hr />
+                                <div className="Subtotal">
+                                    <div>Subtotal</div>
+                                    <div>${totalPrice}</div>
+                                </div>
+                                <div className="Total_CartSummary">
+                                    <h3>Total ({cart.length} item{cart.length !== 1 ? "s" : ""})</h3>
+                                    <h3>${totalPrice}</h3>
+                                </div>
+                            </>
+                        )}
+                        {userEmail ? (
+                            <PaystackPayment
+                                email={userEmail}
+                                amount={totalPrice}
+                                song={selectedSong?.title}
+                                beatId={selectedSong?.id}
+                                license={selectedLicense?.name}
+                                uid={user?.uid} // Pass the user ID
+                                cart={cart} // Pass the cart
+                                setCart={setCart} // Pass the setCart function
+                            />
+                        ) : (
+                            <Link to="/CheckoutpaymentPage" state={{ totalPrice, userEmail, song: selectedSong?.title, license: selectedLicense?.name, beatId: selectedSong?.id }}>
+                                <button className="buy-now-btn">Proceed to Checkout</button>
+                            </Link>
+                        )}
+                        <div className="DeliveryInfo">
+    <h3>Delivery Within 24 Hours</h3>
+  </div>
+                        <div>
+                            You are checking out {userEmail ? `with email: ${userEmail}` : "as a Guest"}
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  );
+        </div>
+    );
 }
 
 export default CheckoutPage;
