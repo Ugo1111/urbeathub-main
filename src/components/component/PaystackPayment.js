@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { PaystackButton } from 'react-paystack';
 import { useNavigate } from 'react-router-dom';
 import { getExchangeRate } from '../utils/exchangeRate';
+import { HiOutlineInformationCircle } from "react-icons/hi";
 
 const PaystackPayment = ({ email, amount, song, license, uid, beatId, cart }) => {
   const publicKey = process.env.REACT_APP_PAYSTACK_PUBLIC;
@@ -43,6 +44,7 @@ const PaystackPayment = ({ email, amount, song, license, uid, beatId, cart }) =>
       uid,
       email,
       cart: leanCart, // ✅ send only lean cart
+      
     },
     onSuccess: () => {
       // Payment verification is handled by webhook
@@ -57,8 +59,19 @@ const PaystackPayment = ({ email, amount, song, license, uid, beatId, cart }) =>
     },
     className: 'PaymentPage-button',
   };
+  
 
-  return <PaystackButton {...componentProps} />;
+   return (
+    <div className="deliverypayment-wrapper">
+      <PaystackButton {...componentProps} />
+      <div className="deliverytooltip">
+        <HiOutlineInformationCircle className="info-icon" />
+        <span className="deliverytooltiptext">
+          The instrumental beats will be delivered within 24 hours
+        </span>
+      </div>
+    </div>
+  );
 };
 
 export default PaystackPayment;

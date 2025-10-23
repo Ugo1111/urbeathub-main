@@ -634,6 +634,51 @@ margin-left: 70px;
   color:#181818;
 }
 
+.deliverypayment-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.deliverytooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.info-icon {
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.deliverytooltip .deliverytooltiptext {
+  visibility: hidden;
+  width: 220px;
+  background-color: #222;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 10;
+  bottom: 125%; /* Position tooltip above icon */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.deliverytooltip:hover .deliverytooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+
+
+
+
 .favourite-page{
   height: 100vh;
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import StripeCheckout from "./StripeCheckoutForm";
+import { HiOutlineInformationCircle } from "react-icons/hi";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC);
 
@@ -27,6 +28,14 @@ function StripePayment({ email, amount, song, license, beatId, onSuccess }) {
           onSuccess={onSuccess}
         />
       </StripeElementsWrapper>
+      <div className="deliverypayment-wrapper">
+      <div className="deliverytooltip">
+        <HiOutlineInformationCircle className="info-icon" />
+        <span className="deliverytooltiptext">
+          The instrumental beats will be delivered within 24 hours
+        </span>
+      </div>
+    </div>
     </div>
   );
 }

@@ -12,6 +12,7 @@ import { useUserLocation } from "../utils/useUserLocation";
 import { useUpgradePrice } from "../component/UpgradePrice.js";
 import StripeWrapper from "../component/StripeWrapper";
 
+
 function CartPage() {
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(true);
