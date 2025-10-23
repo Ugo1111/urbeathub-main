@@ -49,7 +49,7 @@ export default function RecomendationComponent() {
 
   // Get exchange rate if user is in Nigeria
   useEffect(() => {
-    if (userCountry === "GB") {
+    if (userCountry === "NG") {
       async function fetchRate() {
         try {
           const rate = await getExchangeRate();
@@ -70,7 +70,7 @@ export default function RecomendationComponent() {
 
   const formatPrice = (usdAmount) => {
     if (!usdAmount) usdAmount = 0;
-    if (userCountry === "GB" && exchangeRate) {
+    if (userCountry === "NG" && exchangeRate) {
       return `₦${Math.round(usdAmount * exchangeRate).toLocaleString()}`;
     }
     return `$${usdAmount.toFixed(2)}`;
@@ -95,7 +95,7 @@ export default function RecomendationComponent() {
         songs.slice(0, 7).map((song, index) => (
           <span key={index} className="recomendation-list">
             <Link
-              to="/addToCart"
+                            to={`/addToCart/${song.id}`}
               state={{ song }}
               className="recomendation-"
               onClick={handleLinkClick}

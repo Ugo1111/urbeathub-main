@@ -141,7 +141,7 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
               ))}
               </div>
 
-              <Link to="/addToCart" state={{ song }}>
+              <Link to={`/addToCart/${song.id}`}>
               <button className="songlist-addtochart">
                 <FaCartShopping style={{ marginRight: "6px" }} />
                 {formatPrice(parsePrice(song.monetization?.basic?.price))}

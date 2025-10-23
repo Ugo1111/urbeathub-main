@@ -25,10 +25,13 @@ import RecomendationComponent from "../component/recomendationComponent";
 import ShareModal from "../component/ShareModal";
 import { Timestamp } from "firebase/firestore"; // Import Firestore Timestamp
 import djImage from '../../images/dj.jpg';
+import { useParams } from "react-router-dom";
+
 
 function AddToCart() {
+  const { songId } = useParams();
+  const [song, setSong] = useState(null);
   const location = useLocation();
-  const song = location.state?.song; // Get the song passed through state
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -39,6 +42,36 @@ function AddToCart() {
   const [isDownloadEnabled, setIsDownloadEnabled] = useState(false);
   const audioRef = useRef(null); // Reference to audio element
   const db = getFirestore();
+  
+ 
+  
+  // Fetch song data if not passed through state
+  useEffect(() => {
+    const fetchSong = async () => {
+      try {
+        const db = getFirestore();
+        const songRef = doc(db, "beats", songId);
+        const songSnap = await getDoc(songRef);
+  
+        if (songSnap.exists()) {
+          setSong({ id: songSnap.id, ...songSnap.data() });
+        } else {
+          console.error("Song not found in Firestore");
+        }
+      } catch (error) {
+        console.error("Error fetching song:", error);
+      }
+    };
+  
+    if (!location.state?.song && songId) {
+      fetchSong();
+    } else {
+      setSong(location.state.song);
+    }
+  }, [location.state, songId]);
+
+
+
 
   useEffect(() => {
     const fetchMonetizationData = async () => {

@@ -62,7 +62,8 @@ const BeatsList = () => {
                     <ul className="search-beats-ul">  
                         {filteredBeats.map(beat => (  
                             <li key={beat.id} className="search-beats-li">
-                                <Link to="/buysong" state={{ song: beat }} className="search-beats-li"   
+                                <Link to={`/addToCart/${beat.id}`} 
+                                state={{ song: beat }} className="search-beats-li"   
                                     onClick={() => setSearchText("")} // Clear searchText when clicking
                                 >
                                     <img src={beat.coverUrl || djImage} alt="Cover Art Preview" className="search-image" />
