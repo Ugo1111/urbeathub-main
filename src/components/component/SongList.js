@@ -11,7 +11,7 @@ import djImage from '../../images/dj.jpg';
 import { trackEvent } from "../../App"; // adjust path if needed
 import { useUserLocation } from "../utils/useUserLocation";
 import { getExchangeRate } from "../utils/exchangeRate";
-
+import { createSlug } from "../utils/slugify";
 
 
 function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
@@ -25,7 +25,7 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
   const [exchangeRate, setExchangeRate] = useState(null);
 
   useEffect(() => {
-    if (userCountry === "GB") {
+    if (userCountry === "NG") {
       async function fetchRate() {
         try {
           const rate = await getExchangeRate();
@@ -46,7 +46,7 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
 
   const formatPrice = (usdAmount) => {
     if (!usdAmount) usdAmount = 0;
-    if (userCountry === "GB" && exchangeRate) {
+    if (userCountry === "NG" && exchangeRate) {
       return `₦${Math.round(usdAmount * exchangeRate).toLocaleString()}`;
     }
     return `$${usdAmount.toFixed(2)}`;
@@ -141,7 +141,8 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
               ))}
               </div>
 
-              <Link to={`/addToCart/${song.id}`}>
+              
+<Link to={`/addToCart/${createSlug(song.title, song.id)}`} state={{ song }}>
               <button className="songlist-addtochart">
                 <FaCartShopping style={{ marginRight: "6px" }} />
                 {formatPrice(parsePrice(song.monetization?.basic?.price))}

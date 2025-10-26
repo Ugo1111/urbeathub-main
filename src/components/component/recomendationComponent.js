@@ -7,6 +7,7 @@ import djImage from '../../images/dj.jpg';
 import "../css/recomendationComponent.css";
 import { useUserLocation } from "../utils/useUserLocation";
 import { getExchangeRate } from "../utils/exchangeRate";
+import { createSlug } from "../utils/slugify";
 
 const shuffleArray = (array) => {
   let shuffledArray = [...array];
@@ -94,9 +95,7 @@ export default function RecomendationComponent() {
       ) : (
         songs.slice(0, 7).map((song, index) => (
           <span key={index} className="recomendation-list">
-            <Link
-                            to={`/addToCart/${song.id}`}
-              state={{ song }}
+          <Link to={`/addToCart/${createSlug(song.title, song.id)}`} state={{ song }}
               className="recomendation-"
               onClick={handleLinkClick}
             >

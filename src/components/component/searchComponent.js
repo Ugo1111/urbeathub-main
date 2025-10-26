@@ -4,6 +4,7 @@ import { collection, query, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import "../css/addToCart.css";
 import djImage from '../../images/dj.jpg';
+import { createSlug } from "../utils/slugify";
 
 const BeatsList = () => {
     const [beats, setBeats] = useState([]);
@@ -62,10 +63,12 @@ const BeatsList = () => {
                     <ul className="search-beats-ul">  
                         {filteredBeats.map(beat => (  
                             <li key={beat.id} className="search-beats-li">
-                                <Link to={`/addToCart/${beat.id}`} 
-                                state={{ song: beat }} className="search-beats-li"   
-                                    onClick={() => setSearchText("")} // Clear searchText when clicking
-                                >
+                               <Link 
+  to={`/addToCart/${createSlug(beat.title, beat.id)}`} 
+  state={{ song: beat }} 
+  className="search-beats-li"
+  onClick={() => setSearchText("")} // Clear searchText when clicking
+>
                                     <img src={beat.coverUrl || djImage} alt="Cover Art Preview" className="search-image" />
                                     <div className="search-beats-results-metadata">
                                         <h3 className="search-beats-title">{beat.title}</h3>
