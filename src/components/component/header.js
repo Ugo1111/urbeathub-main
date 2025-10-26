@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom"; // Import useParams for dynamic us
 export function Headerlogo() {
   return (
     <a href="/" className="Headerlogo">
-      <img src="./beathub1.PNG" className="HeaderImage" alt="Back to Homepage"></img>
+      <img src="/beathub1.PNG" className="HeaderImage" alt="Back to Homepage"></img>
     </a>
   );
 }

@@ -25,10 +25,17 @@ import RecomendationComponent from "../component/recomendationComponent";
 import ShareModal from "../component/ShareModal";
 import { Timestamp } from "firebase/firestore"; // Import Firestore Timestamp
 import djImage from '../../images/dj.jpg';
+import { useParams } from "react-router-dom";
+import { extractIdFromSlug } from "../utils/slugify";
+
 
 function AddToCart() {
+
+  
+  const { slug } = useParams();
+const songId = extractIdFromSlug(slug);
+  const [song, setSong] = useState(null);
   const location = useLocation();
-  const song = location.state?.song; // Get the song passed through state
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -39,6 +46,37 @@ function AddToCart() {
   const [isDownloadEnabled, setIsDownloadEnabled] = useState(false);
   const audioRef = useRef(null); // Reference to audio element
   const db = getFirestore();
+  
+ 
+  
+  // Fetch song data if not passed through state
+  useEffect(() => {
+
+    const fetchSong = async () => {
+      try {
+        const db = getFirestore();
+        const songRef = doc(db, "beats", songId);
+        const songSnap = await getDoc(songRef);
+  
+        if (songSnap.exists()) {
+          setSong({ id: songSnap.id, ...songSnap.data() });
+        } else {
+          console.error("Song not found in Firestore");
+        }
+      } catch (error) {
+        console.error("Error fetching song:", error);
+      }
+    };
+  
+    // ✅ Run only when songId is available
+    if (songId && !location.state?.song) {
+      fetchSong();
+    } else if (location.state?.song) {
+      setSong(location.state.song);
+    }
+  }, [songId, location.state]);
+
+
 
   useEffect(() => {
     const fetchMonetizationData = async () => {
@@ -91,23 +129,26 @@ function AddToCart() {
   };
 
   // Update current time and duration
-  useEffect(() => {
-    const audio = audioRef.current;
-    const updateCurrentTime = () => setCurrentTime(audio.currentTime);
-    const updateDuration = () => setDuration(audio.duration);
+ useEffect(() => {
+  const audio = audioRef.current;
+  if (!audio || !song?.musicUrls?.taggedMp3) return;
 
-    if (audio) {
-      audio.addEventListener("timeupdate", updateCurrentTime);
-      audio.addEventListener("loadedmetadata", updateDuration);
-    }
+  // ✅ Ensure source is loaded before adding events
+  audio.src = song.musicUrls.taggedMp3;
+  audio.load();
 
-    return () => {
-      if (audio) {
-        audio.removeEventListener("timeupdate", updateCurrentTime);
-        audio.removeEventListener("loadedmetadata", updateDuration);
-      }
-    };
-  }, []);
+  const updateCurrentTime = () => setCurrentTime(audio.currentTime);
+  const updateDuration = () => setDuration(audio.duration || 0);
+
+  audio.addEventListener("timeupdate", updateCurrentTime);
+  audio.addEventListener("loadedmetadata", updateDuration);
+
+  // ✅ Clean up
+  return () => {
+    audio.removeEventListener("timeupdate", updateCurrentTime);
+    audio.removeEventListener("loadedmetadata", updateDuration);
+  };
+}, [song]);
 
   // Handle license accordion toggle
   const toggleAccordion = () => setAccordionOpen(!accordionOpen);
@@ -121,7 +162,11 @@ function AddToCart() {
 
   // Render the page if song is valid
   if (!song) {
-    return <p>No song selected. Go back to the audio list.</p>;
+    return (
+      <div className="loading-container">
+        <p>Loading song...</p>
+      </div>
+    );
   }
 
   return (
@@ -277,11 +322,11 @@ function SongBio({ song, isDownloadEnabled }) {
           <LikeButton size="1.5em" songId={song.id} />
         </div>
 
-        {/* <div>
-          <FaShareAlt size="1.5em" color="blue" onClick={handleShareClick} />
+        <div>
+          <FaShareAlt size="1.5em" color="" onClick={handleShareClick} />
           <div>{song.playCount}</div>
         </div>
-
+{/* 
         <div>
           <RiAddLargeFill size="1.5em" style={{ color: "red" }} />
           <div>{song.playCount}</div>

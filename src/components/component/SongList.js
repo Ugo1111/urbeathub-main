@@ -11,7 +11,7 @@ import djImage from '../../images/dj.jpg';
 import { trackEvent } from "../../App"; // adjust path if needed
 import { useUserLocation } from "../utils/useUserLocation";
 import { getExchangeRate } from "../utils/exchangeRate";
-
+import { createSlug } from "../utils/slugify";
 
 
 function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
@@ -141,7 +141,8 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
               ))}
               </div>
 
-              <Link to="/addToCart" state={{ song }}>
+              
+<Link to={`/addToCart/${createSlug(song.title, song.id)}`} state={{ song }}>
               <button className="songlist-addtochart">
                 <FaCartShopping style={{ marginRight: "6px" }} />
                 {formatPrice(parsePrice(song.monetization?.basic?.price))}
