@@ -12,9 +12,9 @@ import DistributionLogo from "../component/DistributionLogo.js";
 import HomePageFeed from "../component/HomePageFeed.js";
 import { Helmet } from "react-helmet-async";
 import CoverArtShowcase from "../component/CoverArtShowcase.js";
-
 import WhatsAppChat from "../component/WhatsAppChat.js";
 import NewsletterForm from "../component/NewsletterForm.js";
+import BeatsList from "../component/searchComponent.js";
 
 
 const sound = "/images/prdoucer studio.jpg";
@@ -144,7 +144,10 @@ function Front() {
         />
       </Helmet>
       <GroupA />
-      <div className="video-wrap">
+     <div className="mobile-only-search">
+  <BeatsList />
+</div>
+ <div className="video-wrap">
         <video src={myVideo} autoPlay muted loop></video>
         <div className="video-content">
           <h1>Buy premium High-Quality Instrumental Beat.</h1>

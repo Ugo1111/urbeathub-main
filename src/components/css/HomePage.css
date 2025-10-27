@@ -210,45 +210,135 @@ overflow: hidden;
 }
 
 
-.HeroPage  div {
-color: #fff;
-margin-bottom: 250px;
-   }
-.Typed{
+.HeroPage div {
+  color: #fff;
+  margin-bottom: 150px;
+}
+
+.Typed {
   font-size: 1.8rem;
+  margin-bottom: 10px;
 }
-   
-  .HeroText  h1{
-    margin: 0 auto; 
-    width: 95%;
-    font-size: 4rem;
-    color: #db3056;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
-    position: relative;
-    z-index: 2;
+
+.HeroText {
+  padding: 2rem;
+  margin-top: 5px;
+  padding-top: 0;
 }
-.HeroText h5 {
-  font-size: 1rem;
-  text-align: center;
-  width: 95%;
-  margin: 0 auto; /* Centers the block element horizontally */
+
+.HeroText h1 {
+  text-align: left;
+  color: #ffffff;
+  margin-left: 100px;
+  margin-bottom: 20px;
+}
+
+.topgenre-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 50px;
+  margin-top: 0;
+}
+
+.topgenre-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* === Image Button === */
+.topgenre-item button {
   position: relative;
-  z-index: 2;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  overflow: hidden;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
+/* === Hover Effect === */
+.topgenre-item button:hover {
+  transform: scale(1.05);
+  border-color: #db3056;
+}
 
+/* === Image === */
+.topgenre-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.3s ease;
+}
 
+/* === Overlay (always visible) === */
+.topgenre-item .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: background-color 0.3s ease;
+}
 
+/* === Hover Overlay Color === */
+.topgenre-item button:hover .overlay {
+  background: rgba(51, 51, 51, 0.9); /* #333333 with transparency */
+}
 
+/* === Icon in Center === */
+.topgenre-item .overlay i {
+  color: #fff;
+  font-size: 32px;
+  z-index: 3;
+}
 
+/* === Text Below === */
+.topgenre-item p {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+}
 
+/* === Mobile / Tablet scrollable view === */
+@media (max-width: 1024px) {
+  .topgenre-buttons {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    gap: 25px;
+    padding: 10px;
+    scroll-behavior: smooth;
+  }
 
-   
+  .topgenre-buttons::-webkit-scrollbar {
+    height: 8px;
+  }
 
-  
+  .topgenre-buttons::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+  }
 
+  .topgenre-buttons::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+
+  .topgenre-item {
+    flex: 0 0 auto;
+  }
+}
 
  
   
@@ -788,30 +878,41 @@ font-size: medium;
 @media (max-width: 768px){
    
 
-  .HeroPage {
-    width: 90%;
+  .HeroText h1 {
+    margin-left: 40px;
+    font-size: 1.8rem;
+    text-align: left;
   }
-  .HeroPage div{
-    margin-bottom: 100px;
-  }
-  .Typed{
-    font-size: 1rem;
-  }
-  .HeroText h1{
-    
-     font-size: 2.8rem;
- color: #db3056;
- font-weight: bold;
- margin-bottom: 30px;
 
-
+  .Typed {
+    font-size: 1.5rem;
   }
- 
-   .HeroText h5 {
-    
-     font-size: 1em;
-     color: #ffffff;
-     }
+
+  .topgenre-buttons {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    gap: 25px;
+    padding: 10px;
+    scroll-behavior: smooth;
+  }
+
+  .topgenre-item {
+    flex: 0 0 auto;
+  }
+
+  .topgenre-item button {
+    width: 120px;
+    height: 120px;
+  }
+
+  .topgenre-item .overlay i {
+    font-size: 28px;
+  }
+
+  .topgenre-item p {
+    font-size: 15px;
+  }
 
      .HeroPageProducer {
    width: 90%;
@@ -927,36 +1028,41 @@ font-size: medium;
 
 @media (max-width: 480px) {
 
-  .HeroPage {
-    width: 95vw;
-    }
-    
-  .Typed{
-    font-size: 0.6rem;
+  .HeroPage div {
+    margin-bottom: 80px;
   }
 
-  .HeroPage div{
-    margin-bottom: 100px;
+  .HeroText {
+    padding: 0.8rem;
   }
 
   .HeroText h1 {
-    width: 90vw;
-    font-size: 1.2rem;
-    color: #db3056;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 30px;
+    margin-left: 10px;
+    font-size: 1.4rem;
+    text-align: left;
   }
 
-  .HeroText h5 {
-    width: 95vw;
-    max-width: 60ch;
-    font-size: 0.69rem;
-    color: #ffffff;
-    text-align: center;
-    margin-top: 40px;
+  .Typed {
+    font-size: 0.6rem;
   }
 
+  .topgenre-buttons {
+    gap: 15px;
+    padding: 5px;
+  }
+
+  .topgenre-item button {
+    width: 85px;
+    height: 85px;
+  }
+
+  .topgenre-item .overlay i {
+    font-size: 22px;
+  }
+
+  .topgenre-item p {
+    font-size: 13px;
+  }
 .HeroPageProducer {
    width: 95vw;
 }

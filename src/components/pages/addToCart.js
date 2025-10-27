@@ -25,6 +25,7 @@ import RecomendationComponent from "../component/recomendationComponent";
 import ShareModal from "../component/ShareModal";
 import { Timestamp } from "firebase/firestore"; // Import Firestore Timestamp
 import djImage from '../../images/dj.jpg';
+import BeatsList from "../component/searchComponent.js";
 
 function AddToCart() {
   const location = useLocation();
@@ -130,6 +131,9 @@ function AddToCart() {
         <title>Add to Cart</title>
       </Helmet>
       <GroupA />
+       <div className="mobile-only-search">
+  <BeatsList />
+</div>
       <div className="theMainContainer">
         <div className="container">
           <SongBio song={song} isDownloadEnabled={isDownloadEnabled} />
