@@ -26,68 +26,121 @@ function HeroPage() {
     };
   }, []);
 
+  const scrollGenre = (direction) => {
+  const container = document.getElementById("genreScroll");
+  const scrollAmount = 250; // pixels to scroll per click
+
+  if (direction === "left") {
+    container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+  } else {
+    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+  }
+};
+
+
   return (
     <div className="HeroPage">
-      <div>
-        <span className="Typed" ref={typedElement}></span>
+  <div>
+    <span className="Typed" ref={typedElement}></span>
+  </div>
+
+  <div className="HeroText">
+    <h1>Top Genre</h1>
+
+    <div className="topgenre-container">
+      <button className="scroll-btn left" onClick={() => scrollGenre('left')}>
+        <i className="fa fa-chevron-left"></i>
+      </button>
+
+      <div className="topgenre-buttons" id="genreScroll">
+        <div className="topgenre-item">
+          <button>
+            <img src="./topgenre5.jpg" alt="Afro" />
+            <div className="overlay">
+              <i className="fa fa-drum"></i>
+            </div>
+          </button>
+          <p>Afro</p>
+        </div>
+
+        <div className="topgenre-item">
+          <button>
+            <img src="./topgenre1.webp" alt="RnB" />
+            <div className="overlay">
+              <i className="fa fa-headphones"></i>
+            </div>
+          </button>
+          <p>RnB</p>
+        </div>
+
+        <div className="topgenre-item">
+          <button>
+            <img src="./topgenre1.webp" alt="Reggaetton" />
+            <div className="overlay">
+              <i className="fa fa-heart"></i>
+            </div>
+          </button>
+          <p>Reggaetton</p>
+        </div>
+
+        <div className="topgenre-item">
+          <button>
+            <img src="./topgenre1.webp" alt="Hip Hop" />
+            <div className="overlay">
+              <i className="fa fa-microphone"></i>
+            </div>
+          </button>
+          <p>Hip Hop</p>
+        </div>
+
+        <div className="topgenre-item">
+          <button>
+            <img src="./topgenre1.webp" alt="Highlife" />
+            <div className="overlay">
+              <i className="fa fa-music"></i>
+            </div>
+          </button>
+          <p>Highlife</p>
+        </div>
+
+        <div className="topgenre-item">
+          <button>
+            <img src="./topgenre2.jpg" alt="Trap" />
+            <div className="overlay">
+              <i className="fa fa-guitar"></i>
+            </div>
+          </button>
+          <p>Trap</p>
+        </div>
+
+        <div className="topgenre-item">
+          <button>
+            <img src="./topgenre3.jpg" alt="Pop" />
+            <div className="overlay">
+              <i className="fa fa-star"></i>
+            </div>
+          </button>
+          <p>Pop</p>
+        </div>
+
+        <div className="topgenre-item">
+          <button>
+            <img src="./topgenre4.jpg" alt="Amapiano" />
+            <div className="overlay">
+              <i className="fa fa-moon"></i>
+            </div>
+          </button>
+          <p>Amapiano</p>
+        </div>
       </div>
-      <div className="HeroText">
-  <h1>Top Genre</h1>
-  <div className="topgenre-buttons">
-    <div className="topgenre-item">
-      <button>
-        <img src="./topgenre5.jpg" alt="Afro" />
-        <div className="overlay">
-      <i className="fa fa-play"></i>
-    </div>
-      </button>
-      <p>Afro</p>
-    </div>
 
-    <div className="topgenre-item">
-      <button>
-        <img src="./topgenre1.webp" alt="RnB" />
-        <div className="overlay">
-      <i className="fa fa-play"></i>
-    </div>
+      <button className="scroll-btn right" onClick={() => scrollGenre('right')}>
+        <i className="fa fa-chevron-right"></i>
       </button>
-      <p>RnB</p>
-    </div>
-
-    <div className="topgenre-item">
-      <button>
-        <img src="./topgenre2.jpg" alt="Trap" />
-        <div className="overlay">
-      <i className="fa fa-play"></i>
-    </div>
-      </button>
-      <p>Trap</p>
-    </div>
-
-    <div className="topgenre-item">
-      <button>
-        <img src="./topgenre3.jpg" alt="Pop" />
-        <div className="overlay">
-      <i className="fa fa-play"></i>
-    </div>
-      </button>
-      <p>Pop</p>
-    </div>
-
-    <div className="topgenre-item">
-      <button>
-        <img src="./topgenre4.jpg" alt="Amapiano" />
-        <div className="overlay">
-      <i className="fa fa-play"></i>
-    </div>
-      </button>
-      <p>Amapiano</p>
     </div>
   </div>
 </div>
 
-
-    </div>
   );
 }
 

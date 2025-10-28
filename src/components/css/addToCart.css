@@ -674,23 +674,10 @@ margin-left: 70px;
   opacity: 1;
 }
 
-
-
-
-
-
 .favourite-page{
   height: 100vh;
 }
 
-.search-beats-body{
-/* min-height: 80vw; 
-height: auto;
-min-width: 1200px; */
-/* margin: 990px 0 0 0; */
-border-radius: 25px;
-justify-content: center;
-}
 
 .search-beats-input{
 width: 240px;
@@ -725,8 +712,12 @@ min-width: 40%;
 position: relative;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100px; /* Adjust as necessary */    
+    align-items: center;  
+    /* min-height: 80vw; 
+height: auto;
+min-width: 1200px; */
+/* margin: 990px 0 0 0; */
+border-radius: 25px;
 }
 
 .search-beats-input {  border: #be27ff solid;
