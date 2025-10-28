@@ -233,53 +233,52 @@ overflow: hidden;
   margin-bottom: 20px;
 }
 
+/* ====== GENRE BUTTON WRAPPER ====== */
 .topgenre-buttons {
   display: flex;
   justify-content: flex-start;
-  flex-wrap: nowrap; /* enable horizontal scroll */
-  gap: 50px;
+  flex-wrap: nowrap;
+  gap: 100px;
   margin-top: 0;
-  overflow-x: auto; /* allow scrolling */
-  scroll-behavior: smooth; /* smooth scroll effect */
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
+.topgenre-buttons::-webkit-scrollbar {
+  display: none;
+}
 
+/* ====== GENRE ITEM ====== */
 .topgenre-item {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* === Image Button === */
+/* ====== IMAGE BUTTON ====== */
 .topgenre-item button {
   position: relative;
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  border: 3px solid transparent;
+  border: 1px solid #9a9a9a;
   overflow: hidden;
-  background: transparent;
   cursor: pointer;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  background: none; /* allow image to show */
 }
 
-
-
-/* === Hover Effect === */
-.topgenre-item button:hover {
-  border-color: #db3056;
-}
-
-/* === Image === */
+/* === Image inside button === */
 .topgenre-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 50%;
   display: block;
-  transition: opacity 0.3s ease;
 }
 
-/* === Overlay (always visible) === */
+/* === Dark overlay always visible === */
 .topgenre-item .overlay {
   position: absolute;
   top: 0;
@@ -287,27 +286,36 @@ overflow: hidden;
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: rgba(51, 51, 51, 0.9);
+   background: rgba(51, 51, 51, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2;
-  transition: background-color 0.3s ease;
+  pointer-events: none; /* make sure overlay doesn’t block hover */
 }
 
-/* === Hover Overlay Color === */
-.topgenre-item button:hover .overlay {
-  background: rgba(51, 51, 51, 0.9); /* #333333 with transparency */
-}
-
-/* === Icon in Center === */
+/* === Icon in center === */
 .topgenre-item .overlay i {
   color: #fff;
   font-size: 32px;
   z-index: 3;
 }
 
-/* === Text Below === */
+/* === Hover: only border color changes === */
+.topgenre-item button:hover {
+   background: rgba(51, 51, 51, 0.9);
+  border-radius: 20px; /* optional: makes it square on hover */
+  padding: 30px;
+  border-color:#db3056;
+
+}
+
+/* === Keep overlay same on hover === */
+.topgenre-item button:hover .overlay {
+  background: rgba(51, 51, 51, 0.9);
+}
+
+/* === Text below === */
 .topgenre-item p {
   margin-top: 10px;
   font-size: 16px;
@@ -315,19 +323,7 @@ overflow: hidden;
   color: #fff;
 }
 
-/* Hide scrollbar but keep scroll functionality */
-.topgenre-buttons {
-  -ms-overflow-style: none;  /* Hide scrollbar on IE and Edge */
-  scrollbar-width: none;     /* Hide scrollbar on Firefox */
-}
-
-.topgenre-buttons::-webkit-scrollbar {
-  display: none;             /* Hide scrollbar on Chrome, Safari, Opera */
-}
-
-
-
-/* ===== Scroll Buttons ===== */
+/* ====== SCROLL BUTTONS ====== */
 .scroll-btn {
   position: absolute;
   top: 50%;
@@ -355,7 +351,6 @@ overflow: hidden;
 .scroll-btn.right {
   right: 0;
 }
-
 
  
   
@@ -566,8 +561,6 @@ overflow: hidden;
     cursor: pointer;
     color: #fff;
     font-size: 1.2em;
-    
-  
   }
   
   .add-to-cart img,
@@ -576,28 +569,7 @@ overflow: hidden;
     height: 30px;
   }
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  /* taiye */
-  
- 
-    
-    
-   
-      
-     
-            
-  
+
   /*homepageWrapper*/
   .musicControlerB{ 
   width: 85%;
@@ -619,7 +591,7 @@ overflow: hidden;
       width: 70%;
       height: 25vmin;
     display: flex;
-
+ transform: translateY(-120px);
   }
 
   .GroupC2{
@@ -630,9 +602,10 @@ overflow: hidden;
       height: fit-content;
       padding: 15px;
       gap: 20;
-
+transform: translateY(-120px);
       position: relative;
       z-index: 2;
+     
   }
   
   .market button:not(.songlist-addtochart)  {
@@ -1118,6 +1091,7 @@ font-size: medium;
     text-overflow: ellipsis;
     overflow: hidden;
     box-sizing: border-box;
+    transform: translateY(0);
   
   }
 
@@ -1125,6 +1099,7 @@ font-size: medium;
     margin-top: 60px;
     width: 95vw;
     height: 40vmin;
+    transform: translateY(0);
   }
 
   .songlist-taglist{
