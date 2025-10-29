@@ -31,7 +31,7 @@ function CheckoutPage() {
 
   // Fetch exchange rate if in NG
   useEffect(() => {
-    if (userCountry === "NG") {
+    if (userCountry === "GB") {
       async function fetchRate() {
         try {
           const rate = await getExchangeRate();
@@ -77,7 +77,7 @@ function CheckoutPage() {
 
   const formatPrice = (usdAmount) => {
     if (!usdAmount) usdAmount = 0;
-    if (userCountry === "NG" && exchangeRate) {
+    if (userCountry === "GB" && exchangeRate) {
       return `₦${Math.round(usdAmount * exchangeRate).toLocaleString()}`;
     }
     return `$${usdAmount.toFixed(2)}`;

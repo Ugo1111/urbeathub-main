@@ -158,13 +158,14 @@ height: 40px;
 }
 
 
-.item-actions{
+.item-actions {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-between; /* or space-between if you want spacing */
   width: 80%;
   margin: 25px;
 }
+
 
 .BioInformationSection{
   margin: 25px;
@@ -1344,9 +1345,7 @@ font-style: italic;
     .beat-details h2{
       font-size: large;
     }
-    .item-actions{
-      display: none;
-    }
+    
     
     .video-wrap {
       height: 55vh;
@@ -1480,9 +1479,17 @@ width: 95%;
   .volume{
     display: none;
   }
-  .item-actions{
-    display: none;
+  .item-actions {
+    flex-direction: row;
+    justify-content: space-around; 
   }
+  
+  .stripe-payment-container{
+    background-color: blue;
+  }
+
+  
+  
   .beatlicenses {
     background-color: white;
     padding: 20px;

@@ -115,7 +115,7 @@ function StripeCheckout({ amount, clientSecret, email, last, song, license, uid,
     <div style={{ padding: "1rem 0" }}>
       <PaymentElement />
     </div>
-    <button type="submit" disabled={loading}>
+    <button type="submit" disabled={loading}  className="stripe-btn">
       {loading ? "Processing..." : `Pay $${Number(amount).toFixed(2)}`}
     </button>
     {error && <div>{error}</div>}

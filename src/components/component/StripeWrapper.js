@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import StripeCheckout from "./StripeCheckoutForm";
+import "../css/checkout.css";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC);
 
@@ -54,7 +55,7 @@ export default function StripeWrapper({ amount, email, onSuccess, onError, uid, 
 
   if (!clientSecret) {
     return (
-      <button onClick={handleCreateIntent}>
+      <button className="stripe-pay" onClick={handleCreateIntent}>
         Proceed To Checkout
       </button>
     );

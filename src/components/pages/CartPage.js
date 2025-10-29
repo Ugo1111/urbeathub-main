@@ -87,7 +87,7 @@ useEffect(() => {
 
     // Fetch exchange rate for NGN conversion
     useEffect(() => {
-        if (userCountry === "NG") {
+        if (userCountry === "GB") {
             async function fetchRate() {
                 try {
                     const rate = await getExchangeRate();
@@ -108,7 +108,7 @@ useEffect(() => {
 
     const formatPrice = (usdAmount) => {
         if (!usdAmount) usdAmount = 0;
-        if (userCountry === "NG" && exchangeRate) {
+        if (userCountry === "GB" && exchangeRate) {
             return `₦${Math.round(usdAmount * exchangeRate).toLocaleString()}`;
         }
         return `$${usdAmount.toFixed(2)}`;
@@ -221,7 +221,7 @@ useEffect(() => {
 {/* Step 2: Payment buttons (only show if user logged in OR guest confirmed email) */}
 {cart.length > 0 && (userEmail || emailConfirmed) && (
   <>
-    {userCountry === "NG" ? (
+    {userCountry === "GB" ? (
       <PaystackPayment
         email={userEmail || guestEmail}
         amount={finalTotal}

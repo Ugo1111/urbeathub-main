@@ -32,6 +32,7 @@ import { extractIdFromSlug } from "../utils/slugify";
 
 function AddToCart() {
 
+
   
   const { slug } = useParams();
 const songId = extractIdFromSlug(slug);
@@ -316,7 +317,7 @@ function SongBio({ song, isDownloadEnabled }) {
       <CoverArt coverUrl={song.coverUrl} />
       <h3 style={{ padding: "10px", textAlign: "center" }}>{song.title}</h3>
 
-      <span className="item-actions">
+      <div className="item-actions">
         {/* <div>
           <FaPlay size="1.5em" />
           <div>{song.playCount}</div>
@@ -335,7 +336,7 @@ function SongBio({ song, isDownloadEnabled }) {
           <RiAddLargeFill size="1.5em" style={{ color: "red" }} />
           <div>{song.playCount}</div>
         </div> */}
-      </span>
+      </div>
 
       {isDownloadEnabled && (
         <a
