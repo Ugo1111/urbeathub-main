@@ -117,7 +117,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Front />} />
           <Route path="/homePage" element={<HomePage />} />
-          <Route path="/addToCart" element={<AddToCart />} />
+          <Route path="/addToCart/:slug" element={<AddToCart />} />
           <Route path="/loginPage" element={<Passage />} />
           <Route path="/signUpPage" element={<Enroll />} />
           <Route path="/checkoutPage" element={<CheckoutPage />} />

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { FaFacebook, FaTwitter, FaLink, FaCode } from "react-icons/fa";
 import "../css/ShareModal.css"; // Add styles if needed
+import { createSlug } from "../utils/slugify";
 
 const ShareModal = ({ song, onClose }) => {
-  const shortUrl = `https://bsta.rs/${song.id}`;
-  const fullUrl = song.musicUrls.taggedMp3 || window.location.href;
+  const shortUrl = `https://urbeathub.com/addToCart/${song.id}`;
+
+  // ✅ Use your actual domain and the slugified song URL
+  const fullUrl = `https://urbeathub.com/addToCart/${createSlug(song.title || "beat", song.id)}`;
 
   const [copied, setCopied] = useState({ short: false, full: false });
 
@@ -29,7 +32,7 @@ const ShareModal = ({ song, onClose }) => {
         </div>
 
         <div className="share-links">
-          <div className="link-group">
+          {/* <div className="link-group">
             <span>Marketplace Short URL</span>
             <div className="link-box">
               <input type="text" value={shortUrl} readOnly />
@@ -37,7 +40,7 @@ const ShareModal = ({ song, onClose }) => {
                 {copied.short ? "Copied!" : "Copy"}
               </button>
             </div>
-          </div>
+          </div> */}
 
           <div className="link-group">
             <span>Marketplace Full URL</span>
@@ -57,9 +60,9 @@ const ShareModal = ({ song, onClose }) => {
           <button onClick={() => window.open(`https://twitter.com/intent/tweet?url=${fullUrl}&text=Check%20out%20this%20beat!`, "_blank")}>
             <FaTwitter /> Twitter
           </button>
-          <button onClick={() => copyToClipboard(`<iframe src="${fullUrl}" width="100%" height="150"></iframe>`, "embed")}>
+          {/* <button onClick={() => copyToClipboard(`<iframe src="${fullUrl}" width="100%" height="150"></iframe>`, "embed")}>
             <FaCode /> Embed
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

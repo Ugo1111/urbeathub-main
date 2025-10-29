@@ -9,6 +9,8 @@ import { FaPlay, FaPause } from "react-icons/fa"; // Import Icons
 import "../css/checkout.css";
 import djImage from '../../images/dj.jpg';
 import { Helmet } from "react-helmet-async";
+import { createSlug } from "../utils/slugify";
+
 
 
 function FavouritePage() {
@@ -135,7 +137,7 @@ function FavouritePage() {
 
               <div className="favioriteSection2">
                 <LikeButton  size="1em" songId={song.id} />
-                <Link to="/addToCart" state={{ song }}>
+                <Link to={`/addToCart/${createSlug(song.title, song.id)}`} state={{ song }}>
                   <button className="FaCartShopping"><FaCartShopping /> Add To Cart</button>
                 </Link>
               </div>

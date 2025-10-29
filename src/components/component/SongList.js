@@ -11,14 +11,15 @@ import djImage from '../../images/dj.jpg';
 import { trackEvent } from "../../App"; // adjust path if needed
 import { useUserLocation } from "../utils/useUserLocation";
 import { getExchangeRate } from "../utils/exchangeRate";
-
-
+import { createSlug } from "../utils/slugify";
+import {query, where } from "firebase/firestore";
 
 function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
   const [displayedSongs, setDisplayedSongs] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef();
   const db = getFirestore();
+  const [selectedGenres, setSelectedGenres] = useState([]);
 
   // Location & exchange rate logic
   const userCountry = useUserLocation();
@@ -96,8 +97,71 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
     setSelectedSong(song);
   };
 
+  // genre filter: support multiple selection
+  const handleGenreClick = async (genre) => {
+    let updatedGenres = [];
+    if (selectedGenres.includes(genre)) {
+      updatedGenres = selectedGenres.filter((g) => g !== genre);
+    } else {
+      updatedGenres = [...selectedGenres, genre];
+    }
+    setSelectedGenres(updatedGenres);
+
+    if (updatedGenres.length === 0) {
+      // If no genres selected, show default (shuffled/sorted) songs
+      const songsWithLikes = await Promise.all(
+        songs.map(async (song) => {
+          const likesRef = collection(db, `beats/${song.id}/likes`);
+          const likesSnapshot = await getDocs(likesRef);
+          return { ...song, likes: likesSnapshot.size };
+        })
+      );
+      const sortedSongs = songsWithLikes.sort((a, b) => b.likes - a.likes);
+      const shuffledSongs = sortedSongs.sort(() => 0.5 - Math.random());
+      setDisplayedSongs(shuffledSongs.slice(0, 20));
+      return;
+    }
+
+    try {
+      const allFilteredSongs = [];
+      for (const g of updatedGenres) {
+        const q = query(collection(db, "beats"), where("metadata.genres", "==", g));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          allFilteredSongs.push({ id: doc.id, ...doc.data() });
+        });
+      }
+      // Remove duplicates
+      const uniqueSongs = allFilteredSongs.filter(
+        (song, index, self) => index === self.findIndex((s) => s.id === song.id)
+      );
+      setDisplayedSongs(uniqueSongs);
+    } catch (error) {
+      console.error("Error fetching songs by genre:", error);
+    }
+  };
+
+
   return (
     <div className="GroupC2">
+      <div className="genre-title">
+  {selectedGenres.length === 0
+    ? "All Genres"
+    : selectedGenres.length === 1
+      ? selectedGenres[0]
+      : `${selectedGenres.length} genres`}
+</div>
+     <div className="genre-filter">
+  {["Afro beat", "RnB", "trap", "Hip Hop", "POP", "Amapiano"].map((genre) => (
+    <button
+      key={genre}
+      onClick={() => handleGenreClick(genre)}
+      className={selectedGenres.includes(genre) ? "active-genre" : ""}
+    >
+      {genre}
+    </button>
+  ))}
+</div>
       <div className="songcontainer">
         {displayedSongs.map((song, index) => (
           <div
@@ -141,7 +205,8 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
               ))}
               </div>
 
-              <Link to="/addToCart" state={{ song }}>
+              
+<Link to={`/addToCart/${createSlug(song.title, song.id)}`} state={{ song }}>
               <button className="songlist-addtochart">
                 <FaCartShopping style={{ marginRight: "6px" }} />
                 {formatPrice(parsePrice(song.monetization?.basic?.price))}
