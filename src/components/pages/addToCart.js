@@ -25,13 +25,10 @@ import RecomendationComponent from "../component/recomendationComponent";
 import ShareModal from "../component/ShareModal";
 import { Timestamp } from "firebase/firestore"; // Import Firestore Timestamp
 import djImage from '../../images/dj.jpg';
-<<<<<<< HEAD
 import BeatsList from "../component/searchComponent.js";
-=======
 import { useParams } from "react-router-dom";
 import { extractIdFromSlug } from "../utils/slugify";
 
->>>>>>> 226429a22cf395f8027e471a3acf3436fd52d9e2
 
 function AddToCart() {
 
