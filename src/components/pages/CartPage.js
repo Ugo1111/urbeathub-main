@@ -193,6 +193,7 @@ useEffect(() => {
     <label>Please enter your email to continue as a guest:</label>
     <input
       type="email"
+      className="guest-email-input"
       value={guestEmail}
       onChange={(e) => setGuestEmail(e.target.value)}
       placeholder="Enter your email"
@@ -207,7 +208,7 @@ useEffect(() => {
         }
         alert(`You are checking out with email: ${guestEmail} your beat will be sent to this email`);
         setEmailConfirmed(true); // ✅ show payment button
-      }}
+      }} className="guest-btn"
     >
       Continue
     </button>

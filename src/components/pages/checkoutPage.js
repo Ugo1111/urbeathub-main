@@ -191,6 +191,7 @@ function CheckoutPage() {
     <label>Please enter your email to continue as a guest:</label>
     <input
       type="email"
+      className="guest-email-input"
       placeholder="Enter your email"
       value={guestEmail}
       onChange={(e) => setGuestEmail(e.target.value)}
@@ -206,7 +207,7 @@ function CheckoutPage() {
         alert(`You are checking out with email: ${guestEmail} your beat will be sent to this email`);
         setEmailConfirmed(true); // ✅ now show payment buttons
         setUserEmail(guestEmail); // set userEmail for payment
-      }}
+      }}className="guest-btn"
     >
       Continue
     </button>
