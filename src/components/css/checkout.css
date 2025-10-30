@@ -173,17 +173,25 @@ border-radius: 10px;
   }
   .stripe-btn:hover{
     background-color: #4d4d4d;
-    color: #ffffff;
-  }
+    color: #ffffff; 
+  } 
 
 .cart-list-item-title{
   display: flex;
 width: 100%;
 font-size:x-large;
-
-  justify-content: start;
+justify-content: start;
   /* border: solid rgb(255, 255, 255); */
 }
+
+.PaymentPage-cancel-button{
+  background: #333333;
+  color:#ffffff;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
 
 .cart-list-info{
   gap: 15px;

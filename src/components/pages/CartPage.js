@@ -197,6 +197,7 @@ useEffect(() => {
     <label>Please enter your email to continue as a guest:</label>
     <input
       type="email"
+      className="guest-email-input"
       value={guestEmail}
       onChange={(e) => setGuestEmail(e.target.value)}
       placeholder="Enter your email"

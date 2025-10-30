@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import GuestPaystackPayment from '../component/GuestPaystackPayment';
 import { useLocation, useNavigate } from 'react-router-dom';
+import "../css/checkout.css";
 
 const CheckoutpaymentPage = () => {
   const location = useLocation();

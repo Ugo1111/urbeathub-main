@@ -635,6 +635,7 @@ margin-left: 70px;
   color:#181818;
 }
 
+
 .deliverypayment-wrapper {
   display: flex;
   align-items: center;
@@ -1482,10 +1483,6 @@ width: 95%;
   .item-actions {
     flex-direction: row;
     justify-content: space-around; 
-  }
-  
-  .stripe-payment-container{
-    background-color: blue;
   }
 
   
