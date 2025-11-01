@@ -1862,10 +1862,16 @@ left: 0;
   
 }
 
+.genre-filter button:hover {
+  background-color: #3a3a3a;
+  color: #ffffff;
+  border: 3px solid #0073ff;
+}
+
 .genre-filter button.active-genre {
-  background-color: #1f78d8ca; /* blue */
+  background-color: #1564c58c; /* blue */
   color: rgb(255, 255, 255);
-  border: 3px solid #009dff;
+  border: 3px solid #0073ff;
 }
 
 .genre-title {
