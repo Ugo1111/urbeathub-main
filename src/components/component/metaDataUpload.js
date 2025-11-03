@@ -85,8 +85,29 @@ const Metadata = ({ metadata = {}, setMetadata }) => {
 
             {/* Genres */}
             <div className="Metadata-Fields">
-                <label>Genres:</label>
-                <input type="text" value={localMetadata.genres || ""} onChange={(e) => handleInputChange("genres", e.target.value)} />
+            <label>Genres:</label>
+<select
+  value={localMetadata.genres || ""}
+  onChange={(e) => handleInputChange("genres", e.target.value)}
+>
+  <option value="">Select a genre</option>
+  <option value="Afrobeats">Afrobeats</option>
+  <option value="Trap">Trap</option>
+  <option value="Drill">Drill</option>
+  <option value="Amapiano">Amapiano</option>
+  <option value="RnB">RnB</option>
+  <option value="Pop">Pop</option>
+  <option value="HipHop">HipHop</option>
+  <option value="Reggae">Reggae</option>
+  <option value="Rap">Rap</option>
+  <option value="Electronic">Electronic</option>
+  <option value="Alternative Rock">Alternative Rock</option>
+  <option value="Country">Country</option>
+  <option value="Classical">Classical</option>
+  <option value="House">House</option>
+  <option value="Others">Others</option>
+  {/* Add more genres as needed */}
+</select>
             </div>
 
             {/* Key & BPM */}
