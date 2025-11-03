@@ -11,6 +11,7 @@ import { getExchangeRate } from "../utils/exchangeRate";
 import { useUserLocation } from "../utils/useUserLocation";
 import { useUpgradePrice } from "../component/UpgradePrice.js";
 import StripeWrapper from "../component/StripeWrapper";
+import BeatsList from "../component/searchComponent.js";
 
 
 function CartPage() {
@@ -87,7 +88,7 @@ useEffect(() => {
 
     // Fetch exchange rate for NGN conversion
     useEffect(() => {
-        if (userCountry === "GB") {
+        if (userCountry === "NGN") {
             async function fetchRate() {
                 try {
                     const rate = await getExchangeRate();
@@ -108,7 +109,7 @@ useEffect(() => {
 
     const formatPrice = (usdAmount) => {
         if (!usdAmount) usdAmount = 0;
-        if (userCountry === "GB" && exchangeRate) {
+        if (userCountry === "NGN" && exchangeRate) {
             return `₦${Math.round(usdAmount * exchangeRate).toLocaleString()}`;
         }
         return `$${usdAmount.toFixed(2)}`;
@@ -143,6 +144,9 @@ useEffect(() => {
             </Helmet>
             <div className="CheckoutContainer">
                 <GroupA />
+                 <div className="mobile-only-search">
+                  <BeatsList />
+                </div>
                 <h1 className="CheckoutTitle">Cart</h1>
                 <div className="CheckoutBody">
                     <div className="checkoutItem">
@@ -222,7 +226,7 @@ useEffect(() => {
 {/* Step 2: Payment buttons (only show if user logged in OR guest confirmed email) */}
 {cart.length > 0 && (userEmail || emailConfirmed) && (
   <>
-    {userCountry === "GB" ? (
+    {userCountry === "NGN" ? (
       <PaystackPayment
         email={userEmail || guestEmail}
         amount={finalTotal}

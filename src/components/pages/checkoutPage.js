@@ -11,6 +11,7 @@ import StripeWrapper from "../component/StripeWrapper";
 import { Helmet } from "react-helmet-async";
 import { getExchangeRate } from "../utils/exchangeRate";
 import { useUserLocation } from "../utils/useUserLocation";
+import BeatsList from "../component/searchComponent.js";
 
 function CheckoutPage() {
   const userCountry = useUserLocation(); 
@@ -31,7 +32,7 @@ function CheckoutPage() {
 
   // Fetch exchange rate if in NG
   useEffect(() => {
-    if (userCountry === "GB") {
+    if (userCountry === "NGN") {
       async function fetchRate() {
         try {
           const rate = await getExchangeRate();
@@ -77,7 +78,7 @@ function CheckoutPage() {
 
   const formatPrice = (usdAmount) => {
     if (!usdAmount) usdAmount = 0;
-    if (userCountry === "GB" && exchangeRate) {
+    if (userCountry === "NGN" && exchangeRate) {
       return `₦${Math.round(usdAmount * exchangeRate).toLocaleString()}`;
     }
     return `$${usdAmount.toFixed(2)}`;
@@ -126,6 +127,9 @@ function CheckoutPage() {
 
       <div className="CheckoutContainer">
         <GroupA />
+         <div className="mobile-only-search">
+                          <BeatsList />
+                        </div>
         <h1 className="CheckoutTitle">Checkout</h1>
         <div className="CheckoutBody">
           <div className="checkoutItem">

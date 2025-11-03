@@ -85,7 +85,6 @@ input[type="text"],
 input[type="date"],
 select {
   padding: 10px;
-  border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
 }
@@ -273,17 +272,16 @@ input[type="text"] {
   padding: 10px;
   font-size: 14px;
   border-radius: 6px;
-  border: 1px solid #ccc;
 }
 
-.clear-button {
+/*.clear-button {
   background: none;
   color: #db3056;
   border: none;
   padding: 10px;
   font-size: 14px;
   cursor: pointer;
-}
+}*/
 
 .tags-box {
   display: flex;

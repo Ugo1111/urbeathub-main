@@ -64,15 +64,7 @@
     border-radius: 10px; /* Optional: Add rounded corners */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
   }
-.search-image{
-  width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-left: 200px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease-in-out;
-}
+
 
   /* Ensure visibility on all screen sizes */
   @media (min-width: 768px) {
@@ -294,22 +286,29 @@ body{
     color: #ccc;
     
   }
-  
-  
-  
+
   .GroupA {
-    
-    display: flex;
-    align-items: center; 
-    justify-content: space-evenly;
-    background-color: #000000;
-    width: 100vw;
-    padding-top: 20px; 
-    height: 85px;
-    position: sticky;
-      top: 0;
-      z-index: 1000; /* Keeps it above other elements */
-  }  
+  display: flex;
+  align-items: center;
+  justify-content: space-around; /* Prevents shift */
+  background-color: #000000;
+  width: 100vw;
+  padding: 20px;
+  height: 85px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+/* This fixes the layout shift */
+.HeaderAuthSection {
+  width: 240px; /* Enough width to hold Sign In / Start Selling */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+}
 
   .GroupA1 {
     
@@ -1798,6 +1797,12 @@ left: 0;
           width: 100vw;
      height: 45px;
      } 
+
+     .HeaderAuthSection {
+    width: 100%;
+    justify-content: center;
+    margin-top: 5px;
+  }
 
      .HeaderImage{
       width: 74px;

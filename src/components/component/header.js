@@ -2,11 +2,11 @@ import React from 'react';
 import { FaCartShopping } from "react-icons/fa6";
 import { AuthState } from "../AuthState";
 import BeatsList from "../component/searchComponent.js";
-import { db, auth } from "../../firebase/firebase"; // Import Firestore and Auth
+import { db, auth } from "../../firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { useParams } from "react-router-dom"; // Import useParams for dynamic userId
+import { useParams } from "react-router-dom";
 
 // /Header Logo
 export function Headerlogo() {
@@ -20,13 +20,13 @@ export function Headerlogo() {
 // /Header Logo for Producer storepage
 export function ProducerHeaderlogo() {
   const [brandName, setBrandName] = useState("");
-  const [isLoading, setIsLoading] = useState(true); // Add loading state
-  const { userId } = useParams(); // Get userId from URL parameters
+  const [isLoading, setIsLoading] = useState(true);
+  const { userId } = useParams();
 
   useEffect(() => {
     const fetchBrandName = async () => {
       try {
-        const targetUserId = userId || auth.currentUser?.uid; // Use userId from URL or logged-in user
+        const targetUserId = userId || auth.currentUser?.uid;
         if (!targetUserId) return;
 
         const userDocRef = doc(db, "beatHubUsers", targetUserId, "store front", "details");
@@ -34,24 +34,23 @@ export function ProducerHeaderlogo() {
 
         if (userDoc.exists()) {
           const data = userDoc.data();
-          setBrandName(data.brandName || "My Store"); // Fallback to "My Store"
+          setBrandName(data.brandName || "My Store");
         }
       } catch (error) {
         console.error("Error fetching brand name:", error);
       } finally {
-        setIsLoading(false); // Set loading to false after fetching
+        setIsLoading(false);
       }
     };
 
     fetchBrandName();
   }, [userId]);
 
- return (
-  <div className="producer-header-logo">
-    {isLoading ? "" : <span className="producer-header-logo-text">{brandName || "My Store"}</span>}
-  </div>
-);
- // Dynamic brand name with fallback
+  return (
+    <div className="producer-header-logo">
+      {isLoading ? "" : <span className="producer-header-logo-text">{brandName || "My Store"}</span>}
+    </div>
+  );
 }
 
 //Header search bar
@@ -71,16 +70,18 @@ export function HeaderSearchBar() {
 export function HeaderCartIcon() {
   return (
     <div className="HeaderCartIcon">
-      <FaCartShopping color="" size="1.5em" />
+      <FaCartShopping size="1.5em" />
     </div>
   );
 }
 
 export function GroupA2() {
   return (
-    <div className="GroupA2">
-      <Headerlogo /> <AuthState />
-      {" "}
+    <div className="GroupA">
+      <Headerlogo />
+      <div className="HeaderAuthSection">
+        <AuthState />
+      </div>
     </div>
   );
 }
@@ -88,27 +89,33 @@ export function GroupA2() {
 export default function GroupA() {
   return (
     <div className="GroupA">
-      <Headerlogo /> <BeatsList /> <AuthState />
-      {" "}
+      <Headerlogo />
+      <BeatsList />
+      <div className="HeaderAuthSection">{/* This keeps space consistent */}
+        <AuthState />
+      </div>
     </div>
   );
 }
 
-// HomeHeader mirrors the GroupA layout but omits the search bar for clarity.
 export function HomeHeader() {
   return (
     <div className="GroupA">
       <Headerlogo />
-      <AuthState />
+      <div className="HeaderAuthSection">
+        <AuthState />
+      </div>
     </div>
   );
 }
 
 export function ProducerGroupA() {
   return (
-    <div className="GroupA1">
-      <ProducerHeaderlogo /> <AuthState />
+    <div className="GroupA">
+      <ProducerHeaderlogo />
+      <div className="HeaderAuthSection">
+        <AuthState />
+      </div>
     </div>
   );
 }
-
