@@ -49,20 +49,20 @@ function PurchasedTracksPage() {
   
       const purchasesRef = collection(db, `beatHubUsers/${user.uid}/purchases`);
   
-      unsubscribePurchases = onSnapshot(purchasesRef, async (snapshot) => {
+      const unsubscribePurchases = onSnapshot(purchasesRef, async (snapshot) => {
         try {
           let userPurchasedTracks = [];
-  
+      
           for (const purchaseDoc of snapshot.docs) {
             const purchaseData = purchaseDoc.data();
             const purchaseRef = purchaseData.ref;
-  
+      
             if (purchaseRef) {
               const purchaseSnap = await getDoc(purchaseRef);
               if (purchaseSnap.exists()) {
                 const purchaseDetails = purchaseSnap.data();
                 const beatId = purchaseDetails.beatId;
-  
+      
                 const beatRef = doc(db, "beats", beatId);
                 const beatSnap = await getDoc(beatRef);
                 if (beatSnap.exists()) {
@@ -76,6 +76,7 @@ function PurchasedTracksPage() {
                     audioUrl: beatData.musicUrls?.mp3 || null,
                     waveUrl: beatData.musicUrls?.wav || null,
                     zipUrl: beatData.musicUrls?.zipUrl || null,
+                    delay: beatData.delay === true, // ✅ capture delay status
                     timestamp:
                       purchaseDetails.timestamp?.toDate().toLocaleString() || "Unknown Date",
                   });
@@ -83,26 +84,25 @@ function PurchasedTracksPage() {
               }
             }
           }
-  
+      
           // Deduplicate by song title, keep highest tier
           const filteredTracks = Object.values(
             userPurchasedTracks.reduce((acc, track) => {
               const existing = acc[track.title];
               const currentTier = licenseTier[track.license] || 0;
               const existingTier = existing ? licenseTier[existing.license] || 0 : 0;
-  
+      
               if (!existing || currentTier > existingTier) {
                 acc[track.title] = track;
               }
-  
+      
               return acc;
             }, {})
           );
-  
+      
           setPurchasedTracks(filteredTracks);
           localStorage.setItem("purchasedTracks", JSON.stringify(filteredTracks));
           setLoading(false);
-  
         } catch (error) {
           console.error("Error fetching purchased tracks:", error);
           setLoading(false);
@@ -226,7 +226,15 @@ function PurchasedTracksPage() {
                 </div>
               </div>
 
-              <div className="favioriteSection2">{getDownloadButtons(song)}</div>
+              <div className="favioriteSection2">
+  {song.delay ? (
+    <p style={{ color: "#d97706", fontWeight: "600" }}>
+      Pending (preparing the file)
+    </p>
+  ) : (
+    getDownloadButtons(song)
+  )}
+</div>
             </li>
           ))}
         </ol>

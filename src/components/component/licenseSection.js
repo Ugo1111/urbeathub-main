@@ -175,6 +175,21 @@ export default function LicensingSection({ song }) {
     <div className="licensing-container">
       <span className="licensing-header">
         <h2>Licensing</h2>
+
+          {/* ✅ Show delivery info if delay is true */}
+  {song?.delay === true && (
+    <p
+      style={{
+        color: "#16a34a", // green
+        fontWeight: "600",
+        marginTop: "4px",
+        fontSize: "0.95rem",
+      }}
+    >
+      Delivery within 24hr
+    </p>
+  )}
+
         <div className="checkout">
           <span>
             {selectedLicenseName === "Exclusive License" ? "" :
