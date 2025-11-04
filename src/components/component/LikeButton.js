@@ -61,7 +61,7 @@ const LikeButton = ({ songId, size }) => {
        await deleteDoc(likeRef); // Delete the like document
       
        // Optionally, remove the likeId from the likedBeats array for the user
-       await setDoc(userRef, { likedBeats: arrayRemove(newLikeId) }, { merge: true });
+       await setDoc(userRef, { likedBeats: arrayRemove(songId) }, { merge: true });
        
       setLike(false);
       setLikeCount((prev) => prev - 1);
@@ -69,7 +69,7 @@ const LikeButton = ({ songId, size }) => {
     } else {
       // Like: Store new document with `likeId`
       await setDoc(likeRef, { userId: user.uid, liked: true });
-      await setDoc(userRef, { likedBeats: arrayUnion(newLikeId) }, { merge: true });
+      await setDoc(userRef, { likedBeats: arrayUnion(songId) }, { merge: true });
 
       setLike(true);
       setLikeCount((prev) => prev + 1);

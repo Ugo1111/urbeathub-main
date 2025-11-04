@@ -146,13 +146,13 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
     <div className="GroupC2">
       <div className="genre-title">
   {selectedGenres.length === 0
-    ? "All Genres"
+    ? "Top Genres"
     : selectedGenres.length === 1
       ? selectedGenres[0]
       : `${selectedGenres.length} genres`}
 </div>
      <div className="genre-filter">
-  {["Afro beat", "RnB", "trap", "Hip Hop", "POP", "Amapiano"].map((genre) => (
+  {[ "RnB", "Trap", "Hip Hop", "PoP","Rap","Reggae", "Afro beat"].map((genre) => (
     <button
       key={genre}
       onClick={() => handleGenreClick(genre)}
