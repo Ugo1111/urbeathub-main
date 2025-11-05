@@ -11,6 +11,7 @@ import StripeWrapper from "../component/StripeWrapper";
 import { Helmet } from "react-helmet-async";
 import { getExchangeRate } from "../utils/exchangeRate";
 import { useUserLocation } from "../utils/useUserLocation";
+import BeatsList from "../component/searchComponent.js";
 
 function CheckoutPage() {
   const userCountry = useUserLocation(); 
@@ -126,6 +127,9 @@ function CheckoutPage() {
 
       <div className="CheckoutContainer">
         <GroupA />
+        <div className="mobile-only-search">
+  <BeatsList />
+</div> 
         <h1 className="CheckoutTitle">Checkout</h1>
         <div className="CheckoutBody">
           <div className="checkoutItem">

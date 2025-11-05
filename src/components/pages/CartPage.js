@@ -11,6 +11,7 @@ import { getExchangeRate } from "../utils/exchangeRate";
 import { useUserLocation } from "../utils/useUserLocation";
 import { useUpgradePrice } from "../component/UpgradePrice.js";
 import StripeWrapper from "../component/StripeWrapper";
+import BeatsList from "../component/searchComponent.js";
 
 function CartPage() {
     const [cart, setCart] = useState([]);
@@ -142,6 +143,9 @@ useEffect(() => {
             </Helmet>
             <div className="CheckoutContainer">
                 <GroupA />
+                <div className="mobile-only-search">
+  <BeatsList />
+</div> 
                 <h1 className="CheckoutTitle">Cart</h1>
                 <div className="CheckoutBody">
                     <div className="checkoutItem">
