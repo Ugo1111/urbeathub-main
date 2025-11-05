@@ -298,18 +298,27 @@ body{
   
   
   .GroupA {
-    
-    display: flex;
-    align-items: center; 
-    justify-content: space-evenly;
-    background-color: #000000;
-    width: 100vw;
-    padding-top: 20px; 
-    height: 85px;
-    position: sticky;
-      top: 0;
-      z-index: 1000; /* Keeps it above other elements */
-  }  
+  display: flex;
+  align-items: center;
+  justify-content: space-around; /* Prevents shift */
+  background-color: #000000;
+  width: 100vw;
+  padding: 20px;
+  height: 85px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+/* This fixes the layout shift */
+.HeaderAuthSection {
+  width: 240px; /* Enough width to hold Sign In / Start Selling */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+}
 
   .GroupA1 {
     
@@ -572,6 +581,7 @@ details[open] summary::before {
     padding: 3rem;
   }
 
+  
   .ProfilePage-userName-container {
     flex-direction: row;
     justify-content: center;
@@ -1540,10 +1550,11 @@ left: 0;
   .GroupA {
     display: flex;
        align-items: center; 
-          justify-content: space-evenly;
-        
+          justify-content: space-between;
+        gap: 37px;
           width: 100vw;
      height: 45px;
+     
      } 
 
 
@@ -1698,6 +1709,8 @@ left: 0;
     width: 350px;
   }
 
+  
+
   .Headerlogo{
    
     width: 70px;
@@ -1799,6 +1812,11 @@ left: 0;
      height: 45px;
      } 
 
+     .HeaderAuthSection {
+    width: 100%;
+    justify-content: center;
+    margin-top: 5px;
+  }
      .HeaderImage{
       width: 74px;
       height: 74px;
