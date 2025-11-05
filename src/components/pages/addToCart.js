@@ -27,6 +27,7 @@ import { Timestamp } from "firebase/firestore"; // Import Firestore Timestamp
 import djImage from '../../images/dj.jpg';
 import { useParams } from "react-router-dom";
 import { extractIdFromSlug } from "../utils/slugify";
+import BeatsList from "../component/searchComponent.js";
 
 
 function AddToCart() {
@@ -198,6 +199,9 @@ const songId = extractIdFromSlug(slug);
   <meta name="twitter:image" content={song.coverUrl || "https://urbeathub.com/ur_beathub_og_image_1200x630.png"} />
 </Helmet>
       <GroupA />
+      <div className="mobile-only-search">
+  <BeatsList />
+</div> 
       <div className="theMainContainer">
         <div className="container">
           <SongBio song={song} isDownloadEnabled={isDownloadEnabled} />

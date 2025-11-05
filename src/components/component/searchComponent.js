@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "../css/addToCart.css";
 import djImage from '../../images/dj.jpg';
 import { createSlug } from "../utils/slugify";
+import { FaSearch } from "react-icons/fa";
 
 const BeatsList = () => {
     const [beats, setBeats] = useState([]);
@@ -45,10 +46,11 @@ const BeatsList = () => {
     return (
         <div className="search-beats-body">
             <div className="search-input-container">
-                <input
-                    className="search-beats-input"
-                    type="text"
-                    placeholder="Search beats..."
+                <FaSearch className="search-icon" />
+               <input
+                className="search-beats-input"
+                type="text"
+                placeholder="What beat are you looking for?"
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                 />
@@ -72,6 +74,7 @@ const BeatsList = () => {
                                     <img src={beat.coverUrl || djImage} alt="Cover Art Preview" className="search-image" />
                                     <div className="search-beats-results-metadata">
                                         <h3 className="search-beats-title">{beat.title}</h3>
+                                        <div class="search-beats-meta-row">
                                         <p className="search-beats-bpm">BPM: {beat.metadata?.bpm}</p>
                                         <div className="search-beats-tags-container">
                                             {beat.metadata?.tags?.map((tag, index) => (
@@ -80,12 +83,14 @@ const BeatsList = () => {
                                                 </span>
                                             ))}
                                         </div>
+                                        </div>
                                     </div>
                                 </Link>
                             </li>
                         ))}
                     </ul>
                 </div>
+                
             )}
         </div>
     );
