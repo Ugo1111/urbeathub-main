@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { getFirestore, collection, addDoc, doc, getDoc } from "firebase/firestore";
 import "../css/addToCart.css";
 import { useLocation } from "react-router-dom";
@@ -334,7 +335,16 @@ function SongBio({ song, isDownloadEnabled }) {
     <div className="songBioSection">
       <CoverArt coverUrl={song.coverUrl} />
       <h3 style={{ padding: "10px", textAlign: "center" }}>{song.title}</h3>
-
+      {song.username && song.userId && (
+      <p style={{ textAlign: "center", fontSize: "0.9rem", color: "#555" }}>
+     <Link 
+      to={`/producer/${song.userId}`} 
+      style={{ textDecoration: "none", color: "#555", fontWeight: "600" }}
+     >
+      {song.username}
+     </Link>
+       </p>
+     )}
       <span className="item-actions">
         {/* <div>
           <FaPlay size="1.5em" />
@@ -362,6 +372,7 @@ function SongBio({ song, isDownloadEnabled }) {
           download={song.title}
           style={{ textDecoration: "none" }}
         >
+          
           <div className="IoMdDownload">
             <IoMdDownload size="1.5em" /> Download for Free
           </div>
