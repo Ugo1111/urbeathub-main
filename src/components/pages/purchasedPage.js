@@ -11,6 +11,7 @@ import GroupA from "../component/header.js";
 import { FaPlay, FaPause, FaDownload } from "react-icons/fa";
 import "../css/checkout.css";
 import djImage from "../../images/dj.jpg";
+import { FaInfoCircle } from "react-icons/fa";
 
 
 function PurchasedTracksPage() {
@@ -228,8 +229,8 @@ function PurchasedTracksPage() {
 
               <div className="favioriteSection2">
   {song.delay ? (
-    <p style={{ color: "#d97706", fontWeight: "600" }}>
-      Pending (preparing the file)
+    <p style={{ color: "#d97706", fontWeight: "600" }} title="This file is being prepared and will be available for download within 24hr.">
+      Pending (preparing the file) <FaInfoCircle className="info-icon" />
     </p>
   ) : (
     getDownloadButtons(song)
