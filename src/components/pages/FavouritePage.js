@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { getFirestore, collection, getDocs, query, where } from "firebase/firestore";
+import React, { useState, useEffect,useRef } from "react";
+import { getFirestore, collection, getDocs, query, where , doc, getDoc} from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import GroupA from "../component/header.js";
 import LikeButton from "../component/LikeButton";
@@ -22,7 +22,8 @@ function FavouritePage() {
   const [loading, setLoading] = useState(true);
   const [playingIndex, setPlayingIndex] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const [audio, setAudio] = useState(null);
+
+  const audioRef = useRef(new Audio());
 
   const auth = getAuth();
   const db = getFirestore();
@@ -34,61 +35,73 @@ function FavouritePage() {
         setLoading(false);
         return;
       }
-
+  
       try {
-        let userLikedSongs = [];
-        const beatsRef = collection(db, "beats");
-        const beatsSnapshot = await getDocs(beatsRef);
-
-        for (const songDoc of beatsSnapshot.docs) {
-          const songId = songDoc.id;
-          const songData = songDoc.data();
-
-          const likeRef = collection(db, `beats/${songId}/likes`);
-          const q = query(likeRef, where("userId", "==", user.uid));
-          const likeSnap = await getDocs(q);
-
-          if (!likeSnap.empty) {
-            userLikedSongs.push({ id: songId, ...songData });
-          }
+        // Step 1: get the user doc
+        const userDocRef = doc(db, "beatHubUsers", user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+  
+        if (!userDocSnap.exists()) {
+          setLikedSongs([]);
+          setLoading(false);
+          return;
         }
-
-        localStorage.setItem("likedSongs", JSON.stringify(userLikedSongs));
-        setLikedSongs(userLikedSongs);
+  
+        // Step 2: get likedBeats array
+        const likedBeats = userDocSnap.data()?.likedBeats || [];
+        if (likedBeats.length === 0) {
+          setLikedSongs([]);
+          setLoading(false);
+          return;
+        }
+  
+        // Step 3: fetch beats by their document IDs
+        const likedSongsData = await Promise.all(
+          likedBeats.map(async (beatId) => {
+            const beatDoc = await getDoc(doc(db, "beats", beatId));
+            return beatDoc.exists() ? { id: beatDoc.id, ...beatDoc.data() } : null;
+          })
+        );
+  
+        // Remove nulls (deleted beats)
+        const validSongs = likedSongsData.filter(Boolean);
+  
+        // Save locally and update state
+        localStorage.setItem("likedSongs", JSON.stringify(validSongs));
+        setLikedSongs(validSongs);
       } catch (error) {
         console.error("Error fetching liked songs:", error);
+        setLikedSongs([]);
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchLikedSongs();
-  }, []);
+  }, [auth, db]);
 
   const handlePlayPause = (songUrl, index) => {
-    if (playingIndex === index) {
-      // If the song is already playing, pause it
-      if (audio) {
-        audio.pause();
-      }
-      setPlayingIndex(null);
-    } else {
-      // Stop previous song if playing
-      if (audio) {
-        audio.pause();
-      }
-
-      // Play new song
-      const newAudio = new Audio(songUrl);
-      newAudio.play();
-      setAudio(newAudio);
-      setPlayingIndex(index);
-
-      // Reset when song ends
-      newAudio.onended = () => {
-        setPlayingIndex(null);
-      };
+    if (!songUrl) {
+      console.warn("No audio URL for this song", likedSongs[index]);
+      return;
     }
+  
+    const audio = audioRef.current;
+  
+    if (playingIndex === index) {
+      audio.pause();
+      setPlayingIndex(null);
+      return;
+    }
+  
+    audio.pause();
+    audio.src = songUrl;
+    audio.load();
+    audio.play().catch((error) => console.error("Playback failed:", error));
+  
+    setPlayingIndex(index);
+  
+    audio.onended = () => setPlayingIndex(null);
   };
 
   return (
@@ -116,11 +129,11 @@ function FavouritePage() {
               <div className="favioriteSection1">
                 {/* Show only ONE element at a time */}
                 {playingIndex === index ? (
-                  <button className="playButton" onClick={() => handlePlayPause(song.audioUrl, index)}>
+                  <button className="playButton" onClick={() => handlePlayPause(song.musicUrls?.taggedMp3, index)}>
                     <FaPause />
                   </button>
                 ) : hoveredIndex === index ? (
-                  <button className="playButton" onClick={() => handlePlayPause(song.audioUrl, index)}>
+                  <button className="playButton" onClick={() => handlePlayPause(song.musicUrls?.taggedMp3, index)}>
                     <FaPlay />
                   </button>
                 ) : (

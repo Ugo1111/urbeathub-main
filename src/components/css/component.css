@@ -1849,4 +1849,54 @@ left: 0;
   font-size: 1rem; 
   font-weight: bold; 
 }
+
+}.genre-filter button {
+  margin: 5px;
+  padding: 8px 14px;
+  border-radius: 22px;
+  border: 3px solid #323232;
+  cursor: pointer;
+  background-color: rgb(29, 29, 29);
+  color: rgb(202, 202, 202);
+  transition: all 0.2s ease;
+  
+}
+
+.genre-filter button:hover {
+  background-color: #3a3a3a;
+  color: #ffffff;
+  border: 3px solid #0073ff;
+}
+
+.genre-filter button.active-genre {
+  background-color: #1564c58c; /* blue */
+  color: rgb(255, 255, 255);
+  border: 3px solid #0073ff;
+}
+
+.genre-title {
+  font-size: 1.4rem;
+  font-weight: bolder;
+  margin-bottom: 10px;
+  color: #cbcbcbcf; /* Adjust as needed */
+  /* text-align: left; */
+}
+
+
+
+.genre-filter {
+  overflow-x: auto;       /* Enable horizontal scroll */
+  overflow-y: hidden;     /* Hide vertical overflow */
+  white-space: nowrap;    /* Prevent buttons from wrapping */
+  padding-bottom: 5px;    /* Optional: prevent scrollbar overlap */
+  scroll-behavior: smooth; /* Smooth scroll */
+}
+
+/* Optional: hide scrollbar */
+.genre-filter::-webkit-scrollbar {
+  display: none;
+}
+.genre-filter {
+  -ms-overflow-style: none;  /* IE/Edge */
+  scrollbar-width: none;     /* Firefox */
 }

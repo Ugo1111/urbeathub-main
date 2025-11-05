@@ -150,7 +150,7 @@ function HomePage() {
       <div className="homepageWrapper">
         <div className="overlay"></div> 
         <GroupA />
-        <HeroPage />
+        {/* <HeroPage /> */}
         {/* Hidden Audio Player */}
         <audio 
           ref={audioRef}
@@ -182,7 +182,7 @@ function HomePage() {
 
         
       <SongList songs={songs} playSong={playSong} selectedSong={selectedSong} setSelectedSong={setSelectedSong} />
-        <SellBeatSection />
+         {/* <SellBeatSection /> */}
         <GroupF />
         <GroupG /> 
       </div>

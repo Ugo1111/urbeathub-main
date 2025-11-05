@@ -172,8 +172,31 @@ const songId = extractIdFromSlug(slug);
   return (
     <>
      <Helmet>
-        <title>Add to Cart</title>
-      </Helmet>
+  <title>{song.title ? `${song.title} | UrbeatHub` : "Add to Cart"}</title>
+  <meta
+    name="description"
+    content={`Buy and download "${song.title}" by ${song.username || "Unknown Artist"}. High-quality instrumental available instantly.`}
+  />
+
+  {/* Open Graph Meta Tags */}
+  <meta property="og:title" content={`${song.title} | ${song.username || "Unknown Artist"}`} />
+  <meta
+    property="og:description"
+    content="Listen, buy, and download high-quality beats instantly on UrbeatHub."
+  />
+  <meta property="og:image" content={song.coverUrl || "https://urbeathub.com/ur_beathub_og_image_1200x630.png"} />
+  <meta property="og:url" content={`https://urbeathub.com/addToCart/${song.id}`} />
+  <meta property="og:type" content="music.song" />
+
+  {/* Twitter Meta Tags */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={`${song.title} | ${song.username || "Unknown Artist"}`} />
+  <meta
+    name="twitter:description"
+    content="Listen, buy, and download high-quality beats instantly on UrbeatHub."
+  />
+  <meta name="twitter:image" content={song.coverUrl || "https://urbeathub.com/ur_beathub_og_image_1200x630.png"} />
+</Helmet>
       <GroupA />
       <div className="theMainContainer">
         <div className="container">
