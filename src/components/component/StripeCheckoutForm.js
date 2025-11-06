@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"; // Step 1: Import navigate
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { toast } from 'react-toastify';
+import "../css/checkout.css";
 
 function StripeCheckout({ amount, clientSecret, email, last, song, license, uid, beatId ,onError }) {
   const stripe = useStripe();
@@ -115,7 +116,7 @@ function StripeCheckout({ amount, clientSecret, email, last, song, license, uid,
     <div style={{ padding: "1rem 0" }}>
       <PaymentElement />
     </div>
-    <button type="submit" disabled={loading}>
+    <button type="submit" disabled={loading} className="stripe-btn">
       {loading ? "Processing..." : `Pay $${Number(amount).toFixed(2)}`}
     </button>
     {error && <div>{error}</div>}

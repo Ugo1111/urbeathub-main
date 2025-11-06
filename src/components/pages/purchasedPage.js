@@ -12,6 +12,7 @@ import { FaPlay, FaPause, FaDownload } from "react-icons/fa";
 import "../css/checkout.css";
 import djImage from "../../images/dj.jpg";
 import { FaInfoCircle } from "react-icons/fa";
+import BeatsList from "../component/searchComponent.js";
 
 
 function PurchasedTracksPage() {
@@ -178,6 +179,9 @@ function PurchasedTracksPage() {
   return (
     <div className="favourite-page">
       <GroupA />
+       <div className="mobile-only-search">
+  <BeatsList />
+</div> 
       <h1>Purchased Tracks</h1>
 
       {loading ? (

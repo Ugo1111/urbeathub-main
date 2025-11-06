@@ -1,8 +1,6 @@
 .HandleAddToCart{
 
   background-color: blue;
-
-  
 }
 
 .favourite-page h1{
@@ -152,17 +150,50 @@ border-radius: 10px;
   align-content: center;
 }
 
+.stripe-pay{
+    background-color: #db3056;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+  }
+  .stripe-pay:hover{
+    background-color: #4d4d4d;
+    color: #ffffff;
+  }
 
-
+  .stripe-btn{
+    background-color: #db3056;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    font-size: medium;
+    font-weight: bold;
+  }
+  .stripe-btn:hover{
+    background-color: #4d4d4d;
+    color: #ffffff; 
+  } 
 
 .cart-list-item-title{
   display: flex;
 width: 100%;
 font-size:x-large;
-
-  justify-content: start;
+justify-content: start;
   /* border: solid rgb(255, 255, 255); */
 }
+
+.PaymentPage-cancel-button{
+  background: #333333;
+  color:#ffffff;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  gap: 20px;
+
+}
+
 
 .cart-list-info{
   gap: 15px;

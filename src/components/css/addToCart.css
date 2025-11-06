@@ -652,23 +652,7 @@ margin-left: 70px;
   height: 100vh;
 }
 
-.Search-beats-body{
-background-color: #d81d1d;
-/* min-height: 80vw; 
-height: auto;
-min-width: 1200px; */
-/* margin: 990px 0 0 0; */
-border-radius: 25px;
-justify-content: center;
-}
 
-.Search-beats-input{
-width: 240px;
-height: 45px;
-border-radius: 25px;
-justify-content: center;
-/* background-color: #ccc; */
-}
 
 .search-input-container {
   position: relative;
@@ -682,9 +666,9 @@ justify-content: center;
   background: none;
   font-weight: bolder;
   border: none;
-  font-size: xx-large;
+  font-size: x-large;
   cursor: pointer;
-  color: #4b4b4b;
+  color: #db3056;
   top: 50%;
   transform: translateY(-50%);
   padding: 0;
@@ -695,96 +679,195 @@ min-width: 40%;
 position: relative;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100px; /* Adjust as necessary */    
+    align-items: center;  
+    /* min-height: 80vw; 
+height: auto;
+min-width: 1200px; */
+/* margin: 990px 0 0 0; */
+border-radius: 25px;
 }
 
-.search-beats-input {  border: #be27ff solid;
-  width: 240px;
-  height: 45px;
-  border-radius: 25px;
+.search-beats-input {
+  width: 350px;
+  height: 35px;
+  border-radius: 20px;
+  border: #333333 solid 2px;
   justify-content: center;
-  background-color: #ccc;
-  padding: 10px 40px 10px 10px; /* Add padding to accommodate the clear button */
-  width: 240px;
-    max-width: 400px; /* Adjust as necessary */
-   font-size: 16px;
-    box-sizing: border-box;
+  background-color: #181818;
+  color: #dddddd;
+  padding: 10px 14px 10px 10px; /* Add padding to accommodate the clear button */;
+  max-width: 400px; /* Adjust as necessary */
+  font-size: 16px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
-.search-beats-results-container {  border: #3d3d3d41 solid;
-  z-index: 1000; /* A high z-index value */
-    position: absolute;
-    top: 100%; /* Position it below the header */
-    min-width: 97vw;
-    backdrop-filter: blur(15px); /* Apply a blur effect */
-    min-height: 90dvh;
-    display: flex;
-    justify-content: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.482); /* Optional: Add a subtle shadow */
-    background: rgba(0, 0, 0, 0.217); /* Optional: Change the background of the results list */
-    max-height: 400px; /* Adjust height as needed */
-    overflow-y: auto;
-    padding: 10px;
-    border-radius: 8px;
+.search-beats-input::placeholder {
+  text-align: center;
 }
 
-.search-beats-results-container::-webkit-scrollbar {
-  width: 8px;
+.search-beats-input:focus {
+  border-color: none;
+  outline: none;
 }
 
-.search-beats-ul {  border: #d81d1d solid;min-width: 1200px;
-color: #ffffff;
-border-radius: 10px;
-    margin-top: 10px; /* Add some margin to separate the input from the results */
-    padding: 0;
-    list-style: none;
-   height: 90%; /* Optional: Limit the height of the results list */
-    overflow-y: auto; /* Optional: Add scroll if the list is too long */
-    width: 1600px;
-    min-width: 90%; /* Adjust as necessary */
-    background: rgba(0, 0, 0, 0.713); /* Optional: Change the background of the results list */
-    border: 1px solid #ffffff46; /* Optional: Add border to the results list */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Optional: Add shadow to the results list */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.482); /* Optional: Add a subtle shadow */
-    -webkit-backdrop-filter: blur(10px); 
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7A7A7A; /* subtle icon color */
+  font-size: 16px;
+  pointer-events: none; /* keep input clickable */
+}
 
-  }
+.search-beats-results-container {
+  border: #3d3d3d41 solid;
+  z-index: 1000;
+  position: absolute;
+  top: 100%;
+  width: 100vw;
+  transform: translateX(60px);
+  backdrop-filter: blur(15px);
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  border-radius: 8px;
+  overflow-y: auto !important;
+  max-height: 100vh !important;
+  
+}
 
-.search-beats-li {  
+/* Dark scrollbar for search results only */
+.search-beats-results-container::-webkit-scrollbar,
+.search-beats-ul::-webkit-scrollbar {
+  width: 6px;                /* Scrollbar width */
+}
+
+.search-beats-results-container::-webkit-scrollbar-track,
+.search-beats-ul::-webkit-scrollbar-track {
+  background: #111;          /* Track (behind scroll) */
+  border-radius: 10px;
+}
+
+.search-beats-results-container::-webkit-scrollbar-thumb,
+.search-beats-ul::-webkit-scrollbar-thumb {
+  background: #333;          /* Scroll thumb */
+  border-radius: 10px;
+}
+
+.search-beats-results-container::-webkit-scrollbar-thumb:hover,
+.search-beats-ul::-webkit-scrollbar-thumb:hover {
+  background: #555;          /* Hover color */
+}
+
+/* ✅ Main List */
+.search-beats-ul {
+  width: 100%;
+  max-width: 1500px;
+  background: rgba(0, 0, 0, 0.713);
+  border: 1px solid #ffffff46;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.482);
+  border-radius: 10px;
+  padding: 0;
+  margin-top: 10px;
+  list-style: none;
+  max-height: 100vh;
+  overflow-y: auto !important;
+}
+
+/* ✅ Each Result Row */
+.search-beats-li {
   display: flex;
   flex-direction: row;
-  gap: 20px;
-min-width: 1200px;
-    padding: 10px;
-    border-bottom: 1px solid #727171;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
-    color: #c0c0c0;
-    text-decoration: none;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-bottom: 1px solid #727171;
+  color: #c0c0c0;
+  text-decoration: none;
 }
 
 .search-beats-li:last-child {
-    border-bottom: none;
-    }
-
-.search-beats-results-metadata{
-  
+  border-bottom: none;
 }
-.search-beats-bpm{
-padding: 1px 5px 1px 0;
-  margin: 5px;
-  font-size: small;
-  }
 
-.search-beats-taglist{
-  background: rgba(70, 70, 70, 0.428); /* Optional: Change the background of the results list */
-border-radius: 10px;
-padding: 3px 5px 3px 2px;
-  margin: 5px;
-  font-size: medium;
-  border: #f86c6c26 solid;
-  text-decoration: none;
+/* ✅ Image */
+.search-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  margin-left: 30px;
 }
+
+/* ✅ Right Side Wrapper (important for ellipsis) */
+.search-beats-right {
+  flex: 1;
+  min-width: 0; /* required for text ellipsis */
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* ✅ Title — always consistent & ellipsized */
+.search-beats-title {
+  color: #c8c8c8;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+  margin: 0;
+ white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ✅ BPM + Tag Row */
+.search-beats-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* BPM */
+.search-beats-bpm {
+  font-size: 12px;
+  color: #bfbfbf;
+}
+
+/* Tag */
+.search-beats-taglist {
+  background: rgba(70, 70, 70, 0.428);
+  border-radius: 10px;
+  padding: 3px 6px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+
+.guest-email-input{
+  width: 200px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.guest-btn{
+  background-color: #db3056;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.guest-btn:hover{
+  background-color: #f30539;
+}
+
+
+
 
 .recomendation-list-container {
   display: flex;
@@ -1303,6 +1386,7 @@ font-style: italic;
     margin: 0 auto;
      margin-top: 20px;
   }
+  
 
     .Mp3player {
       flex-direction: column; /* Stack content vertically */
@@ -1315,9 +1399,7 @@ font-style: italic;
 
   .licensing-container h2 {
     font-size: large;}
-    .search-beats-body{
-      display: none;
-    }
+    
     
     .beat-details h2{
       font-size: large;
@@ -1365,6 +1447,83 @@ width: 95%;
     width: 100%;
   }
     }
+    /* ✅ Mobile */
+@media (max-width: 600px) {
+  .search-beats-results-container {
+    position: absolute; /* instead of fixed */
+    top: 100%;
+    width: 100vw;
+    max-height: 85vh; /* allow scroll inside this container */
+    overflow-y: auto;
+    border-radius: 8px;
+    transform: translateX(-10px);  /* moves left */
+  }
+
+  .search-beats-ul {
+    max-height: 85vh; 
+    overflow-y: auto; /* ensures scrolling works inside container */
+  }
+
+  .search-beats-li {
+    flex-direction: row; /* ✅ Keep image on left & text on right */
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left; /* ✅ Fix alignment */
+    padding: 3px 2px;
+  }
+
+  .search-image {
+    width: 45px;
+    height: 45px;
+    margin: 0;
+    flex-shrink: 0;
+    border-radius: 10px;
+  }
+
+  /* ✅ Wrap details on the right */
+  .search-beats-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .search-beats-title {
+    font-size: 15px;
+    margin-bottom: 3px;
+    text-align: left;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 150px;
+  }
+
+  /* ✅ Keep BPM and Tag on same line */
+.search-beats-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* small space between bpm & tag */
+  margin-top: 2px;
+}
+
+.search-beats-bpm {
+  font-size: 10px;
+  margin: 0;
+}
+
+.search-beats-taglist {
+  font-size: 10px;
+  background: rgba(70, 70, 70, 0.428);
+  border-radius: 6px;
+  padding: 2px 5px;
+  white-space: nowrap;
+}
+
+  .search-beats-taglist:nth-child(n+2) {
+    display: none; /* hides extra tags */
+  }
+  
+}
+
      
     @media (max-width: 480px) {
 
@@ -1476,5 +1635,64 @@ width: 95%;
     font-size: 0.9rem;
     padding: 8px 16px;
   }
+  .search-beats-body{
+      display: none;
+    }
 
   }
+  /* Default: hide wrapper on larger screens */
+.mobile-only-search {
+  display: none;
+}
+
+/* Mobile view: show only inside mobile-only-search */
+@media (max-width: 480px) {
+
+  /* Always show + keep search bar at top on mobile */
+  .mobile-only-search {
+    display: block;
+    text-align: left;
+    padding-left: 10px;
+    background-color: #181818;
+    border-top: 2px solid #333333;
+    border-bottom: 1px solid #333333;
+
+    position: sticky; /* ✅ Keeps it visible on scroll */
+    top: 0;           /* ✅ Sticks to top of screen */
+    z-index: 500;    /* ✅ Stays above other elements */
+  }
+
+  /* Remove styling conflicts from parent components */
+  .mobile-only-search .search-beats-body {
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  /* Search input style */
+  .mobile-only-search .search-beats-input {
+    height: 30px;
+    width: 95%;
+    font-size: 14px;
+    border-radius: 3px;
+    background-color: #1F1F1F;
+    margin: 5px 0;
+    border: 1px solid #333333;
+    color: #dddddd;
+  }
+  .clear-button {
+  position: absolute;
+  right: 15px;
+  background: none;
+  font-weight: bolder;
+  border: none;
+  font-size: x-large;
+  cursor: pointer;
+  color: #db3056;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0;
+}
+}
