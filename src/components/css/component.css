@@ -1548,15 +1548,27 @@ left: 0;
   }
  
   .GroupA {
-    display: flex;
-       align-items: center; 
-          justify-content: space-between;
-        gap: 37px;
-          width: 100vw;
-     height: 45px;
-     
-     } 
+    justify-content: space-between;
+    gap: 65px;
+  }
 
+  .Headerlogo {
+    flex-shrink: 0; /* prevent logo from shrinking */
+  }
+
+  /* This ensures search stays centered and doesn't get squeezed */
+  .GroupA .BeatsListContainer,
+  .GroupA .HeaderSearchBar {
+    flex: 1;
+    max-width: 200px;
+    min-width: 100px;
+  }
+
+  .HeaderAuthSection {
+    flex-shrink: 0; /* Don't let auth controls push layout left */
+    display: flex;
+    justify-content: space-around;
+  }
 
   .login-form-container {
     margin-top: 50px;
@@ -1811,12 +1823,19 @@ left: 0;
           width: 100vw;
      height: 45px;
      } 
+     body, html {
+    overflow-x: hidden;
+  }
 
      .HeaderAuthSection {
-    width: 100%;
+    width: auto;           /* remove the full width */
+    margin: 0;             /* remove unnecessary spacing */
+    display: flex;
     justify-content: center;
-    margin-top: 5px;
+    align-items: center;
+    padding-top: 5px;      /* small spacing */
   }
+
      .HeaderImage{
       width: 74px;
       height: 74px;
