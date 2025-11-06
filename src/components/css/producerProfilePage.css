@@ -1,7 +1,42 @@
+.producerProfilePage-body{
+   
+    /* color: #ffffff; */
+    min-height: 100vh;
+    /* padding: 20px; */
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.producerProfilePage-MainContainer{
+     /* border: 2px solid #f01313;  */
+    display: flex;
+    flex-direction: ROW;
+    margin: auto ;
+    width: 80%;
+    padding: 20px 0px;
+    box-sizing: border-box;
+    gap: 20px;
+}
+
+.producerProfilePage-songBioSection{
+    /* border: 3px solid #f01313; */
+    background-color: #151515;
+    padding: 23px;
+    padding-top: 35px;
+    width: 30%;
+    border-radius: 10px;
+    /* background-color: #f9f9f9; */
+    display: flex;
+    flex-direction: column;
+   height: fit-content;
+   min-height: 70%;
+   
+    gap: 10px;
+}
 
 .producerProfile-beat-list{
-    /* border: 1px solid #f01313; */
-    padding: 10px;
+    /* border: 3px solid #f01313; */
+    padding: 10px 0;
     margin-bottom: 10px;
     border-radius: 5px;
     /* background-color: #f9f9f9; */
@@ -10,53 +45,234 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-    gap: 20px; 
+    gap: 20px 0; 
 }
 
 .producerProfile-beat-item{
     /* margin-left: auto;
     margin-right: auto; */
+    /* border: 3px solid #13d6f0; */
     position: relative;
     overflow: hidden;
     list-style: none;
-    padding: 0;
+    padding: 16px;
     z-index: 1;
     touch-action: pan-y;
+    height: 400px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
         max-height: 100%;
        
-        width: calc(25% - 16px); 
+        width: 25% ; 
 }
 
-
-
-.producerProfile-beat-title{
-    font-size: 24px;
-    /* font-weight: 600; */
-    color: #ffffff;
-    /* width: 190px;                 */
-  white-space: nowrap;         /* keep text on one line */
-  overflow: hidden;  
-    /* text-align: center; */
-}
+.producerProfile-beat-info-container {
+    margin: auto;
+    min-height: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    /* border: 3px solid #f0ae13; */
+    width: 100%;              /* ✅ ensures consistent layout */
+    box-sizing: border-box;   /* ✅ includes padding/border in width */
+    overflow: hidden;         /* ✅ hides anything that overflows */
+  }
+  
+  .producerProfile-beat-title {
+    font-size: 17px;
+    font-weight: bold;
+    font-family: Poppins, Roboto, Helvetica Neue, sans-serif;
+    /* color: #ffffffd1; */
+    display: block;            /* ✅ required for ellipsis to work */
+    white-space: nowrap;       /* ✅ keep title on one line */
+    overflow: hidden;          /* ✅ hide the extra text */
+    text-overflow: ellipsis;   /* ✅ show the “...” */
+    width: 100%;               /* ✅ limit to container width */
+    text-align: center;
+    min-width: 0;    
+    /* border: #f01313 3px solid;          */
+    cursor: pointer;
+  }
 
 .producerProfile-beat-item img{
     width: 100%;
-    /* height: auto; */
+   min-height: 70%;
     border-radius: 8px;
     transition: transform 0.3s ease;
+    border: 0.5px solid #83838372;
+    box-shadow: #7f8e90 10px 0px 0px -10px;
+    
 }
-
+.producerProfilePage-buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+    align-content: center;
+    /* border: #2e97cc 2px solid; */
+    width: 100%;
+   min-height: 60%;
+  }
+  
+  .producerProfile-beat-download-button {
+    /* width: 20%; */
+    flex: 0 0 20%;
+    background-color: #1e1e1e;
+    border: 2px solid #4e4e4e;
+    padding: 8px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    color: #dedede;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: bold;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+  }
+  
+  .producerProfile-beat-download-button:hover {
+    background-color: #626262;
+    color: white;
+  }
 .producerProfile-beat-add-to-cart-button{
     /* position: absolute; */
     /* bottom: 10px;
     left: 50%; */
     /* transform: translateX(-50%); */
-    background-color: #b80000;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
+    flex: 1;
+  min-height: 100%;
+  min-width: 70%;
+  
+  
+    background-color: #1e1e1e;
+    border: 2px solid #c51515;
+    
+    border-radius: 12px;
     cursor: pointer;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
+    color: #ffffff;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: bold;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+     
+    font-size: 14px;
+    font-weight: bold;
+    font-family: Poppins, Roboto, Helvetica Neue, sans-serif;
 }
+.producerProfile-beat-add-to-cart-button:hover{
+    background-color: #c1062f51;
+  }
+  
+  .producerProfile-beat-add-to-cart-button:hover{
+    background-color: #f8063a6d;
+  }
+
+.producerProfilePage-socials{
+ color: #dedede;
+  
+    width: 100%;
+    border-radius: 5px;
+    /* background-color: #f9f9f9; */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 10px 0px 50px 0px;
+}
+
+.producerProfilePage-socials-title{
+    font-size: 13px;
+ font-weight: SemiBold;
+ font-family: 'Poppins, Roboto, Helvetica Neue, sans-serif';
+    color: #ffffffa5;
+    margin-bottom: 20px ;
+   
+}
+
+
+.producerProfilePage-socials div{
+    padding: 8px 0px;
+ }
+
+
+.producerProfilePage-profile-Bio{
+    color: #dedede9e;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    /* background-color: #f9f9f9; */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    /* border: #13d6f0 3px solid; */
+    font-size: small;
+
+    
+}
+
+
+
+
+.producerProfilePage-profile-stats{
+    color: #dedede;
+  padding-top: 30px;
+    width: 100%;
+    border-radius: 5px;
+    /* background-color: #f9f9f9; */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: flex-start;
+   
+    font-size: small;
+}
+
+
+
+
+.producerProfilePage-profile-stats span{
+    color: #dedede;
+   
+    width: 100%;
+    border-radius: 5px;
+    /* background-color: #f9f9f9; */
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: flex-start;
+    
+    font-size: small;
+}
+
+.divider {
+    height: 2px;
+    background-color: #5b5b5b;
+    margin: 15px 0;
+    width: 100%;
+  }
+
+  .producerProfilePage-follow-button{
+    background-color: #1e1e1e;
+    border: 2px solid #3b3b3b;
+    padding: 8px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    color: #dedede;
+    font-size: 16px;
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+    width: 100%;
+    height: 46px;
+  }

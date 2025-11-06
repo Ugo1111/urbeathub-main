@@ -4,11 +4,12 @@ import { db } from "../../firebase/firebase";
 import { doc, getDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { FaPlay, FaPause} from "react-icons/fa";
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaCartShopping, FaIgloo } from "react-icons/fa6";
 import djImage from '../../images/dj.jpg';
 import GroupA from "../component/header";
 import "../css/producerProfilePage.css";
-
+import { SiTiktok } from "react-icons/si";
+import { FaSoundcloud, FaInstagram, FaDownload,FaYoutube,FaPlus } from "react-icons/fa";
 const ProducerProfilePage = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
@@ -19,6 +20,21 @@ const ProducerProfilePage = () => {
   const [beats, setBeats] = useState([]);
   const [playingIndex, setPlayingIndex] = useState(null);
   const audioRef = useRef(new Audio());
+
+
+  const parsePrice = (price) => {
+    if (!price) return 0;
+    const num = parseFloat(price.toString().replace(/[^0-9.]/g, ""));
+    return isNaN(num) ? 0 : num;
+  };
+  
+  const formatPrice = (usdAmount) => {
+    if (!usdAmount) usdAmount = 0;
+    return `$${usdAmount.toFixed(2)}`;
+  };
+
+
+
 
   // Get current logged-in user
   useEffect(() => {
@@ -110,14 +126,14 @@ const ProducerProfilePage = () => {
   };
 
   return (
-    <>
+    <div className="producerProfilePage-body">
      <GroupA />
-    <div className="theMainContainer">
-      <div className="container">
+    <div className="producerProfilePage-MainContainer">
+     
       
       {user ? (
         <>
-        <div className="songBioSection">
+        <div className="producerProfilePage-songBioSection">
           <div className="profile-header">
             <img
               src={user.profilePicture || djImage}
@@ -125,26 +141,51 @@ const ProducerProfilePage = () => {
               className="profile-picture"
             />
             <h1>{user.username || "Unnamed Artist"}</h1>
-            <div className="profile-stats">
-              <span>
+          <h2 className="producerProfilePage-profile-Bio"> {user.biography || "🔥 Turning vibes into hits, one track at a time"}</h2>
+              <button onClick={handleFollowUnfollow} className="producerProfilePage-follow-button"> <FaPlus size="0.7em"  />
+                {user.isFollowing ? "Unfollow" : "Follow"}
+              </button>
+            <div className="producerProfilePage-profile-stats">
+            
+            <div  className="producerProfilePage-socials-title"  >STATS</div>
+              <span >
+                <div>Tracks</div>
                 <div>{beats.length}</div>
-                <div>beats</div>
               </span>
               <span>
+                <div>Followers</div>
                 <div>{followersCount}</div>
-                <div>followers</div>
               </span>
-              <span>
+              {/* <span>
                 <div>{followingCount}</div>
                 <div>following</div>
-              </span>
+              </span> */}
             </div>
-            <button onClick={handleFollowUnfollow}>
-              {user.isFollowing ? "Unfollow" : "Follow"}
-            </button>
-          </div> </div>
 
- <div className="Mp3player">
+            <hr style={{ border: "1px solid #ccc", margin: "20px 0" }} />
+            <div className="divider"></div>
+<div className="producerProfilePage-socials">
+            <div  className="producerProfilePage-socials-title"  >FIND ME ON</div>
+            
+      <div href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+        <FaInstagram /> Instagram
+      </div>
+    
+      <div href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+        <FaYoutube /> Youtube
+      </div>
+      <div href="https://soundcloud.com" target="_blank" rel="noopener noreferrer">
+        <FaSoundcloud /> Soundcloud
+      </div>
+      <div href="https://tiktok.com" target="_blank" rel="noopener noreferrer"> 
+        <SiTiktok /> Tiktok
+      </div>
+            </div>
+          </div>
+          
+          </div>
+
+
           <div className="producerProfile-beat-list">
             {beats.length === 0 && <p>No beats uploaded yet.</p>}
             {beats.map((beat, index) => (
@@ -154,26 +195,38 @@ const ProducerProfilePage = () => {
                   alt={beat.title || "Untitled Beat"}
                   className="beat-cover"
                 />
-                <div className="beat-info">
+                <div className="producerProfile-beat-info-container">
                   <h3 className="producerProfile-beat-title">{beat.title || "Untitled Beat"}</h3>
                   {/* <button onClick={() => handlePlayPause(beat.musicUrls?.taggedMp3, index)}>
                     {playingIndex === index ? <FaPause /> : <FaPlay />}
                   </button> */}
-                  <Link to={`/addToCart/${beat.id}`}>
-                    <button className="producerProfile-beat-add-to-cart-button">
-                      <FaShoppingCart /> Add To Cart
-                    </button>
-                  </Link>
+                 <div className="producerProfilePage-buttons-container">
+  <Link to={`/addToCart/${beat.id}`}>
+    <button className="producerProfile-beat-add-to-cart-button">
+      <FaCartShopping size="1em" />{" "}
+      {formatPrice(parsePrice(beat.monetization?.basic?.price))}
+    </button>
+  </Link>
+
+  {beat.monetization?.free?.enabled === true && (
+    <button
+      className="producerProfile-beat-download-button"
+      onClick={() => window.open(beat.musicUrls?.taggedMp3, "_blank")}
+    >
+      <FaDownload  />
+    </button>
+  )}
+</div>
                 </div>
               </div>
             ))}
-          </div></div>
+          </div>
         </>
       ) : (
         <p>Loading profile...</p>
       )}
-      </div>
-    </div></>
+      
+    </div></div>
   );
 };
 
