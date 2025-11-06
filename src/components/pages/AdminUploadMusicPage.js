@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../firebase/firebase";
-import { collection, addDoc, updateDoc, Timestamp, doc, getDoc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, Timestamp, doc, getDoc ,getDocs} from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useMusicUploadContext } from "../context/MusicUploadProvider";
 import AudioTagger from "./PageOne"; // Import AudioTagger component
@@ -30,6 +30,14 @@ const AdminUploadMusicPage = () => {
   const [zipFile, setZipFile] = useState(null);
   const [audioFileSize, setAudioFileSize] = useState("");
   const [processedAudioFile, setProcessedAudioFile] = useState(null); // State to store processed audio file
+  const [delay, setDelay] = useState("false"); // default as string
+
+  const [targetUserId, setTargetUserId] = useState("");
+const [targetUsername, setTargetUsername] = useState("");
+const [targetEmail, setTargetEmail] = useState("");
+const [allUsers, setAllUsers] = useState([]);
+const [searchTerm, setSearchTerm] = useState("");
+const [isUploading, setIsUploading] = useState(false);
 
   // Fetch logged-in user info and username from Firestore
   useEffect(() => {
@@ -58,6 +66,22 @@ const AdminUploadMusicPage = () => {
 
     return () => unsubscribe();
   }, []);
+
+//fetch all users for admin selection
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const usersSnapshot = await getDocs(collection(db, "beatHubUsers"));
+        const usersList = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setAllUsers(usersList);
+      } catch (err) {
+        console.error("Failed to fetch users", err);
+      }
+    };
+    fetchUsers();
+  }, []);
+
+
 
   // Set edit mode if a music track is selected
   useEffect(() => {
@@ -104,45 +128,59 @@ const AdminUploadMusicPage = () => {
 
   // Upload music function (memoized with useCallback)
   const uploadMusic = useCallback(async () => {
+    if (isUploading) return; // stop if already uploading
+    setIsUploading(true);   // mark as uploading
+
     if (!musicTitle) {
       alert("Please provide a music title.");
+      setIsUploading(false);
       return;
     }
     if (!email) {
       alert("Please ensure you are logged in.");
+      setIsUploading(false);
       return;
     }
     if (!audioFileMp3 || !audioFileWav) {
       alert("Both MP3 and WAV files must be uploaded.");
+      setIsUploading(false);
       return;
     }
     if (!processedAudioFile) {
       alert("Please process the audio file with watermark.");
+      setIsUploading(false);
       return;
     }
     if (!metadata) {
       alert("Please provide metadata.");
+      setIsUploading(false);
       return;
     }
     if (!monetization) {
       alert("Please provide monetization details.");
+      setIsUploading(false);
       return;
     }
 
     try {
       const musicCollectionRef = collection(db, "beats");
+      const finalUserId = targetUserId || uid;           // user selected OR admin
+const finalUsername = targetUsername || username; // user selected OR admin
+const finalEmail = targetEmail || email;          // user selected OR admin
       const newDocRef = await addDoc(musicCollectionRef, {
         title: musicTitle,
         musicUrls: {},
         coverUrl: "",
-        zipUrl: "", // Add a field for the ZIP file URL
+        
         status: true,
-        uploadedBy: email,
-        username, // Include the fetched username
-        userId: uid,
+        uploadedBy: finalEmail,
+username: finalUsername,
+userId: finalUserId,
+        adminUploader: email,
         timestamp: Timestamp.now(),
         metadata, // Include metadata
         monetization, // Include monetization details
+        delay: delay === "true", // ✅ Convert string to boolean
       });
 
       setBeatId(newDocRef.id);
@@ -199,17 +237,23 @@ const AdminUploadMusicPage = () => {
     } catch (error) {
       console.error("Upload error:", error);
       alert("Upload failed. Make sure you have all required files uploaded.");
+    }finally {
+      setIsUploading(false); // re-enable button
     }
-  }, [musicTitle, email, audioFileMp3, audioFileWav, coverArt, processedAudioFile, zipFile, metadata, monetization, db, storage, username, uid]);
+  }, [musicTitle, email, audioFileMp3, audioFileWav, coverArt, processedAudioFile, zipFile, metadata, monetization, db, storage, username, uid,  targetUserId,      // ✅ add this
+    targetUsername,    // ✅ add this
+    targetEmail,       // ✅ add this
+    delay ]);
 
   useEffect(() => {
     setUploadMusic(() => uploadMusic);
   }, [uploadMusic]);
 
   return (
-    <form className="uploadMusicContainer">
+    <fieldset disabled={isUploading} className="uploadMusicContainer">
+
       <div className="cover-title">
-        <div className="drop-zone4Image">
+        <div className="drop-zone4Image"> 
           {coverPreview ? (
             <img src={coverPreview} alt="Cover Art Preview" className="preview-image" />
           ) : (
@@ -245,8 +289,48 @@ const AdminUploadMusicPage = () => {
 
       <Metadata metadata={metadata} setMetadata={setMetadata} /> {/* Include Metadata component */}
       <Monetization monetization={monetization} setMonetization={setMonetization} /> {/* Include Monetization component */}
-      <button type="button" onClick={uploadMusic} className="upload-button">Upload Music</button> {/* Add upload button */}
-    </form>
+
+      <div>advanced options</div>
+      <label htmlFor="delay">Delivery Option</label>
+  <select
+    id="delay"
+    value={delay}
+    onChange={(e) => setDelay(e.target.value)}
+  >
+    <option value="false">Immediate Delivery</option>
+    <option value="true">Delayed Delivery</option>
+  </select>
+
+ 
+  <label htmlFor="selectUser">Upload On Behalf Of</label>
+<select
+  id="selectUser"
+  value={targetUserId}
+  onChange={(e) => {
+    const selected = allUsers.find(u => u.id === e.target.value);
+    if (selected) {
+      setTargetUserId(selected.id);
+      setTargetUsername(selected.username);
+      setTargetEmail(selected.email);
+    } else {
+      // No user selected → fallback to admin
+      setTargetUserId("");
+      setTargetUsername("");
+      setTargetEmail("");
+    }
+  }}
+>
+  <option value="">Select User</option>
+  {allUsers.map(user => (
+    <option key={user.id} value={user.id}>
+      {user.username} ({user.email})
+    </option>
+  ))}
+</select>
+
+      <button type="button" onClick={uploadMusic} className="upload-button" disabled={isUploading}>  {isUploading ? "Uploading..." : "Upload Music"}
+      </button> {/* Add upload button */}
+    </fieldset>
   );
 };
 export default AdminUploadMusicPage;
