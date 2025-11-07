@@ -287,6 +287,9 @@
     flex-direction: column;
     align-items: center;
   }
+  .image-editor-page .GroupA {
+    padding: 0 12px;
+  }
 
   .image-preview {
     flex-basis: 100%;

@@ -1395,7 +1395,20 @@ font-style: italic;
       text-align: center;
       width: 75vw;
     }
-   
+ .search-beats-input {
+  margin-left: 20px; /* adjust value */
+}
+
+.search-icon {
+  position: absolute;
+  left: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7A7A7A; /* subtle icon color */
+  font-size: 16px;
+  pointer-events: none; /* keep input clickable */
+}
+
 
   .licensing-container h2 {
     font-size: large;}
