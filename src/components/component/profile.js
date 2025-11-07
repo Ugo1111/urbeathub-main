@@ -62,7 +62,7 @@ export default function Profile() {
   return (
    
     <div className="dropdown">
-      <button onClick={toggleDropdown} className="dropbtn1">
+      <button onClick={toggleDropdown} className="dropbtn">
         <p>
           {/* If userData exists and has profilePicture, use it */}
           {userData?.profilePicture ? (

@@ -4,20 +4,20 @@
     
   }
   
-  .dropbtn1 {
-    background-color: transparent;
-    color: #777;
-    padding: 10px;
+  .dropbtn {
+    background-color: #a81919;
+    color: white;
+    padding: 10px 20px;
     border: none;
     cursor: pointer;
-    font-size: 36px;
+    font-size: 16px;
     
   }
   
-  .dropbtn1:hover {
-    background-color: #1d1c1c;
-    border-radius: 100%;
-  }
+  .dropbtn:hover {
+    background-color: #581818;
+  } 
+
   
   .dropdown-content {
     position: absolute;
