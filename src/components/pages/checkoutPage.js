@@ -145,11 +145,13 @@ function CheckoutPage() {
         <title>Payment | Cart Checkout</title>
       </Helmet>
 
-      <div className="CheckoutContainer">
+      
         <GroupA />
+        
         <div className="mobile-only-search">
   <BeatsList />
 </div> 
+<div className="CheckoutContainer">
         <h1 className="CheckoutTitle">Checkout</h1>
         <div className="CheckoutBody">
           <div className="checkoutItem">
