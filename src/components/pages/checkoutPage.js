@@ -169,7 +169,7 @@ function CheckoutPage() {
                       <div className="cart-list-item-license">{selectedLicense?.name || "Unknown License"}</div>
                       <div className="cart-list-producer-info">
   <img src={song.uploaderProfilePic || djImage} className="cart-list-user-pic" alt="Uploader Profile" />
-  <div className="cart-list-item-license">{song.uploaderUsername}</div>
+  <div className="cart-list-item-producer-name">{song.uploaderUsername}</div>
 </div>
                     </div>
                   </div>
@@ -213,7 +213,6 @@ function CheckoutPage() {
                 <hr />
                 <h3>Total ({cart.length} item{cart.length !== 1 ? "s" : ""})</h3>
                 <h3>{upgradePrice !== null ? formatPrice(upgradePrice) : formatPrice(totalPrice)}</h3>
-              
               </div>
 
               {selectedSong?.delay === true && (

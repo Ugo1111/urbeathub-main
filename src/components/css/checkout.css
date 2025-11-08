@@ -102,8 +102,6 @@ padding: 5px 10px ;
 /* border: solid; */
 background-color: rgb(0, 0, 0);
 contain: content;
-
-
 }
 
 .cart-component-list{
@@ -179,9 +177,11 @@ border-radius: 10px;
 .cart-list-item-title{
   display: flex;
 width: 100%;
-font-size:x-large;
+font-size:large;
 justify-content: start;
-  /* border: solid rgb(255, 255, 255); */
+overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .PaymentPage-cancel-button{
@@ -202,6 +202,34 @@ justify-content: start;
   flex-direction: row;
  
 }
+
+.CheckoutContainer{
+  height: 100vh;
+}
+
+.CheckoutBody{  
+  display: flex;
+  justify-content: space-evenly;
+width: 85%;
+max-width: 85%;
+margin: auto;
+gap: 10px;
+}
+
+.checkoutItem{
+  /* background-color: rgb(91, 91, 91); */
+  width: 100%;
+  min-height: 90px;
+height: fit-content;
+  /* border: #eb5025 solid; */
+}
+
+.CheckoutTitle{
+margin: 30px;
+margin-left: 70px;
+}
+
+
 
 .cart-list-price{
   /* border: solid rgb(102, 255, 1); */
@@ -248,6 +276,34 @@ align-items: flex-end;
 row-gap: 30px;
   /* align-content: space-between; */
   /* border: solid rgb(234, 234, 234); */
+}
+.selectedCartSummary {
+  display: flex;
+  justify-content: space-between; /* LEFT + RIGHT */
+  align-items: center;
+  width: 100%;
+}
+
+/* Text styles stay same */
+.certSummarySong {
+  font-weight: 500;
+}
+
+.certSummaryPRICE {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* TOTAL section */
+.Total_CartSummary h3 {
+  display: flex;
+  justify-content: space-between; /* 🔥 forces text on left + price on right */
+  align-items: center;
+  width: 100%;
+  margin: 6px 0;
+  font-size: 12px;
+   white-space: nowrap;
+   gap: 20px;
 }
 
 
@@ -300,6 +356,7 @@ margin-bottom: 30px;
  
   
 }
+
 .negotiation-Amount-input input{
   display: flex;
   flex-direction: column;
@@ -452,7 +509,7 @@ background-color: #000;
     justify-content: space-between;
     width: 100%;
     padding: 10px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    
   }
 
   .cart-list-info {
@@ -479,9 +536,9 @@ background-color: #000;
 
   /* ✅ Title on one line with ellipsis */
   .cart-list-item-title {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 600;
-    max-width: 150px; /* adjust as needed */
+    width: 180px; /* adjust as needed */
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -508,6 +565,10 @@ background-color: #000;
     border-radius: 50%;
     object-fit: cover;
   }
+
+  .cart-list-item-producer-name{
+    font-size: 15px;
+  }
   /* Summary box stays below on mobile */
   .CheckoutBody {
     flex-direction: column;
@@ -523,10 +584,8 @@ background-color: #000;
   }
 
   .CartSummary {
-    background: linear-gradient(180deg, #0f1112 0%, #0b0c0d 100%); /* subtle dark card */
     border-radius: 12px;
     padding: 16px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
     color: #e6e6e6;
     width: 100%;
     box-sizing: border-box;
@@ -611,23 +670,49 @@ background-color: #000;
 
 @media (max-width: 600px){
   
+.cart-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 0;
+    
+  }
+  
   
 .cart-list-image {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
 
-    min-width: 60px;
-    min-height: 60px;
+    min-width: 50px;
+    min-height: 50px;
   }
 
-  .cart-list-item-title {
-    max-width: 90px;
+   .cart-list-item-title {
     font-size: 15px;
+    font-weight: 600;
+    width: 80px; /* adjust as needed */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .cart-list-actions .cart-list-price {
     font-size: 16px; /* ✅ stays the SAME color / weight */
   }
+
+  .cart-list-item-title-license {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    font-size: 13px;
+  }
+
+  .cart-list-item-producer-name{
+    font-size: 10px;
+  }
+
+
 
   .CartSummary {
     padding: 15px;
@@ -646,11 +731,11 @@ background-color: #000;
 @media screen and (max-width: 480px) {
 
 .cart-list-image {
-   width: 60px ;
-    height: 60px ;
+   width: 50px ;
+    height: 50px ;
 
-    min-width: 60px ;
-    min-height: 60px ;
+    min-width: 50px ;
+    min-height: 50px ;
   }
 
   .cart-list-item-title {
@@ -666,6 +751,11 @@ background-color: #000;
     width: 15px;
     height: 15px;
   }
+
+  .CheckoutTitle {
+          text-align: left;
+          font-size: 25px;
+        }
 
   .CartSummary {
     padding: 12px;
@@ -723,6 +813,4 @@ background-color: #000;
   color: #6a6a6a;       /* optional: different color */
 }
 
-html, body {
-  overflow-x: hidden;
-}
+
