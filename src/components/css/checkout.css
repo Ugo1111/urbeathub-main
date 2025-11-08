@@ -218,7 +218,7 @@ justify-content: start;
   display: flex;
   width: fit-content;
   justify-content: flex-end;
-  color: rgba(240, 248, 255, 0.613);
+  color: rgba(255, 240, 242, 0.613);
   background-color: rgba(0, 0, 0, 0);
 }
 .cart-list-remove-btn:hover{
@@ -443,76 +443,146 @@ top: 0px;
 background-color: #000;
 }
 
+/* MOBILE + TABLET CART LAYOUT (BeatStars Style) */
 @media (max-width: 900px) {
+
   .cart-list-item {
     display: flex;
-    align-items: flex-start;
-    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
   }
 
-  /* Reduce beat image size */
+  .cart-list-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1; /* allows price to remain on row */
+  }
+
+  /* reduce cover art size */
   .cart-list-image {
-    width: 60px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
     border-radius: 6px;
     object-fit: cover;
   }
 
-  /* Stack text section vertically */
-  .cart-list-info {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
+  /* container holding title + license + producer */
   .cart-list-item-title-license {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
-  /* Title + Price on same line */
- .cart-list-item-title {
-    white-space: nowrap;
+  /* ✅ Title on one line with ellipsis */
+  .cart-list-item-title {
+    font-size: 15px;
+    font-weight: 600;
+    max-width: 150px; /* adjust as needed */
     overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: 160px; /* adjust width to what looks best */
-    display: block;
-  }
-  .cart-list-price {
-    font-size: 14px;
-    font-weight: 500;
-    margin-left: 10px;
   }
 
-  /* License below title */
-  .cart-list-item-license {
-    font-size: 13px;
-    color: #bbbbbb;
-    margin-top: 3px;
+  /* Beat Price -> stays aligned to the right */
+  .cart-list-actions .cart-list-price {
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
   }
 
-  /* Producer info below license */
+  /* Producer row */
   .cart-list-producer-info {
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-top: 6px;
+    margin-top: 3px;
   }
 
   .cart-list-user-pic {
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     object-fit: cover;
   }
+  /* Summary box stays below on mobile */
+  .CheckoutBody {
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .CartSection2 {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    margin-top: 18px;
+  }
+
+  .CartSummary {
+    background: linear-gradient(180deg, #0f1112 0%, #0b0c0d 100%); /* subtle dark card */
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    color: #e6e6e6;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .CartSummary h3 {
+    margin: 0 0 12px 0;
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: 700;
+  }
+  .selectedCartSummary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    font-size: 14px;
+    color: #ccc;
+  }
+
+  .selectedCartSummary .certSummarySong {
+    font-weight: 500;
+    color: #d6d6d6;
+  }
+
+  .selectedCartSummary .certSummaryPRICE {
+    font-weight: 600;
+    color: #e6e6e6;
+  }
+.Total_CartSummary {
+    margin-top: 12px;
+  }
+
+  .Total_CartSummary hr {
+    border: none;
+    height: 1px;
+    background: rgba(255,255,255,0.04);
+    margin: 8px 0 12px 0;
+  }
+
+  .Total_CartSummary h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 6px 0;
+    font-size: 16px;
+    color: #fff;
+  }
+
 }
 
 @media (max-width: 800px){
   
-  .CartSummary{
-    font-size: 1rem;
-  }
+ 
   .proceedToCheckout{
     font-size: 1rem;
   }
@@ -540,28 +610,33 @@ background-color: #000;
 
 
 @media (max-width: 600px){
-  .cart-list-item {
-    flex-direction: row;
-    align-items: flex-start;
+  
+  
+.cart-list-image {
+    width: 60px;
+    height: 60px;
+
+    min-width: 60px;
+    min-height: 60px;
   }
 
   .cart-list-item-title {
-    font-size: 14px;
+    max-width: 90px;
+    font-size: 15px;
   }
 
-  .cart-list-price {
-    font-size: 14px;
+  .cart-list-actions .cart-list-price {
+    font-size: 16px; /* ✅ stays the SAME color / weight */
   }
 
-  .cart-list-image {
-    width: 30px;
-    height: 30px;
-    border-radius: 6px;
-    object-fit: cover;
+  .CartSummary {
+    padding: 15px;
   }
-  .CartSummary{
-    font-size: 1rem;
-  }
+
+
+
+
+
   .proceedToCheckout{
     font-size: 1rem;
   }
@@ -569,6 +644,35 @@ background-color: #000;
 }
 
 @media screen and (max-width: 480px) {
+
+.cart-list-image {
+   width: 60px ;
+    height: 60px ;
+
+    min-width: 60px ;
+    min-height: 60px ;
+  }
+
+  .cart-list-item-title {
+    max-width: 110px;
+    font-size: 14px;
+  }
+
+  .cart-list-actions .cart-list-price {
+    font-size: 15px; /* maintains exact vibe */
+  }
+
+  .cart-list-user-pic {
+    width: 15px;
+    height: 15px;
+  }
+
+  .CartSummary {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+
   .favourite-page h1 {
     margin: 20px;
     margin-left: 10px;
@@ -617,4 +721,8 @@ background-color: #000;
 .track-license {
   font-size: 1.05em; /* smaller text */
   color: #6a6a6a;       /* optional: different color */
+}
+
+html, body {
+  overflow-x: hidden;
 }
