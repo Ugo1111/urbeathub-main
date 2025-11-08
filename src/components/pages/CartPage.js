@@ -11,7 +11,6 @@ import { getExchangeRate } from "../utils/exchangeRate";
 import { useUserLocation } from "../utils/useUserLocation";
 import { useUpgradePrice } from "../component/UpgradePrice.js";
 import StripeWrapper from "../component/StripeWrapper";
-import { FaInfoCircle } from "react-icons/fa";
 import BeatsList from "../component/searchComponent.js";
 
 function CartPage() {
@@ -26,7 +25,7 @@ function CartPage() {
     const navigate = useNavigate();
     const [guestEmail, setGuestEmail] = useState("");
     const [emailConfirmed, setEmailConfirmed] = useState(false);
-    const [userProfilePic, setUserProfilePic] = useState(null);
+
 
     // Listen for auth state changes
 useEffect(() => {
@@ -38,67 +37,26 @@ useEffect(() => {
             const userRef = doc(db, "beatHubUsers", currentUser.uid);
 
             try {
-               // 1️⃣ Get localStorage cart
-const localCartRaw = localStorage.getItem("cart");
-const localCart = localCartRaw ? JSON.parse(localCartRaw) : [];
+                // 1️⃣ Get localStorage cart
+                const localCartRaw = localStorage.getItem("cart");
+                const localCart = localCartRaw ? JSON.parse(localCartRaw) : [];
 
-// 2️⃣ Fetch Firestore cart + profile picture
-const userSnap = await getDoc(userRef);
-const userData = userSnap.exists() ? userSnap.data() : {};
+                // 2️⃣ Fetch Firestore cart
+                const userSnap = await getDoc(userRef);
+                const firestoreCart = userSnap.exists() ? userSnap.data().cart || [] : [];
 
-
-// 3️⃣ Merge carts (avoid duplicates)
-const firestoreCart = userData.cart || [];
-const mergedCart = [
-  ...firestoreCart,
-  ...localCart.filter(
-    (localItem) =>
-      !firestoreCart.some(
-        (fItem) =>
-          fItem.songId === localItem.songId &&
-          fItem.license === localItem.license
-      )
-  ),
-];
-
-// After merging Firestore cart + localStorage cart
-const enrichedCart = await Promise.all(
-    mergedCart.map(async (item) => {
-      try {
-        const songRef = doc(db, "beats", item.songId);
-        const songSnap = await getDoc(songRef);
-        if (songSnap.exists()) {
-          const songData = songSnap.data();
-  
-          // Fetch uploader's profile picture
-          let uploaderProfilePic = null;
-          if (songData.userId) { // use the UID of the beat uploader
-            const uploaderRef = doc(db, "beatHubUsers", songData.userId);
-            const uploaderSnap = await getDoc(uploaderRef);
-            if (uploaderSnap.exists()) {
-              uploaderProfilePic = uploaderSnap.data().profilePicture || null;
-            }
-          }
-  
-          return {
-            ...item,
-            delay: songData.delay || false,
-            title: songData.title || item.title,
-            coverUrl: songData.coverUrl || item.coverUrl,
-            username: songData.username || item.username,
-            uploaderProfilePic,  // ✅ Correct uploader profile picture
-          };
-        }
-        return item; // fallback if beat doc missing
-      } catch (err) {
-        console.error("Error enriching cart item:", err);
-        return item;
-      }
-    })
-  );
-  
- 
-
+                // 3️⃣ Merge carts (avoid duplicates)
+                const mergedCart = [
+                    ...firestoreCart,
+                    ...localCart.filter(
+                        (localItem) =>
+                            !firestoreCart.some(
+                                (fItem) =>
+                                    fItem.songId === localItem.songId &&
+                                    fItem.license === localItem.license
+                            )
+                    ),
+                ];
 
                 // 4️⃣ Save merged cart to Firestore
                 if (mergedCart.length > 0) {
@@ -108,8 +66,8 @@ const enrichedCart = await Promise.all(
                 // 5️⃣ Clear localStorage cart
                 localStorage.removeItem("cart");
 
-                // 6️⃣ Set enrichedCart cart to state
-                setCart(enrichedCart);
+                // 6️⃣ Set merged cart to state
+                setCart(mergedCart);
             } catch (error) {
                 console.error("Error merging local cart:", error);
                 setCart([]);
@@ -177,7 +135,7 @@ const enrichedCart = await Promise.all(
     const subtotal = cart.reduce((acc, item) => acc + parsePrice(item.price), 0);
     const finalTotal = upgradePrice !== null ? upgradePrice : subtotal;
     const deduction = subtotal - finalTotal;
-    console.log("Cart items:", cart);
+
     return (
         <>
             <Helmet>
@@ -232,12 +190,6 @@ const enrichedCart = await Promise.all(
                                     }
                                 </h3>
                             </div>
-
-                            {cart.some(song => song.delay === true) && (
-  <p className="delay-delivery-note" title="Some items in your cart will be delivered instantly and others within 24hrs.">
-    Delivery within 24hr   <FaInfoCircle className="info-icon" />
-  </p>
-)}
 
 {/* Step 1: Input and Continue */}
 {!user && !emailConfirmed && cart.length > 0 && (

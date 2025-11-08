@@ -175,8 +175,6 @@ export default function LicensingSection({ song }) {
     <div className="licensing-container">
       <span className="licensing-header">
         <h2>Licensing</h2>
-
-
         <div className="checkout">
           <span>
             {selectedLicenseName === "Exclusive License" ? "" :
