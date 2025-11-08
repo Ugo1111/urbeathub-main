@@ -11,6 +11,7 @@ import StripeWrapper from "../component/StripeWrapper";
 import { Helmet } from "react-helmet-async";
 import { getExchangeRate } from "../utils/exchangeRate";
 import { useUserLocation } from "../utils/useUserLocation";
+import { FaInfoCircle } from "react-icons/fa";
 import BeatsList from "../component/searchComponent.js";
 
 function CheckoutPage() {
@@ -50,25 +51,44 @@ function CheckoutPage() {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       if (currentUser) setUserEmail(currentUser.email);
-
-      if (!currentUser || item) {
-        setCart(item ? [item] : []);
-        setLoading(false);
-        return;
+  
+      let cartItems = item ? [item] : [];
+  
+      if (!item && currentUser) {
+        try {
+          const userRef = doc(db, "beatHubUsers", currentUser.uid);
+          const userSnap = await getDoc(userRef);
+          cartItems = userSnap.exists() ? userSnap.data().cart || [] : [];
+        } catch (err) {
+          console.error(err);
+        }
       }
-
-      try {
-        const userRef = doc(db, "beatHubUsers", currentUser.uid);
-        const userSnap = await getDoc(userRef);
-        setCart(userSnap.exists() ? userSnap.data().cart || [] : []);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
+  
+      // Enrich each cart item with uploader info
+      const enrichedCart = await Promise.all(
+        cartItems.map(async (song) => {
+          try {
+            const uploaderRef = doc(db, "beatHubUsers", song.userId);
+            const uploaderSnap = await getDoc(uploaderRef);
+            const uploaderData = uploaderSnap.exists() ? uploaderSnap.data() : {};
+            return {
+              ...song,
+              uploaderProfilePic: uploaderData.profilePicture || djImage,
+              uploaderUsername: uploaderData.username || "Unknown Producer",
+            };
+          } catch (err) {
+            console.error("Error fetching uploader info:", err);
+            return song;
+          }
+        })
+      );
+  
+      setCart(enrichedCart);
+      setLoading(false);
     });
+  
     return () => unsubscribe();
-  }, [item]);
+  }, [item, auth, db]);
 
   const parsePrice = (price) => {
     if (!price) return 0;
@@ -145,6 +165,10 @@ function CheckoutPage() {
                     <div className="cart-list-item-title-license">
                       <div className="cart-list-item-title">{selectedSong.title || "Unknown Title"}</div>
                       <div className="cart-list-item-license">{selectedLicense?.name || "Unknown License"}</div>
+                      <div className="cart-list-producer-info">
+  <img src={song.uploaderProfilePic || djImage} className="cart-list-user-pic" alt="Uploader Profile" />
+  <div className="cart-list-item-license">{song.uploaderUsername}</div>
+</div>
                     </div>
                   </div>
                   <div className="cart-list-actions">
@@ -187,7 +211,15 @@ function CheckoutPage() {
                 <hr />
                 <h3>Total ({cart.length} item{cart.length !== 1 ? "s" : ""})</h3>
                 <h3>{upgradePrice !== null ? formatPrice(upgradePrice) : formatPrice(totalPrice)}</h3>
+              
               </div>
+
+              {selectedSong?.delay === true && (
+ <p className="delay-delivery-note" title="This item will be delivered within 24hrs.">
+    Delivery within 24hr   <FaInfoCircle className="info-icon" />
+  </p>
+  )}
+              
 
               {/* Step 1: Guest Email Input and Continue */}
 {!userEmail && !emailConfirmed && (
