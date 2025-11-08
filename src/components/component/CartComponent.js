@@ -6,7 +6,6 @@ import djImage from '../../images/dj.jpg';
 import { getExchangeRate } from "../utils/exchangeRate";
 import { useUserLocation } from "../utils/useUserLocation";
 import { useUpgradePrice } from "../component/UpgradePrice.js";
-import { FaInfoCircle } from "react-icons/fa";
 
 function CartItem({
   song,
@@ -33,16 +32,7 @@ function CartItem({
         <img src={song.coverUrl || djImage} className="cart-list-image" alt="Song Cover" />
         <div className="cart-list-item-title-license">
           <div className="cart-list-item-title">{song.title || "Unknown Title"}</div>
-          <div className="cart-list-item-license">{song.license }</div>
-          <div className="cart-list-producer-info">
-          <img src={song.uploaderProfilePic || djImage} className="cart-list-user-pic" alt="Uploader Profile" />
-          <div className="cart-list-item-license">{song.username}</div>
-          </div>
-          {song?.delay === true && (
- <p className="delay-delivery-note" title="This item will be delivered within 24hrs.">
-    Delivery within 24hr   <FaInfoCircle className="info-icon" />
-  </p>
-)}
+          <div className="cart-list-item-license">{song.license || "Unknown License"}</div>
         </div>
       </div>
 

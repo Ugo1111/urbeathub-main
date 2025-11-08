@@ -72,37 +72,6 @@ gap: 30px;
 margin-bottom: 25px;
 }
 
-.delay-delivery-note{
-         color: #882525e2; 
-          font-size: bold;
-}
-
-.cart-list-user-pic{
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 10px;
-}
-
-.info-icon {
-  font-size: 0.85rem;         /* makes it smaller */
-  margin-left: 2px;           /* adds small space from the text */
-  position: relative;
-  top: -8.5px;                /* lifts it slightly closer to text */
-  color: #dcdcdc8d;             /* same green color as the text */
-  vertical-align: middle;     /* aligns nicely with text */
-  cursor: pointer;            /* shows info hint on hover */
-}
-
-.cart-list-producer-info{
-
-  display: flex;
-  align-items: center;
-  font-size: large;
-  font-weight: bolder;
-}
-
 .thesong{
     width: 60%;
     /* border: #1dd833 2px solid;
