@@ -1660,15 +1660,6 @@ width: 95%;
 
 /* Mobile view: show only inside mobile-only-search */
 @media (max-width: 480px) {
-  *, *::before, *::after {
-  box-sizing: inherit;
-}
-
-
-  html, body {
-    overflow-x: hidden; /* Prevent horizontal scroll */
-    box-sizing: border-box;
-  }
 
   /* Always show + keep search bar at top on mobile */
   .mobile-only-search {
@@ -1678,8 +1669,8 @@ width: 95%;
     background-color: #181818;
     border-top: 2px solid #333333;
     border-bottom: 1px solid #333333;
-     position: sticky; /* ✅ Keeps it visible on scroll */
-     position: relative;
+
+    position: sticky; /* ✅ Keeps it visible on scroll */
     top: 0;           /* ✅ Sticks to top of screen */
     z-index: 500;    /* ✅ Stays above other elements */
   }
@@ -1691,14 +1682,13 @@ width: 95%;
     margin: 0 !important;
     padding: 0 !important;
     display: block !important;
-    
   }
 
   /* Search input style */
   .mobile-only-search .search-beats-input {
     height: 30px;
     width: 95%;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 3px;
     background-color: #1F1F1F;
     margin: 5px 0;
@@ -1707,7 +1697,7 @@ width: 95%;
   }
   .clear-button {
   position: absolute;
-  right: 20px;
+  right: 15px;
   background: none;
   font-weight: bolder;
   border: none;
@@ -1716,21 +1706,6 @@ width: 95%;
   color: #db3056;
   top: 50%;
   transform: translateY(-50%);
-  padding: 0; 
-} 
-
-.search-beats-input::placeholder {
-  text-align: center;
-  font-size: 16px;
-}
-
-.search-icon {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #7A7A7A; /* subtle icon color */
-  font-size: 16px;
-  pointer-events: none; /* keep input clickable */
+  padding: 0;
 }
 }
