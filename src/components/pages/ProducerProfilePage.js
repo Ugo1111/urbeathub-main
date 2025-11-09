@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { db } from "../../firebase/firebase";
-import { doc, getDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs, query, where, setDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { FaPlay, FaPause} from "react-icons/fa";
+import { FaPlay, FaPause } from "react-icons/fa";
 import { FaCartShopping, FaIgloo } from "react-icons/fa6";
 import djImage from '../../images/dj.jpg';
 import GroupA from "../component/header";
 import "../css/producerProfilePage.css";
 import { SiTiktok } from "react-icons/si";
-import { FaSoundcloud, FaInstagram, FaDownload,FaYoutube,FaPlus } from "react-icons/fa";
+import { FaSoundcloud, FaInstagram, FaDownload, FaYoutube, FaPlus, FaChevronUp, FaChevronDown } from "react-icons/fa";
+
+
 const ProducerProfilePage = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
@@ -20,14 +22,14 @@ const ProducerProfilePage = () => {
   const [beats, setBeats] = useState([]);
   const [playingIndex, setPlayingIndex] = useState(null);
   const audioRef = useRef(new Audio());
-
+  const [activeTab, setActiveTab] = useState("info");
 
   const parsePrice = (price) => {
     if (!price) return 0;
     const num = parseFloat(price.toString().replace(/[^0-9.]/g, ""));
     return isNaN(num) ? 0 : num;
   };
-  
+
   const formatPrice = (usdAmount) => {
     if (!usdAmount) usdAmount = 0;
     return `$${usdAmount.toFixed(2)}`;
@@ -106,127 +108,226 @@ const ProducerProfilePage = () => {
       navigate("/loginPage");
       return;
     }
-    const socialRef = doc(db, "Social", userId);
-    const socialSnap = await getDoc(socialRef);
-    if (!socialSnap.exists()) return;
 
-    const followers = socialSnap.data().followers || [];
-    const isFollowing = followers.includes(currentUser.uid);
+    try {
+      const socialRef = doc(db, "Social", userId); // producer’s social doc
+      const currentUserSocialRef = doc(db, "Social", currentUser.uid); // current logged-in user's social doc
+      const socialSnap = await getDoc(socialRef);
+      const currentUserSocialSnap = await getDoc(currentUserSocialRef);
 
-    const { updateDoc, arrayUnion, arrayRemove } = await import("firebase/firestore");
+      // Ensure both documents exist before updating
+      if (!socialSnap.exists()) {
+        await setDoc(socialRef, { followers: [], following: [] });
+      }
+      if (!currentUserSocialSnap.exists()) {
+        await setDoc(currentUserSocialRef, { followers: [], following: [] });
+      }
 
-    await updateDoc(socialRef, {
-      followers: isFollowing
-        ? arrayRemove(currentUser.uid)
-        : arrayUnion(currentUser.uid)
-    });
+      const producerData = (await getDoc(socialRef)).data();
+      const currentUserData = (await getDoc(currentUserSocialRef)).data();
 
-    setFollowersCount(prev => isFollowing ? prev - 1 : prev + 1);
-    setUser(prev => ({ ...prev, isFollowing: !isFollowing }));
+      const followers = producerData.followers || [];
+      const following = currentUserData.following || [];
+
+      const isFollowing = followers.includes(currentUser.uid);
+
+      const { updateDoc, arrayUnion, arrayRemove } = await import("firebase/firestore");
+
+      if (isFollowing) {
+        // Unfollow
+        await updateDoc(socialRef, {
+          followers: arrayRemove(currentUser.uid),
+        });
+        await updateDoc(currentUserSocialRef, {
+          following: arrayRemove(userId),
+        });
+        setFollowersCount((prev) => prev - 1);
+      } else {
+        // Follow
+        await updateDoc(socialRef, {
+          followers: arrayUnion(currentUser.uid),
+        });
+        await updateDoc(currentUserSocialRef, {
+          following: arrayUnion(userId),
+        });
+        setFollowersCount((prev) => prev + 1);
+      }
+
+      setUser((prev) => ({ ...prev, isFollowing: !isFollowing }));
+    } catch (error) {
+      console.error("Error updating follow/unfollow:", error);
+    }
   };
+
+
+
+  const SkeletonBeatItem = () => (
+    <div className="skeleton-beat-item">
+      <div className="skeleton skeleton-cover"></div>
+      <div className="skeleton skeleton-title"></div>
+      <div className="skeleton skeleton-button-group">
+        <div className="skeleton skeleton-button"></div>
+        <div className="skeleton skeleton-button"></div>
+      </div>
+    </div>
+  );
+
+  const SkeletonProfile = () => (
+    <div className="skeleton-profile">
+      <div className="skeleton skeleton-avatar"></div>
+      <div className="skeleton skeleton-name"></div>
+      <div className="skeleton skeleton-bio"></div>
+      <div className="skeleton skeleton-stat"></div>
+      <div className="skeleton skeleton-stat"></div>
+      <div className="skeleton skeleton-follow"></div>
+    </div>
+  );
 
   return (
     <div className="producerProfilePage-body">
-     <GroupA />
-    <div className="producerProfilePage-MainContainer">
-     
-      
-      {user ? (
-        <>
-        <div className="producerProfilePage-songBioSection">
-          <div className="profile-header">
-            <img
-              src={user.profilePicture || djImage}
-              alt={user.username || "Producer"}
-              className="profile-picture"
-            />
-            <h1>{user.username || "Unnamed Artist"}</h1>
-          <h2 className="producerProfilePage-profile-Bio"> {user.biography || "🔥 Turning vibes into hits, one track at a time"}</h2>
-              <button onClick={handleFollowUnfollow} className="producerProfilePage-follow-button"> <FaPlus size="0.7em"  />
-                {user.isFollowing ? "Unfollow" : "Follow"}
+      <GroupA />
+      <div className="producerProfilePage-MainContainer">
+
+
+        {user ? (
+          <>
+            <div className="producerProfilePage-songBioSection">
+              <div className="profile-header">
+                <img
+                  src={user.profilePicture || djImage}
+                  alt={user.username || "Producer"}
+                  className="profile-picture"
+                />
+                <h1>{user.username || "Unnamed Artist"}</h1>
+                <h2 className="producerProfilePage-profile-Bio"> {user.biography || "🔥 Turning vibes into hits, one track at a time"}</h2>
+                <button onClick={handleFollowUnfollow} className="producerProfilePage-follow-button"> <FaPlus size="0.7em" style={{ marginRight: "5px" }} />
+                  {user.isFollowing ? "Unfollow" : "Follow"}
+                </button>
+
+              </div>
+              <button className="producerProfilePage-igloo-button"
+
+
+                onClick={() => setActiveTab(prev => (prev === "info" ? "" : "info"))}
+              >
+                {activeTab === "info" ?  <FaChevronDown /> : <FaChevronUp />} 
               </button>
-            <div className="producerProfilePage-profile-stats">
-            
-            <div  className="producerProfilePage-socials-title"  >STATS</div>
-              <span >
-                <div>Tracks</div>
-                <div>{beats.length}</div>
-              </span>
-              <span>
-                <div>Followers</div>
-                <div>{followersCount}</div>
-              </span>
-              {/* <span>
+              <div className={`producerProfilePage-profile-profile-info ${activeTab === "info" ? "active" : ""}`}>
+                <div className="producerProfilePage-profile-stats">
+
+                  <div className="producerProfilePage-socials-title"  >STATS</div>
+                  <span >
+                    <div>Tracks</div>
+                    <div>{beats.length}</div>
+                  </span>
+                  <span>
+                    <div>Followers</div>
+                    <div>{followersCount}</div>
+                  </span>
+                  {/* <span>
                 <div>{followingCount}</div>
                 <div>following</div>
-              </span> */}
-            </div>
-
-            <hr style={{ border: "1px solid #ccc", margin: "20px 0" }} />
-            <div className="divider"></div>
-<div className="producerProfilePage-socials">
-            <div  className="producerProfilePage-socials-title"  >FIND ME ON</div>
-            
-      <div href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-        <FaInstagram /> Instagram
-      </div>
-    
-      <div href="https://youtube.com" target="_blank" rel="noopener noreferrer">
-        <FaYoutube /> Youtube
-      </div>
-      <div href="https://soundcloud.com" target="_blank" rel="noopener noreferrer">
-        <FaSoundcloud /> Soundcloud
-      </div>
-      <div href="https://tiktok.com" target="_blank" rel="noopener noreferrer"> 
-        <SiTiktok /> Tiktok
-      </div>
-            </div>
-          </div>
-          
-          </div>
-
-
-          <div className="producerProfile-beat-list">
-            {beats.length === 0 && <p>No beats uploaded yet.</p>}
-            {beats.map((beat, index) => (
-              <div key={beat.id} className="producerProfile-beat-item">
-                <img
-                  src={beat.coverUrl || djImage}
-                  alt={beat.title || "Untitled Beat"}
-                  className="beat-cover"
-                />
-                <div className="producerProfile-beat-info-container">
-                  <h3 className="producerProfile-beat-title">{beat.title || "Untitled Beat"}</h3>
-                  {/* <button onClick={() => handlePlayPause(beat.musicUrls?.taggedMp3, index)}>
-                    {playingIndex === index ? <FaPause /> : <FaPlay />}
-                  </button> */}
-                 <div className="producerProfilePage-buttons-container">
-  <Link to={`/addToCart/${beat.id}`}>
-    <button className="producerProfile-beat-add-to-cart-button">
-      <FaCartShopping size="1em" />{" "}
-      {formatPrice(parsePrice(beat.monetization?.basic?.price))}
-    </button>
-  </Link>
-
-  {beat.monetization?.free?.enabled === true && (
-    <button
-      className="producerProfile-beat-download-button"
-      onClick={() => window.open(beat.musicUrls?.taggedMp3, "_blank")}
-    >
-      <FaDownload  />
-    </button>
-  )}
-</div>
+                </span> */}
                 </div>
+
+
+                <div className="producerProfilePage-divider"></div>
+                {user?.socials && (
+                  <div className="producerProfilePage-socials">
+                    <div className="producerProfilePage-socials-title">FIND ME ON</div>
+
+                    {user.socials.instagram && (
+                      <a href={user.socials.instagram} target="_blank" rel="noopener noreferrer">
+                        <FaInstagram /> Instagram
+                      </a>
+                    )}
+
+                    {user.socials.youtube && (
+                      <a href={user.socials.youtube} target="_blank" rel="noopener noreferrer">
+                        <FaYoutube /> YouTube
+                      </a>
+                    )}
+
+                    {user.socials.soundcloud && (
+                      <a href={user.socials.soundcloud} target="_blank" rel="noopener noreferrer">
+                        <FaSoundcloud /> SoundCloud
+                      </a>
+                    )}
+
+                    {user.socials.tiktok && (
+                      <a href={user.socials.tiktok} target="_blank" rel="noopener noreferrer">
+                        <SiTiktok /> TikTok
+                      </a>
+                    )}
+                  </div>
+                )}
+
               </div>
-            ))}
-          </div>
-        </>
-      ) : (
-        <p>Loading profile...</p>
-      )}
-      
-    </div></div>
+            </div>
+
+            <div className="producerProfile-beats-section">
+              <h2 className="producerProfile-beat-list-title">Tracks</h2>
+              <div className="producerProfile-beat-list">
+                {beats.length === 0 && <p>No beats uploaded yet.</p>}
+                {beats.map((beat, index) => (
+                  <div key={beat.id} className="producerProfile-beat-item">
+
+                    <div className="producerProfile-beat-cover-container">
+                      <Link to={`/addToCart/${beat.id}`} className="beat-link">
+                        <img
+                          src={beat.coverUrl || djImage}
+                          alt={beat.title || "Untitled Beat"}
+                          className="beat-cover"
+                        /></Link>
+                      <button
+                        className="beat-play-button"
+                        onClick={() => handlePlayPause(beat.musicUrls?.taggedMp3, index)}
+                      >
+                        {playingIndex === index ? <FaPause style={{ marginLeft: "5px" }} /> : <FaPlay style={{ marginLeft: "5px" }} />}
+                      </button>
+                    </div>
+                    <div className="producerProfile-beat-info-container">
+
+                      <Link to={`/addToCart/${beat.id}`} className="producerProfile-beat-link">
+                        <h3 className="producerProfile-beat-title">{beat.title || "Untitled Beat"}</h3>
+                      </Link>
+                      {/* <button onClick={() => handlePlayPause(beat.musicUrls?.taggedMp3, index)}>
+                    {playingIndex === index ? <FaPause /> : <FaPlay />}
+                   </button> */}
+
+
+                      <div className="producerProfilePage-buttons-container">
+
+                        <Link to={`/addToCart/${beat.id}`} className="producerProfile-beat-link">
+                          <button className="producerProfile-beat-add-to-cart-button">
+                            <FaCartShopping style={{ marginRight: "5px" }} />
+                            {formatPrice(parsePrice(beat.monetization?.basic?.price))}
+                          </button>
+                        </Link>
+
+                        {beat.monetization?.free?.enabled === true && (
+                          <button
+                            className="producerProfile-beat-download-button"
+                            onClick={() => window.open(beat.musicUrls?.taggedMp3, "_blank")}
+                          >
+                            <FaDownload />
+                          </button>
+                        )}
+
+                      </div>
+
+                    </div>
+
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        ) : (
+          <p>Loading profile...</p>
+        )}
+
+      </div></div>
   );
 };
 
