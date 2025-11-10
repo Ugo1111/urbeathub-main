@@ -183,11 +183,12 @@ const enrichedCart = await Promise.all(
             <Helmet>
                 <title>Cart Page</title>
             </Helmet>
-            <div className="CheckoutContainer">
-                <GroupA />
-                <div className="mobile-only-search">
+            <GroupA />
+           
+ <div className="mobile-only-search">
   <BeatsList />
 </div> 
+ <div className="CheckoutContainer">
                 <h1 className="CheckoutTitle">Cart</h1>
                 <div className="CheckoutBody">
                     <div className="checkoutItem">
@@ -289,6 +290,9 @@ const enrichedCart = await Promise.all(
     )}
   </>
 )}
+<p class="notice">By clicking the “Proceed to checkout” button, you agree to our <a href="/Refundpolicy" target="_blank">Refund Policy</a>, 
+ <a href="/termsandcondition" target="_blank">Urbeathub Term of services</a> and <a href="/privacy" target="_blank">Privacy policy</a>
+</p>
 
 
                             <div>

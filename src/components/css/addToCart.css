@@ -548,50 +548,64 @@ margin-bottom: auto;
 }
 
 /* cart page css */
-
-
-.CartSection2 {
-  border: #2827275c solid;
-  border-radius: 10px;
-  padding: 20px;
-  background-color: rgba(20, 20, 20, 0.631);
-  display: flex;
-  justify-content: center; /* center .CartSummary horizontally */
-}
-
 .CartSummary {
+  background: #1a1a1a;
+  padding: 18px;
+  border-radius: 10px;
+  border: 1px solid #2c2c2c;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center; /* center content */
-  gap: 30px;
-  width: 100%;
+  gap: 10px; /* Reduced spacing */
 }
 
-.selectedCartSummary {
-  display: flex;
-  justify-content: center; /* center the items */
-  gap: 40px; /* space between title and price */
-  color: rgb(229, 229, 229);
-  width: 100%;
-}
-
-.certSummarySong,
-.certSummaryPRICE {
-  min-width: 100px;
-  text-align: center;
-}
-
-.Subtotal{
-  display: flex;
-  justify-content: space-between;
-}
-
-.Total_CartSummary{
+/* Title spacing */
+.CartSummary h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
   color: #ffffff;
+}
+
+
+/* Tighten spacing for small headings */
+.CartSummary h3 {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0; /* Removes big spacing */
+  line-height: 1.25;
+}
+
+/* Divider */
+.CartSummary hr {
+  border: none;
+  border-top: 1px solid #2c2c2c;
+  margin: 6px 0;
+}
+
+/* Row items (Subtotal, upgrade deduction, etc.) */
+.Subtotal,
+.UpgradeDeduction,
+.Total_CartSummary {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin: 4px 0; /* Smaller row spacing */
 }
+
+/* Make total bold and stand out */
+.Total_CartSummary h3:last-child {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Slightly tighter spacing under h2 and item count */
+.CartSummary > h3:nth-of-type(1),
+.CartSummary > h3:nth-of-type(2) {
+  margin-top: -4px;
+}
+
+
+
 
 
 .proceedToCheckout{

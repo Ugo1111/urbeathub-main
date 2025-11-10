@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import "../css/addToCart.css";
+import "../css/checkout.css";
 import GroupA from "../component/header.js";
 import PaystackPayment from "../component/PaystackPayment";
 import { useUpgradePrice } from "../component/UpgradePrice.js";
@@ -220,6 +220,7 @@ function CheckoutPage() {
     Delivery within 24hr   <FaInfoCircle className="info-icon" />
   </p>
   )}
+ 
               
 
               {/* Step 1: Guest Email Input and Continue */}
@@ -276,7 +277,10 @@ function CheckoutPage() {
     )}
   </>
 )}
-
+ <p class="notice">By clicking the “Proceed to checkout” button, you agree to our <a href="/Refundpolicy" target="_blank">Refund Policy</a>,
+ <a href="/termsandcondition" target="_blank">Urbeathub Term of service</a> and <a href="/privacy" target="_blank">Privacy policy</a>
+</p>
+ 
 <div>
   You are checking out {userEmail || guestEmail ? `with email: ${userEmail || guestEmail}` : "as a Guest"}
 </div>
