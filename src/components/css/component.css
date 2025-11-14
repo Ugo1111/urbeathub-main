@@ -261,8 +261,8 @@ body{
 
 
   .HeaderImage{
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     object-fit: calc(30px)*2;
     }
 
@@ -1548,13 +1548,15 @@ left: 0;
     height: 70px;
   }
   .HeaderImage{
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
+    
   }
  
   .GroupA {
     justify-content: space-between;
     gap: 65px;
+
   }
 
   .Headerlogo {
@@ -1818,6 +1820,9 @@ left: 0;
   .trending-wrapper a {
     font-size: 1rem;
   }
+   .startselling{
+      display: none;
+     }
 }
 
 @media (max-width: 480px) {
@@ -1846,9 +1851,7 @@ left: 0;
      .auth-buttons-container{
       gap: 5px;
      }
-     .startselling{
-      display: none;
-     }
+    
      .hero2-container1 h2{
       font-size: 1rem;
      } 
@@ -1940,3 +1943,4 @@ left: 0;
   -ms-overflow-style: none;  /* IE/Edge */
   scrollbar-width: none;     /* Firefox */
 }
+
