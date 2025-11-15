@@ -9,7 +9,7 @@ import { useUpgradePrice } from "../component/UpgradePrice.js";
 import { useUserLocation } from "../utils/useUserLocation";
 import { getExchangeRate } from "../utils/exchangeRate";
 
-export default function LicensingSection({ song }) {
+export default function LicensingSection({ song, className }) {
   const [toggleAccordion, setToggleAccordion] = useState("basic");
   const [accordionOpen, setAccordionOpen] = useState(true);
   const [purchasedLicenses, setPurchasedLicenses] = useState([]);
@@ -172,7 +172,7 @@ export default function LicensingSection({ song }) {
   };
 
   return (
-    <div className="licensing-container">
+    <div className={className}>
       <span className="licensing-header">
         <h2>Licensing</h2>
 
