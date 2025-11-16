@@ -11,6 +11,7 @@ import StripeWrapper from "../component/StripeWrapper";
 import { Helmet } from "react-helmet-async";
 import { getExchangeRate } from "../utils/exchangeRate";
 import { useUserLocation } from "../utils/useUserLocation";
+import BeatsList from "../component/searchComponent.js";
 
 function CheckoutPage() {
   const userCountry = useUserLocation(); 
@@ -126,6 +127,9 @@ function CheckoutPage() {
 
       <div className="CheckoutContainer">
         <GroupA />
+        <div className="mobile-only-search">
+  <BeatsList />
+</div> 
         <h1 className="CheckoutTitle">Checkout</h1>
         <div className="CheckoutBody">
           <div className="checkoutItem">
@@ -191,6 +195,7 @@ function CheckoutPage() {
     <label>Please enter your email to continue as a guest:</label>
     <input
       type="email"
+      className="guest-email-input"
       placeholder="Enter your email"
       value={guestEmail}
       onChange={(e) => setGuestEmail(e.target.value)}
@@ -206,7 +211,7 @@ function CheckoutPage() {
         alert(`You are checking out with email: ${guestEmail} your beat will be sent to this email`);
         setEmailConfirmed(true); // ✅ now show payment buttons
         setUserEmail(guestEmail); // set userEmail for payment
-      }}
+      }}className="guest-btn"
     >
       Continue
     </button>

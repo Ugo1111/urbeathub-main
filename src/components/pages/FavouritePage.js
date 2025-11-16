@@ -10,6 +10,7 @@ import "../css/checkout.css";
 import djImage from '../../images/dj.jpg';
 import { Helmet } from "react-helmet-async";
 import { createSlug } from "../utils/slugify";
+import BeatsList from "../component/searchComponent.js";
 
 
 
@@ -111,6 +112,9 @@ function FavouritePage() {
   </Helmet>
     <div className="favourite-page">
       <GroupA />
+      <div className="mobile-only-search">
+  <BeatsList />
+</div> 
       <h1>Favourite Tracks</h1>
 
       {loading ? (

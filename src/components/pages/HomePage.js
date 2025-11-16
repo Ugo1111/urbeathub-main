@@ -12,6 +12,7 @@ import { db } from "../../firebase/firebase"; // Import Firestore
 import { HeroPage } from "../component/HeroPage"; // Use named import for HeroPage
 import { Helmet } from "react-helmet-async";
 import WhatsAppChat from "../component/WhatsAppChat.js";
+import BeatsList from "../component/searchComponent.js";
 
 function HomePage() {
   const [songs, setSongs] = useState([]);
@@ -147,11 +148,16 @@ function HomePage() {
         />
         <meta name="twitter:image" content="https://urbeathub.com/ur_beathub_og_image_1200x630.png" />
       </Helmet>
+       <GroupA />
+       <div className="mobile-only-search">
+  <BeatsList />
+</div> 
       <div className="homepageWrapper">
         <div className="overlay"></div> 
-        <GroupA />
+       
         {/* <HeroPage /> */}
         {/* Hidden Audio Player */}
+         
         <audio 
           ref={audioRef}
           onCanPlay={() => {

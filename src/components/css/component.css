@@ -1,3 +1,7 @@
+body, html{
+  overflow-x: hidden;
+}
+
 .dropdown {
     position: relative;
     display: none;
@@ -16,7 +20,8 @@
   
   .dropbtn:hover {
     background-color: #581818;
-  }
+  } 
+
   
   .dropdown-content {
     position: absolute;
@@ -298,18 +303,27 @@ body{
   
   
   .GroupA {
-    
-    display: flex;
-    align-items: center; 
-    justify-content: space-evenly;
-    background-color: #000000;
-    width: 100vw;
-    padding-top: 20px; 
-    height: 85px;
-    position: sticky;
-      top: 0;
-      z-index: 1000; /* Keeps it above other elements */
-  }  
+  display: flex;
+  align-items: center;
+  justify-content: space-around; /* Prevents shift */
+  background-color: #000000;
+  width: 100vw;
+  padding: 20px;
+  height: 85px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+/* This fixes the layout shift */
+.HeaderAuthSection {
+  width: 240px; /* Enough width to hold Sign In / Start Selling */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+}
 
   .GroupA1 {
     
@@ -572,6 +586,7 @@ details[open] summary::before {
     padding: 3rem;
   }
 
+  
   .ProfilePage-userName-container {
     flex-direction: row;
     justify-content: center;
@@ -1538,14 +1553,27 @@ left: 0;
   }
  
   .GroupA {
-    display: flex;
-       align-items: center; 
-          justify-content: space-evenly;
-        
-          width: 100vw;
-     height: 45px;
-     } 
+    justify-content: space-between;
+    gap: 65px;
+  }
 
+  .Headerlogo {
+    flex-shrink: 0; /* prevent logo from shrinking */
+  }
+
+  /* This ensures search stays centered and doesn't get squeezed */
+  .GroupA .BeatsListContainer,
+  .GroupA .HeaderSearchBar {
+    flex: 1;
+    max-width: 200px;
+    min-width: 100px;
+  }
+
+  .HeaderAuthSection {
+    flex-shrink: 0; /* Don't let auth controls push layout left */
+    display: flex;
+    justify-content: space-around;
+  }
 
   .login-form-container {
     margin-top: 50px;
@@ -1698,6 +1726,8 @@ left: 0;
     width: 350px;
   }
 
+  
+
   .Headerlogo{
    
     width: 70px;
@@ -1798,6 +1828,16 @@ left: 0;
           width: 100vw;
      height: 45px;
      } 
+     
+
+     .HeaderAuthSection {
+    width: auto;           /* remove the full width */
+    margin: 0;             /* remove unnecessary spacing */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;      /* small spacing */
+  }
 
      .HeaderImage{
       width: 74px;

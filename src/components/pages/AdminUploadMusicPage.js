@@ -30,7 +30,6 @@ const AdminUploadMusicPage = () => {
   const [zipFile, setZipFile] = useState(null);
   const [audioFileSize, setAudioFileSize] = useState("");
   const [processedAudioFile, setProcessedAudioFile] = useState(null); // State to store processed audio file
-  const [delay, setDelay] = useState("false"); // default as string
 
   // Fetch logged-in user info and username from Firestore
   useEffect(() => {
@@ -144,7 +143,6 @@ const AdminUploadMusicPage = () => {
         timestamp: Timestamp.now(),
         metadata, // Include metadata
         monetization, // Include monetization details
-        delay: delay === "true", // ✅ Convert string to boolean
       });
 
       setBeatId(newDocRef.id);
@@ -210,9 +208,8 @@ const AdminUploadMusicPage = () => {
 
   return (
     <form className="uploadMusicContainer">
-
       <div className="cover-title">
-        <div className="drop-zone4Image"> 
+        <div className="drop-zone4Image">
           {coverPreview ? (
             <img src={coverPreview} alt="Cover Art Preview" className="preview-image" />
           ) : (
@@ -248,17 +245,6 @@ const AdminUploadMusicPage = () => {
 
       <Metadata metadata={metadata} setMetadata={setMetadata} /> {/* Include Metadata component */}
       <Monetization monetization={monetization} setMonetization={setMonetization} /> {/* Include Monetization component */}
-
-      <div>advanced options</div>
-      <label htmlFor="delay">Delivery Option</label>
-  <select
-    id="delay"
-    value={delay}
-    onChange={(e) => setDelay(e.target.value)}
-  >
-    <option value="false">Immediate Delivery</option>
-    <option value="true">Delayed Delivery</option>
-  </select>
       <button type="button" onClick={uploadMusic} className="upload-button">Upload Music</button> {/* Add upload button */}
     </form>
   );
