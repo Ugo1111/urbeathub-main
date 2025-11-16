@@ -1,8 +1,8 @@
 // authFunctions.js
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendEmailVerification, GoogleAuthProvider, signInWithPopup } from "firebase/auth"; // Import GoogleAuthProvider and signInWithPopup
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, /*sendEmailVerification*/ GoogleAuthProvider, signInWithPopup } from "firebase/auth"; // Import GoogleAuthProvider and signInWithPopup
 import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore"; // Import Firestore functions
-import { auth, db, storage } from "./firebase"; // Ensure Firestore is initialized in firebase.js
-import { collection, getDocs } from "firebase/firestore"; // Correct import from Firebase SDKimport SignUp from "./components/SignUp";
+import { auth, db, /*storage*/ } from "./firebase"; // Ensure Firestore is initialized in firebase.js
+//import { collection, getDocs } from "firebase/firestore"; // Correct import from Firebase SDKimport SignUp from "./components/SignUp";
 import axios from "axios"; // Import axios for fetching location
 
 // Sign-Up Function

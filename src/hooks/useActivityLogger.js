@@ -139,7 +139,7 @@ export default function useActivityLogger() {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (unsubscribed) return;
 
-      const wasSignedOut = sessionStorage.getItem("signedOut") === "true";
+     // const wasSignedOut = sessionStorage.getItem("signedOut") === "true";
       const wasSignedIn = !!currentUser?.uid;
 
       if (!user && wasSignedIn && currentUser?.uid) {
