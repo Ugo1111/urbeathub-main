@@ -1,0 +1,575 @@
+.producerProfilePage-body{
+   
+    /* color: #ffffff; */
+    min-height: 100vh;
+    /* padding: 20px; */
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.producerProfilePage-MainContainer {
+    /* border: 2px solid #f01313; */
+    display: flex;
+    flex-direction: row;
+           /* default width */
+    max-width: 1388px;  /* container won’t grow beyond this */
+    margin: 0 auto;     /* center it */
+    padding: 20px 10px;
+    box-sizing: border-box;
+    gap: 23px;
+}
+
+
+
+
+
+
+
+.producerProfilePage-songBioSection{
+    /* border: 3px solid #f01313; */
+    background-color: #151515;
+    padding: 23px;
+    padding-top: 35px;
+    width: 23.5%;
+    min-width: 23.5%;
+    border-radius: 10px;
+    /* background-color: #f9f9f9; */
+    display: flex;
+    flex-direction: column;
+   height: fit-content;
+   min-height: 620px;
+   min-width: 300px;
+   overflow: hidden;
+    gap: 10px;
+}
+
+.producerProfile-beat-list-title{
+    display: flex;
+    justify-content: flex-start;
+    color: #dedede;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bolder; 
+    font-size: 29px;
+    padding: 5px 0px 0px 10px;
+}
+
+.producerProfile-beat-list{
+ 
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    /* background-color: #f9f9f9; */
+    display: flex;
+    flex-wrap: wrap; 
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* justify-content: flex-start; */
+    gap: 20px 0; 
+}
+
+.producerProfile-beat-item:hover{
+    transform: scale(1.00);
+    background-color: #3b3b3b93;
+    border-radius: 7px;
+    border: #5b5b5ba5 1px solid;
+}
+
+.producerProfile-beat-item:active{
+    transform: scale(1.00);
+    background-color: #3b3b3be4;
+    border-radius: 7px;
+    border: #5b5b5ba5 1px solid;
+}
+
+.producerProfile-beat-item{
+    /* margin-left: auto;
+    margin-right: auto; */
+  
+   
+    position: relative;
+    overflow: hidden;
+    list-style: none;
+    padding: 16px;
+    z-index: 1;
+    touch-action: pan-y;
+     height: 300px; 
+     width: 200px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   
+    flex: 1 1 25%;         /* grow:1, shrink:1, base width:25% */
+    min-width: 160px;      /* prevents shrinking too much */
+    box-sizing: border-box;
+       
+        max-width: 25%;
+}
+
+/*  */
+
+  .producerProfile-beat-title{
+    font-size: 13px;
+    font-weight: bold;
+    font-family: Poppins, Roboto, Helvetica Neue, sans-serif;
+    color: #ffffffd1;
+    display: block;            /* ✅ required for ellipsis to work */
+    white-space: nowrap;       /* ✅ keep title on one line */
+   
+    text-overflow: ellipsis;   /* ✅ show the “...” */
+                 /* ✅ limit to container width */
+    
+    text-align: center;
+          
+    cursor: pointer;
+    text-decoration: none;  /* no underline */
+    text-overflow: ellipsis;
+  }
+
+
+
+
+.producerProfilePage-buttons-container {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center;
+    align-self: center;
+    align-content: center; */
+    
+    /* width: 100%; */
+    /* max-width: 100%; */
+   min-height: 60%;
+   box-sizing: border-box  ;
+   overflow: hidden;
+   gap: 12px;
+    
+  }
+  
+  .producerProfile-beat-download-button {
+  
+    display: flex;
+   justify-content: center;
+    align-items: center;
+    flex: 0 0 25%;
+    background-color: #000000;
+    border: 2px solid #4e4e4e;
+    /* padding: 8px 12px; */
+    border-radius: 12px;
+    cursor: pointer;
+    color: #dedede;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: bold;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+    box-sizing: border-box  ;
+  }
+  
+  .producerProfile-beat-download-button:hover {
+    background-color: #626262;
+    color: white;
+  }
+.producerProfile-beat-add-to-cart-button{
+    /* position: absolute; */
+    /* bottom: 10px;
+    left: 50%; */
+    /* transform: translateX(-50%); */
+    flex: 1;
+  min-height: fit-content;
+  min-width: 60%;
+  display: flex;
+   
+  align-items: center;
+  justify-content: center;
+    background-color: transparent;
+    border: 2px solid #c51515bb;
+    
+    border-radius: 10px;
+    cursor: pointer;
+    
+    opacity: 0.9;
+    transition: all 0.3s ease;
+     
+   padding: 8px 0px;
+
+   
+    color: #ffffff;
+    font-size: small;
+    font-family: Poppins, Roboto, Helvetica Neue, sans-serif;
+    
+   font-weight: bold;
+
+}
+
+.producerProfile-beat-link {
+  text-decoration: none;   /* removes underline */
+  color: inherit;          /* use parent’s color */
+  display: contents;       /* makes it act as if it’s not there */
+}
+
+.producerProfile-beat-add-to-cart-button:hover{
+    background-color: #c1062f51;
+    
+  }
+  
+
+
+.producerProfilePage-socials{
+ color: #dedede;
+  
+    width: 100%;
+    border-radius: 5px;
+    /* background-color: #f9f9f9; */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 10px 0px 50px 0px;
+}
+
+.producerProfilePage-socials-title{
+    font-size: 13px;
+ font-weight: SemiBold;
+ font-family: 'Poppins, Roboto, Helvetica Neue, sans-serif';
+    color: #ffffffa5;
+    margin-bottom: 20px ;
+    
+   
+}
+
+
+.producerProfilePage-socials div{
+    padding: 8px 0px;
+ }
+
+
+ .producerProfilePage-socials a {
+    color: #dedede;
+    text-decoration: none;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s ease;
+  }
+  
+  .producerProfilePage-socials a:hover {
+    color: #db3056;
+  }
+
+
+
+
+.producerProfilePage-profile-Bio{
+    color: #dedede9e;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    /* background-color: #f9f9f9; */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 400px;
+    /* border: #13d6f0 3px solid; */
+    font-size: small;
+
+    
+}
+
+
+
+
+.producerProfilePage-profile-stats{
+    color: #dedede;
+  padding-top: 30px;
+    width: 100%;
+    border-radius: 5px;
+    /* background-color: #f9f9f9; */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: flex-start;
+   
+    font-size: small;
+}
+
+
+
+
+.producerProfilePage-profile-stats span{
+    color: #dedede;
+   
+    width: 100%;
+    border-radius: 5px;
+    /* background-color: #f9f9f9; */
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: flex-start;
+    
+    font-size: small;
+}
+
+.producerProfilePage-divider {
+    height: 2px;
+    background-color: #5b5b5b;
+    margin: 45px 0 25px 0;
+    width: 100%;
+  }
+
+  .producerProfilePage-follow-button{
+      background-color: #1e1e1e;
+      border: 2px solid #3b3b3b;
+      padding: 8px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #dedede;
+      font-size: 16px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-weight: bold;
+      opacity: 0.9;
+      transition: all 0.3s ease;
+      width: 100%;
+      height: 46px;
+    }
+   
+    .producerProfilePage-follow-button:hover {
+      background-color: #626262;
+      color: white;
+      border: 3px solid #000000;
+    }.producerProfilePage-follow-button:active {
+      background-color: #971515;
+      color: white;
+      border: 3px solid #000000;
+    }
+
+
+
+
+
+    .producerProfile-beat-info-container {
+       
+        padding-top: 15px;
+        min-height: 35%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        /* border: 3px solid #f0ae13; */
+        width: 100%;              /* ✅ ensures consistent layout */
+        box-sizing: border-box;   /* ✅ includes padding/border in width */
+        overflow: hidden;         /* ✅ hides anything that overflows */
+      }
+      
+
+
+      /* delete this, the name is not right */
+    .producerProfile-beat-item img{
+        width: 100%;
+       /* min-height: 70%; */
+       max-width: 213px;
+       max-height: 213px;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+        border: 0.5px solid #83838372;
+        box-shadow: #7f8e90 10px 0px 0px -10px;
+        /* border: #30dbd5 3px solid; */
+
+    }
+
+
+    /* === Play Button Overlay === */
+.producerProfile-beat-cover-container {
+    position: relative;
+    aspect-ratio: 1 / 1;   /* ensures it stays a perfect square */
+padding-left: 10px;
+    width: 100%;
+    /* min-height: 70%; */
+    border-radius: 8px;
+    overflow: hidden;
+    /* border: #db3056 3px solid; */
+  }
+  
+  .producerProfile-beat-cover-container .beat-cover {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;   /* ensures it stays a perfect square */
+
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Play/Pause Button */
+  .beat-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.4rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+  
+  /* Fade in when hovering over image */
+  .producerProfile-beat-cover-container:hover .beat-play-button {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.81);
+  }
+  
+  .beat-play-button:hover {
+    background-color: rgba(16, 16, 16, 0.636);
+    color: #db3056;
+  }
+
+  .producerProfilePage-igloo-button {
+    display: none;
+ 
+  }
+  
+
+  /* === Responsive Layout for Screens Below 1388px === */
+@media (max-width: 1015px) {
+
+  .producerProfilePage-MainContainer {
+    flex-direction: column;   /* Stack bio + beats vertically */
+    align-items: center;      /* Center everything */
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+   
+  }
+
+  .producerProfilePage-songBioSection {
+    width: 100%;             /* Take full width */
+    min-width: 100%;
+    min-height: fit-content;
+    order: 1;                /* Bio goes to the top */
+    /* background-color: #15151500; */
+    
+  }
+
+  .producerProfilePage-profile-stats {
+    order: 2;                /* Stats below bio */
+    margin-top: 20px;
+    /* display: none; */
+  }
+
+  .producerProfilePage-profile-profile-info{
+    
+  }
+  .producerProfilePage-profile-profile-info:hover{
+    background-color: #7f8e90;
+  }
+
+  .producerProfilePage-profile-profile-info.active{
+    display: none;
+  }
+
+  .producerProfilePage-igloo-button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-right: -0px;
+    background-color: #00000000;
+    padding: 0px 32px 12px 12px;
+    border: none;
+   
+    color: #f0f0f087;
+    font-size: larger;
+    border-bottom: #484848 2px solid;
+  }
+
+  .producerProfile-beats-section {
+    width: 100%;             /* Full width for tracks */
+    order: 3;                /* Comes after stats */
+  
+  }
+
+  .producerProfilePage-follow-button{
+    width: fit-content;
+  }
+
+
+}
+@media (max-width: 666px) {
+  .producerProfile-beat-item{
+    /* margin-left: auto;
+    margin-right: auto; */
+  
+   
+    position: relative;
+    overflow: hidden;
+    list-style: none;
+    padding: 16px;
+    z-index: 1;
+    touch-action: pan-y;
+     height: max-content; 
+     width: 200px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   
+           /* grow:1, shrink:1, base width:25% */
+    min-width: 160px;      /* prevents shrinking too much */
+    box-sizing: border-box;
+       
+        max-width: 35%;
+}
+
+
+}
+
+
+@media (max-width: 505px) {
+  .producerProfile-beat-item{
+    /* margin-left: auto;
+    margin-right: auto; */
+  
+   
+    position: relative;
+    overflow: hidden;
+    list-style: none;
+   
+    z-index: 1;
+    touch-action: pan-y;
+     height: max-content; 
+     width: 200px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   
+           /* grow:1, shrink:1, base width:25% */
+    min-width: 50%;      /* prevents shrinking too much */
+    box-sizing: border-box;
+       
+        max-width: 50%;
+}
+
+
+.producerProfile-beat-list{
+ 
+
+  /* justify-content: flex-start; */
+  gap: 0px 0; 
+}
+
+}
