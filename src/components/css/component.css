@@ -298,6 +298,7 @@ body{
   
   
   .GroupA {
+    margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-around; /* Prevents shift */
@@ -313,11 +314,11 @@ body{
 
 /* This fixes the layout shift */
 .HeaderAuthSection {
-  width: 240px; /* Enough width to hold Sign In / Start Selling */
+  width: fit-content; /* Enough width to hold Sign In / Start Selling */
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  
+
 }
 
   .GroupA1 {
@@ -1813,9 +1814,10 @@ left: 0;
      } 
 
      .HeaderAuthSection {
-    width: 100%;
+      width: fit-content;
     justify-content: center;
     margin-top: 5px;
+   
   }
      .HeaderImage{
       width: 74px;

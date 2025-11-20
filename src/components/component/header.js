@@ -88,9 +88,9 @@ export function GroupA2() {
 
 export default function GroupA() {
   return (
-    <div className="GroupA">
+    <div className= "GroupA">
       <Headerlogo />
-      <BeatsList />
+      <BeatsList className = {"search-beats-header" }/>
       <div className="HeaderAuthSection">{/* This keeps space consistent */}
         <AuthState />
       </div>

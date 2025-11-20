@@ -290,9 +290,9 @@ function AddToCart() {
           }
         />
       </Helmet>
-      <GroupA />
+      <GroupA className={"GroupA"} />
       <div className="mobile-only-search">
-        <BeatsList />
+        <BeatsList className="header" />
       </div>
       <div className="theMainContainer">
         <div className="container">

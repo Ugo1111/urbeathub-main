@@ -400,7 +400,7 @@ gap: 20px;
   display: block;
   border-radius: 8px; /* Optional for style */
   margin:auto;
-  border: #12f35d solid 2px;
+  /* border: #12f35d solid 2px; */
 }
   
   .license-options {
@@ -643,6 +643,383 @@ margin-top: auto;
 margin-bottom: auto;
 }
 
+
+
+.mobile-only-search {
+  display: none; /* hidden by default */
+  margin-bottom: 0;
+}
+
+.mobile-only-search {
+  margin-bottom: 0;
+ }
+
+@media (max-width: 600px) {
+  .search-beats-results-container {
+    position: absolute; /* instead of fixed */
+    top: 100%;
+    width: 100vw;
+    max-height: 85vh; /* allow scroll inside this container */
+    overflow-y: auto;
+    border-radius: 8px;
+    transform: translateX(-10px);  /* moves left */
+  }
+
+  .search-beats-ul {
+    max-height: 85vh; 
+    overflow-y: auto; /* ensures scrolling works inside container */
+  }
+
+  .search-beats-li {
+    flex-direction: row; /* ✅ Keep image on left & text on right */
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left; /* ✅ Fix alignment */
+    padding: 3px 2px;
+  }
+
+  .search-image {
+    width: 45px;
+    height: 45px;
+    margin: 0;
+    flex-shrink: 0;
+    border-radius: 10px;
+  }
+
+  /* ✅ Wrap details on the right */
+  .search-beats-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .search-beats-title {
+    font-size: 15px;
+    margin-bottom: 3px;
+    text-align: left;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 150px;
+  }
+
+  /* ✅ Keep BPM and Tag on same line */
+.search-beats-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* small space between bpm & tag */
+  margin-top: 2px;
+}
+
+.search-beats-bpm {
+  font-size: 10px;
+  margin: 0;
+}
+
+.search-beats-taglist {
+  font-size: 10px;
+  background: rgba(70, 70, 70, 0.428);
+  border-radius: 6px;
+  padding: 2px 5px;
+  white-space: nowrap;
+}
+
+  .search-beats-taglist:nth-child(n+2) {
+    display: none; /* hides extra tags */
+  }
+  
+}
+
+.search-beats-body {  
+  min-width: 40%;
+  position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;  
+      /* min-height: 80vw; 
+  height: auto;
+  min-width: 1200px; */
+  /* margin: 990px 0 0 0; */
+  border-radius: 25px;
+  }
+
+/* responsive mode */
+
+@media (max-width: 768px) {
+  mobile-only-search
+  .search-beats-body, .search-beats-header {
+      display: none; /* hide desktop search container */
+    }
+    .mobile-only-search {
+      display: block;
+           /* full width container */
+      padding: 8px 12px;    /* balanced padding */
+      margin-bottom: 15px;
+      background-color: #181818;
+      border-top: 2px solid #333333;
+      border-bottom: 1px solid #333333;
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      box-sizing: border-box; /* ensures padding doesn’t shrink width */
+    }
+  
+    .mobile-only-search .search-beats-body {
+      width: 100% !important;  /* force full width */
+      margin: 0 !important;
+      padding: 0 !important;
+      background-color: transparent !important;
+      border-radius: 0 !important;
+      display: block !important;
+    }
+  
+    .mobile-only-search .search-beats-input {
+      width: 95%;  
+      max-width: 100%;        /* full width input */
+      height: 32px;
+      font-size: 16px;
+      border-radius: 3px;
+      background-color: #1F1F1F;
+      margin: 5px 10px;
+      border: 1px solid #333333;
+      color: #dddddd;
+      box-sizing: border-box; /* keeps padding inside width */
+    }
+  
+    .search-icon {
+      left: 15px;           /* adjust for full width input */
+      font-size: 14px;
+    }
+   .clear-button {
+    position: absolute;
+    left: 80%;               /* distance from right edge of input container */
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    font-weight: bolder;
+    border: none;
+    font-size: x-large;
+    cursor: pointer;
+    color: #db3056;
+    padding: 0;
+  }
+    
+   .search-beats-results-container {
+      left: 0 !important;
+      transform: none !important;
+      margin: 0 !important;
+      width: 100vw !important;
+      border-radius: 0 !important;
+      left: 0 !important;       /* align to the left edge */
+      transform: none !important; /* remove previous translateX */
+      width: 100vw;             /* full width of viewport */
+      padding-left: 10px;       /* optional: small padding */
+      padding-right: 10px;      /* optional: small padding */
+      overflow-x: hidden;
+    }
+  
+    .search-beats-ul {
+      width: 100%;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      border: 1px solid #ffffff46;
+      background: rgba(0, 0, 0, 0.713);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.482);
+      list-style: none;
+      padding: 0;
+      max-height: 100vh;
+      overflow-y: auto !important;
+      overflow-x: hidden;
+    }
+  
+    /* Optional: remove any left padding from parent wrapper */
+    .mobile-only-search {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  
+    /* Dark scrollbar for search results only */
+  .search-beats-results-container::-webkit-scrollbar,
+  .search-beats-ul::-webkit-scrollbar {
+    width: 6px;                /* vertical scrollbar width */
+  }
+  
+  .search-beats-results-container::-webkit-scrollbar-track,
+  .search-beats-ul::-webkit-scrollbar-track {
+    background: #111;
+    border-radius: 10px;
+  }
+  
+  .search-beats-results-container::-webkit-scrollbar-thumb,
+  .search-beats-ul::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+  }
+  
+  .search-beats-results-container::-webkit-scrollbar-thumb:hover,
+  .search-beats-ul::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}  
+
+@media (max-width: 600px) {
+  .search-beats-results-container {
+    position: absolute; /* instead of fixed */
+    top: 100%;
+    width: 100vw;
+    max-height: 85vh; /* allow scroll inside this container */
+    overflow-y: auto;
+    border-radius: 8px;
+    transform: translateX(-10px);  /* moves left */
+  }
+
+  .search-beats-ul {
+    max-height: 85vh; 
+    overflow-y: auto; /* ensures scrolling works inside container */
+  }
+
+  .search-beats-li {
+    flex-direction: row; /* ✅ Keep image on left & text on right */
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left; /* ✅ Fix alignment */
+    padding: 3px 2px;
+  }
+
+  .search-image {
+    width: 45px;
+    height: 45px;
+    margin: 0;
+    flex-shrink: 0;
+    border-radius: 10px;
+  }
+
+  /* ✅ Wrap details on the right */
+  .search-beats-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .search-beats-title {
+    font-size: 15px;
+    margin-bottom: 3px;
+    text-align: left;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 150px;
+  }
+
+  /* ✅ Keep BPM and Tag on same line */
+.search-beats-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* small space between bpm & tag */
+  margin-top: 2px;
+}
+
+.search-beats-bpm {
+  font-size: 10px;
+  margin: 0;
+}
+
+.search-beats-taglist {
+  font-size: 10px;
+  background: rgba(70, 70, 70, 0.428);
+  border-radius: 6px;
+  padding: 2px 5px;
+  white-space: nowrap;
+}
+
+  .search-beats-taglist:nth-child(n+2) {
+    display: none; /* hides extra tags */
+  }
+  
+}
+
+
+@media (max-width: 600px) {
+  .search-beats-results-container {
+    position: absolute; /* instead of fixed */
+    top: 100%;
+    width: 100vw;
+    max-height: 85vh; /* allow scroll inside this container */
+    overflow-y: auto;
+    border-radius: 8px;
+    transform: translateX(-10px);  /* moves left */
+  }
+
+  .search-beats-ul {
+    max-height: 85vh; 
+    overflow-y: auto; /* ensures scrolling works inside container */
+  }
+
+  .search-beats-li {
+    flex-direction: row; /* ✅ Keep image on left & text on right */
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left; /* ✅ Fix alignment */
+    padding: 3px 2px;
+  }
+
+  .search-image {
+    width: 45px;
+    height: 45px;
+    margin: 0;
+    flex-shrink: 0;
+    border-radius: 10px;
+  }
+
+  /* ✅ Wrap details on the right */
+  .search-beats-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .search-beats-title {
+    font-size: 15px;
+    margin-bottom: 3px;
+    text-align: left;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 150px;
+  }
+
+  /* ✅ Keep BPM and Tag on same line */
+.search-beats-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* small space between bpm & tag */
+  margin-top: 2px;
+}
+
+.search-beats-bpm {
+  font-size: 10px;
+  margin: 0;
+}
+
+.search-beats-taglist {
+  font-size: 10px;
+  background: rgba(70, 70, 70, 0.428);
+  border-radius: 6px;
+  padding: 2px 5px;
+  white-space: nowrap;
+}
+
+  .search-beats-taglist:nth-child(n+2) {
+    display: none; /* hides extra tags */
+  }
+  
+}
+
+
+
+
+
+  
 .usageTermHeader button { 
   background: none;
   border: none;
@@ -1846,6 +2223,10 @@ border: none;
 
 
 @media screen and (max-width: 550px) {
+
+ .mobile-only-search {
+  margin-bottom: 0;
+ }
 
   .volume{
     display: none;
