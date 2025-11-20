@@ -52,6 +52,7 @@ body {
 
 .song{
   display: flex;
+  align-items: center;
   /* justify-content: start; */
   margin: 10px;
   /* border: 1px rgb(0, 255, 26) solid; */
@@ -116,14 +117,10 @@ margin-bottom: 25px;
 
 .thesong{
     width: 60%;
-
-    /* border: #1dd833 2px solid;
-    background-color: #2dc23f;
-    color: #1fee37; */
+  
   }
 
   .volume {
-    margin-top: 8px;
     -webkit-appearance: none; /* Remove default style for WebKit browsers */
     width: 100%;
     height: 5px;
@@ -309,11 +306,29 @@ height: 40px;
  
 }
 
+.mp3Player-DownloadButton{
+
+
+  color: #7f7f7f;
+}
+
+
+.addtoCartPage-mobile-view-prodName{
+  font-size: small;
+  font-weight: bold;
+  color: #c8c8c896;
+  text-align: center;
+  margin-top: 10px;
+}
+
 .comment{
   gap: 30px;
   min-height: 350px;
   background-color: #1e1c1c;
 border-radius: 5px;
+width: 100%;
+
+padding: 5px;
 }
 
 .comment h1{
@@ -964,8 +979,40 @@ border-radius: 25px;
   background-color: #f30539;
 }
 
+.follow-producer-button{
+ 
+    background: none;
+    border: none;
+    color: #e03e338e;
+    font-Weight: bold;
+    margin-Left: 5px;
+    cursor: pointer
 
+ 
+}
 
+.addtoCartPage-mobile-view-prodName{}
+.no-comments {
+  text-align: center;
+  color: #dddddd;
+  padding: 20px 0;
+  font-style: italic;
+  font-size: 1.1rem;
+
+}
+.no-comments h4{  
+  padding: 10px;
+  font-family:  Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.no-comments div{  
+  font-size: small;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-stretch: expanded;
+  padding: 1px;
+  color: #979797;
+
+}
 
 .recomendation-list-container {
   display: flex;
@@ -973,14 +1020,16 @@ border-radius: 25px;
   gap: 20px;
   overflow-x: auto;
   overflow-y: hidden;
-  height: 320px;
-  padding: 10px;
+  height: 250px;
+
   scroll-behavior: smooth;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
-  width: 100%;
+  width: 95%;
+  margin: auto;
   box-sizing: border-box;
   white-space: nowrap;
+
 }
 
 .recomendation-list-container::-webkit-scrollbar {
@@ -1515,7 +1564,21 @@ font-style: italic;
 
 
 
+.addtoCartPage-mobile-view-beat-title-and-artist h2{
+  font-size: large;
+  color: #cecdcde5;
+padding: 20px;
+width: 70%;
+  margin: auto;
+overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+/* border: #12f35d solid 2px; */
 
+}
 
 
 
@@ -1525,6 +1588,11 @@ font-style: italic;
 
 /* responsive mode */
 @media screen and (max-width: 1000px) {
+
+  .comment{
+    width: 95%;
+    margin: auto;
+  }
 
 .container{
     display: flex;
@@ -1606,9 +1674,10 @@ background-color: #171717f1;
 
 }
 
-.image-placeholder, .addToCartPage-bio-song-Tille, .item-actions , .licensing-container {
+.image-placeholder, .addtoCartPage-mobile-view-prodName, .item-actions , .licensing-container ,.licensing-container {
   display: none;
 }
+
 
 .songBioSection{
 
@@ -1733,7 +1802,7 @@ margin-left: 20%;
   background-color: #db244c;
   padding: 10px;
   border-radius: 7px;
-
+border: none;
   color: #ffffff;
 }
 
@@ -1831,9 +1900,9 @@ display: flex;
   left: 0px;
   right: 0px;
   width: 100%;
-  height: 40%;
+ 
   /* align controls at the bottom */
-    gap: 10px;             
+    gap: 1px;             
     background: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0.0) 0%,   /* very transparent at top */
@@ -1846,7 +1915,7 @@ display: flex;
 
   /* border: #12f35d solid 2px; */
 }
-
+search-beats-body
 .song{
   width: 100%;
   max-width: 400px;
@@ -1868,6 +1937,7 @@ display: flex;
   text-align: left !important; */
   width: 100%;
   margin-left: 0;
+  
 }
 
 .addtoCartPage-mobile-view-producerName{
@@ -1903,6 +1973,8 @@ border: oliver solid 2px;
  padding: 0 2px;
  
 }
+
+
 }
 
 

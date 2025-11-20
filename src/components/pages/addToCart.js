@@ -8,10 +8,9 @@ import {
 } from "firebase/firestore";
 import "../css/addToCart.css";
 import { useLocation } from "react-router-dom";
-import { Profilepicture } from "../AuthState";
+import { getAuth } from "firebase/auth";
 import GroupA from "../component/header.js";
-import { GroupE, GroupF, GroupG } from "../component/footer.js";
-import { TbSend } from "react-icons/tb";
+
 import { Helmet } from "react-helmet-async";
 import { ToastContainer, toast } from "react-toastify";
 import {
@@ -21,19 +20,18 @@ import {
   FaChevronDown,
   FaChevronUp,
 } from "react-icons/fa";
-import { RiAddLargeFill } from "react-icons/ri";
 import { IoMdDownload } from "react-icons/io";
-import { IoIosContact } from "react-icons/io";
 import LicensingSection from "../component/licenseSection.js";
 import LikeButton from "../component/LikeButton";
 import Comment from "../component/CommentSection";
 import RecomendationComponent, { ProducerTracksComponent } from "../component/recomendationComponent";
 import ShareModal from "../component/ShareModal";
-import { Timestamp } from "firebase/firestore"; // Import Firestore Timestamp
 import djImage from "../../images/dj.jpg";
 import { useParams } from "react-router-dom";
 import { extractIdFromSlug } from "../utils/slugify";
 import BeatsList from "../component/searchComponent.js";
+import { toggleFollowUser } from "../component/followUser";
+import { useFormatPrice } from "../utils/formatPrice";
 
 function AddToCart() {
   const { slug } = useParams();
@@ -54,6 +52,57 @@ function AddToCart() {
   const [showModal, setShowModal] = useState(false);
   const handleShareClick = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const formatPrice = useFormatPrice();
+
+  const basicPriceUSD = song?.monetization?.basic?.price || 7.99;
+  const basicLicensePrice = formatPrice(basicPriceUSD);
+
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    // Reset immediately when new song loads
+    setIsFollowing(null);
+  
+    const checkFollowing = async () => {
+      if (!currentUser || !song?.userId) return;
+  
+      try {
+        const producerSocialRef = doc(db, "Social", song.userId);
+        const producerSnap = await getDoc(producerSocialRef);
+  
+        if (producerSnap.exists()) {
+          const followers = producerSnap.data().followers || [];
+          setIsFollowing(followers.includes(currentUser.uid));
+        } else {
+          setIsFollowing(false);
+        }
+      } catch (err) {
+        console.error("Error checking follow state:", err);
+        setIsFollowing(false);
+      }
+    };
+  
+    checkFollowing();
+  }, [song?.userId, currentUser]);
+  
+  const handleFollowClick = async () => {
+    try {
+      const newState = await toggleFollowUser(db, song.userId);
+      setIsFollowing(newState);
+    } catch (err) {
+      console.error("Follow error:", err);
+      alert("Please log in to follow a producer.");
+    }
+  };
 
   useEffect(() => {
     if (showLicensing) {
@@ -187,6 +236,8 @@ function AddToCart() {
     );
   }
 
+
+
   return (
     <>
       <Helmet>
@@ -246,7 +297,9 @@ function AddToCart() {
       <div className="theMainContainer">
         <div className="container">
           <div className="songBioSection">
-            <SongBio song={song} isDownloadEnabled={isDownloadEnabled} className="BioInformationSection"  handleShareClick={handleShareClick} />
+            <SongBio song={song} isDownloadEnabled={isDownloadEnabled} className="BioInformationSection"  handleShareClick={handleShareClick}  handleFollowClick={handleFollowClick}
+  isFollowing={isFollowing}
+  currentUser={currentUser}/>
           </div>
           <div className="secondContainer">
             <Mp3player
@@ -263,10 +316,13 @@ function AddToCart() {
               setShowLicensing={setShowLicensing}
               isDownloadEnabled={isDownloadEnabled}
               handleShareClick={handleShareClick}
+              isFollowing={isFollowing}
+              handleFollowClick={handleFollowClick}
+              basicLicensePrice={basicLicensePrice}
             />
 
             <div className="addtoCartPage-mobile-view-songBio">
-              <SongBio song={song}  className="mobileView-BioInformationSection" />
+              <SongBio song={song}  className="mobileView-BioInformationSection"  />
             </div>
 
 
@@ -343,8 +399,13 @@ function Mp3player({
   audioRef,
   volume,
   formatTime,
-  setShowLicensing
+  setShowLicensing,handleFollowClick, isFollowing,
+  basicLicensePrice
 }) {
+
+
+
+  
   return (
     <section className="Mp3player">
       <div className="beat-details">
@@ -355,9 +416,21 @@ function Mp3player({
           </div>
 
           <div className="addtoCartPage-mobile-view-beat-title-and-artist">
-            <h2 className="">{song.title}</h2>
+            <h2 className="" title={song.title}>{song.title}</h2>
+
             <div className="addtoCartPage-mobile-view-producerName">
-              by{song.username || "Unknown Artist"} .Follow
+            {song.username && (
+  <span>
+    by {song.username} ·
+    <button
+      onClick={handleFollowClick}
+     className="follow-producer-button"
+     title={`Stay updated! Follow ${song.username}`}
+    >
+     {isFollowing ? "Following" : "Follow"}
+    </button>
+  </span>
+)}
              
             </div>
 
@@ -407,18 +480,16 @@ function Mp3player({
               href={song.musicUrls.taggedMp3}
               download={song.title}
               style={{ textDecoration: "none" }}
-            >
-              <div className="IoMdDownload">
-                <IoMdDownload size="1.5em" /> Download for Free
-              </div>
+            className="mp3Player-DownloadButton" title="Download for Free">
+                <IoMdDownload size="1.8em" /> 
+             
             </a>
           )}
           <button
             className="addtoCartPage-mobileView-buyButton"
             onClick={() => setShowLicensing(true)}
           >
-            {" "}
-            Buy From £20
+              Buy From {basicLicensePrice}
           </button>
         </div>
 
@@ -427,7 +498,7 @@ function Mp3player({
   );
 }
 
-function SongBio({ song, className, isDownloadEnabled , handleShareClick }) {
+function SongBio({ song, className, isDownloadEnabled , handleShareClick,handleFollowClick, isFollowing,currentUser}) {
 
   const [showReportModal, setShowReportModal] = useState(false);
   const [reportReason, setReportReason] = useState("");
@@ -503,6 +574,22 @@ function SongBio({ song, className, isDownloadEnabled , handleShareClick }) {
         >
           {song.title}
         </h3>
+        <div className="addtoCartPage-mobile-view-prodName">
+        {song.username && (
+  <span>
+    by {song.username} ·
+    <button
+      onClick={handleFollowClick}
+     className="follow-producer-button"
+     title={`Stay updated! Follow ${song.username}`}
+    >
+     {isFollowing ? "Following" : "Follow"}
+    </button>
+  </span>
+)}
+             
+            </div>
+
 
         <span className="item-actions">
           {/* <div>
