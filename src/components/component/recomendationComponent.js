@@ -118,3 +118,100 @@ export default function RecomendationComponent() {
     </div>
   );
 }
+
+
+
+
+export function ProducerTracksComponent({ producerId }) {
+  const [songs, setSongs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const userCountry = useUserLocation();
+  const [exchangeRate, setExchangeRate] = useState(null);
+
+  useEffect(() => {
+    const fetchSongs = async () => {
+      const docRef = collection(db, "beats");
+      const querySnapshot = await getDocs(docRef);
+
+      // Filter songs uploaded by this producer
+      const songsList = querySnapshot.docs
+        .map(doc => ({ id: doc.id, ...doc.data() }))
+        .filter(song => song.userId === producerId);
+
+      const songsWithLikes = await Promise.all(
+        songsList.map(async (song) => {
+          const likesRef = collection(db, `beats/${song.id}/likes`);
+          const likesSnapshot = await getDocs(likesRef);
+          return { ...song, likes: likesSnapshot.size };
+        })
+      );
+
+      const sorted = songsWithLikes.sort((a, b) => b.likes - a.likes);
+      setSongs(sorted.slice(0, 7));
+      setLoading(false);
+    };
+
+    fetchSongs();
+  }, [producerId]);
+
+  useEffect(() => {
+    if (userCountry === "NG") {
+      (async () => {
+        try {
+          const rate = await getExchangeRate();
+          setExchangeRate(rate);
+        } catch {
+          setExchangeRate(null);
+        }
+      })();
+    }
+  }, [userCountry]);
+
+  const parsePrice = (price) =>
+    parseFloat(price?.toString().replace(/[^0-9.]/g, "")) || 0;
+
+  const formatPrice = (usdAmount) => {
+    if (userCountry === "NG" && exchangeRate) {
+      return `₦${Math.round(usdAmount * exchangeRate).toLocaleString()}`;
+    }
+    return `$${usdAmount.toFixed(2)}`;
+  };
+
+  return (
+    <div className="recomendation-list-container">
+      {loading ? (
+        Array.from({ length: 7 }).map((_, index) => (
+          <span key={index} className="recomendation-list skeleton">
+            <div className="skeleton-image"></div>
+            <div className="skeleton-title"></div>
+          </span>
+        ))
+      ) : songs.length === 0 ? (
+        <p style={{ color: "#fff", paddingLeft: "10px" }}>
+          No more tracks from this producer.
+        </p>
+      ) : (
+        songs.map((song) => (
+          <span key={song.id} className="recomendation-list">
+            <Link
+              to={`/addToCart/${createSlug(song.title, song.id)}`}
+              state={{ song }}
+            >
+              <img
+                src={song.coverUrl || djImage}
+                className="recomendation-image"
+              />
+              <div className="recomendation-title">{song.title}</div>
+              <div className="recomendation-tag">
+                <button className="recomendation-AddToCart-button">
+                  <FaCartShopping size="1em" />
+                  {formatPrice(parsePrice(song.monetization?.basic?.price))}
+                </button>
+              </div>
+            </Link>
+          </span>
+        ))
+      )}
+    </div>
+  );
+}

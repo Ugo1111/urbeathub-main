@@ -29,18 +29,30 @@ body {
   align-items: flex-start; /* Align items at the top */
   gap: 20px; /* Add space between the items */
   margin: 20px;
+  /* border: #12f35d solid 2px; */
 }
 
 .theMainContainer{
-
-  width: 85vw;
+/* border: #f31646 solid 2px; */
+  width: 85%;
   margin-left: auto;
   margin-right: auto;
+  box-sizing: border-box;
+  max-width: 1300px;
+  min-width: 1300px;
   }
 
+  @media screen and (max-width: 1300px) {
+    .theMainContainer{
+      width: fit-content;
+      margin: auto;
+      min-width: 100vw;
+    }
+  }
 
 .song{
   display: flex;
+  align-items: center;
   /* justify-content: start; */
   margin: 10px;
   /* border: 1px rgb(0, 255, 26) solid; */
@@ -60,7 +72,7 @@ body {
 }
 
 .secondContainer {
-  
+  /* border: #f30539 solid 2px; */
   width: 350px;
   /* border: 1px springgreen solid; */
   flex: 1; /* Allow it to take remaining space */
@@ -74,17 +86,91 @@ margin-bottom: 25px;
 
 .thesong{
     width: 60%;
-    /* border: #1dd833 2px solid;
-    background-color: #2dc23f;
-    color: #1fee37; */
+  
   }
 
-  /* input.thesong {
-    appearance: none;
-    height: 18px; 
-    background: rgb(60, 60, 60);
-  border-radius: 15px;
-  } */
+  .volume {
+    -webkit-appearance: none; /* Remove default style for WebKit browsers */
+    width: 100%;
+    height: 5px;
+    background: #000000eb; /* Track background color */
+    border-radius: 5px;
+    outline: none;
+  }
+
+  input.thesong   {
+  -webkit-appearance: none; /* Remove default style for WebKit browsers */
+    width: 100%;
+    height: 5px;
+    background: #000000eb; /* Track background color */
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  /* WebKit track (Chrome, Safari) */
+  input.thesong::-webkit-slider-runnable-track ,
+  input.volume::-webkit-slider-runnable-track {
+    background: #000000eb; /* Track color */
+    height: 5px;
+    border-radius: 5px;
+  }
+  
+  /* WebKit thumb (handle) */
+  input.thesong::-webkit-slider-thumb ,
+  input.volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #fcfcfcdc; /* Thumb color */
+    border-radius: 50%;
+    cursor: pointer;
+    border: red .5px solid;
+    margin-top: -6px; /* Align thumb with track */
+  }
+  
+  /* Firefox track */
+  input.thesong::-moz-range-track ,
+  input.thesong::-moz-range-track {
+    background: #000000eb;
+    height: 5px;
+    border-radius: 5px;
+
+  }
+  
+  /* Firefox thumb */
+  input.thesong::-moz-range-thumb ,
+    input.volume::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    border: red 1px solid;
+  }
+  
+  /* IE track */
+  input.thesong::-ms-track ,
+    input.volume::-ms-track {
+    background: black;
+    border-color: black;
+    color: black;
+    height: 5px;
+  }
+  
+  /* IE thumb */
+  input.thesong::-ms-thumb ,
+  input.volume::-ms-thumb {
+    width: 18px;
+    height: 18px;
+    background: #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    border: red 1px solid;
+  }
+
+
+
+  
   
   h1, h2, h3, h4, p {
     margin: 0;
@@ -107,9 +193,9 @@ margin-bottom: 25px;
   .Mp3player {
   display: flex;
   flex-direction: column; /* Makes layout stack nicely on small screens */
-  width: 60vw; /* Full viewport width */
+  width: 100%; /* Full viewport width */
   height: auto;
-  padding: 25px;
+ 
   margin: 0;
   background-color: #1e1c1c;
   border-radius: 10px; /* Optional: remove rounding for edge-to-edge */
@@ -167,6 +253,7 @@ height: 40px;
 }
 
 .BioInformationSection{
+ 
   margin: 25px;
   max-width: 80%;
   display: flex;
@@ -181,11 +268,36 @@ height: 40px;
   justify-content: space-between;
 }
 
+.BioInformationSection-title {
+  font-size: 15px;
+ font-family:  Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: #616161;
+ 
+}
+
+.mp3Player-DownloadButton{
+
+
+  color: #7f7f7f;
+}
+
+
+.addtoCartPage-mobile-view-prodName{
+  font-size: small;
+  font-weight: bold;
+  color: #c8c8c896;
+  text-align: center;
+  margin-top: 10px;
+}
+
 .comment{
   gap: 30px;
   min-height: 350px;
   background-color: #1e1c1c;
 border-radius: 5px;
+width: 100%;
+
+padding: 5px;
 }
 
 .comment h1{
@@ -257,6 +369,7 @@ gap: 20px;
   display: block;
   border-radius: 8px; /* Optional for style */
   margin:auto;
+  /* border: #12f35d solid 2px; */
 }
   
   .license-options {
@@ -499,6 +612,394 @@ margin-top: auto;
 margin-bottom: auto;
 }
 
+
+
+.mobile-only-search {
+  display: none; /* hidden by default */
+  margin-bottom: 0;
+}
+
+.mobile-only-search {
+  margin-bottom: 0;
+ }
+
+@media (max-width: 600px) {
+  .search-beats-results-container {
+    position: absolute; /* instead of fixed */
+    top: 100%;
+    width: 100vw;
+    max-height: 85vh; /* allow scroll inside this container */
+    overflow-y: auto;
+    border-radius: 8px;
+    transform: translateX(-10px);  /* moves left */
+  }
+
+  .search-beats-ul {
+    max-height: 85vh; 
+    overflow-y: auto; /* ensures scrolling works inside container */
+  }
+
+  .search-beats-li {
+    flex-direction: row; /* ✅ Keep image on left & text on right */
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left; /* ✅ Fix alignment */
+    padding: 3px 2px;
+  }
+
+  .search-image {
+    width: 45px;
+    height: 45px;
+    margin: 0;
+    flex-shrink: 0;
+    border-radius: 10px;
+  }
+
+  /* ✅ Wrap details on the right */
+  .search-beats-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .search-beats-title {
+    font-size: 15px;
+    margin-bottom: 3px;
+    text-align: left;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 150px;
+  }
+
+  /* ✅ Keep BPM and Tag on same line */
+.search-beats-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* small space between bpm & tag */
+  margin-top: 2px;
+}
+
+.search-beats-bpm {
+  font-size: 10px;
+  margin: 0;
+}
+
+.search-beats-taglist {
+  font-size: 10px;
+  background: rgba(70, 70, 70, 0.428);
+  border-radius: 6px;
+  padding: 2px 5px;
+  white-space: nowrap;
+}
+
+  .search-beats-taglist:nth-child(n+2) {
+    display: none; /* hides extra tags */
+  }
+  
+}
+
+.search-beats-body {  
+  min-width: 40%;
+  position: relative;
+  display: flex;
+      justify-content: center;
+      align-items: center;
+  border-radius: 25px;
+}
+
+.clear-button {
+  position: absolute;
+  right: 10px;               /* distance from right edge of input container */
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  font-weight: bolder;
+  border: none;
+  font-size: x-large;
+  cursor: pointer;
+  color: #db3056;
+  padding: 0;
+}
+   
+
+/* responsive mode */
+
+@media (max-width: 768px) {
+  mobile-only-search
+  .search-beats-body, .search-beats-header {
+      display: none; /* hide desktop search container */
+    }
+    .mobile-only-search {
+      display: block;
+           /* full width container */
+      padding: 8px 12px;    /* balanced padding */
+      margin-bottom: 15px;
+      background-color: #181818;
+      border-top: 2px solid #333333;
+      border-bottom: 1px solid #333333;
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      box-sizing: border-box; /* ensures padding doesn’t shrink width */
+    }
+  
+    .mobile-only-search .search-beats-body {
+      width: 100% !important;  /* force full width */
+      margin: 0 !important;
+      padding: 0 !important;
+      background-color: transparent !important;
+      border-radius: 0 !important;
+      display: block !important;
+    }
+  
+    .mobile-only-search .search-beats-input {
+      width: 95%;  
+      max-width: 100%;        /* full width input */
+      height: 32px;
+      font-size: 16px;
+      border-radius: 3px;
+      background-color: #1F1F1F;
+      margin: 5px 10px;
+      border: 1px solid #333333;
+      color: #dddddd;
+      box-sizing: border-box; /* keeps padding inside width */
+    }
+  
+    .search-icon {
+      left: 15px;           /* adjust for full width input */
+      font-size: 14px;
+    }
+   .clear-button {
+    position: absolute;
+    left: 80%;               /* distance from right edge of input container */
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    font-weight: bolder;
+    border: none;
+    font-size: x-large;
+    cursor: pointer;
+    color: #db3056;
+    padding: 0;
+  }
+    
+   .search-beats-results-container {
+      left: 0 !important;
+      transform: none !important;
+      margin: 0 !important;
+      width: 100vw !important;
+      border-radius: 0 !important;
+      left: 0 !important;       /* align to the left edge */
+      transform: none !important; /* remove previous translateX */
+      width: 100vw;             /* full width of viewport */
+      padding-left: 10px;       /* optional: small padding */
+      padding-right: 10px;      /* optional: small padding */
+      overflow-x: hidden;
+    }
+  
+    .search-beats-ul {
+      width: 100%;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      border: 1px solid #ffffff46;
+      background: rgba(0, 0, 0, 0.713);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.482);
+      list-style: none;
+      padding: 0;
+      max-height: 100vh;
+      overflow-y: auto !important;
+      overflow-x: hidden;
+    }
+  
+    /* Optional: remove any left padding from parent wrapper */
+    .mobile-only-search {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  
+    /* Dark scrollbar for search results only */
+  .search-beats-results-container::-webkit-scrollbar,
+  .search-beats-ul::-webkit-scrollbar {
+    width: 6px;                /* vertical scrollbar width */
+  }
+  
+  .search-beats-results-container::-webkit-scrollbar-track,
+  .search-beats-ul::-webkit-scrollbar-track {
+    background: #111;
+    border-radius: 10px;
+  }
+  
+  .search-beats-results-container::-webkit-scrollbar-thumb,
+  .search-beats-ul::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+  }
+  
+  .search-beats-results-container::-webkit-scrollbar-thumb:hover,
+  .search-beats-ul::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}  
+
+@media (max-width: 600px) {
+  .search-beats-results-container {
+    position: absolute; /* instead of fixed */
+    top: 100%;
+    width: 100vw;
+    max-height: 85vh; /* allow scroll inside this container */
+    overflow-y: auto;
+    border-radius: 8px;
+    transform: translateX(-10px);  /* moves left */
+  }
+
+  .search-beats-ul {
+    max-height: 85vh; 
+    overflow-y: auto; /* ensures scrolling works inside container */
+  }
+
+  .search-beats-li {
+    flex-direction: row; /* ✅ Keep image on left & text on right */
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left; /* ✅ Fix alignment */
+    padding: 3px 2px;
+  }
+
+  .search-image {
+    width: 45px;
+    height: 45px;
+    margin: 0;
+    flex-shrink: 0;
+    border-radius: 10px;
+  }
+
+  /* ✅ Wrap details on the right */
+  .search-beats-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .search-beats-title {
+    font-size: 15px;
+    margin-bottom: 3px;
+    text-align: left;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 150px;
+  }
+
+  /* ✅ Keep BPM and Tag on same line */
+.search-beats-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* small space between bpm & tag */
+  margin-top: 2px;
+}
+
+.search-beats-bpm {
+  font-size: 10px;
+  margin: 0;
+}
+
+.search-beats-taglist {
+  font-size: 10px;
+  background: rgba(70, 70, 70, 0.428);
+  border-radius: 6px;
+  padding: 2px 5px;
+  white-space: nowrap;
+}
+
+  .search-beats-taglist:nth-child(n+2) {
+    display: none; /* hides extra tags */
+  }
+  
+}
+
+
+@media (max-width: 600px) {
+  .search-beats-results-container {
+    position: absolute; /* instead of fixed */
+    top: 100%;
+    width: 100vw;
+    max-height: 85vh; /* allow scroll inside this container */
+    overflow-y: auto;
+    border-radius: 8px;
+    transform: translateX(-10px);  /* moves left */
+  }
+
+  .search-beats-ul {
+    max-height: 85vh; 
+    overflow-y: auto; /* ensures scrolling works inside container */
+  }
+
+  .search-beats-li {
+    flex-direction: row; /* ✅ Keep image on left & text on right */
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left; /* ✅ Fix alignment */
+    padding: 3px 2px;
+  }
+
+  .search-image {
+    width: 45px;
+    height: 45px;
+    margin: 0;
+    flex-shrink: 0;
+    border-radius: 10px;
+  }
+
+  /* ✅ Wrap details on the right */
+  .search-beats-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .search-beats-title {
+    font-size: 15px;
+    margin-bottom: 3px;
+    text-align: left;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 150px;
+  }
+
+  /* ✅ Keep BPM and Tag on same line */
+.search-beats-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* small space between bpm & tag */
+  margin-top: 2px;
+}
+
+.search-beats-bpm {
+  font-size: 10px;
+  margin: 0;
+}
+
+.search-beats-taglist {
+  font-size: 10px;
+  background: rgba(70, 70, 70, 0.428);
+  border-radius: 6px;
+  padding: 2px 5px;
+  white-space: nowrap;
+}
+
+  .search-beats-taglist:nth-child(n+2) {
+    display: none; /* hides extra tags */
+  }
+  
+}
+
+
+
+
+
+  
 .usageTermHeader button { 
   background: none;
   border: none;
@@ -627,20 +1128,19 @@ margin-left: 70px;
   position: relative;
   display: flex;
   align-items: center;  
-  
 }
 
 .clear-button {
   position: absolute;
-  right: 10px;               /* distance from right edge of input container */
-  top: 50%;
-  transform: translateY(-50%);
+  right: 10px;
   background: none;
   font-weight: bolder;
   border: none;
   font-size: x-large;
   cursor: pointer;
   color: #db3056;
+  top: 50%;
+  transform: translateY(-50%);
   padding: 0;
 }
 
@@ -836,8 +1336,40 @@ border-radius: 25px;
   background-color: #f30539;
 }
 
+.follow-producer-button{
+ 
+    background: none;
+    border: none;
+    color: #e03e338e;
+    font-Weight: bold;
+    margin-Left: 5px;
+    cursor: pointer
 
+ 
+}
 
+.addtoCartPage-mobile-view-prodName{}
+.no-comments {
+  text-align: center;
+  color: #dddddd;
+  padding: 20px 0;
+  font-style: italic;
+  font-size: 1.1rem;
+
+}
+.no-comments h4{  
+  padding: 10px;
+  font-family:  Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.no-comments div{  
+  font-size: small;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-stretch: expanded;
+  padding: 1px;
+  color: #979797;
+
+}
 
 .recomendation-list-container {
   display: flex;
@@ -845,14 +1377,16 @@ border-radius: 25px;
   gap: 20px;
   overflow-x: auto;
   overflow-y: hidden;
-  height: 320px;
-  padding: 10px;
+  height: 250px;
+
   scroll-behavior: smooth;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
-  width: 100%;
+  width: 95%;
+  margin: auto;
   box-sizing: border-box;
   white-space: nowrap;
+
 }
 
 .recomendation-list-container::-webkit-scrollbar {
@@ -1333,14 +1867,338 @@ font-style: italic;
   color: #ffffff;
   text-align: center;
 }
+
+.addtoCartPage-play-button{
+  margin-top: -20px;
+
+}
+
+.addtoCartPage-mobile-view-songBio,  .addtoCartPage-mobile-view-coverImg img, .addtoCartPage-mobile-view-producerName,.addToCartPage-mobileView-bio-tabs,
+ .addtoCartPage-mobile-view-buy-like-share, .you-may-like-heading {
+  display: none;
+}
+
+
+.licensing-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.licensing-popup {
+  background: #1e1c1c;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.close-licensing-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.close-licensing-btn:hover {
+  color: #db3056;
+}
+
+
+
+.addtoCartPage-mobile-view-beat-title-and-artist h2{
+  font-size: large;
+  color: #cecdcde5;
+padding: 20px;
+width: 70%;
+  margin: auto;
+overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+/* border: #12f35d solid 2px; */
+
+}
+
+
+
+
+
+
+
+/* responsive mode */
+@media screen and (max-width: 1000px) {
+
+  .comment{
+    width: 95%;
+    margin: auto;
+  }
+
+.container{
+    display: flex;
+    flex-direction: column; /* Stack vertically on small screens */
+    align-items: center; /* Center items */
+    width: fit-content;
+    max-width: 100vw; /* Full width */
+    /* border: #f9f9f9 solid 2px; */
+    margin: 0;
+}
+
+  .secondContainer {
+    max-width: 100%; /* Full width on small screens */
+    width: fit-content;
+overflow: hidden;
+
+   
+    /* border: #12f35d solid 2px; */
+  }
+
+  .songBioSection {
+    max-width: 100%; /* Full width on small screens */
+    width: 100%;
+overflow: hidden;
+
+    
+    /* border: #12f35d solid 2px; */
+  }
+
+  .theMainContainer {
+    display: flex;
+    flex-direction: column; /* Stack vertically */
+    align-items: center; /* Center items */
+    width: fit-content;
+    max-width: 100vw; /* Full width */
+    /* border: #f9f9f9 solid 2px; */
+    margin: 0;
+  }
+
+  .songBioSection {
+    margin-top: 20px; /* Add space between sections */
+   
+  }
+
+  .addtoCartPage-mobile-view-coverImg {
+    width: 20%; /* Full width */
+    height: auto; /* Maintain aspect ratio */
+    /* border: #12f35d solid 2px; */
+    max-width: 170px;
+  
+   
+    aspect-ratio: 1 / 1; 
+  }
+
+  .addtoCartPage-mobile-view-coverImg img {
+    width: 100%; /* Full width */
+    height: 100%; /* Maintain aspect ratio */
+    /* border: #ccd81d 2px solid; */
+    object-fit: cover;
+    display: block;
+    
+}
+
+.addtoCartPage-mobile-view-songBio{
+  width: 95%; /* Full width */
+  height: auto; /* Maintain aspect ratio */
+  /* border: #12f35d solid 2px; */
+  padding: 0 20px;
+  margin: auto;
+  display: block;
+background-color: #171717f1;
+  border-radius: 10px;
+ 
+}
+
+
+.songBioSection{
+ display: none;
+
+}
+
+.image-placeholder, .addtoCartPage-mobile-view-prodName, .item-actions , .licensing-container ,.licensing-container {
+  display: none;
+}
+
+
+.songBioSection{
+
+width: 350px;
+min-height: 700px;
+/* border: 1px rgb(126, 126, 126) solid; */
+background-color: #1e1c1c;
+flex: 1; /* Take up remaining space if needed */
+max-width: 25%; /* Restrict the width of the bio section */
+border-radius: 10px;
+}
+
+
+
+.addtoCartPage-mobile-view-producerName{
+  margin-top: 10px;
+  font-size: large;
+  color: #dddddd;
+  display: flex;
+  gap: 30px;
+  /* border: #12f35d solid 2px; */
+  text-align: center;
+  /* display: none; */
+
+}
+
+.addtoCartPage-mobile-view-beat-title-and-artist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  gap: 10px;
+ 
+  width: 75%;
+  padding: auto;
+  margin: auto;
+}
+
+.addtoCartPage-mobile-view-coverImg-and-title{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* border: #4e12f3 solid 2px; */
+  /* width: 100%; */
+  padding: auto;
+  margin: auto;
+}
+
+.song{
+  width: 100%;
+  max-width: 600px;
+  
+padding: auto;
+margin: auto;
+}
+
+.addtoCartPage-play-button{
+  margin-top: -20px;
+
+}
+
+
+.thesong{  width: 100%;
+  max-width: 400px;
+
+padding: auto;
+margin: auto;
+}
+
+.Mp3player{
+ /* border: #db3056 solid 2px; */
+margin: auto;
+align-items: center;
+display: flex;
+justify-content: center;
+width: 95%;
+padding:  25px;
+/* border-radius: 15px; */
+/* border: #ccd81d solid 2px; */
+}
+
+.addToCartPage-bio-chevron-buttons{
+  padding: 22px;
+/* border: #12f35d solid 2px; */
+margin-right: -10px;
+align-items: flex-end;
+display: flex;
+justify-content: flex-end;
+color: #ffffff;
+background-color: transparent;
+border: none;
+}
+
+.addToCartPage-mobileView-bio-TrackDetails{
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 10px;
+  border-radius: 7px;
+  /* margin-top: 10px; */
+font-family:  Cochin, Georgia, Times, 'Times New Roman', serif;
+font-size: x-large;
+font-weight: bolder;
+color: #ddddddde;
+}
+
+.addToCartPage-mobileView-bio-tabs{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  border-radius: 7px;
+  /* margin-top: 10px; */
+
+}
+
+.addtoCartPage-mobileView-buyButton{
+width: 100%;
+  gap: 10px;
+margin-left: 20%;
+  background-color: #db244c;
+  padding: 10px;
+  border-radius: 7px;
+border: none;
+  color: #ffffff;
+}
+
+.addtoCartPage-mobile-view-buy-like-share{
+  display: flex;
+  flex-direction: row;
+  margin-top: 40px;
+  gap: 25px;
+}
+
+
+.mobileView-BioInformationSection{
+  
+  
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 20px 0 20px 0;
+}
+
+.mobileView-BioInformationSection div{
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.you-may-like-heading {
+  display: block;
+}
 .mobile-only-search {
   display: none;
 }
 
 
 
-/* responsive mode */
 
+  /* incoming from git  */
 @media (max-width: 768px) {
 
 .search-beats-body {
@@ -1460,266 +2318,148 @@ font-style: italic;
     flex-direction: column; /* Stack elements vertically */
     align-items: center;
   }
-
-  .secondContainer {
-    width: 100%;       /* Take full width of the screen */
-    max-width: 100%;   /* Remove max-width limit */
-    align-items: center;
-  }
-
-  .songBioSection {
-    width: 90%;
-    max-width: none;
-  }
-  .image-placeholder {
-    margin: 0 auto;
-     margin-top: 20px;
-  }
   
+ /* incoming from git ends here */
 
-    .Mp3player {
-      flex-direction: column; /* Stack content vertically */
+
+}
+
+/*     .Mp3player {
+      flex-direction: column; 
       padding: 20px;
       align-items: center;
       text-align: center;
       width: 75vw;
-    }
+    } */
 
    
 
-  .licensing-container h2 {
-    font-size: large;}
-    
-    
-    .beat-details h2{
-      font-size: large;
-    }
-    .item-actions{
-      display: none;
-    }
-    
-    .video-wrap {
-      height: 55vh;
-    }
-  
-    .video-content h1 {
-      font-size: 2.2rem;
-    }
-  
-    .video-content p {
-      font-size: 1rem;
-    }
-  
-    .start-selling-button {
-      font-size: 1rem;
-      padding: 10px 18px;
-    }
-.CheckoutBody{
-  
-width: 95%;
 
 
-}    
-.terms-conditions-container h1{
-  font-size: 1.5rem;
-}
 
 
-.selectedCartSummary {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
+@media screen and (max-width: 550px) {
 
-  .certSummarySong,
-  .certSummaryPRICE {
-    min-width: auto;
-    width: 100%;
-  }
-    }
-    /* ✅ Mobile */
-@media (max-width: 600px) {
-  .search-beats-results-container {
-    position: absolute; /* instead of fixed */
-    top: 100%;
-    width: 100vw;
-    max-height: 85vh; /* allow scroll inside this container */
-    overflow-y: auto;
-    border-radius: 8px;
-    transform: translateX(-10px);  /* moves left */
-  }
+ .mobile-only-search {
+  margin-bottom: 0;
+ }
 
-  .search-beats-ul {
-    max-height: 85vh; 
-    overflow-y: auto; /* ensures scrolling works inside container */
-  }
-
-  .search-beats-li {
-    flex-direction: row; /* ✅ Keep image on left & text on right */
-    align-items: flex-start;
-    gap: 12px;
-    text-align: left; /* ✅ Fix alignment */
-    padding: 3px 2px;
-  }
-
-  .search-image {
-    width: 45px;
-    height: 45px;
-    margin: 0;
-    flex-shrink: 0;
-    border-radius: 10px;
-  }
-
-  /* ✅ Wrap details on the right */
-  .search-beats-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .search-beats-title {
-    font-size: 15px;
-    margin-bottom: 3px;
-    text-align: left;
-    white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 150px;
-  }
-
-  /* ✅ Keep BPM and Tag on same line */
-.search-beats-meta-row {
-  display: flex;
-  align-items: center;
-  gap: 6px; /* small space between bpm & tag */
-  margin-top: 2px;
-}
-
-.search-beats-bpm {
-  font-size: 10px;
-  margin: 0;
-}
-
-.search-beats-taglist {
-  font-size: 10px;
-  background: rgba(70, 70, 70, 0.428);
-  border-radius: 6px;
-  padding: 2px 5px;
-  white-space: nowrap;
-}
-
-  .search-beats-taglist:nth-child(n+2) {
-    display: none; /* hides extra tags */
-  }
-  
-}
-
-     
-    @media (max-width: 480px) {
-
-      .secondContainer {
-        width: 100%;
-        padding: 0 10px;   /* Add some side spacing */
-        gap: 20px;         /* Reduce gap slightly for smaller screens */
-      }
-
-       .image-placeholder {
-    margin: 0 auto;
-     margin-top: 20px;
-  }
-    
-      .songBioSection {
-        width: 97vw;
-      }
-      .song{
-        display: flex;
-        flex-direction: row;
-      
-      }
-       .licensing-container{
-    width: 97vw;
-    }
-    
-      .licensing-container h2,
-      .beat-details h2 {
-        font-size: medium;
-      }
-
-      
-      .usageTermList {
-        font-size: small; 
-        margin-bottom: 20px;}
-    
-    
-        .licenses {
-          grid-template-columns: repeat(1, 1fr);
-        }
-
-       
-         .Mp3player {
-    width: 97vw;
-         }
-        
-   .add-to-cart-btn {
-    background-color: #333;
-    color: white;
-    padding: 5px 10px;
-    margin-right: 10px;
-  }
-
-        .licensing-container h2 {
-          font-size: 1rem;
-          margin-bottom: 20px;
-        }
-      
-        .CheckoutBody {
-          flex-direction: column;
-          align-items: center;
-        }
-      
-        .CheckoutTitle {
-          text-align: center;
-          padding-left: 10px;
-          width: 90%;
-          margin-bottom: 20px;
-        }
-       
-        .comment{
-          gap: 10px;
-          min-height: 350px;
-          min-width: 320px;
-          background-color: #1e1c1c;
-        border-radius: 5px;
-        }      
-                 
   .volume{
     display: none;
   }
-  .item-actions{
-    display: none;
-  }
-  .beatlicenses {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 100vw;
-    height: 300vh;
-    height:fit-content;
-    margin: auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.addtoCartPage-mobile-view-coverImg-and-title{
+  position: relative;
+}
+
+
+
+
+  .addtoCartPage-mobile-view-coverImg {
+    width: 100%; /* Full width */
+    height: auto; /* Maintain aspect ratio */
+    /* border: #12f35d solid 2px; */
+    /* max-width: 170px; */
+  min-width: 100%;
+   margin: 0px;
+   padding: 0%;
+    aspect-ratio: 1 / 1; 
+   
+
   }
 
-  .video-wrap {
-    height: 60vh; /* slightly taller on smaller screens */
-  }
+  .addtoCartPage-mobile-view-coverImg img {
+    width: 100%; /* Full width */
+    height: 100%; /* Maintain aspect ratio */
+    /* border: #ccd81d 2px solid; */
+    object-fit: cover;
+    display: block;
+    margin: none;
+    border-radius: 0px; 
+    
+}
 
-  .video-content h1 {
-    font-size: 1.6rem;
-  }
+.Mp3player{
+  /* border: #db3056 solid 2px; */
+display: flex;
 
-  .video-content p {
-    font-size: 0.9rem;
-  }
+ width: 95%;
+ padding: 0;
+ background-color: transparent  ;
+ }
+
+
+ .addtoCartPage-mobile-view-beat-title-and-artist {
+  width: 75%;
+  position: absolute; /* position on top of the cover image */
+   /* distance from bottom of image */
+ /* optional: stretch to right */
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+ 
+  /* align controls at the bottom */
+    gap: 1px;             
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.0) 0%,   /* very transparent at top */
+      rgba(0, 0, 0, 0.7) 20%, 
+      rgba(0, 0, 0, 0.9) 40%,  /* mid fade */
+      rgba(0, 0, 0, 0.867) 100%    /* fully black at bottom */
+    );
+    color: #fff; /* text color */
+  padding: 10px; /* spacing inside overlay */
+
+  /* border: #12f35d solid 2px; */
+}
+search-beats-body
+.song{
+  width: 100%;
+  max-width: 400px;
+  order: 1;
+}
+
+
+.addtoCartPage-mobile-view-beat-title-and-artist h2{
+  order: 2;
+  color: #ffffff;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 25px;
+  font-weight: bolder;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* subtle shadow for readability */
+  text-align: left;
+  /* align-items: flex-start;
+  justify-content: flex-start;
+  align-items: flex-start !important;
+  text-align: left !important; */
+  width: 100%;
+  margin-left: 0;
+  
+}
+
+.addtoCartPage-mobile-view-producerName{
+  /* margin-top: 10px; */
+  order: 3;
+  font-size: large;
+  color: #cdcdcdcf;
+  display: flex;
+
+  width: 100%;
+  overflow: hidden;
+  /* display: none; */
+  
+
+}
+
+
+/* Adjust buttons or inputs if needed */
+.addtoCartPage-play-button {
+  margin-right: 5px;
+}
+
+.volume {
+  margin-left: 5px;
+}
 
   .start-selling-button {
     font-size: 0.9rem;
@@ -1771,3 +2511,19 @@ width: 95%;
   pointer-events: none; /* keep input clickable */
 }
 }
+.beat-details{
+ background-color: transparent  ;
+border: oliver solid 2px;
+}
+
+.addtoCartPage-mobile-view-buy-like-share{
+ padding: 0 2px;
+ 
+}
+
+
+}
+
+
+
+

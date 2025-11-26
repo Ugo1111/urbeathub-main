@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { TbSend } from "react-icons/tb";
 import { IoIosContact } from "react-icons/io";
+import { FaRegComment } from "react-icons/fa";
 import { Profilepicture } from "../AuthState"; // Assuming this is being used
 import {
     getFirestore,
@@ -162,6 +163,13 @@ function Comment({ song, comments, setComments }) {
                 </button>
             </div>
             <div className="comments-list">
+            {comments.length === 0 && !loading && (
+    <div className="no-comments">
+        <FaRegComment size="3em" color="#444444" />
+        <h4>No comments yet.</h4>
+        <div>Be the first to show some love! </div>
+    </div>
+)}
                 {comments.map((comment, idx) => {
                     // Calculate relative time for each comment
                     let relativeTime = "N/A";
