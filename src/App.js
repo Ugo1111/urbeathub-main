@@ -54,6 +54,7 @@ import Blog from './components/pages/Blog.js';
 import BlogPost from './components/pages/BlogPost.js';
 import ErrorBoundary from "./components/ErrorBoundary";
 import { logErrorToTelegram } from "./components/utils/errorLogger";
+import ProducerProfilePage from './components/pages/ProducerProfilePage.js';
 
 // Capture global JS errors
 window.onerror = (msg, url, lineNo, columnNo, error) => {
@@ -129,6 +130,7 @@ function App() {
           <Route path="/UploadedbeatsPage" element={<UploadedbeatsPage />} />
           <Route path="/searchComponent" element={<SerachedBeatsList />} />
           <Route path="/NegotiatePage" element={<NegotiatePage />} />
+          <Route path="/producer/:userId" element={<ProducerProfilePage />} />
 
           {/*<Route path="/SellBeatPage/*" element={
             <MusicUploadProvider>
@@ -136,11 +138,11 @@ function App() {
             </MusicUploadProvider>
           } />*/}
          
-<Route path="/Dashboard" element={
+          <Route path="/Dashboard" element={
           <MusicUploadProvider>
             <Dashboard />
           </MusicUploadProvider>
-        } />
+         } />
 
           <Route path="/ViewEditSellBeatPage" element={<ViewEditSellBeatPage />} />
           <Route path="/paymentPage" element={<PaymentPage />} />
@@ -159,7 +161,7 @@ function App() {
           <Route path="/Tracks" element={<Tracks />} />
           <Route path="/EditTrackPage" element={<EditTrackPage />} />
           <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:id" element={<BlogPost />} />
+         <Route path="/blog/:id" element={<BlogPost />} />
 
           <Route path="/usersUploadMusicPage" element={
             <MusicUploadProvider>

@@ -84,37 +84,6 @@ gap: 30px;
 margin-bottom: 25px;
 }
 
-.delay-delivery-note{
-         color: #882525e2; 
-          font-size: bold;
-}
-
-.cart-list-user-pic{
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 10px;
-}
-
-.info-icon {
-  font-size: 0.85rem;         /* makes it smaller */
-  margin-left: 2px;           /* adds small space from the text */
-  position: relative;
-  top: -8.5px;                /* lifts it slightly closer to text */
-  color: #dcdcdc8d;             /* same green color as the text */
-  vertical-align: middle;     /* aligns nicely with text */
-  cursor: pointer;            /* shows info hint on hover */
-}
-
-.cart-list-producer-info{
-
-  display: flex;
-  align-items: center;
-  font-size: large;
-  font-weight: bolder;
-}
-
 .thesong{
     width: 60%;
   
@@ -733,15 +702,26 @@ margin-bottom: auto;
 .search-beats-body {  
   min-width: 40%;
   position: relative;
-      display: flex;
+  display: flex;
       justify-content: center;
-      align-items: center;  
-      /* min-height: 80vw; 
-  height: auto;
-  min-width: 1200px; */
-  /* margin: 990px 0 0 0; */
+      align-items: center;
   border-radius: 25px;
-  }
+}
+
+.clear-button {
+  position: absolute;
+  right: 10px;               /* distance from right edge of input container */
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  font-weight: bolder;
+  border: none;
+  font-size: x-large;
+  cursor: pointer;
+  color: #db3056;
+  padding: 0;
+}
+   
 
 /* responsive mode */
 
@@ -2211,12 +2191,148 @@ border: none;
 .you-may-like-heading {
   display: block;
 }
+.mobile-only-search {
+  display: none;
+}
 
 
+
+
+  /* incoming from git  */
+@media (max-width: 768px) {
+
+.search-beats-body {
+    display: none; /* hide desktop search container */
+  }
+  .mobile-only-search {
+    display: block;
+    width: 100%;          /* full width container */
+    padding: 8px 12px;    /* balanced padding */
+    background-color: #181818;
+    border-top: 2px solid #333333;
+    border-bottom: 1px solid #333333;
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    box-sizing: border-box; /* ensures padding doesn’t shrink width */
+  }
+
+  .mobile-only-search .search-beats-body {
+    width: 100% !important;  /* force full width */
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    display: block !important;
+  }
+
+  .mobile-only-search .search-beats-input {
+    width: 95%;  
+    max-width: 100%;        /* full width input */
+    height: 32px;
+    font-size: 16px;
+    border-radius: 3px;
+    background-color: #1F1F1F;
+    margin: 5px 10px;
+    border: 1px solid #333333;
+    color: #dddddd;
+    box-sizing: border-box; /* keeps padding inside width */
+  }
+
+  .search-icon {
+    left: 15px;           /* adjust for full width input */
+    font-size: 14px;
+  }
+ .clear-button {
+  position: absolute;
+  left: 80%;               /* distance from right edge of input container */
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  font-weight: bolder;
+  border: none;
+  font-size: x-large;
+  cursor: pointer;
+  color: #db3056;
+  padding: 0;
+}
+  
+ .search-beats-results-container {
+    left: 0 !important;
+    transform: none !important;
+    margin: 0 !important;
+    width: 100vw !important;
+    border-radius: 0 !important;
+    left: 0 !important;       /* align to the left edge */
+    transform: none !important; /* remove previous translateX */
+    width: 100vw;             /* full width of viewport */
+    padding-left: 10px;       /* optional: small padding */
+    padding-right: 10px;      /* optional: small padding */
+    overflow-x: hidden;
+  }
+
+  .search-beats-ul {
+    width: 100%;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    border: 1px solid #ffffff46;
+    background: rgba(0, 0, 0, 0.713);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.482);
+    list-style: none;
+    padding: 0;
+    max-height: 100vh;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+  }
+
+  /* Optional: remove any left padding from parent wrapper */
+  .mobile-only-search {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Dark scrollbar for search results only */
+.search-beats-results-container::-webkit-scrollbar,
+.search-beats-ul::-webkit-scrollbar {
+  width: 6px;                /* vertical scrollbar width */
+}
+
+.search-beats-results-container::-webkit-scrollbar-track,
+.search-beats-ul::-webkit-scrollbar-track {
+  background: #111;
+  border-radius: 10px;
+}
+
+.search-beats-results-container::-webkit-scrollbar-thumb,
+.search-beats-ul::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+
+.search-beats-results-container::-webkit-scrollbar-thumb:hover,
+.search-beats-ul::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+  .container {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center;
+  }
+  
+ /* incoming from git ends here */
 
 
 }
 
+/*     .Mp3player {
+      flex-direction: column; 
+      padding: 20px;
+      align-items: center;
+      text-align: center;
+      width: 75vw;
+    } */
+
+   
 
 
 
@@ -2345,6 +2461,56 @@ search-beats-body
   margin-left: 5px;
 }
 
+  .start-selling-button {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+  
+  }
+
+
+/* Mobile view: show only inside mobile-only-search */
+@media (max-width: 480px) {
+  *, *::before, *::after {
+  box-sizing: inherit;
+}
+
+
+  html, body {
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    box-sizing: border-box;
+  }
+
+  /* Always show + keep search bar at top on mobile */
+  .clear-button {
+  position: absolute;
+  right: 20px;
+  background: none;
+  font-weight: bolder;
+  border: none;
+  font-size: x-large;
+  cursor: pointer;
+  color: #db3056;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0; 
+} 
+
+.search-beats-input::placeholder {
+  text-align: center;
+  font-size: 16px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7A7A7A; /* subtle icon color */
+  font-size: 16px;
+  pointer-events: none; /* keep input clickable */
+}
+}
 .beat-details{
  background-color: transparent  ;
 border: oliver solid 2px;

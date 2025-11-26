@@ -1,3 +1,7 @@
+body, html{
+  overflow-x: hidden;
+}
+
 .dropdown {
     position: relative;
     display: none;
@@ -16,7 +20,8 @@
   
   .dropbtn:hover {
     background-color: #581818;
-  }
+  } 
+
   
   .dropdown-content {
     position: absolute;
@@ -256,8 +261,8 @@ body{
 
 
   .HeaderImage{
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     object-fit: calc(30px)*2;
     }
 
@@ -1544,20 +1549,34 @@ left: 0;
     height: 70px;
   }
   .HeaderImage{
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
+    
   }
  
   .GroupA {
-    display: flex;
-       align-items: center; 
-          justify-content: space-between;
-        gap: 37px;
-          width: 100vw;
-     height: 45px;
-     
-     } 
+    justify-content: space-between;
+    gap: 65px;
 
+  }
+
+  .Headerlogo {
+    flex-shrink: 0; /* prevent logo from shrinking */
+  }
+
+  /* This ensures search stays centered and doesn't get squeezed */
+  .GroupA .BeatsListContainer,
+  .GroupA .HeaderSearchBar {
+    flex: 1;
+    max-width: 200px;
+    min-width: 100px;
+  }
+
+  .HeaderAuthSection {
+    flex-shrink: 0; /* Don't let auth controls push layout left */
+    display: flex;
+    justify-content: space-around;
+  }
 
   .login-form-container {
     margin-top: 50px;
@@ -1802,6 +1821,9 @@ left: 0;
   .trending-wrapper a {
     font-size: 1rem;
   }
+   .startselling{
+      display: none;
+     }
 }
 
 @media (max-width: 480px) {
@@ -1812,6 +1834,7 @@ left: 0;
           width: 100vw;
      height: 45px;
      } 
+     
 
      .HeaderAuthSection {
       width: fit-content;
@@ -1819,6 +1842,7 @@ left: 0;
     margin-top: 5px;
    
   }
+
      .HeaderImage{
       width: 74px;
       height: 74px;
@@ -1826,9 +1850,7 @@ left: 0;
      .auth-buttons-container{
       gap: 5px;
      }
-     .startselling{
-      display: none;
-     }
+    
      .hero2-container1 h2{
       font-size: 1rem;
      } 
@@ -1920,3 +1942,4 @@ left: 0;
   -ms-overflow-style: none;  /* IE/Edge */
   scrollbar-width: none;     /* Firefox */
 }
+
