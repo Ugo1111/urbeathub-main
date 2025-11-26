@@ -585,15 +585,15 @@ function SongBio({ song, className, isDownloadEnabled , handleShareClick,handleF
       {className === "BioInformationSection" && (<div className="producerProfilePage-info">
         <CoverArt coverUrl={song.coverUrl} />
 
-        <h3
-          className="addToCartPage-bio-song-Tille "
-          style={{ padding: "10px", textAlign: "center" }}
-        >
-          
-          <div className="IoMdDownload">
-            <IoMdDownload size="1.5em" /> Download for Free
-          {song.title}
-        </h3>
+    <h3
+  className="addToCartPage-bio-song-Tille"
+  style={{ padding: "10px", textAlign: "center" }}
+>
+  <span className="IoMdDownload">
+    <IoMdDownload size="1.5em" /> Download for Free
+  </span>
+  {song.title}
+</h3>
         <div className="addtoCartPage-mobile-view-prodName">
         {song.username && (
   <span>
