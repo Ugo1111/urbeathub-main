@@ -1802,6 +1802,7 @@ left: 0;
   object-fit: cover; /* Ensure the image maintains its aspect ratio and fills the container */
   border-radius: 10px; /* Optional: Add rounded corners */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+  
 }
 
 
@@ -1907,13 +1908,13 @@ left: 0;
 .genre-filter button:hover {
   background-color: #3a3a3a;
   color: #ffffff;
-  border: 3px solid #0073ff;
+  border: 3px double #e11414e8;
 }
 
 .genre-filter button.active-genre {
-  background-color: #1564c58c; /* blue */
+  background-color: #d96f6f7e; /* blue */
   color: rgb(255, 255, 255);
-  border: 3px solid #0073ff;
+  border: 3px solid #e11414e8;
 }
 
 .genre-title {

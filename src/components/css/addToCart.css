@@ -38,8 +38,9 @@ body {
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
-  max-width: 1300px;
+ 
   min-width: 1300px;
+ 
   }
 
   @media screen and (max-width: 1300px) {
@@ -109,6 +110,7 @@ margin-bottom: 25px;
   
   /* WebKit track (Chrome, Safari) */
   input.thesong::-webkit-slider-runnable-track ,
+  input.volume-slider::-webkit-slider-runnable-track ,
   input.volume::-webkit-slider-runnable-track {
     background: #000000eb; /* Track color */
     height: 5px;
@@ -117,6 +119,7 @@ margin-bottom: 25px;
   
   /* WebKit thumb (handle) */
   input.thesong::-webkit-slider-thumb ,
+  input.volume-slider::-webkit-slider-thumb ,
   input.volume::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 18px;
@@ -139,6 +142,7 @@ margin-bottom: 25px;
   
   /* Firefox thumb */
   input.thesong::-moz-range-thumb ,
+  input.volume-slider::-moz-range-thumb ,
     input.volume::-moz-range-thumb {
     width: 18px;
     height: 18px;
@@ -150,6 +154,7 @@ margin-bottom: 25px;
   
   /* IE track */
   input.thesong::-ms-track ,
+  input.volume-slider::-ms-track ,
     input.volume::-ms-track {
     background: black;
     border-color: black;
@@ -159,6 +164,7 @@ margin-bottom: 25px;
   
   /* IE thumb */
   input.thesong::-ms-thumb ,
+  input.volume-slider::-ms-thumb ,
   input.volume::-ms-thumb {
     width: 18px;
     height: 18px;
@@ -919,81 +925,7 @@ margin-bottom: auto;
 }
 
 
-@media (max-width: 600px) {
-  .search-beats-results-container {
-    position: absolute; /* instead of fixed */
-    top: 100%;
-    width: 100vw;
-    max-height: 85vh; /* allow scroll inside this container */
-    overflow-y: auto;
-    border-radius: 8px;
-    transform: translateX(-10px);  /* moves left */
-  }
 
-  .search-beats-ul {
-    max-height: 85vh; 
-    overflow-y: auto; /* ensures scrolling works inside container */
-  }
-
-  .search-beats-li {
-    flex-direction: row; /* ✅ Keep image on left & text on right */
-    align-items: flex-start;
-    gap: 12px;
-    text-align: left; /* ✅ Fix alignment */
-    padding: 3px 2px;
-  }
-
-  .search-image {
-    width: 45px;
-    height: 45px;
-    margin: 0;
-    flex-shrink: 0;
-    border-radius: 10px;
-  }
-
-  /* ✅ Wrap details on the right */
-  .search-beats-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .search-beats-title {
-    font-size: 15px;
-    margin-bottom: 3px;
-    text-align: left;
-    white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 150px;
-  }
-
-  /* ✅ Keep BPM and Tag on same line */
-.search-beats-meta-row {
-  display: flex;
-  align-items: center;
-  gap: 6px; /* small space between bpm & tag */
-  margin-top: 2px;
-}
-
-.search-beats-bpm {
-  font-size: 10px;
-  margin: 0;
-}
-
-.search-beats-taglist {
-  font-size: 10px;
-  background: rgba(70, 70, 70, 0.428);
-  border-radius: 6px;
-  padding: 2px 5px;
-  white-space: nowrap;
-}
-
-  .search-beats-taglist:nth-child(n+2) {
-    display: none; /* hides extra tags */
-  }
-  
-}
 
 
 
@@ -1197,6 +1129,8 @@ border-radius: 25px;
   position: absolute;
   top: 100%;
   width: 100vw;
+  max-width: fit-content;
+  left: 0 !important;
   transform: translateX(60px);
   backdrop-filter: blur(15px);
   background: rgba(0, 0, 0, 0.8);
@@ -2263,12 +2197,11 @@ border: none;
     margin: 0 !important;
     width: 100vw !important;
     border-radius: 0 !important;
-    left: 0 !important;       /* align to the left edge */
-    transform: none !important; /* remove previous translateX */
-    width: 100vw;             /* full width of viewport */
+   
     padding-left: 10px;       /* optional: small padding */
     padding-right: 10px;      /* optional: small padding */
     overflow-x: hidden;
+   
   }
 
   .search-beats-ul {

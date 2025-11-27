@@ -5,20 +5,20 @@ import djImage from '../../images/dj.jpg';
 
 
 
-function MusicPlayer({ 
-  currentSong, 
-  isPlaying, 
-  togglePlayPause, 
-  currentTime, 
-  duration, 
-  formatTime, 
-  handleSliderChange, 
-  playPrevious, 
-  playNext, 
-  volume, 
-  handleVolumeChange, 
-  increaseVolume, 
-  decreaseVolume 
+function MusicPlayer({
+  currentSong,
+  isPlaying,
+  togglePlayPause,
+  currentTime,
+  duration,
+  formatTime,
+  handleSliderChange,
+  playPrevious,
+  playNext,
+  volume,
+  handleVolumeChange,
+  increaseVolume,
+  decreaseVolume
 }) {
   return (
     <div className="GroupC1">
@@ -27,8 +27,8 @@ function MusicPlayer({
           <img src={currentSong?.coverUrl || djImage} alt={`Cover for ${currentSong?.title || "Untitled"}`} />
           <button className="playIcon" onClick={() => togglePlayPause()}>
             <span className="visually-hidden">
-      {isPlaying ? "Pause track" : "Play track"}
-    </span>
+              {isPlaying ? "Pause track" : "Play track"}
+            </span>
             {isPlaying ? <FaPause className="icon" /> : <FaPlay className="icon" />}
           </button>
         </div>
@@ -41,55 +41,55 @@ function MusicPlayer({
 
         <div className="controllerB2">
           <span>{formatTime(currentTime)}</span>
-          <input 
-            type="range" 
-            min="0" 
-            max={duration || 0} 
-            value={currentTime} 
-            onChange={handleSliderChange} 
-            className="progress" 
+          <input
+            type="range"
+            min="0"
+            max={duration || 0}
+            value={currentTime}
+            onChange={handleSliderChange}
+            className="thesong"
           />
           <span>{formatTime(duration)}</span>
         </div>
 
         <div className="controllerB3">
           <button onClick={playPrevious}>
-             <span className="visually-hidden">Backward track</span>
+            <span className="visually-hidden">Backward track</span>
             <GiPreviousButton size="1em" />
           </button>
           <button onClick={playNext}>
-             <span className="visually-hidden">Forward track</span>
-            <GiNextButton size="1em"  />
+            <span className="visually-hidden">Forward track</span>
+            <GiNextButton size="1em" />
           </button>
 
-          <input 
-            type="range" 
-            min="0" 
-            max="1" 
-            step="0.01" 
-            value={volume} 
-            onChange={handleVolumeChange} 
-             className="volume-slider" 
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={handleVolumeChange}
+            className="volume-slider"
           />
 
           <div className="volnav">
-            <button 
+            <button
               onClick={() => {
                 const newVolume = Math.min(1, volume + 0.1);
                 handleVolumeChange({ target: { value: newVolume } }); // Adjust volume and slider
-              }} 
+              }}
               style={{ fontSize: "1rem" }}
             >
-             <span className="visually-hidden">User Increase Volume</span>+
+              <span className="visually-hidden">User Increase Volume</span>+
             </button>
-            <button 
+            <button
               onClick={() => {
                 const newVolume = Math.max(0, volume - 0.1);
                 handleVolumeChange({ target: { value: newVolume } }); // Adjust volume and slider
-              }} 
+              }}
               style={{ fontSize: "1em" }}
             >
-             <span className="visually-hidden">User Decrease Volume</span>-
+              <span className="visually-hidden">User Decrease Volume</span>-
             </button>
           </div>
         </div>

@@ -46,20 +46,28 @@ body {margin: 0;
 
 
 
-
+/* 
 .musicControlerA{ 
   min-width: 13%;
   border-radius: 5px;
   min-height: 100%;
 max-width: 13%;
-
+max-height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative; /* Ensures child elements can be positioned absolutely */
-
+  position: relative; 
 }
 
+
+.musicControlerA {
+  min-width: 25%; 
+  max-width: 25%;
+  max-height: 50px;
+  min-height: auto; 
+ 
+  border: blueviolet  solid 2px;
+} */
 
 
 .musicControlerA img{
@@ -68,7 +76,7 @@ max-width: 13%;
   object-fit: contain;
   width: 100%; /* Scale the image width to the container */
 height: 100%;
-
+border: #61dafb solid 2px;
 }
 
 
@@ -82,14 +90,19 @@ height: 100%;
   height: 100%;
   border-radius: 5px;
 overflow: hidden;
+aspect-ratio: 1 / 1;
+object-fit: cover;
+padding: auto;
+margin: auto;
 }
 
 .imageWrapper img {
   display: block; /* Ensures proper positioning of the image */
   width: 100%; /* Optional: Adjust to fit your layout */
   height: 100%; /* Maintain aspect ratio */
-
-  object-fit: contain;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  
 }
 
 .playIcon {
@@ -493,13 +506,28 @@ margin-bottom: 250px;
   
   /*homepageWrapper*/
   .musicControlerB{ 
-  width: 85%;
-  height: 100%;
-  padding: 0 0 0 25px;
+  min-width: 75%;
+  height: 100px;
+  max-height: 140px;
+  padding: auto;
+  margin: auto;
   overflow: hidden; 
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  justify-content: center;
   }
+
+  .imageWrapper{ 
+   
+    width: 85%;
+    max-height: 140px;
+    padding: 0 0 0 0;
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+    }
+
   .GroupC1{
     font-family: "Roboto", serif;
     margin-top: 100px;
@@ -510,7 +538,8 @@ margin-bottom: 250px;
       padding: 20px;
       background-color: #181818;
       width: 70%;
-      height: 25vmin;
+      height: fit-content;
+      min-height: 10vmin;
     display: flex;
 
   }
@@ -559,6 +588,10 @@ margin-bottom: 250px;
 
   .controllerB1{
     flex: 1;
+    height: fit-content;
+    
+   
+    max-height: fit-content;
   }
   
   
@@ -567,8 +600,8 @@ margin-bottom: 250px;
     display: block;
    white-space: nowrap;
     width: 80%;
-  
-  
+   
+    text-overflow: ellipsis;
     overflow: hidden;
        /* border-radius: 50px; */
   }
@@ -577,27 +610,28 @@ margin-bottom: 250px;
 
   .controllerB2 span{
 font-size: medium;
+
   }
 
-    .controllerB2{  
+    .controllerB2{   
       flex: 1;
     width: auto;
-    height: 100%;
+    max-height: 50px;
     display: flex;
   align-items: center;
   align-content: center;
-  
+
     /* padding: 0 10px 10px 10px; */
   }
   
   .controllerB3 button{ 
     background-color: #222222;
     border: #eaeaea1f 0.5px solid;
-    height: 100%;
+    height: inherit;
     color: #9a9a9a;
      align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 8px;
   }
   
 
@@ -612,6 +646,15 @@ font-size: medium;
  
   }
 
+  .volume-slider{
+    -webkit-appearance: none; /* Remove default style for WebKit browsers */
+   margin: auto 0;
+    height: 5px;
+    background: #000000eb; /* Track background color */
+    border-radius: 5px;
+    outline: none;
+  }
+
   .volnav{
     display: flex;
     flex-direction: row;
@@ -621,10 +664,10 @@ font-size: medium;
   .volnav button{
     
     border: #eaeaea1f 0.5px solid;
-    height: 100%;
+    height: inherit;
     color: #9a9a9a;
     display: flex;
-    padding: 10px;
+    padding: 8px;
     align-items: center;
     justify-content: center;
   }
@@ -865,29 +908,7 @@ font-size: medium;
   
   }
   
-  .musicControlerA {
-    min-width: 25%; /* Increase width for smaller screens */
-    max-width: 25%;
-    min-height: auto; /* Allow height to adjust */
-  }
-
-
-.musicControlerA img {
-  max-width: 100%;
-  max-height: 110%;
-  object-fit: contain;
-  width: 100%; /* Scale the image width to the container */
-  height: 100%;
-}
-
-.imageWrapper {
-  position: relative;
-  display: inline-block;
-  height: 70%;
-  width: 70%;
-  border-radius: 10px;
-  overflow: hidden;
-}
+ 
 
 
 .playIcon {
@@ -1001,6 +1022,7 @@ font-size: medium;
     margin-top: 60px;
     width: 95vw;
     height: 40vmin;
+    
   }
 
   .songlist-taglist{
@@ -1014,27 +1036,7 @@ font-size: medium;
     font-size: 0.85rem;
   }
 
-  .musicControlerA {
-    min-width: 100vw;
-    max-width: 100vw;
-    min-height: auto;
-    padding: 1rem 0;
-  }
 
-  .musicControlerA {
-    min-width: 25%; /* Increase width for smaller screens */
-    max-width: 25%;
-    min-height: auto; /* Allow height to adjust */
-  }
-
-
-.musicControlerA img {
-  max-width: 100%;
-  max-height: 110%;
-  object-fit: contain;
-  width: 100vw; /* Scale the image width to the container */
-  height: 100%;
-}
 
 .imageWrapper {
   position: relative;

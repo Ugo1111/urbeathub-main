@@ -546,271 +546,243 @@ function SongBio({ song, className, isDownloadEnabled, handleShareClick, handleF
     : "N/A";
 
   return (
-    <div className="songBioSection">
+    <>
+    <div className="addToCartPage-mobileView-bio-tabs">
+      <div className="addToCartPage-mobileView-bio-TrackDetails">
+        Track details
+      </div>
+      <button
+        className="addToCartPage-bio-chevron-buttons"
+        onClick={() =>
+          setActiveTab((prev) => (prev === "info" ? "" : "info"))
+        }
+      >
+        {activeTab === "info" && <FaChevronUp />}
+        {activeTab === "" && <FaChevronDown />}
+      </button>
+    </div>
+    {className === "BioInformationSection" && (<div className="producerProfilePage-info">
       <CoverArt coverUrl={song.coverUrl} />
-      <h3 style={{ padding: "10px", textAlign: "center" }}>{song.title}</h3>
-      {song.username && song.userId && (
-        <p style={{ textAlign: "center", fontSize: "0.9rem", color: "#555" }}>
-          <Link
-            to={`/producer/${song.userId}`}
-            style={{ textDecoration: "none", color: "#555", fontWeight: "600" }}
-          >
-            {song.username}
-          </Link>
-        </p>
-      )}
+
+      <h3
+        className="addToCartPage-bio-song-Tille "
+        style={{ padding: "10px", textAlign: "center" }}
+      >
+        {song.title}
+      </h3>
+      <div className="addtoCartPage-mobile-view-prodName">
+      {song.username && (
+<span>
+  by {song.username} ·
+  <button
+    onClick={handleFollowClick}
+   className="follow-producer-button"
+   title={`Stay updated! Follow ${song.username}`}
+  >
+   {isFollowing ? "Following" : "Follow"}
+  </button>
+</span>
+)}
+           
+          </div>
+
+
       <span className="item-actions">
         {/* <div>
-          <FaPlay size="1.5em" />
-          <div>{song.playCount}</div>
+         <FaPlay size="1.5em" />
+         <div>{song.playCount}</div>
          </div> */}
 
         <div>
-          <LikeButton size="1.5em" songId={song.id} /> 
-          </div>
-          </span>
+          <LikeButton size="1.5em" songId={song.id} />
+        </div>
 
-          <>
-            <div className="addToCartPage-mobileView-bio-tabs">
-              <div className="addToCartPage-mobileView-bio-TrackDetails">
-                Track details
-              </div>
+        <div>
+          <FaShareAlt size="1.5em" color="" onClick={handleShareClick} />
+          <div>{song.playCount}</div>
+        </div>
+        {/* 
+          <div>
+         <RiAddLargeFill size="1.5em" style={{ color: "red" }} />
+         <div>{song.playCount}</div>
+         </div> */}
+      </span>
+
+      {isDownloadEnabled && (
+        <a
+          href={song.musicUrls.taggedMp3}
+          download={song.title}
+          style={{ textDecoration: "none" }}
+        >
+          <div className="IoMdDownload">
+            <IoMdDownload size="1.5em" /> Download for Free
+          </div>
+        </a>
+      )}
+
+      <hr />
+
+      <div className={className}>
+        <h4 className="BioInformationSection-title">Information</h4>
+        <div>
+          <span>Published</span>
+          <span>{date}</span>
+        </div>
+        <div>
+          <span>BPM</span>
+          <span>{song.metadata?.bpm || "-"}</span>
+        </div>
+        <div>
+          <span>Genres</span>
+          <span>{song.metadata?.genres || "-"}</span>
+        </div>
+        <div>
+          <span>Key</span>
+          <span>{song.metadata?.key || "-"}</span>
+        </div>
+        <div>
+          <span>Mood</span>
+          <span>{song.metadata?.moods || "-"}</span>
+        </div>
+      </div>
+      <hr />
+
+      <div className="report-section">
+        <button onClick={openReportModal} className="report-button">
+          ⚠️ Report Track
+        </button>
+
+        {showReportModal && (
+          <div className="report-modal">
+            <h3>Report Track</h3>
+            <label>Reason:</label>
+            <select
+              value={reportReason}
+              onChange={(e) => setReportReason(e.target.value)}
+              className="report-select"
+            >
+              <option value="">Select a reason</option>
+              <option value="Copyright infringement">
+                Copyright infringement
+              </option>
+              <option value="Offensive content">Offensive content</option>
+              <option value="Spam or misleading">Spam or misleading</option>
+              <option value="Other">Other</option>
+            </select>
+
+            <label>Additional Comments (optional):</label>
+            <textarea
+              value={reportComment}
+              onChange={(e) => setReportComment(e.target.value)}
+              placeholder="Write your comments here..."
+              className="report-textarea"
+            />
+
+            <div className="report-modal-actions">
               <button
-                className="addToCartPage-bio-chevron-buttons"
-                onClick={() =>
-                  setActiveTab((prev) => (prev === "info" ? "" : "info"))
-                }
+                onClick={handleReportSubmit}
+                className="report-submit"
               >
-                {activeTab === "info" && <FaChevronUp />}
-                {activeTab === "" && <FaChevronDown />}
+                Submit Report
+              </button>
+              <button onClick={closeReportModal} className="report-cancel">
+                Cancel
               </button>
             </div>
-            {className === "BioInformationSection" && (<div className="producerProfilePage-info">
-              <CoverArt coverUrl={song.coverUrl} />
-
-              <h3
-                className="addToCartPage-bio-song-Tille"
-                style={{ padding: "10px", textAlign: "center" }}
-              >
-                <span className="IoMdDownload">
-                  <IoMdDownload size="1.5em" /> Download for Free
-                </span>
-                {song.title}
-              </h3>
-              <div className="addtoCartPage-mobile-view-prodName">
-                {song.username && (
-                  <span>
-                    by {song.username} ·
-                    <button
-                      onClick={handleFollowClick}
-                      className="follow-producer-button"
-                      title={`Stay updated! Follow ${song.username}`}
-                    >
-                      {isFollowing ? "Following" : "Follow"}
-                    </button>
-                  </span>
-                )}
-
-              </div>
+          </div>
+        )}
+      </div>
 
 
-              <span className="item-actions">
-                {/* <div>
-           <FaPlay size="1.5em" />
-           <div>{song.playCount}</div>
-           </div> */}
-
-                <div>
-                  <LikeButton size="1.5em" songId={song.id} />
-                </div>
-
-                <div>
-                  <FaShareAlt size="1.5em" color="" onClick={handleShareClick} />
-                  <div>{song.playCount}</div>
-                </div>
-                {/* 
-            <div>
-           <RiAddLargeFill size="1.5em" style={{ color: "red" }} />
-           <div>{song.playCount}</div>
-           </div> */}
-              </span>
-
-              {isDownloadEnabled && (
-                <a
-                  href={song.musicUrls.taggedMp3}
-                  download={song.title}
-                  style={{ textDecoration: "none" }}
-                >
-                  <div className="IoMdDownload">
-                    <IoMdDownload size="1.5em" /> Download for Free
-                  </div>
-                </a>
-              )}
-
-              <hr />
-
-              <div className={className}>
-                <h4 className="BioInformationSection-title">Information</h4>
-                <div>
-                  <span>Published</span>
-                  <span>{date}</span>
-                </div>
-                <div>
-                  <span>BPM</span>
-                  <span>{song.metadata?.bpm || "-"}</span>
-                </div>
-                <div>
-                  <span>Genres</span>
-                  <span>{song.metadata?.genres || "-"}</span>
-                </div>
-                <div>
-                  <span>Key</span>
-                  <span>{song.metadata?.key || "-"}</span>
-                </div>
-                <div>
-                  <span>Mood</span>
-                  <span>{song.metadata?.moods || "-"}</span>
-                </div>
-              </div>
-              <hr />
-
-              <div className="report-section">
-                <button onClick={openReportModal} className="report-button">
-                  ⚠️ Report Track
-                </button>
-
-                {showReportModal && (
-                  <div className="report-modal">
-                    <h3>Report Track</h3>
-                    <label>Reason:</label>
-                    <select
-                      value={reportReason}
-                      onChange={(e) => setReportReason(e.target.value)}
-                      className="report-select"
-                    >
-                      <option value="">Select a reason</option>
-                      <option value="Copyright infringement">
-                        Copyright infringement
-                      </option>
-                      <option value="Offensive content">Offensive content</option>
-                      <option value="Spam or misleading">Spam or misleading</option>
-                      <option value="Other">Other</option>
-                    </select>
-
-                    <label>Additional Comments (optional):</label>
-                    <textarea
-                      value={reportComment}
-                      onChange={(e) => setReportComment(e.target.value)}
-                      placeholder="Write your comments here..."
-                      className="report-textarea"
-                    />
-
-                    <div className="report-modal-actions">
-                      <button
-                        onClick={handleReportSubmit}
-                        className="report-submit"
-                      >
-                        Submit Report
-                      </button>
-                      <button onClick={closeReportModal} className="report-cancel">
-                        Cancel
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
+    </div>
+    )}
 
 
-            </div>
-            )}
-
-
-            {activeTab === "info" && (
-              <div className="producerProfilePage-info">
+    {activeTab === "info" && (
+      <div className="producerProfilePage-info">
 
 
 
 
 
 
-                <hr />
+        <hr />
 
-                <div className={className}>
-                  <h4 className="BioInformationSection-title">Information</h4>
-                  <div>
-                    <span>Published</span>
-                    <span>{date}</span>
-                  </div>
-                  <div>
-                    <span>BPM</span>
-                    <span>{song.metadata?.bpm || "-"}</span>
-                  </div>
-                  <div>
-                    <span>Genres</span>
-                    <span>{song.metadata?.genres || "-"}</span>
-                  </div>
-                  <div>
-                    <span>Key</span>
-                    <span>{song.metadata?.key || "-"}</span>
-                  </div>
-                  <div>
-                    <span>Mood</span>
-                    <span>{song.metadata?.moods || "-"}</span>
-                  </div>
-                </div>
-                <hr />
-
-                <div className="report-section">
-                  <button onClick={openReportModal} className="report-button">
-                    ⚠️ Report Track
-                  </button>
-
-                  {showReportModal && (
-                    <div className="report-modal">
-                      <h3>Report Track</h3>
-                      <label>Reason:</label>
-                      <select
-                        value={reportReason}
-                        onChange={(e) => setReportReason(e.target.value)}
-                        className="report-select"
-                      >
-                        <option value="">Select a reason</option>
-                        <option value="Copyright infringement">
-                          Copyright infringement
-                        </option>
-                        <option value="Offensive content">Offensive content</option>
-                        <option value="Spam or misleading">Spam or misleading</option>
-                        <option value="Other">Other</option>
-                      </select>
-
-                      <label>Additional Comments (optional):</label>
-                      <textarea
-                        value={reportComment}
-                        onChange={(e) => setReportComment(e.target.value)}
-                        placeholder="Write your comments here..."
-                        className="report-textarea"
-                      />
-
-                      <div className="report-modal-actions">
-                        <button
-                          onClick={handleReportSubmit}
-                          className="report-submit"
-                        >
-                          Submit Report
-                        </button>
-                        <button onClick={closeReportModal} className="report-cancel">
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-
-              </div>
-            )}
-          </>
+        <div className={className}>
+          <h4 className="BioInformationSection-title">Information</h4>
+          <div>
+            <span>Published</span>
+            <span>{date}</span>
+          </div>
+          <div>
+            <span>BPM</span>
+            <span>{song.metadata?.bpm || "-"}</span>
+          </div>
+          <div>
+            <span>Genres</span>
+            <span>{song.metadata?.genres || "-"}</span>
+          </div>
+          <div>
+            <span>Key</span>
+            <span>{song.metadata?.key || "-"}</span>
+          </div>
+          <div>
+            <span>Mood</span>
+            <span>{song.metadata?.moods || "-"}</span>
+          </div>
         </div>
+        <hr />
+
+        <div className="report-section">
+          <button onClick={openReportModal} className="report-button">
+            ⚠️ Report Track
+          </button>
+
+          {showReportModal && (
+            <div className="report-modal">
+              <h3>Report Track</h3>
+              <label>Reason:</label>
+              <select
+                value={reportReason}
+                onChange={(e) => setReportReason(e.target.value)}
+                className="report-select"
+              >
+                <option value="">Select a reason</option>
+                <option value="Copyright infringement">
+                  Copyright infringement
+                </option>
+                <option value="Offensive content">Offensive content</option>
+                <option value="Spam or misleading">Spam or misleading</option>
+                <option value="Other">Other</option>
+              </select>
+
+              <label>Additional Comments (optional):</label>
+              <textarea
+                value={reportComment}
+                onChange={(e) => setReportComment(e.target.value)}
+                placeholder="Write your comments here..."
+                className="report-textarea"
+              />
+
+              <div className="report-modal-actions">
+                <button
+                  onClick={handleReportSubmit}
+                  className="report-submit"
+                >
+                  Submit Report
+                </button>
+                <button onClick={closeReportModal} className="report-cancel">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+
+      </div>
+    )}
+  </>
           );
 }
 
