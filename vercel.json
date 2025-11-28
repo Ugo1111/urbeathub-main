@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/addToCart/:songId",
+      "destination": "https://urbeathub-addtocart.onrender.com/addToCart/:songId"
+    }
+  ]
+}
