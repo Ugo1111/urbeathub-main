@@ -176,28 +176,23 @@ const songId = extractIdFromSlug(slug);
   <title>{song.title ? `${song.title} | UrbeatHub` : "Add to Cart"}</title>
   <meta
     name="description"
-    content={`Buy and download "${song.title}" by ${song.username || "Unknown Artist"}. High-quality instrumental available instantly.`}
+    content={`Buy and download "${song.title}" by ${song.username || "Unknown Artist"}.`}
   />
 
-  {/* Open Graph Meta Tags */}
+  {/* Point OG URL to your Render server */}
   <meta property="og:title" content={`${song.title} | ${song.username || "Unknown Artist"}`} />
-  <meta
-    property="og:description"
-    content="Listen, buy, and download high-quality beats instantly on UrbeatHub."
-  />
-  <meta property="og:image" content={song.coverUrl || "https://urbeathub.com/ur_beathub_og_image_1200x630.png"} />
-  <meta property="og:url" content={`https://urbeathub.com/addToCart/${song.id}`} />
+  <meta property="og:description" content="Listen, buy, and download high-quality beats instantly." />
+  <meta property="og:image" content={song.coverUrl || "https://urbeathub.com/default_og.png"} />
+  <meta property="og:url" content={`https://urbeathub-addtocart.onrender.com/addToCart/${song.id}`} />
   <meta property="og:type" content="music.song" />
 
-  {/* Twitter Meta Tags */}
+  {/* Twitter */}
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={`${song.title} | ${song.username || "Unknown Artist"}`} />
-  <meta
-    name="twitter:description"
-    content="Listen, buy, and download high-quality beats instantly on UrbeatHub."
-  />
-  <meta name="twitter:image" content={song.coverUrl || "https://urbeathub.com/ur_beathub_og_image_1200x630.png"} />
+  <meta name="twitter:description" content="Listen, buy, and download high-quality beats instantly." />
+  <meta name="twitter:image" content={song.coverUrl || "https://urbeathub.com/default_og.png"} />
 </Helmet>
+
       <GroupA />
       <div className="mobile-only-search">
   <BeatsList />
