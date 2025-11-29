@@ -180,11 +180,11 @@ const songId = extractIdFromSlug(slug);
     content={`Buy and download "${song.title}" by ${song.username || "Unknown Artist"}.`}
   />
 
-  {/* Point OG URL to your Render server */}
+  {/* Open Graph */}
   <meta property="og:title" content={`${song.title} | ${song.username || "Unknown Artist"}`} />
   <meta property="og:description" content="Listen, buy, and download high-quality beats instantly." />
   <meta property="og:image" content={song.coverUrl || "https://urbeathub.com/default_og.png"} />
-  <meta property="og:url" content={`https://urbeathub-addtocart.onrender.com/addToCart/${song.id}`} />
+  <meta property="og:url" content={`https://urbeathub.com/addToCart/${slug}`} />
   <meta property="og:type" content="music.song" />
 
   {/* Twitter */}
