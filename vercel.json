@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/addToCart/:slug",
-      "destination": "https://urbeathub-addtocart.onrender.com/addToCart/:slug"
-    }
-  ]
-}
