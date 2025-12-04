@@ -193,7 +193,7 @@ export default function LicensingSection({ song, className }) {
                 )
             }
           </span>
-
+          <span>
           {isExclusiveLicense ? (
             <Link to={{ pathname: "/NegotiatePage", state: { song, licenses, toggleAccordion } }}>
               <button className="negotiate-price-btn">Negotiate price</button>
@@ -229,11 +229,11 @@ export default function LicensingSection({ song, className }) {
                 <button className="buy-now-btn">{isUpgrade ? "Upgrade" : "Buy now"}</button>
               </Link>
             </>
-          )}
+          )} </span>
         </div>
       </span>
 
-      <hr />
+      <hr  className="dividerLine"/>
 
       <div className="licenses">
         {Object.entries(licenses)

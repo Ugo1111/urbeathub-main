@@ -494,7 +494,7 @@ function Mp3player({
   );
 }
 
-function SongBio({ song, className, isDownloadEnabled, handleShareClick, handleFollowClick, isFollowing, currentUser }) {
+function SongBio({ song, className, isDownloadEnabled, handleShareClick, handleFollowClick, isFollowing }) {
 
   const [showReportModal, setShowReportModal] = useState(false);
   const [reportReason, setReportReason] = useState("");

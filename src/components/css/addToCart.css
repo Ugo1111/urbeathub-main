@@ -93,6 +93,7 @@ margin-bottom: 25px;
   .volume {
     -webkit-appearance: none; /* Remove default style for WebKit browsers */
     width: 100%;
+    max-width: 350px;
     height: 5px;
     background: #000000eb; /* Track background color */
     border-radius: 5px;
@@ -230,7 +231,7 @@ hr{
   display: flex;
   /* border: 1px rgb(126, 126, 126) solid; */
   background-color: #1e1c1c;
-  
+  margin: auto;
  border: 1px rgb(48, 47, 47)  solid
 }
 
@@ -255,12 +256,12 @@ height: 40px;
   flex-direction: row;
   justify-content: space-between;
   width: 80%;
-  margin: 25px;
+  margin: 25px auto;
 }
 
 .BioInformationSection{
  
-  margin: 25px;
+  margin: 25px auto;
   max-width: 80%;
   display: flex;
   flex-direction: column;
@@ -365,7 +366,8 @@ gap: 20px;
   width: 100%;
   max-width: 300px; /* You can change this max size */
   aspect-ratio: 1 / 1; /* Keeps it square */
-  margin-top: 20px;
+  margin: 20px auto 0 auto; 
+  /* border: rgb(226, 43, 43) 2px solid; */
 }
 
 .image-placeholder img {
@@ -377,6 +379,8 @@ gap: 20px;
   margin:auto;
   /* border: #12f35d solid 2px; */
 }
+
+
   
   .license-options {
     display: flex;
@@ -447,6 +451,7 @@ gap: 20px;
     gap: 20px;
     margin-bottom: 20px;
     margin-top: 20px;
+    /* border: lavenderblush 2px solid; */
     
   }
   
@@ -570,7 +575,7 @@ gap: 20px;
    width: auto;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-     
+     gap: 15px;
   }
 
  /* Style the buttons that are used to open and close the accordion panel */
@@ -2284,8 +2289,51 @@ border: none;
   position: relative;
 }
 
+ .licensing-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin: 30px;
+  /* border: #56eb25 2px solid; */
+  height: 70px;
+}
+.dividerLine{
+  border-bottom: 1px solid #555555;
+  margin: 50px 0 0px 0;
+}
+.licenses {
+  display: grid;
+  grid-template-columns:  1fr; /* 3 cards per row */
+  gap: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  /* border: lavenderblush 2px solid; */
+  
+}
+
+.checkout{
+ justify-content: space-between;
+  /* border: #12f35d solid 2px; */
+  width: 130%;
+  gap: 10px;
+  flex-direction: column;
+}
 
 
+.add-to-cart-btn,
+  .buy-now-btn {
+    padding: 5px 15px;
+    font-size: small;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    height: 50px;
+    background-color: #db3056;
+    color: white;
+  }
 
   .addtoCartPage-mobile-view-coverImg {
     width: 100%; /* Full width */
