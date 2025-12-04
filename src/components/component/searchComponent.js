@@ -7,7 +7,7 @@ import djImage from '../../images/dj.jpg';
 import { createSlug } from "../utils/slugify";
 import { FaSearch } from "react-icons/fa";
 
-const BeatsList = () => {
+const BeatsList = ({ className = "search-beats-body" }) => {
     const [beats, setBeats] = useState([]);
     const [searchText, setSearchText] = useState("");
 
@@ -44,7 +44,7 @@ const BeatsList = () => {
     });
 
     return (
-        <div className="search-beats-body">
+        <div className={className}>
             <div className="search-input-container">
                 <FaSearch className="search-icon" />
                <input

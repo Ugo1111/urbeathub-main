@@ -303,6 +303,7 @@ body{
   
   
   .GroupA {
+    margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-around; /* Prevents shift */
@@ -318,11 +319,11 @@ body{
 
 /* This fixes the layout shift */
 .HeaderAuthSection {
-  width: 240px; /* Enough width to hold Sign In / Start Selling */
+  width: fit-content; /* Enough width to hold Sign In / Start Selling */
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  
+
 }
 
   .GroupA1 {
@@ -1801,6 +1802,7 @@ left: 0;
   object-fit: cover; /* Ensure the image maintains its aspect ratio and fills the container */
   border-radius: 10px; /* Optional: Add rounded corners */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+  
 }
 
 
@@ -1836,12 +1838,10 @@ left: 0;
      
 
      .HeaderAuthSection {
-    width: auto;           /* remove the full width */
-    margin: 0;             /* remove unnecessary spacing */
-    display: flex;
+      width: fit-content;
     justify-content: center;
-    align-items: center;
-    padding-top: 5px;      /* small spacing */
+    margin-top: 5px;
+   
   }
 
      .HeaderImage{
@@ -1908,13 +1908,13 @@ left: 0;
 .genre-filter button:hover {
   background-color: #3a3a3a;
   color: #ffffff;
-  border: 3px solid #0073ff;
+  border: 3px double #e11414e8;
 }
 
 .genre-filter button.active-genre {
-  background-color: #1564c58c; /* blue */
+  background-color: #d96f6f7e; /* blue */
   color: rgb(255, 255, 255);
-  border: 3px solid #0073ff;
+  border: 3px solid #e11414e8;
 }
 
 .genre-title {
