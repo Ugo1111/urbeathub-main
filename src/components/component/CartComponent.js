@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import "../css/checkout.css";
@@ -33,6 +34,13 @@ function CartItem({
         <div className="cart-list-item-title-license">
           <div className="cart-list-item-title">{song.title || "Unknown Title"}</div>
           <div className="cart-list-item-license">{song.license || "Unknown License"}</div>
+            by {" "}
+            <Link
+              to={`/producer/${song.userId}`}
+              className="producer-link"
+            >
+              {song.username}
+            </Link>{" ·"}
         </div>
       </div>
 

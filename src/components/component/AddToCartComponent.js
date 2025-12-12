@@ -7,6 +7,9 @@ import {
   setDoc,
   updateDoc,
   arrayUnion,
+  collection,
+  addDoc,
+  serverTimestamp,   // ⭐ New import
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
@@ -162,6 +165,17 @@ useEffect(() => {
           },
           { merge: true }
         );
+
+           // ⭐⭐⭐ ADD TO GLOBAL CART COLLECTION FOR ADMIN ⭐⭐⭐
+      await addDoc(collection(db, "Cart"), {
+        userId: user.uid,
+        songId: song.id,
+        title: song.title,
+        license: selectedLicense.name,
+        price: selectedLicense.price,
+        coverUrl: song.coverUrl,
+        timestamp: serverTimestamp(), // ⭐ store time of adding
+      });
 
         toast.success("Added to cart!", {
           position: "top-center",

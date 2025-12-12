@@ -578,6 +578,13 @@ gap: 20px;
      gap: 15px;
   }
 
+  .producer-link {
+    color: inherit;
+    font-weight: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
  /* Style the buttons that are used to open and close the accordion panel */
 .accordionin {
   /* background-color: #eee; */
