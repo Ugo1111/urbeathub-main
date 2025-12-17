@@ -51,7 +51,7 @@ export default function StripeWrapper({ amount, email, onSuccess, onError, uid, 
     }
   };
 
-  if (loading) return <button disabled>Preparing...</button>;
+  if (loading) return <button className="stripe-pay" disabled>Preparing...</button>;
 
   if (!clientSecret) {
     return (

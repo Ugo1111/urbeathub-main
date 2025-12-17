@@ -1,221 +1,200 @@
 import React, { useState, useEffect } from "react";
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from "react-toastify";
 import {
   getFirestore,
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-  arrayUnion,
   collection,
+  query,
+  where,
+  getDocs,
   addDoc,
-  serverTimestamp,   // ⭐ New import
+  updateDoc,
+  doc,
+  serverTimestamp,setDoc,
 } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
-import Modal from 'react-modal'; // Import Modal
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import "../css/addToCart.css";
 
 export default function HandleAddToCart({ song, selectedLicense }) {
   const [isAdding, setIsAdding] = useState(false);
-  const [isInCart, setIsInCart] = useState(false); // Track if item is in cart
-  const [modalIsOpen, setModalIsOpen] = useState(false); // State for modal
+  const [isInCart, setIsInCart] = useState(false);
+
   const auth = getAuth();
   const db = getFirestore();
-  const navigate = useNavigate(); // Initialize the navigate function
-  
+  const navigate = useNavigate();
 
-  // Check if the item is in the cart on initial render
-useEffect(() => {
-  const checkIfInCart = async () => {
-    const user = auth.currentUser;
+  /* ------------------------------------------------
+     MERGE GUEST CART → FIRESTORE ON LOGIN
+  -------------------------------------------------*/
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!user) return;
 
-    // Check Firestore cart if user is logged in
-    if (user && song && selectedLicense) {
-      try {
-        const cartRef = doc(db, `beatHubUsers/${user.uid}`);
-        const cartSnapshot = await getDoc(cartRef);
-
-        const firestoreCart = cartSnapshot.exists() ? cartSnapshot.data().cart || [] : [];
-        const inFirestoreCart = firestoreCart.some(
-          (item) => item.songId === song.id && item.license === selectedLicense.name
-        );
-
-        // Check localStorage as well
-        const localCartRaw = localStorage.getItem("cart");
-        const localCart = localCartRaw ? JSON.parse(localCartRaw) : [];
-        const inLocalCart = localCart.some(
-          (item) => item.songId === song.id && item.license === selectedLicense.name
-        );
-
-        setIsInCart(inFirestoreCart || inLocalCart); // True if found in either
-      } catch (error) {
-        console.error("Error checking cart:", error);
-      }
-    } 
-    // For guests (not logged in), check only localStorage
-    else if (!user && song && selectedLicense) {
       const localCartRaw = localStorage.getItem("cart");
-      const localCart = localCartRaw ? JSON.parse(localCartRaw) : [];
-      const inLocalCart = localCart.some(
-        (item) => item.songId === song.id && item.license === selectedLicense.name
+      if (!localCartRaw) return;
+
+      const localCart = JSON.parse(localCartRaw);
+      const userCartRef = collection(db, "beatHubUsers", user.uid, "cart");
+
+      for (const item of localCart) {
+        const q = query(
+          userCartRef,
+          where("songId", "==", item.songId),
+          where("license", "==", item.license)
+        );
+
+        const snap = await getDocs(q);
+        if (snap.empty) {
+          await addDoc(userCartRef, {
+            songId: item.songId,
+            license: item.license,
+            createdAt: serverTimestamp(),
+          });
+        }
+      }
+
+      localStorage.removeItem("cart");
+    });
+
+    return () => unsubscribe();
+  }, [auth, db]);
+
+  /* ------------------------------------------------
+     CHECK IF ITEM IS ALREADY IN CART
+  -------------------------------------------------*/
+  useEffect(() => {
+    const checkIfInCart = async () => {
+      const user = auth.currentUser;
+
+      // 🔹 Guest
+      if (!user) {
+        const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
+        setIsInCart(
+          localCart.some(
+            (i) => i.songId === song?.id && i.license === selectedLicense?.name
+          )
+        );
+        return;
+      }
+
+      // 🔹 Logged-in
+      if (!song || !selectedLicense) return;
+
+      const cartRef = collection(db, "beatHubUsers", user.uid, "cart");
+      const q = query(
+        cartRef,
+        where("songId", "==", song.id),
+        where("license", "==", selectedLicense.name)
       );
-      setIsInCart(inLocalCart);
-    }
-  };
 
-  checkIfInCart();
-}, [auth, db, song, selectedLicense]);
+      const snap = await getDocs(q);
+      setIsInCart(!snap.empty);
+    };
 
+    checkIfInCart();
+  }, [auth, db, song, selectedLicense]);
+
+  /* ------------------------------------------------
+     ADD TO CART
+  -------------------------------------------------*/
   const handleAddToCart = async () => {
     const user = auth.currentUser;
 
-    // If user isn't signed in, save cart to localStorage
-    if (!user) {
-      if (!song || !selectedLicense) {
-        alert("Please select a license type.");
-        return;
-      }
-      try {
-        // Get existing local cart if any
-        const existingCart = localStorage.getItem("cart");
-        const localCart = existingCart ? JSON.parse(existingCart) : [];
-
-        // Check if the song is already in the local cart with a different license
-        const itemIndex = localCart.findIndex(
-          (item) => item.songId === song.id && item.license !== selectedLicense.name
-        );
-
-        if (itemIndex !== -1) {
-          // Update the license and price
-          localCart[itemIndex] = {
-            ...localCart[itemIndex],
-            license: selectedLicense.name,
-            price: selectedLicense.price,
-          };
-          toast.success("Updated license in local cart!", {
-            position: "top-center",
-          });
-        } else {
-          // Add new item to local cart
-          localCart.push({
-            songId: song.id,
-            title: song.title,
-            license: selectedLicense.name,
-            price: selectedLicense.price,
-            coverUrl: song.coverUrl,
-          });
-          toast.success("Added to local cart!", {
-            position: "top-center",
-          });
-        }
-        // Save updated cart to localStorage
-        localStorage.setItem("cart", JSON.stringify(localCart));
-        setIsInCart(true);
-        return;
-      } catch (error) {
-        console.error("Error saving to local cart:", error);
-        toast.error("Failed to update local cart.", {
-          position: "top-center",
-        });
-        return;
-      }
+    if (!song || !selectedLicense) {
+      toast.error("Please select a license");
+      return;
     }
 
-    // User is signed in — continue with saving to Firestore
-    setIsAdding(true);
-    try {
-      const cartRef = doc(db, `beatHubUsers/${user.uid}`);
-      // Get the current cart
-      const cartSnapshot = await getDoc(cartRef);
-      const cart = cartSnapshot.exists() ? cartSnapshot.data().cart || [] : [];
+    /* ---------- GUEST ---------- */
+    if (!user) {
+      const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-      // Check if the song is in the cart with a different license
-      const itemIndex = cart.findIndex(
-        (item) => item.songId === song.id && item.license !== selectedLicense.name
+      const existingIndex = localCart.findIndex(
+        (i) => i.songId === song.id
       );
 
-      if (itemIndex !== -1) {
-        const updatedCart = [...cart];
-        updatedCart[itemIndex] = {
-          ...updatedCart[itemIndex],
+      if (existingIndex !== -1) {
+        // 🔁 Upgrade license
+        localCart[existingIndex].license = selectedLicense.name;
+        toast.success("License updated in cart");
+      } else {
+        localCart.push({
+          songId: song.id,
+          title: song.title,
           license: selectedLicense.name,
           price: selectedLicense.price,
-        };
-
-        await updateDoc(cartRef, {
-          cart: updatedCart,
+          coverUrl: song.coverUrl,
         });
-        toast.success("Updated license in cart!", {
-          position: "top-center",
-        });
-        setIsInCart(true);
-      } else {
-        // Add new item to cart if it doesn't exist with the same license
-        await setDoc(
-          cartRef,
-          {
-            cart: arrayUnion({
-              songId: song.id,
-              title: song.title,
-              license: selectedLicense.name,
-              price: selectedLicense.price,
-              coverUrl: song.coverUrl,
-            }),
-          },
-          { merge: true }
-        );
-
-           // ⭐⭐⭐ ADD TO GLOBAL CART COLLECTION FOR ADMIN ⭐⭐⭐
-      await addDoc(collection(db, "Cart"), {
-        userId: user.uid,
-        songId: song.id,
-        title: song.title,
-        license: selectedLicense.name,
-        price: selectedLicense.price,
-        coverUrl: song.coverUrl,
-        timestamp: serverTimestamp(), // ⭐ store time of adding
-      });
-
-        toast.success("Added to cart!", {
-          position: "top-center",
-        });
-        setIsInCart(true);
+        toast.success("Added to cart");
       }
-    } catch (error) {
-      console.error("Error adding/updating cart:", error);
-      toast.error("Failed to add or update cart.", {
-        position: "top-center",
-      });
-    } finally {
-      setIsAdding(false);
-    }
-  };
 
-  const handleViewCart = () => {
-    navigate("/CartPage"); // Navigate to the CartPage
+      localStorage.setItem("cart", JSON.stringify(localCart));
+      setIsInCart(true);
+      return;
+    }
+
+/* ---------- LOGGED-IN ---------- */
+setIsAdding(true);
+
+try {
+  const userCartCol = collection(db, "beatHubUsers", user.uid, "cart");
+
+  // 🔎 Check existing song (any license)
+  const q = query(userCartCol, where("songId", "==", song.id));
+  const snap = await getDocs(q);
+
+  if (!snap.empty) {
+    // 🔁 Upgrade license
+    await updateDoc(snap.docs[0].ref, {
+      license: selectedLicense.name,
+    });
+
+    toast.success("License upgraded in cart");
+  } else {
+    // 1️⃣ CREATE USER CART ITEM (AUTO ID)
+    const userCartDocRef = doc(userCartCol); // pre-generate ID
+
+    await setDoc(userCartDocRef, {
+      songId: song.id,
+      songTitle: song.title,
+      license: selectedLicense.name,
+      userId: user.uid,
+      createdAt: serverTimestamp(),
+    });
+
+    // 2️⃣ CREATE GLOBAL CART WITH SAME ID
+    await setDoc(doc(db, "Cart", userCartDocRef.id), {
+      userId: user.uid,
+      userCartPath: `beatHubUsers/${user.uid}/cart/${userCartDocRef.id}`,
+      songId: song.id,
+      songTitle: song.title,
+      license: selectedLicense.name,
+      createdAt: serverTimestamp(),
+    });
+
+    toast.success("Added to cart");
+  }
+
+  setIsInCart(true);
+} catch (err) {
+  console.error(err);
+  toast.error("Failed to add to cart");
+} finally {
+  setIsAdding(false);
+}
+
+
+
+
   };
 
   return (
-    <>
-      <button
-        className="add-to-cart-btn"
-        onClick={isInCart ? handleViewCart : handleAddToCart} // Redirect if in cart, else add item to cart
-        disabled={isAdding}
-      >
-        {isAdding ? "Adding..." : isInCart ? "View Cart" : "Add to Cart"}
-      </button>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        contentLabel="Sign In Required"
-        className="Modal"
-        overlayClassName="Overlay"
-      >
-        <h2>Sign In Required</h2>
-        <p>Please sign in to add items to your cart.</p>
-        <button onClick={() => setModalIsOpen(false)}>Close</button>
-      </Modal>
-    </>
+    <button
+      className="add-to-cart-btn"
+      disabled={isAdding}
+      onClick={isInCart ? () => navigate("/CartPage") : handleAddToCart}
+    >
+      {isAdding ? "Adding..." : isInCart ? "View Cart" : "Add to Cart"}
+    </button>
   );
 }
