@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { formatDistanceToNow } from "date-fns";
 import "../css/adminUsersPage.css";
@@ -33,11 +33,11 @@ const AdminAddToCartPage = () => {
       const usersSnap = await getDocs(collection(db, "beatHubUsers"));
       const cartSnap = await getDocs(collection(db, "Cart"));
 
-      const cartItems = cartSnap.docs.map(doc => {
-        const data = doc.data();
+      const cartItems = cartSnap.docs.map(cartDoc => {
+        const data = cartDoc.data();
 
         return {
-          id: doc.id,
+          id: cartDoc.id,
           ...data,
           createdAtDate: getDateFromTimestamp(data.createdAt),
         };
@@ -48,18 +48,22 @@ const AdminAddToCartPage = () => {
 
       let totalRecent = 0;
 
-      const users = usersSnap.docs.map(doc => {
-        const userData = doc.data();
+      const users = usersSnap.docs.map(userDoc => {
+        const userData = userDoc.data();
         const globalCart = cartItems
-          .filter(item => item.userId === doc.id)
+          .filter(item => item.userId === userDoc.id)
           .sort((a, b) => (b.createdAtDate?.getTime() || 0) - (a.createdAtDate?.getTime() || 0));
         const latestCartAt = globalCart[0]?.createdAtDate || null;
 
-        const recentCartCount = globalCart.filter(item => item.createdAtDate && item.createdAtDate >= sevenDaysAgo).length;
+        const recentCartCount = globalCart.filter(item => (
+          item.createdAtDate &&
+          item.createdAtDate >= sevenDaysAgo &&
+          !item.adminViewedAt
+        )).length;
         totalRecent += recentCartCount;
 
         return {
-          id: doc.id,
+          id: userDoc.id,
           ...userData,
           cart: [...(userData.cart || []), ...globalCart],
           recentCartCount,
@@ -135,7 +139,42 @@ const AdminAddToCartPage = () => {
     setDisplayUsers(allUsers.slice(0, nextCount));
   };
 
+  const markUserCartAsViewed = async (userId) => {
+    const user = allUsers.find(currentUser => currentUser.id === userId);
+    if (!user || user.recentCartCount === 0) return;
+
+    const unviewedCartItems = user.cart.filter(item => item.id && !item.adminViewedAt);
+    if (unviewedCartItems.length === 0) return;
+
+    try {
+      await Promise.all(
+        unviewedCartItems.map(item => (
+          updateDoc(doc(db, "Cart", item.id), { adminViewedAt: serverTimestamp() })
+        ))
+      );
+
+      const markViewed = currentUser => {
+        if (currentUser.id !== userId) return currentUser;
+
+        return {
+          ...currentUser,
+          recentCartCount: 0,
+          cart: currentUser.cart.map(item => (
+            item.id ? { ...item, adminViewedAt: new Date() } : item
+          )),
+        };
+      };
+
+      setAllUsers(prevUsers => prevUsers.map(markViewed));
+      setDisplayUsers(prevUsers => prevUsers.map(markViewed));
+      setRecentCartTotal(prevTotal => Math.max(prevTotal - user.recentCartCount, 0));
+    } catch (error) {
+      console.error("Error marking cart as viewed:", error);
+    }
+  };
+
   const toggleExpandUser = (id) => {
+    if (!expandedUsers[id]) markUserCartAsViewed(id);
     setExpandedUsers(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
