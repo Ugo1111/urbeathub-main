@@ -417,7 +417,13 @@ function Mp3player({
             <div className="addtoCartPage-mobile-view-producerName">
               {song.username && (
                 <span>
-                  by {song.username} ·
+                  by {" "}
+  <Link
+    to={`/producer/${song.userId}`}
+    className="producer-link"
+  >
+    {song.username}
+  </Link>{" ·"}
                   <button
                     onClick={handleFollowClick}
                     className="follow-producer-button"
@@ -573,7 +579,13 @@ function SongBio({ song, className, isDownloadEnabled, handleShareClick, handleF
       <div className="addtoCartPage-mobile-view-prodName">
       {song.username && (
 <span>
-  by {song.username} ·
+  by {" "}
+  <Link
+    to={`/producer/${song.userId}`}
+    className="producer-link"
+  >
+    {song.username}
+  </Link>{" ·"}
   <button
     onClick={handleFollowClick}
    className="follow-producer-button"

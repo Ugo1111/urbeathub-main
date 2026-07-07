@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+
 import AdminPage from "./adminPage";
 import AdminUploadMusicPage from "./AdminUploadMusicPage";
 import UploadedMusicComponent from "../component/UploadedMusicComponent";
@@ -7,6 +7,7 @@ import AdminRespondMessages from "./AdminRespondMessages";
 import AdminReportsPage from "./AdminReportsPage";
 import AdminNegotiationsPage from "./AdminNegotiationsPage";
 import AdminUsersPage from "./AdminUsersPage"; // Import AdminUsersPage
+import AdminAddToCartPage from "./AdminAddToCartPag"; // Import AdminAddToCartPage
 import AdminFeedbackPage from "./AdminFeedbackPage"; // Import AdminFeedbackPage
 import { MusicUploadProvider } from "../context/MusicUploadProvider";
 import "../css/adminDashboard.css";
@@ -58,6 +59,7 @@ const AdminDashboard = () => {
           <li onClick={() => setActiveTab("reports")}>Reports</li>
           <li onClick={() => setActiveTab("negotiations")}>Negotiations</li>
           <li onClick={() => setActiveTab("users")}>Users</li> {/* Add Users tab */}
+          <li onClick={() => setActiveTab("list-of-carts")}>Cart</li> {/* Add Users tab */}
           <li onClick={() => setActiveTab("feedback")}>Feedback</li> {/* Add Feedback tab */}
         </ul>
       </nav>
@@ -74,6 +76,7 @@ const AdminDashboard = () => {
         {activeTab === "reports" && <AdminReportsPage />}
         {activeTab === "negotiations" && <AdminNegotiationsPage />}
         {activeTab === "users" && <AdminUsersPage />} {/* Render AdminUsersPage */}
+        {activeTab === "list-of-carts" && <AdminAddToCartPage />} {/* Render AdminUsersPage */}
         {activeTab === "feedback" && <AdminFeedbackPage />} {/* Render AdminFeedbackPage */}
       </div>
     </div>

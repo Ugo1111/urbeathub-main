@@ -27,3 +27,35 @@
   font-weight: bold;
   margin-left: 10px;
 }
+
+.admin-sort-shortcuts {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+  flex-wrap: wrap;
+}
+
+.admin-sort-shortcuts button {
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.admin-sort-shortcuts button.active {
+  background: #111;
+  border-color: #111;
+  color: #fff;
+}
+
+.admin-active-sort {
+  align-items: center;
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 4px;
+  color: #1e3a8a;
+  display: inline-flex;
+  font-weight: 600;
+  padding: 8px 12px;
+}

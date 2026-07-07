@@ -1,25 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
+import { Link } from "react-router-dom";
+import {
+  getFirestore,
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  getDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import "../css/checkout.css";
-import djImage from '../../images/dj.jpg';
+import djImage from "../../images/dj.jpg";
 import { getExchangeRate } from "../utils/exchangeRate";
 import { useUserLocation } from "../utils/useUserLocation";
 import { useUpgradePrice } from "../component/UpgradePrice.js";
 
+/* =======================
+   CART ITEM COMPONENT
+======================= */
 function CartItem({
   song,
   displayPrice,
   originalPrice,
-  user,
   userCountry,
   exchangeRate,
   handleDeleteCartItem,
   loading,
   error,
 }) {
-  const formatPrice = (usdAmount) => {
-    if (!usdAmount) usdAmount = 0;
+  const formatPrice = (usdAmount = 0) => {
     if (userCountry === "NG" && exchangeRate) {
       return `₦${Math.round(usdAmount * exchangeRate).toLocaleString()}`;
     }
@@ -27,17 +38,28 @@ function CartItem({
   };
 
   return (
-    <li key={song.songId} className="cart-list-item">
+    <li className="cart-list-item">
       <div className="cart-list-info">
-        <img src={song.coverUrl || djImage} className="cart-list-image" alt="Song Cover" />
+        <img
+          src={song.coverUrl || djImage}
+          className="cart-list-image"
+          alt="Song Cover"
+        />
         <div className="cart-list-item-title-license">
-          <div className="cart-list-item-title">{song.title || "Unknown Title"}</div>
-          <div className="cart-list-item-license">{song.license || "Unknown License"}</div>
+          <div className="cart-list-item-title">
+            {song.songTitle || song.title || "Unknown Title"}
+          </div>
+          <div className="cart-list-item-license">
+            {song.license || "Unknown License"}
+          </div>
+          {song.username &&
+          <Link to={`/producer/${song.userId}`} className="producer-link">
+          by{". "} {song.username }
+          </Link>}
         </div>
       </div>
-
       <div className="cart-list-actions">
-        <div className="cart-list-price">
+      <div className="cart-list-price">
           {loading ? (
   "Calculating upgrade..."
 ) : error ? (
@@ -55,7 +77,7 @@ function CartItem({
         </div>
         <button
           className="cart-list-remove-btn"
-          onClick={() => handleDeleteCartItem(song.songId)}
+          onClick={() => handleDeleteCartItem(song.id || song.songId)}
         >
           x
         </button>
@@ -64,96 +86,162 @@ function CartItem({
   );
 }
 
-function CartComponent({ cart, setCart }) {
+/* =======================
+   CART COMPONENT
+======================= */
+export default function CartComponent() {
   const auth = getAuth();
   const db = getFirestore();
-  const userCountry = useUserLocation();
-  const [exchangeRate, setExchangeRate] = useState(null);
-
   const user = auth.currentUser;
 
-  // Fetch exchange rate if user is in GB
+  const userCountry = useUserLocation();
+  const [exchangeRate, setExchangeRate] = useState(null);
+  const [cart, setCart] = useState([]);
+  const [beatsMap, setBeatsMap] = useState({}); // stores beat info keyed by songId
+
+  /* =======================
+     FETCH EXCHANGE RATE
+  ======================= */
   useEffect(() => {
     if (userCountry === "NG") {
-      async function fetchRate() {
-        try {
-          const rate = await getExchangeRate();
-          setExchangeRate(rate);
-        } catch {
-          setExchangeRate(null);
-        }
-      }
-      fetchRate();
+      getExchangeRate()
+        .then(setExchangeRate)
+        .catch(() => setExchangeRate(null));
     }
   }, [userCountry]);
 
-  const handleDeleteCartItem = async (songId) => {
+  /* =======================
+     REALTIME CART (LATEST FIRST)
+  ======================= */
+  useEffect(() => {
+    // Guest cart
+    if (!user) {
+      const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      setCart(localCart.reverse());
+      return;
+    }
+
+    const cartRef = collection(db, "beatHubUsers", user.uid, "cart");
+    const q = query(cartRef, orderBy("createdAt", "desc"));
+
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const items = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setCart(items);
+      },
+      (error) => {
+        console.error("Realtime cart error:", error);
+      }
+    );
+
+    return () => unsubscribe();
+  }, [user, db]);
+
+  /* =======================
+     FETCH BEATS INFO
+     Join beats collection for latest title, coverUrl, producer
+  ======================= */
+  useEffect(() => {
+    if (cart.length === 0) return;
+
+    const fetchBeats = async () => {
+      const beatsData = {};
+      await Promise.all(
+        cart.map(async (item) => {
+          if (!beatsData[item.songId]) {
+            const beatSnap = await getDoc(doc(db, "beats", item.songId));
+            if (beatSnap.exists()) {
+              beatsData[item.songId] = beatSnap.data();
+            }
+          }
+        })
+      );
+      setBeatsMap(beatsData);
+    };
+
+    fetchBeats();
+  }, [cart, db]);
+
+  /* =======================
+     DELETE CART ITEM
+  ======================= */
+  const handleDeleteCartItem = async (cartItemId) => {
     if (user) {
-      // Signed-in user: delete from Firebase
-      const userRef = doc(db, "beatHubUsers", user.uid);
       try {
-        const userSnap = await getDoc(userRef);
-        if (!userSnap.exists()) return;
+        // Delete from user cart
+        await deleteDoc(doc(db, "beatHubUsers", user.uid, "cart", cartItemId));
   
-        const userData = userSnap.data();
-        const updatedCart = userData.cart.filter((item) => item.songId !== songId);
+        // Delete from global cart using the same ID
+        await deleteDoc(doc(db, "Cart", cartItemId));
   
-        await updateDoc(userRef, { cart: updatedCart });
-        setCart(updatedCart);
-      } catch (error) {
-        console.error("Error deleting cart item:", error);
+        // Update local state
+        setCart((prev) => prev.filter((item) => item.id !== cartItemId));
+      } catch (err) {
+        console.error("Delete failed:", err);
       }
     } else {
-      // Guest: delete from localStorage
-      const existingCart = localStorage.getItem("cart");
-      const localCart = existingCart ? JSON.parse(existingCart) : [];
-      const updatedCart = localCart.filter((item) => item.songId !== songId);
-  
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      setCart(updatedCart);
+      // Guest cart deletion
+      const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const updated = localCart.filter(
+        (i) => i.songId !== cartItemId && i.id !== cartItemId
+      );
+      localStorage.setItem("cart", JSON.stringify(updated));
+      setCart(updated.reverse());
     }
   };
 
-  // ✅ Call useUpgradePrice once for the whole cart
-  const { upgradePrice, itemizedCart, loading, error } = useUpgradePrice({
+  /* =======================
+     UPGRADE PRICE (ONCE)
+  ======================= */
+  const { itemizedCart, loading, error } = useUpgradePrice({
     email: user?.email || null,
     uid: user?.uid || null,
-    cart,              // pass full cart array
-    selectedLicense: null, // because multiple items
+    cart,
+    selectedLicense: null,
   });
 
+  /* =======================
+     RENDER
+  ======================= */
   return (
     <div className="cart-Component-wrapper">
       {cart.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
         <ol className="cart-component-list">
-          {cart.map((song) => {
-            const itemUpgrade = itemizedCart.find(
-              (u) => u.beatId === song.songId || u.beatId === song.id
-            );
-            const displayPrice = itemUpgrade?.finalPrice || parseFloat(song.price.replace('$', ''));
-            const originalPrice = parseFloat(song.price.replace('$', ''));
-
-            return (
-              <CartItem
-                key={song.songId}
-                song={song}
-                displayPrice={displayPrice}
-                originalPrice={originalPrice}
-                user={user}
-                userCountry={userCountry}
-                exchangeRate={exchangeRate}
-                handleDeleteCartItem={handleDeleteCartItem}
-                loading={loading}
-                error={error}
-              />
-            );
-          })}
-        </ol>
+        {cart.map((item) => {
+          const beat = beatsMap[item.songId] || {};          // get beat info
+          const combinedItem = { ...item, ...beat };         // merge beat info into cart item
+      
+          // Get originalPrice from beat.monetization using the license
+          const licenseName = item.license;                  // license chosen in cart
+          const licenseKey = licenseName.split(" ")[0].toLowerCase();
+          const originalPrice = beat.monetization?.[licenseKey]?.price || 0;          
+      
+          // displayPrice uses upgradePrice if available
+          const upgrade = itemizedCart.find(u => u.beatId === item.songId);
+          const displayPrice = upgrade?.finalPrice ?? originalPrice;
+      
+          return (
+            <CartItem
+              key={item.id}
+              song={combinedItem}
+              displayPrice={displayPrice}
+              originalPrice={originalPrice}
+              userCountry={userCountry}
+              exchangeRate={exchangeRate}
+              handleDeleteCartItem={handleDeleteCartItem}
+              loading={loading}
+              error={error}
+            />
+          );
+        })}
+      </ol>
       )}
     </div>
   );
 }
-
-export default CartComponent;
