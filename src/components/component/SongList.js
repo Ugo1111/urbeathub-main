@@ -14,7 +14,7 @@ import { getExchangeRate } from "../utils/exchangeRate";
 import { createSlug } from "../utils/slugify";
 import {query, where } from "firebase/firestore";
 
-function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
+function SongList({ songs, playSong, selectedSong, setSelectedSong, initialGenre }) {
   const [displayedSongs, setDisplayedSongs] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef();
@@ -24,6 +24,16 @@ function SongList({ songs, playSong, selectedSong, setSelectedSong }) {
   // Location & exchange rate logic
   const userCountry = useUserLocation();
   const [exchangeRate, setExchangeRate] = useState(null);
+
+
+
+useEffect(() => {
+  if (initialGenre) {
+    handleGenreClick(initialGenre);   
+  }
+}, [initialGenre]);
+
+
 
   useEffect(() => {
     if (userCountry === "NG") {

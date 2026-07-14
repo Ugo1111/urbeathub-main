@@ -22,63 +22,74 @@ const Art = "/images/Urbeathub art.jpg";
 const Mixer = "/images/Mixer.jpg";
 const myVideo = "/images/new video.mp4"; // Correct path for public assets
 
-function DistributeSection({ sound, navigate, isSignedIn }) {
-  return (
-    <div className="distribute">
-      <div className="distribute-wrapper">
-        <div className="distribute-container">
-          <h2>Sell high quality instrumental beats with ease.</h2>
-          <p>
-            Monetize your talent—start earning real cash from the beats you
-            create.
-          </p>
-          <button
-            className="start-selling-button"
-            onClick={() =>
-              isSignedIn ? navigate("/startsellingpage") : navigate("/signUpPage")
-            }
-          >
-            {isSignedIn ? "Start Selling →" : "Sign up →"}
-          </button>
-        </div>
-        <div className="distribute-container">
-          <img src={sound} alt="Sound Packs" className="packs" />
-        </div>
-      </div>
-    </div>
+// function DistributeSection({ sound, navigate, isSignedIn }) {
+//   return (
+//     <div className="distribute">
+//       <div className="distribute-wrapper">
+//         <div className="distribute-container">
+//           <h2>Sell high quality instrumental beats with ease.</h2>
+//           <p>
+//             Monetize your talent—start earning real cash from the beats you
+//             create.
+//           </p>
+//           <button
+//             className="start-selling-button"
+//             onClick={() =>
+//               isSignedIn ? navigate("/startsellingpage") : navigate("/signUpPage")
+//             }
+//           >
+//             {isSignedIn ? "Start Selling →" : "Sign up →"}
+//           </button>
+//         </div>
+//         <div className="distribute-container">
+//           <img src={sound} alt="Sound Packs" className="packs" />
+//         </div>
+//       </div>
+//     </div>
 
-  );
-}
+//   );
+// }
 
-function GraphicsSection({ Art, navigate, isSignedIn }) {
-  return (
-    <div className="graphics">
-      <div className="graphics-wrapper">
-        <div className="graphics-container">
-          <img src={Art} alt="Sound Packs" className="packs" />
-        </div>
+// function GraphicsSection({ Art, navigate, isSignedIn }) {
+//   return (
+//     <div className="graphics">
+//       <div className="graphics-wrapper">
+//         <div className="graphics-container">
+//           <img src={Art} alt="Sound Packs" className="packs" />
+//         </div>
 
-        <div className="graphics-container">
-          <h2>
-            Be Your Own <span className="Graphics-art">Graphic Designer</span>
-          </h2>
-          <p>
-            Create your Cover Art with Layouts, Images, Presets, Filters,
-            Fonts, and Overlays
-          </p>
-          <button
-            className="start-selling-button"
-            onClick={() =>
-              isSignedIn ? navigate("/ImageEditor") : navigate("/signUpPage")
-            }
-          >
-            {isSignedIn ? "Go to Cover Art Editor →" : "Sign up →"}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
+//         <div className="graphics-container">
+//           <h2>
+//             Be Your Own <span className="Graphics-art">Graphic Designer</span>
+//           </h2>
+//           <p>
+//             Create your Cover Art with Layouts, Images, Presets, Filters,
+//             Fonts, and Overlays
+//           </p>
+//           <button
+//             className="start-selling-button"
+//             onClick={() =>
+//               isSignedIn ? navigate("/ImageEditor") : navigate("/signUpPage")
+//             }
+//           >
+//             {isSignedIn ? "Go to Cover Art Editor →" : "Sign up →"}
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// this is an object just for the diplay of genre and its picture
+const genres = [
+  { name: "RnB", img: "/images/dj.jpg", color:"#026907" },
+  { name: "Trap", img: "/images/mixer.jpg" , color:"#002ae6" },
+  { name: "Hip Hop", img: "/images/dj.jpg", color:"#a5ba1d" },
+  { name: "Afro beat", img: "/images/mixer.jpg" , color:"#e60000"},
+  { name: "Reggae", img: "/images/dj.jpg", color:"#dc6b01" },
+  { name: "Afro beat", img: "/images/mixer.jpg", color:"#007e84" }
+];
+
 
 function Front() {
   const navigate = useNavigate();
@@ -147,8 +158,8 @@ function Front() {
        <div className="mobile-only-search">
   <BeatsList />
 </div> 
-      <div className="video-wrap">
-        <video src={myVideo} autoPlay muted loop></video>
+      {/* <div className="video-wrap"> */}
+        {/* <video src={myVideo} autoPlay muted loop></video>
         <div className="video-content">
           <h1>Buy premium High-Quality Instrumental Beat.</h1>
           <p>
@@ -161,8 +172,32 @@ function Front() {
           >
             BROWSE LIST →
           </button>
-        </div>
-      </div>
+        </div> */}
+
+        
+<section className="genre-section">
+  {genres.map((genre) => (
+    <div
+      className="genre-card"
+     
+      key={genre.name}
+      onClick={() =>
+        navigate("/Homepage", {
+          state: { genre: genre.name }
+        })
+      }
+      style={{ cursor: "pointer" }}
+       style={{ backgroundColor: [genre.color]  }}
+    >
+      <img src={genre.img} alt={genre.name} />
+      <h3 className="genre-name" >{genre.name}</h3>
+    </div>
+  ))}
+</section>
+
+
+
+      {/* </div> */}
 
       <div className="trending">
         <div className="trending-wrapper">
@@ -185,9 +220,9 @@ function Front() {
       
       
 
-          <DistributeSection sound={sound} navigate={navigate} isSignedIn={isSignedIn} />
+          {/* <DistributeSection sound={sound} navigate={navigate} isSignedIn={isSignedIn} /> */}
 
-          <section className="hero2-1">
+          {/* <section className="hero2-1">
             <div className="hero2-overlay"></div>
             <div className="hero2-wrapper">
               <div className="hero2-container">
@@ -220,10 +255,10 @@ function Front() {
                 </ul>
               </div>
             </div>
-          </section>  </div>
+          </section>   */}
         
-  
-            <CoverArtShowcase isSignedIn={isSignedIn} />
+  </div>
+            {/* <CoverArtShowcase isSignedIn={isSignedIn} /> */}
 
       {/*<NewsletterForm /> */}
           {/* <HomePageFeed /> */}

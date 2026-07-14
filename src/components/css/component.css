@@ -307,7 +307,7 @@ body{
   display: flex;
   align-items: center;
   justify-content: space-around; /* Prevents shift */
-  background-color: #000000;
+  background-color: #00000024;
   width: 100vw;
   padding: 20px;
   height: 85px;
@@ -1943,4 +1943,8 @@ left: 0;
   -ms-overflow-style: none;  /* IE/Edge */
   scrollbar-width: none;     /* Firefox */
 }
+
+
+
+
 

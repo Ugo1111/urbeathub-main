@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 import GroupA from "../component/header.js";
 import { GroupE, GroupF, GroupG } from "../component/footer.js";
 import SellBeatSection from "../component/SellBeatSection.js"; 
@@ -24,6 +25,13 @@ function HomePage() {
   const audioRef = useRef(null);
   const [selectedSong, setSelectedSong] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const location = useLocation();
+const selectedGenre = location.state?.genre || null;
+
+
+
+
 
   useEffect(() => {
     const fetchMusic = async () => {
@@ -187,7 +195,13 @@ function HomePage() {
         />
 
         
-      <SongList songs={songs} playSong={playSong} selectedSong={selectedSong} setSelectedSong={setSelectedSong} />
+<SongList 
+  songs={songs}
+  initialGenre={selectedGenre}   // ← NEW
+  playSong={playSong}
+  selectedSong={selectedSong}
+  setSelectedSong={setSelectedSong}
+/>
          {/* <SellBeatSection /> */}
         <GroupF />
         <GroupG /> 
